@@ -1,0 +1,144 @@
+
+
+/**
+ * 为哪个project添加哪些依赖
+ * @param project
+ * @param groups
+ */
+def implementations(Project project, Object... groups) {
+    for (Object dependence : groups) {
+        if (dependence instanceof Iterable) {
+            implementations(project, dependence)
+        }else if (dependence instanceof Map) {
+            implementations(project, dependence)
+        }else {
+            project.dependencies {
+                implementation dependence
+            }
+        }
+    }
+}
+
+def implementations(Project project, dependence) {
+    if (dependence instanceof Iterable) {
+        dependence.each {
+            implementations(project, it)
+        }
+    }else if (dependence instanceof Map) {
+        dependence.each {
+            implementations(project, it.value)
+        }
+    }else {
+        project.dependencies {
+            implementation dependence
+        }
+    }
+}
+
+def apis(Project project, dependence) {
+    if (dependence instanceof Iterable) {
+        dependence.each {
+            apis(project, it)
+        }
+    }else if (dependence instanceof Map) {
+        dependence.each {
+            apis(project, it.value)
+        }
+    }else {
+        project.dependencies {
+            api dependence
+        }
+    }
+}
+
+def apis(Project project, Object... groups) {
+    for (Object dependence : groups) {
+        if (dependence instanceof Iterable) {
+            apis(project, dependence)
+        }else if (dependence instanceof Map) {
+            apis(project, dependence)
+        }else {
+            project.dependencies {
+                api dependence
+            }
+        }
+    }
+}
+
+def annotationProcessors(Project project, dependence) {
+    if (dependence instanceof Iterable) {
+        dependence.each {
+            annotationProcessors(project, it)
+        }
+    }else if (dependence instanceof Map) {
+        dependence.each {
+            annotationProcessors(project, it.value)
+        }
+    }else {
+        project.dependencies {
+            annotationProcessor dependence
+        }
+    }
+}
+
+def annotationProcessors(Project project, Object... groups) {
+    for (Object dependence : groups) {
+        if (dependence instanceof Iterable) {
+            annotationProcessors(project, dependence)
+        }else if (dependence instanceof Map) {
+            annotationProcessors(project, dependence)
+        }else {
+            project.dependencies {
+                annotationProcessor dependence
+            }
+        }
+    }
+}
+
+def kapts(Project project, dependence) {
+    if (dependence instanceof Iterable) {
+        dependence.each {
+            kapts(project, it)
+        }
+    }else if (dependence instanceof Map) {
+        dependence.each {
+            kapts(project, it.value)
+        }
+    }else {
+        project.dependencies {
+            kapt (dependence) {
+                exclude module: "support-annotations"
+                exclude module: "annotation"
+            }
+        }
+    }
+}
+
+def kapts(Project project, Object... groups) {
+    for (Object dependence : groups) {
+        if (dependence instanceof Iterable) {
+            kapts(project, dependence)
+        }else if (dependence instanceof Map) {
+            kapts(project, dependence)
+        }else {
+            project.dependencies {
+                kapt (dependence) {
+                    exclude module: "support-annotations"
+                    exclude module: "annotation"
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+ext {
+    implementations = this.&implementations
+    apis = this.&apis
+    annotationProcessors = this.&annotationProcessors
+    kapts = this.&kapts
+}

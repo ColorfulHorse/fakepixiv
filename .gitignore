@@ -1,0 +1,21 @@
+.DS_Store
+
+# IntelliJ Idea
+.idea/
+*.iml
+
+# Gradle & Java build
+.gradle/
+build/
+bin/
+gen/
+target/
+out/
+classes/
+gradle.properties
+
+
+# Local build properties
+build.properties
+local.properties
+
