@@ -10,5 +10,6 @@ package com.lyj.fakepivix.constant
 object Constant {
     object Net {
         const val BASE_URL = "https://api.imjad.cn/pixiv/v2/"
+        const val IMAGE_URL = "https://api.imjad.cn/interface/img/PixivProxy.php"
     }
 }
