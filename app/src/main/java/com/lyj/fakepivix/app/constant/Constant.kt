@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.constant
+package com.lyj.fakepivix.app.constant
 
 /**
  * @author 19930
