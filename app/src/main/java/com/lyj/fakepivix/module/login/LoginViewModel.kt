@@ -1,9 +1,12 @@
 package com.lyj.fakepivix.module.login
 
+import android.arch.lifecycle.LifecycleOwner
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.databinding.Observable
 import com.lyj.fakepivix.BR
+import com.lyj.fakepivix.app.base.BaseModel
+import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.utils.LogUtils
 
 /**
@@ -13,13 +16,16 @@ import com.lyj.fakepivix.app.utils.LogUtils
  *
  * @desc
  */
-class LoginViewModel : BaseObservable() {
+class LoginViewModel : BaseViewModel<ILoginModel>() {
+
+    override var mModel: ILoginModel = LoginModel()
+
     @get:Bindable
     var userName: String = ""
-    set(value) {
-        field = value
-        notifyPropertyChanged(BR.userName)
-    }
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.userName)
+        }
     @get:Bindable
     var password: String = ""
         set(value) {
@@ -27,13 +33,13 @@ class LoginViewModel : BaseObservable() {
             notifyPropertyChanged(BR.password)
         }
 
-    init {
-        addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                when(propertyId) {
-                    BR.userName -> LogUtils.debugInfo("userName Changed")
-                }
-            }
-        })
+    override fun onCreate(owner: LifecycleOwner) {
+        super.onCreate(owner)
+        userName = "lyj"
+        password = "12132132"
+    }
+
+    fun login() {
+
     }
 }

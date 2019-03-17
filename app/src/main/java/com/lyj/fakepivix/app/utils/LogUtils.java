@@ -20,6 +20,8 @@ import android.util.Log;
 
 import com.lyj.fakepivix.BuildConfig;
 
+import java.util.List;
+
 
 public class LogUtils {
     private static final String DEFAULT_TAG = "FakePixiv";

@@ -1,22 +1,27 @@
 package com.lyj.fakepivix.module.login
 
-import android.databinding.DataBindingUtil
-import android.databinding.ObservableField
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
-import android.view.View
+import android.app.Dialog
+import android.app.TimePickerDialog
+import android.support.v7.app.AlertDialog
+import android.widget.TimePicker
 import com.lyj.fakepivix.R
+import com.lyj.fakepivix.app.base.BaseActivity
 import com.lyj.fakepivix.databinding.ActivityLoginBinding
 
-class LoginActivity : AppCompatActivity() {
-    private lateinit var mBinding: ActivityLoginBinding
+class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        mBinding.vm = LoginViewModel().apply {
-            userName = "lyj"
-            password = "132165464"
-        }
+    override var mViewModel: LoginViewModel = LoginViewModel()
+
+    override fun initData() {
+        mBinding.vm = mViewModel
     }
+
+    override fun initView() {
+        TimePicker(this)
+                .setOnTimeChangedListener(TimePicker.OnTimeChangedListener())
+    }
+
+    override fun bindLayout(): Int = R.layout.activity_login
+
+
 }

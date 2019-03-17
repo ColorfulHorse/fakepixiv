@@ -28,7 +28,6 @@ import java.util.concurrent.TimeUnit
 /**
  * ================================================
  * 解析框架中的网络请求和响应结果,并以日志形式输出,调试神器
- * 可使用 [GlobalConfigModule.Builder.printHttpLogLevel] 控制或关闭日志
  *
  *
  * Created by JessYan on 7/1/2016.

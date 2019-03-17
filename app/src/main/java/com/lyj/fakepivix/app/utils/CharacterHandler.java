@@ -28,6 +28,7 @@ import java.io.StringWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.net.ssl.X509TrustManager;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -64,7 +65,6 @@ public class CharacterHandler {
             if (emojiMatcher.find()) {
                 return "";
             }
-
             return null;
         }
     };

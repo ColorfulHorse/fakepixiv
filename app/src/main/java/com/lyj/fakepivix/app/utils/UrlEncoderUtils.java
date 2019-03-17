@@ -15,6 +15,9 @@
  */
 package com.lyj.fakepivix.app.utils;
 
+import android.app.TimePickerDialog;
+import android.widget.TimePicker;
+
 /**
  * ================================================
  * Created by JessYan on 2018/9/14 14:10
@@ -51,6 +54,7 @@ public class UrlEncoderUtils {
                     break;
                 }
             }
+
         }
         return encode;
     }
