@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">fakepivix</string>
+    <string name="login_hint_id">ID或邮箱</string>
+    <string name="login_hint_psw">密码</string>
+    <string name="btn_login">登录</string>
+    <string name="login_forget_tips">忘记登录资料？</string>
+    <string name="btn_register">未持有账号的用户请点击这里</string>
+    <string name="title_register">输入昵称</string>
+    <string name="login_hint_nick">昵称</string>
+    <string name="btn_start">开始</string>
+    <string name="register_nick_tips">昵称可随时变更</string>
+    <string name="register_pact">服务条款</string>
+    <string name="register_help">需要帮忙吗？</string>
 </resources>

@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <data>
-        <import type="com.lyj.fakepivix.module.login.LoginViewModel"/>
-        <variable
-            name="vm"
-            type="LoginViewModel"/>
-    </data>
-    <LinearLayout
+<data>
+    <import type="com.lyj.fakepivix.module.login.WallpaperViewModel"/>
+    <variable
+        name="vm"
+        type="WallpaperViewModel"/>
+</data>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-
-    </LinearLayout>
+        android:background="#ff0"
+        />
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        />
+</RelativeLayout>
 </layout>

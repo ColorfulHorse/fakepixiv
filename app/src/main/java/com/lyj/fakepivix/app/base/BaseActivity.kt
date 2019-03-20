@@ -3,9 +3,9 @@ package com.lyj.fakepivix.app.base
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import androidx.annotation.LayoutRes
+import com.lyj.fakepivix.BR
 
 /**
  * @author greensun
@@ -22,14 +22,22 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out IModel>>
         super.onCreate(savedInstanceState)
         lifecycle.addObserver(mViewModel)
         mBinding = DataBindingUtil.setContentView(this, bindLayout())
-        initData()
-        initView()
+        mBinding.setVariable(bindViewModel(), mViewModel)
+        initData(savedInstanceState)
+        initView(savedInstanceState)
     }
 
-    abstract fun initData()
+    abstract fun initData(savedInstanceState: Bundle?)
 
-    abstract fun initView()
+    abstract fun initView(savedInstanceState: Bundle?)
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mBinding.unbind()
+    }
 
     @LayoutRes
     abstract fun bindLayout() : Int
+
+    open fun bindViewModel() : Int = BR.vm
 }

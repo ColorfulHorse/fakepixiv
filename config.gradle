@@ -8,6 +8,7 @@ ext {
     gsonVer = "2.8.5"
     objectboxVer = "2.2.0"
     butterKnifeVer = "9.0.0-rc3"
+    fragmentationVer = "1.3.6"
 
     dependenceGroup = [
             support : [
@@ -16,6 +17,7 @@ ext {
             view : [
                     cardview : "com.android.support:cardview-v7:$supportVer",
                     recyclerview : "com.android.support:recyclerview-v7:$supportVer",
+                    "design" : "com.android.support:design:$supportVer"
             ],
             rx : [
                     rxJava : "io.reactivex.rxjava2:rxjava:$rxJavaVer",
@@ -51,7 +53,12 @@ ext {
                     gson : "com.google.code.gson:gson:$gsonVer",
                     timber : "com.jakewharton.timber:timber:4.7.0",
                     statusbarUtil : "com.gyf.immersionbar:immersionbar:2.3.2"
-            ]
+            ],
+
+            fragmentation : [
+                    //fragmentation : "me.yokeyword:fragmentation:$fragmentationVer",
+                    fragmentation_core : "me.yokeyword:fragmentation-core:$fragmentationVer"
+            ],
 
     ]
     // 编译时注解处理
