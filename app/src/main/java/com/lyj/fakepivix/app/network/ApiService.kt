@@ -1,6 +1,7 @@
 package com.lyj.fakepivix.app.network
 
 
+import com.lyj.fakepivix.app.model.response.IllustListResp
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -25,5 +26,11 @@ interface ApiService {
         const val RANK_MODE_MALE = "day_male"
         const val RANK_MODE_FAMALE = "day_female"
     }
+
+    /**
+     * 登录页滚动图片墙
+     */
+    @GET("/v1/walkthrough/illusts")
+    fun getWallPaperData(): Observable<IllustListResp>
 
 }
