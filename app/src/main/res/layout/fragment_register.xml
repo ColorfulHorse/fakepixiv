@@ -26,10 +26,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintWidth_percent="0.7"
+            app:layout_constraintWidth_percent="0.8"
             android:orientation="vertical"
             android:background="@drawable/shape_login_panel"
-            android:padding="10dp"
+            android:padding="14dp"
             >
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -39,7 +39,7 @@
                     android:id="@+id/et_userName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
                     android:hint="@string/login_hint_nick"
                     android:maxLines="1"
                     android:inputType="text"
@@ -49,14 +49,14 @@
             <Button
                 android:id="@+id/btn_register"
                 android:layout_width="match_parent"
-                android:layout_height="42dp"
+                android:layout_height="48dp"
                 android:background="@drawable/shape_btn_disable"
                 android:text="@string/btn_start"
                 android:gravity="center"
                 android:textSize="14sp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 />
 
         </LinearLayout>
@@ -70,7 +70,7 @@
             app:layout_constraintTop_toBottomOf="@id/container"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             />
         <TextView
             android:id="@+id/tv_pact"
@@ -83,7 +83,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_tips"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             />
 
         <TextView
