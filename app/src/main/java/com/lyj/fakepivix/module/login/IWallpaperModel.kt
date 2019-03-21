@@ -1,6 +1,8 @@
 package com.lyj.fakepivix.module.login
 
 import com.lyj.fakepivix.app.base.IModel
+import com.lyj.fakepivix.app.model.response.Illust
+import io.reactivex.Observable
 
 /**
  * @author greensun
@@ -10,4 +12,6 @@ import com.lyj.fakepivix.app.base.IModel
  * @desc 登录页滚动背景
  */
 interface IWallpaperModel : IModel {
+
+    fun getData(): Observable<MutableList<Illust>>
 }

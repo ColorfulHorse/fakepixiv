@@ -1,10 +1,11 @@
 package com.lyj.fakepivix.module.login
 
 import android.arch.lifecycle.LifecycleOwner
+import android.databinding.Bindable
 import com.lyj.fakepivix.app.base.BaseViewModel
-import com.lyj.fakepivix.module.login.register.IRegisterModel
-import com.lyj.fakepivix.module.login.register.RegisterModel
-
+import com.lyj.fakepivix.app.model.response.Illust
+import io.reactivex.rxkotlin.subscribeBy
+import com.lyj.fakepivix.BR
 /**
  * @author greensun
  *
@@ -12,13 +13,27 @@ import com.lyj.fakepivix.module.login.register.RegisterModel
  *
  * @desc 登录页滚动背景
  */
-class WallpaperViewModel : BaseViewModel<IRegisterModel>() {
+class WallpaperViewModel : BaseViewModel<IWallpaperModel>() {
 
-    override var mModel: IRegisterModel = RegisterModel()
+    override var mModel: IWallpaperModel = WallpaperModel()
+
+    @get:Bindable
+    var data: MutableList<Illust> = mutableListOf()
+
+    fun update(list: MutableList<Illust>) {
+        data.clear()
+        data.addAll(list)
+        notifyPropertyChanged(BR.data)
+    }
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
+        mModel.getData()
+                .subscribeBy(onNext = {
+                    update(it)
+                }, onError = {
 
+                })
     }
 
 }

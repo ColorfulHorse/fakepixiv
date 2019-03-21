@@ -4,6 +4,7 @@ import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.view.MotionEvent
 import androidx.annotation.IdRes
+import com.lyj.fakepivix.app.fragmentation.HorizontalAnimator
 import me.yokeyword.fragmentation.*
 import me.yokeyword.fragmentation.anim.FragmentAnimator
 
@@ -48,7 +49,7 @@ abstract class FragmentationActivity<V : ViewDataBinding, VM : BaseViewModel<out
 
     override fun extraTransaction(): ExtraTransaction = mDelegate.extraTransaction()
 
-    override fun onCreateFragmentAnimator(): FragmentAnimator = mDelegate.onCreateFragmentAnimator()
+    override fun onCreateFragmentAnimator(): FragmentAnimator = HorizontalAnimator()
 
     override fun post(runnable: Runnable?) {
         mDelegate.post(runnable)

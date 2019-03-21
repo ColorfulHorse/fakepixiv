@@ -32,7 +32,7 @@ class RegisterFragment : FragmentationFragment<FragmentRegisterBinding, Register
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        ImmersionBar.setTitleBar(mActivity, toolbar)
+
     }
 
     override fun bindLayout(): Int = R.layout.fragment_register
