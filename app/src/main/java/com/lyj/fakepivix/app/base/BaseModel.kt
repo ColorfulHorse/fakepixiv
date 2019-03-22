@@ -16,25 +16,13 @@ import io.reactivex.schedulers.Schedulers
  * @desc
  */
 open class BaseModel : IModel {
-
-    private var mDisposable: CompositeDisposable? = null
     protected val mApi: ApiService = RetrofitManager.instance.obtainService(ApiService::class.java)
-
-    protected fun addDidposable(disposable: Disposable) {
-        mDisposable?.let {
-            mDisposable = CompositeDisposable()
-        }
-        mDisposable?.add(disposable)
-    }
 
     protected fun <T> applyScheduler(): SchedulerTransformer<T> {
         return SchedulerTransformer()
     }
 
-
     override fun destroy() {
-        mDisposable?.let {
-            it.dispose()
-        }
+
     }
 }

@@ -2,10 +2,16 @@ package com.lyj.fakepivix.module.login
 
 import android.arch.lifecycle.LifecycleOwner
 import android.databinding.Bindable
+import android.support.v7.widget.GridLayoutManager
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.model.response.Illust
 import io.reactivex.rxkotlin.subscribeBy
 import com.lyj.fakepivix.BR
+import com.lyj.fakepivix.R
+import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
+import com.lyj.fakepivix.databinding.ItemWallpaperBinding
+import io.reactivex.disposables.Disposable
+
 /**
  * @author greensun
  *
@@ -20,7 +26,14 @@ class WallpaperViewModel : BaseViewModel<IWallpaperModel>() {
     @get:Bindable
     var data: MutableList<Illust> = mutableListOf()
 
-    fun update(list: MutableList<Illust>) {
+    val adapter = object : BaseBindingAdapter<Illust, BaseBindingAdapter.BaseBindingViewHolder<ItemWallpaperBinding>>(R.layout.item_wallpaper) {
+
+        override fun convert(helper: BaseBindingViewHolder<ItemWallpaperBinding>, item: Illust) {
+            helper.binding?.illust = item
+        }
+    }
+
+    private fun update(list: MutableList<Illust>) {
         data.clear()
         data.addAll(list)
         notifyPropertyChanged(BR.data)
@@ -28,12 +41,13 @@ class WallpaperViewModel : BaseViewModel<IWallpaperModel>() {
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
-        mModel.getData()
+        val disposable = mModel.getData()
                 .subscribeBy(onNext = {
                     update(it)
                 }, onError = {
 
                 })
+        addDisposable(disposable)
     }
 
 }
