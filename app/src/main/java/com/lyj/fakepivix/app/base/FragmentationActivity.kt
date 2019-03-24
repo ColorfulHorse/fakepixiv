@@ -43,6 +43,10 @@ abstract class FragmentationActivity<V : ViewDataBinding, VM : BaseViewModel<out
 
     override fun getFragmentAnimator(): FragmentAnimator = mDelegate.fragmentAnimator
 
+    override fun onBackPressed() {
+        mDelegate.onBackPressed()
+    }
+
     override fun onBackPressedSupport() {
         mDelegate.onBackPressedSupport()
     }

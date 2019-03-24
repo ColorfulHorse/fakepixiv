@@ -3,6 +3,7 @@ package com.lyj.fakepivix.module.login.register
 import android.os.Bundle
 import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.R
+import com.lyj.fakepivix.app.base.BackFragment
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.databinding.FragmentRegisterBinding
 import kotlinx.android.synthetic.main.fragment_register.*
@@ -14,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_register.*
  *
  * @desc
  */
-class RegisterFragment : FragmentationFragment<FragmentRegisterBinding, RegisterViewModel>() {
+class RegisterFragment : BackFragment<FragmentRegisterBinding, RegisterViewModel>() {
 
     companion object {
         fun newInstance(): RegisterFragment {

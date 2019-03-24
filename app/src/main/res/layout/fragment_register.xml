@@ -15,7 +15,6 @@
             android:layout_height="?android:attr/actionBarSize"
             app:title="@string/title_register"
             app:titleTextColor="@color/white"
-            app:navigationIcon="@drawable/md_nav_back"
             />
 
         <LinearLayout

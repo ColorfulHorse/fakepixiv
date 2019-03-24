@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:binding="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 <data>
-    <import type="android.support.v7.widget.GridLayoutManager"/>
     <import type="com.lyj.fakepivix.module.login.WallpaperViewModel"/>
     <variable
         name="vm"
@@ -17,8 +16,20 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ff0"
+        android:background="@android:color/white"
         />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#636363"
+        android:visibility="@{vm.overlayVisibility}"
+        />
+    <!--
+        app:adapter="@{vm.adapter}"
+        app:layoutManager="android.support.v7.widget.GridLayoutManager"
+        android:orientation="vertical"
+        app:spanCount="2"
+    -->
     <FrameLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"

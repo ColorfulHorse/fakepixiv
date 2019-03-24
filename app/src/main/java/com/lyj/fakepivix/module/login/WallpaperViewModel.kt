@@ -2,15 +2,19 @@ package com.lyj.fakepivix.module.login
 
 import android.arch.lifecycle.LifecycleOwner
 import android.databinding.Bindable
-import android.support.v7.widget.GridLayoutManager
-import com.lyj.fakepivix.app.base.BaseViewModel
-import com.lyj.fakepivix.app.model.response.Illust
-import io.reactivex.rxkotlin.subscribeBy
+import android.databinding.ObservableArrayList
+import android.databinding.ObservableField
+import com.bumptech.glide.ListPreloader
+import com.bumptech.glide.RequestBuilder
+import com.bumptech.glide.util.ViewPreloadSizeProvider
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
+import com.lyj.fakepivix.app.base.BaseViewModel
+import com.lyj.fakepivix.app.model.response.Illust
 import com.lyj.fakepivix.databinding.ItemWallpaperBinding
-import io.reactivex.disposables.Disposable
+import io.reactivex.rxkotlin.subscribeBy
+import timber.log.Timber
 
 /**
  * @author greensun
@@ -23,31 +27,21 @@ class WallpaperViewModel : BaseViewModel<IWallpaperModel>() {
 
     override var mModel: IWallpaperModel = WallpaperModel()
 
-    @get:Bindable
-    var data: MutableList<Illust> = mutableListOf()
+    val data = ObservableArrayList<Illust>()
 
-    val adapter = object : BaseBindingAdapter<Illust, BaseBindingAdapter.BaseBindingViewHolder<ItemWallpaperBinding>>(R.layout.item_wallpaper) {
+    var overlayVisibility = ObservableField<Boolean>(true)
 
-        override fun convert(helper: BaseBindingViewHolder<ItemWallpaperBinding>, item: Illust) {
-            helper.binding?.illust = item
-        }
-    }
-
-    private fun update(list: MutableList<Illust>) {
-        data.clear()
-        data.addAll(list)
-        notifyPropertyChanged(BR.data)
-    }
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
         val disposable = mModel.getData()
                 .subscribeBy(onNext = {
-                    update(it)
+                    data.addAll(it)
                 }, onError = {
-
+                    Timber.e(it.message)
                 })
         addDisposable(disposable)
+
     }
 
 }

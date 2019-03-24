@@ -26,15 +26,17 @@ class RetrofitManager private constructor() {
 
     private val services:MutableMap<String, Any> = mutableMapOf()
 
-    private val retrofit: Retrofit = Retrofit.Builder()
+    val client = OkHttpClient
+            .Builder()
+            .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
+            .readTimeout(TIME_OUT, TimeUnit.SECONDS)
+            //.sslSocketFactory(getSSLSocketFactory(), getTrustManager())
+            .addInterceptor(LoggerInterceptor())
+            .build()
+
+    val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(Constant.Net.BASE_URL)
-            .client(OkHttpClient
-                    .Builder()
-                    .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
-                    .readTimeout(TIME_OUT, TimeUnit.SECONDS)
-                    //.sslSocketFactory(getSSLSocketFactory(), getTrustManager())
-                    .addInterceptor(LoggerInterceptor())
-                    .build())
+            .client(client)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()

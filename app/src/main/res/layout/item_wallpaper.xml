@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="illust"
             type="com.lyj.fakepivix.app.model.response.Illust"/>
     </data>
-    <ImageView
+    <com.lyj.fakepivix.widget.RecImageView
+        android:id="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         />
+    <!--app:url="@{illust.image_urls.medium}"-->
 </layout>

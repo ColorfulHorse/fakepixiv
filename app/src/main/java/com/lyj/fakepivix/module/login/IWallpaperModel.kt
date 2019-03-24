@@ -13,5 +13,5 @@ import io.reactivex.Observable
  */
 interface IWallpaperModel : IModel {
 
-    fun getData(): Observable<MutableList<Illust>>
+    fun getData(): Observable<List<Illust>>
 }

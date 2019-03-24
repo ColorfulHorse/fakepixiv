@@ -2,8 +2,9 @@ package com.lyj.fakepivix.app.fragmentation
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.lyj.fakepivix.R
 
-import me.yokeyword.fragmentation.R
+
 import me.yokeyword.fragmentation.anim.FragmentAnimator
 
 /**
@@ -14,8 +15,8 @@ class HorizontalAnimator : FragmentAnimator, Parcelable {
     constructor() {
         enter = R.anim.h_fragment_enter
         exit = R.anim.h_fragment_exit
-        popEnter = R.anim.pop_exit_no_anim
-        popExit = R.anim.pop_exit_no_anim
+        popEnter = R.anim.no_anim
+        popExit = R.anim.no_anim
     }
 
     protected constructor(`in`: Parcel) : super(`in`) {}

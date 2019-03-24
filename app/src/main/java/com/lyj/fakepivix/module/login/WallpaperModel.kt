@@ -17,12 +17,12 @@ import io.reactivex.schedulers.Schedulers
  */
 class WallpaperModel : IWallpaperModel, BaseModel() {
 
-    override fun getData(): Observable<MutableList<Illust>> {
+    override fun getData(): Observable<List<Illust>> {
         return mApi.getWallPaperData()
                 .compose(applyScheduler())
                 .map {
                     if (!it.illusts.isEmpty()) {
-                        it.illusts
+                        return@map it.illusts
                     }
                     throw ApiException(ApiException.CODE_EMPTY_DATA)
                 }
