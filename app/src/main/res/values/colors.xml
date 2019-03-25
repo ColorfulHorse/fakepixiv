@@ -6,4 +6,5 @@
     <color name="white">#ffffff</color>
     <color name="btn_success">#79DB41</color>
     <color name="btn_disable">#9B9B9B</color>
+    <color name="list_bg">#f8f8f8</color>
 </resources>

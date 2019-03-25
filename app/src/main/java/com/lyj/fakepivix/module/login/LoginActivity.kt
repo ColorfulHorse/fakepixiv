@@ -7,8 +7,10 @@ import android.support.v7.widget.RecyclerView
 import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.FragmentationActivity
+import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.ActivityLoginBinding
 import com.lyj.fakepivix.module.login.login.LoginFragment
+import com.lyj.fakepivix.widget.CommonItemDecoration
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -50,6 +52,11 @@ class LoginActivity : FragmentationActivity<ActivityLoginBinding, WallpaperViewM
         }
         val layoutManager = GridLayoutManager(this, 2, LinearLayoutManager.VERTICAL, false)
         mBinding.recyclerView.layoutManager = layoutManager
+        mBinding.recyclerView.addItemDecoration(
+                CommonItemDecoration.Builder()
+                .draw(false)
+                .verticalWidth(dp2px(3.5f))
+                .build())
         adapter.bindToRecyclerView(mBinding.recyclerView)
 
 
