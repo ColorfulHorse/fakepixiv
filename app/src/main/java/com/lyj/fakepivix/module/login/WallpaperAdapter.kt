@@ -2,22 +2,18 @@ package com.lyj.fakepivix.module.login
 
 import android.databinding.ObservableList
 import android.graphics.drawable.Drawable
-import android.support.annotation.LayoutRes
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import com.bumptech.glide.*
+import com.bumptech.glide.Glide
+import com.bumptech.glide.ListPreloader
+import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.SizeReadyCallback
 import com.bumptech.glide.request.target.Target
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
-import com.lyj.fakepivix.app.databinding.url
 import com.lyj.fakepivix.app.model.response.Illust
 import com.lyj.fakepivix.app.utils.mapUrl
 import com.lyj.fakepivix.databinding.ItemWallpaperBinding
@@ -36,14 +32,15 @@ class WallpaperAdapter(data: ObservableList<Illust>, val readyCallback: (() -> U
     override fun convert(helper: BaseBindingAdapter.BaseBindingViewHolder<ItemWallpaperBinding>, item: Illust) {
 
         helper.binding?.let {
-            GlideApp.with(mContext)
+            var request = GlideApp.with(mContext)
                     .load(item.image_urls.square_medium.mapUrl())
-                    .addListener(object : RequestListener<Drawable>{
-                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+            //if ((start == -1) or (helper.adapterPosition <= end)) {
+                    request = request.addListener(object : RequestListener<android.graphics.drawable.Drawable> {
+                        override fun onLoadFailed(e: GlideException?, model: kotlin.Any?, target: Target<android.graphics.drawable.Drawable>?, isFirstResource: kotlin.Boolean): kotlin.Boolean {
                             return false
                         }
 
-                        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        override fun onResourceReady(resource: Drawable?, model: kotlin.Any?, target: Target<android.graphics.drawable.Drawable>?, dataSource: DataSource?, isFirstResource: kotlin.Boolean): kotlin.Boolean {
                             val layoutManager = recyclerView.layoutManager as GridLayoutManager
                             if (start == -1) {
                                 // 计算可见item数
@@ -62,13 +59,16 @@ class WallpaperAdapter(data: ObservableList<Illust>, val readyCallback: (() -> U
                         }
 
                     })
-                    .into(helper.binding.img)
+                //}
+
+            request.into(helper.binding.img)
         }
     }
 
     override fun getPreloadItems(position: Int): MutableList<Illust> = data.subList(position, position+1)
 
     override fun getPreloadRequestBuilder(item: Illust): RequestBuilder<*>? {
-        return Glide.with(mContext).load(item)
+        val url = item.image_urls.square_medium.mapUrl()
+        return Glide.with(mContext).load(url)
     }
 }
