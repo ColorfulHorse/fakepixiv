@@ -12,4 +12,5 @@
     <string name="register_pact">服务条款</string>
     <string name="register_help">需要帮忙吗？</string>
     <string name="msg_empty_data">暂时没有数据</string>
+    <string name="title_main">主页</string>
 </resources>

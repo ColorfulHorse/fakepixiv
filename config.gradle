@@ -18,7 +18,8 @@ ext {
                     cardview : "com.android.support:cardview-v7:$supportVer",
                     recyclerview : "com.android.support:recyclerview-v7:$supportVer",
                     "design" : "com.android.support:design:$supportVer",
-                    "baseAdapter" : 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
+                    "baseAdapter" : 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46',
+                    "tabLayout" : 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar' //'devlight.io:navigationtabbar:1.2.5'
             ],
             rx : [
                     rxJava : "io.reactivex.rxjava2:rxjava:$rxJavaVer",
