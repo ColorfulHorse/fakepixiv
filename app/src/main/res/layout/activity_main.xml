@@ -5,12 +5,17 @@
 
     </data>
     <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:openDrawer="start"
         >
-        <include layout="@layout/include_main_content"/>
+        <include
+            android:id="@+id/content"
+            layout="@layout/include_main_content"/>
 
-        <include layout="@layout/include_main_nav"/>
+        <include
+            android:id="@+id/nav"
+            layout="@layout/include_main_nav"/>
     </android.support.v4.widget.DrawerLayout>
 </layout>

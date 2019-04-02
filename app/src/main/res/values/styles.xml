@@ -12,8 +12,5 @@
         <item name="android:windowFrame">@null</item>
         <item name="android:windowBackground">@null</item>
         <item name="android:windowNoTitle">true</item>
-
     </style>
-
-
 </resources>
