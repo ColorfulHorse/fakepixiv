@@ -14,7 +14,7 @@ import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
-import com.lyj.fakepivix.app.model.response.Illust
+import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.utils.mapUrl
 import com.lyj.fakepivix.databinding.ItemWallpaperBinding
 

@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.app.model.response
+package com.lyj.fakepivix.app.data.model.response
 
 /**
  * @author greensun

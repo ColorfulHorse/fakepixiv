@@ -3,9 +3,10 @@ package com.lyj.fakepivix.module.home
 import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
 import com.lyj.fakepivix.R
+import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationActivity
+import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.databinding.ActivityMainBinding
-import com.lyj.fakepivix.module.sample.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -15,9 +16,9 @@ import kotlinx.android.synthetic.main.activity_main.*
  *
  * @desc
  */
-class MainActivity : FragmentationActivity<ActivityMainBinding, MainViewModel>() {
+class MainActivity : FragmentationActivity<ActivityMainBinding, BaseViewModel<*>?>() {
 
-    override var mViewModel: MainViewModel = MainViewModel()
+    override val mViewModel: BaseViewModel<*>? = null
 
     override fun initData(savedInstanceState: Bundle?) {
 
@@ -28,6 +29,8 @@ class MainActivity : FragmentationActivity<ActivityMainBinding, MainViewModel>()
         val toggle = ActionBarDrawerToggle(this, drawerLayout, content.toolbar, 0, 0)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+
+
     }
 
     override fun bindLayout(): Int = R.layout.activity_main

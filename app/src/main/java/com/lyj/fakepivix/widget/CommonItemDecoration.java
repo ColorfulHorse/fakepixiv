@@ -26,16 +26,17 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
     // 竖直间隔
     private int vWidth = -1;
     private Paint paint;
-    private @ColorInt
-    int color;
-    private boolean isDraw = true;
+    private @ColorInt int color;
+    private boolean draw = false;
+    // 是否需要边缘间隔
+    private boolean edge = true;
 
     public boolean isDraw() {
-        return isDraw;
+        return draw;
     }
 
     public void setDraw(boolean draw) {
-        isDraw = draw;
+        this.draw = draw;
     }
 
     private CommonItemDecoration() {
@@ -70,13 +71,17 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
         return color;
     }
 
+    public void setEdge(boolean edge) {
+        this.edge = edge;
+    }
+
     public void setColor(int color) {
         this.color = color;
         this.paint.setColor(color);
     }
 
     private void init() {
-        paint = new Paint(Paint.ANTI_ALIAS_FLAG| Paint.DITHER_FLAG);
+        paint = new Paint(Paint.ANTI_ALIAS_FLAG|Paint.DITHER_FLAG);
         paint.setColor(Color.parseColor("#f1f1f1"));
         paint.setStyle(Paint.Style.FILL);
     }
@@ -106,6 +111,11 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
 
         public Builder draw(boolean isDraw) {
             itemDecoration.setDraw(isDraw);
+            return this;
+        }
+
+        public Builder edge(boolean isEdge) {
+            itemDecoration.setEdge(isEdge);
             return this;
         }
 
@@ -186,11 +196,31 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
                 return;
             }
             // linear
-            if (position < size-1) {
-                if (isVertical) {
-                    outRect.bottom = vWidth!=-1?vWidth:hWidth;
+            if (isVertical) {
+                if (!edge) {
+                    if (position < size-1) {
+                        outRect.bottom = vWidth!=-1?vWidth:hWidth;
+                    }
                 }else {
+                    if (position == 0) {
+                        outRect.top = vWidth!=-1?vWidth:hWidth;
+                    }
+                    outRect.bottom = vWidth!=-1?vWidth:hWidth;
+                    outRect.left = hWidth!=-1?hWidth:vWidth;
                     outRect.right = hWidth!=-1?hWidth:vWidth;
+                }
+            }else {
+                if (!edge) {
+                    if (position < size-1) {
+                        outRect.right = hWidth!=-1?hWidth:vWidth;
+                    }
+                }else {
+                    if (position == 0) {
+                        outRect.left = hWidth!=-1?hWidth:vWidth;
+                    }
+                    outRect.right = hWidth!=-1?hWidth:vWidth;
+                    outRect.top = vWidth!=-1?vWidth:hWidth;
+                    outRect.bottom = vWidth!=-1?vWidth:hWidth;
                 }
             }
         }
@@ -198,7 +228,7 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-        if (isDraw) {
+        if (draw) {
             int vWidth = this.vWidth!=-1?this.vWidth:this.hWidth;
             int hWidth = this.hWidth!=-1?this.hWidth:this.vWidth;
             int left, top, right, bottom;

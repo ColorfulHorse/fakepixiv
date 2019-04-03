@@ -1,10 +1,9 @@
 package com.lyj.fakepivix.app.network
 
 
-import com.lyj.fakepivix.app.model.response.IllustListResp
+import com.lyj.fakepivix.app.data.model.response.IllustListResp
 import io.reactivex.Observable
 import retrofit2.http.GET
-import retrofit2.http.Query
 
 /**
  * @author 19930

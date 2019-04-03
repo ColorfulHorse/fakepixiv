@@ -4,7 +4,7 @@
     <data>
         <variable
             name="illust"
-            type="com.lyj.fakepivix.app.model.response.Illust"/>
+            type="com.lyj.fakepivix.app.data.model.response.Illust"/>
     </data>
     <com.lyj.fakepivix.widget.RecImageView
         android:id="@+id/img"

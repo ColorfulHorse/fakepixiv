@@ -15,11 +15,11 @@ import org.jetbrains.annotations.NotNull
  * @date 2019/3/16
  * @desc
  */
-abstract class BaseViewModel<M : IModel> : BaseObservable(), LifecycleObserver {
+abstract class BaseViewModel<M : IModel?> : BaseObservable(), LifecycleObserver {
     private var mDisposable: CompositeDisposable? = null
 
 
-    abstract var mModel: M
+    protected abstract val mModel: M
 
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -29,7 +29,7 @@ abstract class BaseViewModel<M : IModel> : BaseObservable(), LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     open fun onDestroy(@NotNull owner: LifecycleOwner) {
-        mModel.destroy()
+        mModel?.destroy()
         mDisposable?.dispose()
     }
 

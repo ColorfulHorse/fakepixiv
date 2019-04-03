@@ -1,5 +1,6 @@
 package com.lyj.fakepivix.app.base
 
+import android.arch.lifecycle.LifecycleObserver
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
@@ -22,14 +23,16 @@ import kotlinx.android.synthetic.main.fragment_register.view.*
  *
  * @desc
  */
-abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel>> : Fragment() {
+abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>?> : Fragment() {
 
     protected lateinit var mBinding: V
     protected abstract var mViewModel: VM
     protected var mToolbar: Toolbar? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        lifecycle.addObserver(mViewModel)
+        mViewModel?.let {
+            lifecycle.addObserver(mViewModel as LifecycleObserver)
+        }
         mBinding = DataBindingUtil.inflate(inflater, bindLayout(), container, false)
         mBinding.setVariable(bindViewModel(), mViewModel)
         mToolbar = mBinding.root.findViewById(bindToolbar())

@@ -16,7 +16,6 @@ class LoginViewModel : BaseViewModel<ILoginModel>() {
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
-
     }
 
 }

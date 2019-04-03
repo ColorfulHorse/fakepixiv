@@ -1,18 +1,10 @@
 package com.lyj.fakepivix.module.login
 
 import android.arch.lifecycle.LifecycleOwner
-import android.databinding.Bindable
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
-import com.bumptech.glide.ListPreloader
-import com.bumptech.glide.RequestBuilder
-import com.bumptech.glide.util.ViewPreloadSizeProvider
-import com.lyj.fakepivix.BR
-import com.lyj.fakepivix.R
-import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
 import com.lyj.fakepivix.app.base.BaseViewModel
-import com.lyj.fakepivix.app.model.response.Illust
-import com.lyj.fakepivix.databinding.ItemWallpaperBinding
+import com.lyj.fakepivix.app.data.model.response.Illust
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
 
@@ -25,7 +17,7 @@ import timber.log.Timber
  */
 class WallpaperViewModel : BaseViewModel<IWallpaperModel>() {
 
-    override var mModel: IWallpaperModel = WallpaperModel()
+    override val mModel: IWallpaperModel = WallpaperModel()
 
     val data = ObservableArrayList<Illust>()
 
@@ -41,7 +33,6 @@ class WallpaperViewModel : BaseViewModel<IWallpaperModel>() {
                     Timber.e(it.message)
                 })
         addDisposable(disposable)
-
     }
 
 }

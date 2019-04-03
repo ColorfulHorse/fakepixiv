@@ -12,17 +12,12 @@ import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
 import com.lyj.fakepivix.app.base.FragmentationActivity
-import com.lyj.fakepivix.app.model.response.Illust
+import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.ActivityLoginBinding
 import com.lyj.fakepivix.databinding.ItemWallpaperBinding
 import com.lyj.fakepivix.module.login.login.LoginFragment
 import com.lyj.fakepivix.widget.CommonItemDecoration
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.rxkotlin.subscribeBy
-import java.util.concurrent.TimeUnit
 
 /**
  * @author greensun
@@ -45,7 +40,8 @@ class LoginActivity : FragmentationActivity<ActivityLoginBinding, WallpaperViewM
         ImmersionBar.with(this)
                 .transparentStatusBar()
                 .init()
-        if (findFragment(LoginFragment::class.java) == null) {
+        val fragment = findFragment(LoginFragment::class.java)
+        if (fragment == null) {
             loadRootFragment(R.id.fragmentContainer, LoginFragment.newInstance())
         }
         // 自动滚动

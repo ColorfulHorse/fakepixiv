@@ -1,12 +1,10 @@
 package com.lyj.fakepivix.module.login;
 
 import com.lyj.fakepivix.app.base.BaseModel
-import com.lyj.fakepivix.app.model.response.Illust
+import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.network.ApiException
-import com.lyj.fakepivix.module.login.register.IRegisterModel
+import com.lyj.fakepivix.app.reactivex.schedulerTransformer
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 /**
  * @author greensun
@@ -19,13 +17,13 @@ class WallpaperModel : IWallpaperModel, BaseModel() {
 
     override fun getData(): Observable<List<Illust>> {
         return mApi.getWallPaperData()
-                .compose(applyScheduler())
                 .map {
                     if (!it.illusts.isEmpty()) {
                         return@map it.illusts
                     }
                     throw ApiException(ApiException.CODE_EMPTY_DATA)
                 }
+                .schedulerTransformer()
     }
 
 }

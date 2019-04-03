@@ -1,7 +1,7 @@
 package com.lyj.fakepivix.module.login
 
 import com.lyj.fakepivix.app.base.IModel
-import com.lyj.fakepivix.app.model.response.Illust
+import com.lyj.fakepivix.app.data.model.response.Illust
 import io.reactivex.Observable
 
 /**

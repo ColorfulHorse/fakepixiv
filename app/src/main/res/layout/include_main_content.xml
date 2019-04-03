@@ -24,7 +24,21 @@
                     app:titleTextColor="@color/white"
                     app:layout_collapseMode="pin"
                     >
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <com.flyco.tablayout.CommonTabLayout
+                        android:id="@+id/tabLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@android:color/transparent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintWidth_percent="0.4"
+                        />
 
+                </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.Toolbar>
 
             </android.support.design.widget.CollapsingToolbarLayout>
