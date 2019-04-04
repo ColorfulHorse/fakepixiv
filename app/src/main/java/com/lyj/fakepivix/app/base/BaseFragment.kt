@@ -11,10 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.R
-import com.lyj.fakepivix.module.login.login.LoginFragment
-import kotlinx.android.synthetic.main.fragment_register.view.*
+
 
 /**
  * @author greensun
@@ -36,9 +34,6 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
         mBinding = DataBindingUtil.inflate(inflater, bindLayout(), container, false)
         mBinding.setVariable(bindViewModel(), mViewModel)
         mToolbar = mBinding.root.findViewById(bindToolbar())
-        mToolbar?.let {
-            ImmersionBar.setTitleBar(activity, mToolbar)
-        }
         return mBinding.root
     }
 

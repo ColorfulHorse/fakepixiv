@@ -1,6 +1,7 @@
 package com.lyj.fakepivix.module.login
 
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -37,9 +38,6 @@ class LoginActivity : FragmentationActivity<ActivityLoginBinding, WallpaperViewM
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        ImmersionBar.with(this)
-                .transparentStatusBar()
-                .init()
         val fragment = findFragment(LoginFragment::class.java)
         if (fragment == null) {
             loadRootFragment(R.id.fragmentContainer, LoginFragment.newInstance())

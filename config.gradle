@@ -55,7 +55,7 @@ ext {
             tools : [
                     gson : "com.google.code.gson:gson:$gsonVer",
                     timber : "com.jakewharton.timber:timber:4.7.0",
-                    statusbarUtil : "com.gyf.immersionbar:immersionbar:2.3.2"
+                    statusbarUtil : "com.gyf.immersionbar:immersionbar:2.3.2" //'com.jaeger.statusbarutil:library:1.5.1'
             ],
 
             fragmentation : [

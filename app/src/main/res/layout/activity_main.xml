@@ -8,14 +8,14 @@
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:openDrawer="start"
+        android:fitsSystemWindows="true"
         >
         <include
             android:id="@+id/content"
             layout="@layout/include_main_content"/>
-
         <include
             android:id="@+id/nav"
-            layout="@layout/include_main_nav"/>
+            layout="@layout/include_main_nav"
+            />
     </android.support.v4.widget.DrawerLayout>
 </layout>

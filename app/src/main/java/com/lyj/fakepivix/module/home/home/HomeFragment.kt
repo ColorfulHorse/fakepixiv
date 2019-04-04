@@ -18,12 +18,16 @@ class HomeFragment : FragmentationFragment<FragmentHomeBinding, BaseViewModel<*>
 
     override var mViewModel: BaseViewModel<*>? = null
 
+    companion object {
+        fun newInstance() = HomeFragment()
+    }
+
     override fun initData(savedInstanceState: Bundle?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun bindLayout(): Int = R.layout.fragment_home

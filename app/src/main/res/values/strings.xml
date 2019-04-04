@@ -13,4 +13,7 @@
     <string name="register_help">需要帮忙吗？</string>
     <string name="msg_empty_data">暂时没有数据</string>
     <string name="title_main">主页</string>
+    <string name="tab_home">主页</string>
+    <string name="tab_news">最新</string>
+    <string name="tab_search">搜索</string>
 </resources>

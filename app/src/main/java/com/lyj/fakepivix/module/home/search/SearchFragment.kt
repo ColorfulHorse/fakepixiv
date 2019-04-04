@@ -5,6 +5,7 @@ import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.databinding.FragmentSearchBinding
+import com.lyj.fakepivix.module.home.news.NewsFragment
 
 
 /**
@@ -17,6 +18,10 @@ import com.lyj.fakepivix.databinding.FragmentSearchBinding
 class SearchFragment : FragmentationFragment<FragmentSearchBinding, BaseViewModel<*>?>() {
 
     override var mViewModel: BaseViewModel<*>? = null
+
+    companion object {
+        fun newInstance() = SearchFragment()
+    }
 
     override fun initData(savedInstanceState: Bundle?) {
 

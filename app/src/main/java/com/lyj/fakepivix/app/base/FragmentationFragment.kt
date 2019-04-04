@@ -46,7 +46,7 @@ abstract class FragmentationFragment<V : ViewDataBinding, VM : BaseViewModel<out
         mDelegate.onCreate(savedInstanceState)
     }
 
-    override fun onCreateAnimation(transit: Int, enter: Boolean, nextAnim: Int): Animation {
+    override fun onCreateAnimation(transit: Int, enter: Boolean, nextAnim: Int): Animation? {
         return mDelegate.onCreateAnimation(transit, enter, nextAnim)
     }
 

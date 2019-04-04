@@ -18,6 +18,10 @@ class NewsFragment : FragmentationFragment<FragmentNewsBinding, BaseViewModel<*>
 
     override var mViewModel: BaseViewModel<*>? = null
 
+    companion object {
+        fun newInstance() = NewsFragment()
+    }
+
     override fun initData(savedInstanceState: Bundle?) {
 
     }

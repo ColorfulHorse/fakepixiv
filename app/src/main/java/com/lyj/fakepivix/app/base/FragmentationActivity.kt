@@ -2,6 +2,7 @@ package com.lyj.fakepivix.app.base
 
 import android.databinding.ViewDataBinding
 import android.os.Bundle
+import android.support.annotation.DrawableRes
 import android.view.MotionEvent
 import androidx.annotation.IdRes
 import com.lyj.fakepivix.app.fragmentation.HorizontalAnimator
@@ -63,12 +64,77 @@ abstract class FragmentationActivity<V : ViewDataBinding, VM : BaseViewModel<out
         return mDelegate.dispatchTouchEvent(ev) || super.dispatchTouchEvent(ev)
     }
 
-    fun loadRootFragment(@IdRes containerId: Int, toFragment: ISupportFragment) {
+    /**
+     * 加载根Fragment, 即Activity内的第一个Fragment 或 Fragment内的第一个子Fragment
+     *
+     * @param containerId 容器id
+     * @param toFragment  目标Fragment
+     */
+    fun loadRootFragment(containerId: Int, toFragment: ISupportFragment) {
         mDelegate.loadRootFragment(containerId, toFragment)
     }
 
+    fun loadRootFragment(containerId: Int, toFragment: ISupportFragment, addToBackStack: Boolean, allowAnimation: Boolean) {
+        mDelegate.loadRootFragment(containerId, toFragment, addToBackStack, allowAnimation)
+    }
+
+    /**
+     * 加载多个同级根Fragment,类似Wechat, QQ主页的场景
+     */
+    fun loadMultipleRootFragment(containerId: Int, showPosition: Int, vararg toFragments: ISupportFragment) {
+        mDelegate.loadMultipleRootFragment(containerId, showPosition, *toFragments)
+    }
+
+    /**
+     * show一个Fragment,hide其他同栈所有Fragment
+     * 使用该方法时，要确保同级栈内无多余的Fragment,(只有通过loadMultipleRootFragment()载入的Fragment)
+     *
+     *
+     * 建议使用更明确的[.showHideFragment]
+     *
+     * @param showFragment 需要show的Fragment
+     */
+    fun showHideFragment(showFragment: ISupportFragment) {
+        mDelegate.showHideFragment(showFragment)
+    }
+
+    /**
+     * show一个Fragment,hide一个Fragment ; 主要用于类似微信主页那种 切换tab的情况
+     */
+    fun showHideFragment(showFragment: ISupportFragment, hideFragment: ISupportFragment) {
+        mDelegate.showHideFragment(showFragment, hideFragment)
+    }
+
+    /**
+     * It is recommended to use [SupportFragment.start].
+     */
     fun start(toFragment: ISupportFragment) {
         mDelegate.start(toFragment)
+    }
+
+    /**
+     * It is recommended to use [SupportFragment.start].
+     *
+     * @param launchMode Similar to Activity's LaunchMode.
+     */
+    fun start(toFragment: ISupportFragment, @ISupportFragment.LaunchMode launchMode: Int) {
+        mDelegate.start(toFragment, launchMode)
+    }
+
+    /**
+     * It is recommended to use [SupportFragment.startForResult].
+     * Launch an fragment for which you would like a result when it poped.
+     */
+    fun startForResult(toFragment: ISupportFragment, requestCode: Int) {
+        mDelegate.startForResult(toFragment, requestCode)
+    }
+
+    /**
+     * It is recommended to use [SupportFragment.startWithPop].
+     * Start the target Fragment and pop itself
+     */
+    fun startWithPop(toFragment: ISupportFragment) {
+        mDelegate.startWithPop(toFragment)
     }
 
     /**
@@ -82,6 +148,13 @@ abstract class FragmentationActivity<V : ViewDataBinding, VM : BaseViewModel<out
     }
 
     /**
+     * It is recommended to use [SupportFragment.replaceFragment].
+     */
+    fun replaceFragment(toFragment: ISupportFragment, addToBackStack: Boolean) {
+        mDelegate.replaceFragment(toFragment, addToBackStack)
+    }
+
+    /**
      * Pop the fragment.
      */
     fun pop() {
@@ -91,6 +164,12 @@ abstract class FragmentationActivity<V : ViewDataBinding, VM : BaseViewModel<out
     /**
      * Pop the last fragment transition from the manager's fragment
      * back stack.
+     *
+     *
+     * 出栈到目标fragment
+     *
+     * @param targetFragmentClass   目标fragment
+     * @param includeTargetFragment 是否包含该fragment
      */
     fun popTo(targetFragmentClass: Class<*>, includeTargetFragment: Boolean) {
         mDelegate.popTo(targetFragmentClass, includeTargetFragment)
@@ -106,6 +185,15 @@ abstract class FragmentationActivity<V : ViewDataBinding, VM : BaseViewModel<out
 
     fun popTo(targetFragmentClass: Class<*>, includeTargetFragment: Boolean, afterPopTransactionRunnable: Runnable, popAnim: Int) {
         mDelegate.popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable, popAnim)
+    }
+
+    /**
+     * 当Fragment根布局 没有 设定background属性时,
+     * Fragmentation默认使用Theme的android:windowbackground作为Fragment的背景,
+     * 可以通过该方法改变其内所有Fragment的默认背景。
+     */
+    fun setDefaultFragmentBackground(@DrawableRes backgroundRes: Int) {
+        mDelegate.defaultFragmentBackground = backgroundRes
     }
 
     /**

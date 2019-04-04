@@ -20,9 +20,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:background="@color/colorPrimary"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                    app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
+                    app:titleTextAppearance="@style/Toolbar_TextAppearance_White"
                     app:title="@string/title_main"
                     app:titleTextColor="@color/white"
-                    app:layout_collapseMode="pin"
                     >
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
@@ -36,6 +38,13 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintWidth_percent="0.4"
+                        app:tl_divider_width="0dp"
+                        app:tl_iconGravity="TOP"
+                        app:tl_indicator_height="0dp"
+                        app:tl_iconMargin="4dp"
+                        app:tl_textsize="10sp"
+                        app:tl_textUnselectColor="#C4FFFFFF"
+                        app:tl_textSelectColor="@color/white"
                         />
 
                 </android.support.constraint.ConstraintLayout>
