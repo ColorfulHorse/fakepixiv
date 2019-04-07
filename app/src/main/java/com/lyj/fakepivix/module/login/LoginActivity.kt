@@ -33,11 +33,13 @@ class LoginActivity : FragmentationActivity<ActivityLoginBinding, WallpaperViewM
     lateinit var adapter: WallpaperAdapter
     //private var disposable: Disposable? = null
 
-    override fun initData(savedInstanceState: Bundle?) {
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initView()
     }
 
-    override fun initView(savedInstanceState: Bundle?) {
+    private fun initView() {
+        ImmersionBar.with(this).init()
         val fragment = findFragment(LoginFragment::class.java)
         if (fragment == null) {
             loadRootFragment(R.id.fragmentContainer, LoginFragment.newInstance())
@@ -56,7 +58,10 @@ class LoginActivity : FragmentationActivity<ActivityLoginBinding, WallpaperViewM
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    recyclerView.smoothScrollBy(0, 20, LinearInterpolator())
+                    val view = recyclerView.getChildAt(recyclerView.childCount-1)
+                    if (view.bottom != recyclerView.bottom) {
+                        recyclerView.smoothScrollBy(0, 20, LinearInterpolator())
+                    }
                 }
             }
         })
@@ -64,9 +69,9 @@ class LoginActivity : FragmentationActivity<ActivityLoginBinding, WallpaperViewM
         mBinding.recyclerView.layoutManager = layoutManager
         mBinding.recyclerView.addItemDecoration(
                 CommonItemDecoration.Builder()
-                .draw(false)
-                .verticalWidth(dp2px(3.5f))
-                .build())
+                        .draw(false)
+                        .verticalWidth(dp2px(3.5f))
+                        .build())
         adapter.bindToRecyclerView(mBinding.recyclerView)
 
         mBinding.recyclerView.setItemViewCacheSize(0)
@@ -89,5 +94,6 @@ class LoginActivity : FragmentationActivity<ActivityLoginBinding, WallpaperViewM
     override fun onDestroy() {
         //disposable?.dispose()
         super.onDestroy()
+        ImmersionBar.with(this).destroy()
     }
 }

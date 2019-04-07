@@ -1,6 +1,7 @@
 package com.lyj.fakepivix.module.login.login
 
 import android.arch.lifecycle.LifecycleOwner
+import android.databinding.ObservableField
 import com.lyj.fakepivix.app.base.BaseViewModel
 
 /**
@@ -11,6 +12,8 @@ import com.lyj.fakepivix.app.base.BaseViewModel
  * @desc 登录
  */
 class LoginViewModel : BaseViewModel<ILoginModel>() {
+
+    val keyboardOpened: ObservableField<Boolean> = ObservableField(false)
 
     override var mModel: ILoginModel = LoginModel()
 

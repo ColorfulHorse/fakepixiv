@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- Base application theme. -->
@@ -6,6 +7,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
 
     <style name="theme_action_dialog" parent="Theme.AppCompat.Light.Dialog.Alert">
@@ -17,6 +19,10 @@
     <style name="Toolbar_TextAppearance_White">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@android:color/white</item>
+    </style>
+    
+    <style name="Nav_Item_TextAppearance">
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>

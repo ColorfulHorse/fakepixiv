@@ -22,13 +22,11 @@ class NewsFragment : FragmentationFragment<FragmentNewsBinding, BaseViewModel<*>
         fun newInstance() = NewsFragment()
     }
 
-    override fun initData(savedInstanceState: Bundle?) {
+    override fun init(savedInstanceState: Bundle?) {
 
     }
 
-    override fun initView(savedInstanceState: Bundle?) {
-
-    }
+    override fun immersionBarEnabled(): Boolean = false
 
     override fun bindLayout(): Int = R.layout.fragment_news
 

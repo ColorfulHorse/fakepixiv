@@ -2,7 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-
+        <import type="com.lyj.fakepivix.module.login.register.RegisterViewModel"/>
+        <variable
+            name="vm"
+            type="RegisterViewModel"/>
     </data>
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -97,6 +100,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
+            android:visibility="@{!vm.keyboardOpened}"
             />
     </android.support.constraint.ConstraintLayout>
 </layout>

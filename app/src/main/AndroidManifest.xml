@@ -14,13 +14,12 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-         <!--<activity android:name=".module.home.MainActivity"
-             android:screenOrientation="portrait"
-             />-->
+         <!--&lt;!&ndash;<activity android:name=".module.home.MainActivity"-->
+             <!--android:screenOrientation="portrait"-->
+             <!--/>&ndash;&gt;-->
     </application>
 
 </manifest>

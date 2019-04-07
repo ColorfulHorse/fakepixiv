@@ -21,7 +21,11 @@ abstract class BackFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel>>
         mToolbar?.let {
             it.setNavigationIcon(R.drawable.md_nav_back)
             it.setNavigationOnClickListener {
-                pop()
+                if (keyboardOpen) {
+                    hideSoftInput()
+                }else {
+                    pop()
+                }
             }
         }
         return view

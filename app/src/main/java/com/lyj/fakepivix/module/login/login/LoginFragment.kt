@@ -1,6 +1,7 @@
 package com.lyj.fakepivix.module.login.login
 
 import android.os.Bundle
+import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.app.base.FragmentationFragment
@@ -28,14 +29,16 @@ class LoginFragment : FragmentationFragment<FragmentLoginBinding, LoginViewModel
 
     override var mViewModel: LoginViewModel = LoginViewModel()
 
-    override fun initData(savedInstanceState: Bundle?) {
 
-    }
-
-    override fun initView(savedInstanceState: Bundle?) {
+    override fun init(savedInstanceState: Bundle?) {
         btn_register.setOnClickListener {
             start(RegisterFragment.newInstance())
         }
+    }
+
+
+    override fun onKeyboardChanged(isOpen: Boolean, height: Int) {
+        mViewModel.keyboardOpened.set(isOpen)
     }
 
     override fun bindLayout(): Int = R.layout.fragment_login

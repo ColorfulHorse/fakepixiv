@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data class=".MainContent">
+    <data class="MainRoot">
 
     </data>
     <android.support.design.widget.CoordinatorLayout
@@ -27,28 +27,28 @@
                     app:title="@string/title_main"
                     app:titleTextColor="@color/white"
                     >
-                <android.support.constraint.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <com.flyco.tablayout.CommonTabLayout
-                        android:id="@+id/tabLayout"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:background="@android:color/transparent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintWidth_percent="0.4"
-                        app:tl_divider_width="0dp"
-                        app:tl_iconGravity="TOP"
-                        app:tl_indicator_height="0dp"
-                        app:tl_iconMargin="4dp"
-                        app:tl_textsize="10sp"
-                        app:tl_textUnselectColor="#C4FFFFFF"
-                        app:tl_textSelectColor="@color/white"
-                        />
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <com.flyco.tablayout.CommonTabLayout
+                            android:id="@+id/tabLayout"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:background="@android:color/transparent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintWidth_percent="0.4"
+                            app:tl_divider_width="0dp"
+                            app:tl_iconGravity="TOP"
+                            app:tl_indicator_height="0dp"
+                            app:tl_iconMargin="4dp"
+                            app:tl_textsize="10sp"
+                            app:tl_textUnselectColor="#C4FFFFFF"
+                            app:tl_textSelectColor="@color/white"
+                            />
 
-                </android.support.constraint.ConstraintLayout>
+                    </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.Toolbar>
 
             </android.support.design.widget.CollapsingToolbarLayout>

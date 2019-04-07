@@ -1,15 +1,12 @@
 package com.lyj.fakepivix.app.base
 
 import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.LifecycleOwner
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import androidx.annotation.LayoutRes
-import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 
@@ -33,13 +30,9 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
         mBinding = DataBindingUtil.setContentView(this, bindLayout())
         mBinding.setVariable(bindViewModel(), mViewModel)
         mToolbar = mBinding.root.findViewById(bindToolbar())
-        initData(savedInstanceState)
-        initView(savedInstanceState)
+
     }
 
-    abstract fun initData(savedInstanceState: Bundle?)
-
-    abstract fun initView(savedInstanceState: Bundle?)
 
     override fun onDestroy() {
         super.onDestroy()

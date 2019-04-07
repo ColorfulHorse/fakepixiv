@@ -25,13 +25,15 @@ class RegisterFragment : BackFragment<FragmentRegisterBinding, RegisterViewModel
 
     override var mViewModel: RegisterViewModel = RegisterViewModel()
 
-    override fun initData(savedInstanceState: Bundle?) {
+
+    override fun init(savedInstanceState: Bundle?) {
 
     }
 
-    override fun initView(savedInstanceState: Bundle?) {
-
+    override fun onKeyboardChanged(isOpen: Boolean, height: Int) {
+        mViewModel.keyboardOpened.set(isOpen)
     }
+
 
     override fun bindLayout(): Int = R.layout.fragment_register
 
