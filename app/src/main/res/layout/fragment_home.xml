@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
 
     </data>
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:background="#f0f"
         >
-
-    </android.support.constraint.ConstraintLayout>
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.flyco.tablayout.CommonTabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                app:tl_textSelectColor="@color/white"
+                app:tl_textUnselectColor="@color/menu_item_font_black"
+                app:tl_textsize="14sp"
+                app:tl_indicator_style="BLOCK"
+                app:tl_indicator_color="@color/colorPrimary"
+                app:tl_indicator_corner_radius="30dp"
+                app:tl_indicator_anim_enable="false"
+                />
+        </android.support.design.widget.AppBarLayout>
+    </LinearLayout>
 </layout>
