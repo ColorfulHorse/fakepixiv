@@ -1,11 +1,9 @@
 package com.lyj.fakepivix.module.home
 
-import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
-import android.view.View
+import android.support.v7.app.AppCompatActivity
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.gyf.barlibrary.ImmersionBar
@@ -13,7 +11,6 @@ import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.entity.TabBean
-import com.lyj.fakepivix.app.utils.statusBarColor
 import com.lyj.fakepivix.databinding.MainRoot
 import com.lyj.fakepivix.module.home.home.HomeFragment
 import com.lyj.fakepivix.module.home.news.NewsFragment
@@ -59,7 +56,7 @@ class MainRootFragment : FragmentationFragment<MainRoot, BaseViewModel<*>?>() {
 
     override fun initImmersionBar() {
         ImmersionBar.with(this)
-                .titleBar(mToolbar)
+                .titleBar(mBinding.rootView)
                 .statusBarColor(R.color.transparent)
                 .statusBarColorTransform(R.color.black)
                 .statusBarAlpha(0.25f)
@@ -67,6 +64,7 @@ class MainRootFragment : FragmentationFragment<MainRoot, BaseViewModel<*>?>() {
     }
 
     private fun initFragment() {
+        val title = mToolbar?.title
         val tabs = arrayListOf<CustomTabEntity>(
                 TabBean(R.drawable.ic_home, R.drawable.ic_home, getString(R.string.tab_home)),
                 TabBean(R.drawable.ic_menu_new_arrival, R.drawable.ic_menu_new_arrival, getString(R.string.tab_news)),
@@ -125,6 +123,8 @@ class MainRootFragment : FragmentationFragment<MainRoot, BaseViewModel<*>?>() {
         showHideFragment(fragments[position], fragments[prePosition])
         when (position) {
             0 -> mToolbar?.setTitle(R.string.tab_home)
+            1 -> mToolbar?.setTitle(R.string.tab_news)
+            2 -> mToolbar?.setTitle(R.string.tab_search)
         }
         prePosition = position
     }

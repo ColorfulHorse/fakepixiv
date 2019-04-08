@@ -4,7 +4,6 @@ import android.arch.lifecycle.LifecycleObserver
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +14,10 @@ import com.gyf.barlibrary.ImmersionBar
 import com.gyf.barlibrary.ImmersionFragment
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
+import com.lyj.fakepivix.R.id.toolbar
+import android.support.v7.app.AppCompatActivity
+
+
 
 
 /**

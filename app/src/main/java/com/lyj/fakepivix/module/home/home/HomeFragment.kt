@@ -32,6 +32,8 @@ class HomeFragment : FragmentationFragment<FragmentHomeBinding, BaseViewModel<*>
                 TabBean(title = getString(R.string.subtab_novel))
                 )
         mBinding.tabLayout.setTabData(tabs)
+        mBinding.tabLayout.currentTab = 0
+
     }
 
     override fun immersionBarEnabled(): Boolean = false
