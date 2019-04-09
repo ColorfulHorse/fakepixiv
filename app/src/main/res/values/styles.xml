@@ -25,5 +25,10 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="Tab_TextAppearance">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 </resources>

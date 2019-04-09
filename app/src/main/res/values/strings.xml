@@ -34,4 +34,9 @@
     <string name="subtab_illust">插画</string>
     <string name="subtab_comic">漫画</string>
     <string name="subtab_novel">小说</string>
+    <string name="subtab_pic">插画·漫画</string>
+    <string name="subtab_user">用户</string>
+    <string name="subtab_follower">关注者</string>
+    <string name="subtab_news">最新</string>
+    <string name="subtab_friend">好P友</string>
 </resources>

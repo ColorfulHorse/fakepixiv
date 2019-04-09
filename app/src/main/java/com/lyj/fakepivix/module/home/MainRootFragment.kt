@@ -56,7 +56,7 @@ class MainRootFragment : FragmentationFragment<MainRoot, BaseViewModel<*>?>() {
 
     override fun initImmersionBar() {
         ImmersionBar.with(this)
-                .titleBar(mBinding.rootView)
+                .titleBarMarginTop(mBinding.contentView)
                 .statusBarColor(R.color.transparent)
                 .statusBarColorTransform(R.color.black)
                 .statusBarAlpha(0.25f)
@@ -64,7 +64,6 @@ class MainRootFragment : FragmentationFragment<MainRoot, BaseViewModel<*>?>() {
     }
 
     private fun initFragment() {
-        val title = mToolbar?.title
         val tabs = arrayListOf<CustomTabEntity>(
                 TabBean(R.drawable.ic_home, R.drawable.ic_home, getString(R.string.tab_home)),
                 TabBean(R.drawable.ic_menu_new_arrival, R.drawable.ic_menu_new_arrival, getString(R.string.tab_news)),

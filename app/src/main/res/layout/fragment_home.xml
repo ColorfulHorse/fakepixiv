@@ -9,54 +9,34 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-        <com.flyco.tablayout.CommonTabLayout
-            android:id="@+id/tabLayout"
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@color/white"
-            app:tl_textBold="SELECT"
-            app:tl_textSelectColor="@color/white"
-            app:tl_textUnselectColor="@color/menu_item_font_black"
-            app:tl_textsize="14sp"
-            app:tl_iconVisible="false"
-            app:tl_indicator_style="BLOCK"
-            app:tl_indicator_color="@color/colorPrimary"
-            app:tl_indicator_corner_radius="30dp"
-            app:tl_indicator_anim_enable="false"
-            app:tl_indicator_margin_left="32dp"
-            app:tl_indicator_margin_right="32dp"
-            app:tl_indicator_margin_top="10dp"
-            app:tl_indicator_margin_bottom="10dp"
-            android:elevation="2dp"
-            />
-
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
+            android:layout_height="wrap_content">
+            <com.flyco.tablayout.CommonTabLayout
+                android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="#f0f"
-                >
+                android:layout_height="@dimen/subTab_height"
+                android:background="@color/white"
+                app:tl_textBold="SELECT"
+                app:tl_textSelectColor="@color/white"
+                app:tl_textUnselectColor="@color/tab_textColor_n"
+                app:tl_textsize="@dimen/tab_textSize"
+                app:tl_iconVisible="false"
+                app:tl_indicator_style="BLOCK"
+                app:tl_indicator_color="@color/colorPrimary"
+                app:tl_indicator_corner_radius="30dp"
+                app:tl_indicator_anim_enable="false"
+                app:tl_indicator_margin_left="32dp"
+                app:tl_indicator_margin_right="32dp"
+                app:tl_indicator_margin_top="10dp"
+                app:tl_indicator_margin_bottom="10dp"
+                />
+        </android.support.design.widget.AppBarLayout>
 
-                <!--<android.support.v4.widget.NestedScrollView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent">-->
-                <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:orientation="vertical"-->
-                <!--&gt;-->
-                <TextView
-                    android:layout_width="10dp"
-                    android:layout_height="wrap_content"
-                    android:text="erewrewrewrewrewreweqeqweqweqweqeqeqewqeqewqeqweqweqweqweqweqwewqeqwewqeqweqweqweqweqweqweqweqweqeqweqweqewqewqeweqweqwewqewqeqweqwqewqewew"
-                    android:textColor="@color/colorPrimaryDark"
-                    />
-                <!--</LinearLayout>-->
-                <!--</android.support.v4.widget.NestedScrollView>-->
-            </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+        <FrameLayout
+            android:id="@+id/fl_container"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            />
     </LinearLayout>
 </layout>

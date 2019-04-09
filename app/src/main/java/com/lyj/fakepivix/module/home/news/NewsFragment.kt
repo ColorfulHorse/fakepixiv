@@ -1,6 +1,7 @@
 package com.lyj.fakepivix.module.home.news
 
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationFragment
@@ -23,6 +24,9 @@ class NewsFragment : FragmentationFragment<FragmentNewsBinding, BaseViewModel<*>
     }
 
     override fun init(savedInstanceState: Bundle?) {
+        mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText(R.string.subtab_follower), true)
+        mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText(R.string.subtab_news))
+        mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText(R.string.subtab_friend))
 
     }
 
