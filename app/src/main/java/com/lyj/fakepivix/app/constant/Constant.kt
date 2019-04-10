@@ -10,6 +10,6 @@ package com.lyj.fakepivix.app.constant
 object Constant {
     object Net {
         const val BASE_URL = "https://app-api.pixiv.net"
-        const val IMAGE_URL = "https://api.imjad.cn/interface/img/PixivProxy.php"
+        const val AUTH_URL = "https://auth.secure.pixiv.net/auth/token"
     }
 }

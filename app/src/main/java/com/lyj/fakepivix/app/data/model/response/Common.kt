@@ -36,7 +36,7 @@ data class Illust(
         val total_bookmarks: Int = 0,
         val total_view: Int = 0,
         val type: String = "",
-        val user: User = User(),
+        val user: User? = null,
         val visible: Boolean = false,
         val width: Int = 0,
         val x_restrict: Int = 0
@@ -98,7 +98,7 @@ data class RankingIllust(
         val total_bookmarks: Int = 0,
         val total_view: Int = 0,
         val type: String = "",
-        val user: User = User(),
+        val user: User? = null,
         val visible: Boolean = false,
         val width: Int = 0,
         val x_restrict: Int = 0

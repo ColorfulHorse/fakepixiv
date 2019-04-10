@@ -1,5 +1,6 @@
 package com.lyj.fakepivix.module.login.login
 
+import android.databinding.Observable
 import android.os.Bundle
 import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.R
@@ -34,6 +35,19 @@ class LoginFragment : FragmentationFragment<FragmentLoginBinding, LoginViewModel
         btn_register.setOnClickListener {
             start(RegisterFragment.newInstance())
         }
+        mViewModel.loading.addOnPropertyChangedCallback(object: Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                val loading = mViewModel.loading.get()
+                loading?.let {
+                    if (it) {
+
+                    } else {
+
+                    }
+                }
+            }
+        })
+
     }
 
 

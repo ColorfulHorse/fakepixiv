@@ -12,7 +12,7 @@ import com.lyj.fakepivix.app.App
  */
 class ApiException constructor(var code: Int) : Exception() {
 
-    constructor() : this(CODE_SUCCESS)
+    constructor() : this(CODE_UNKNOWN)
 
     override val message: String?
         get() = getMessage(code)
@@ -20,9 +20,11 @@ class ApiException constructor(var code: Int) : Exception() {
     companion object {
         const val CODE_SUCCESS = 100
         const val CODE_EMPTY_DATA = 400
+        const val CODE_UNKNOWN = 9999
 
         const val MESSAGE_SUCCESS = "成功"
         const val MESSAGE_EMPTY_DATA = "暂时没有数据"
+        const val MESSAGE_UNKNOWN = "未知错误"
     }
 
     private fun getMessage(code: Int): String =

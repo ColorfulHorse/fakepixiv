@@ -42,6 +42,7 @@
                         android:hint="@string/login_hint_id"
                         android:maxLines="1"
                         android:inputType="text"
+                        android:text="@={vm.userName}"
                         />
                 </android.support.design.widget.TextInputLayout>
 
@@ -58,6 +59,7 @@
                         android:hint="@string/login_hint_psw"
                         android:maxLines="1"
                         android:inputType="textPassword"
+                        android:text="@={vm.password}"
                         />
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
@@ -71,6 +73,8 @@
                 android:textSize="14sp"
                 android:gravity="center"
                 android:text="@string/btn_login"
+                android:enabled="@{vm.loginEnable}"
+                android:onClick="@{vm::login}"
                 android:layout_marginTop="16dp"
                 android:textStyle="bold"
                 />
