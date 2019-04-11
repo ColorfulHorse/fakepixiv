@@ -14,7 +14,7 @@ import me.yokeyword.fragmentation.Fragmentation
  */
 class App : Application() {
     companion object {
-        var context: Context? = null
+        lateinit var context: Context
     }
     override fun onCreate() {
         super.onCreate()

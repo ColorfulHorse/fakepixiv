@@ -4,6 +4,7 @@ package com.lyj.fakepivix.app.network
 import com.lyj.fakepivix.app.data.model.response.IllustListResp
 import com.lyj.fakepivix.app.data.model.response.LoginResp
 import io.reactivex.Observable
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
 
@@ -35,9 +36,10 @@ interface ApiService {
     fun getWallPaperData(): Observable<IllustListResp>
 
     /**
-     * 登录页滚动图片墙
+     * 登录
      */
-    @POST
-    fun login(): Observable<LoginResp>
+    @POST("/auth/token")
+    @FormUrlEncoded
+    fun login(client_id: String, client_secret: String, grant_type: String): Observable<LoginResp>
 
 }

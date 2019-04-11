@@ -7,9 +7,14 @@ package com.lyj.fakepivix.app.constant
  *
  * @desc
  */
-object Constant {
+interface Constant {
     object Net {
         const val BASE_URL = "https://app-api.pixiv.net"
-        const val AUTH_URL = "https://auth.secure.pixiv.net/auth/token"
+        const val AUTH_URL = "https://auth.secure.pixiv.net"
+        const val HEADER_TOKEN = "access_token"
+    }
+
+    object SP {
+        const val KEY_LOGIN_CACHE = "KEY_LOGIN_CACHE"
     }
 }

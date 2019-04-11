@@ -7,6 +7,7 @@ import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.data.source.UserRepository
 import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
+import com.lyj.fakepivix.app.reactivex.schedulerTransformer
 
 /**
  * @author greensun
@@ -61,7 +62,10 @@ class LoginViewModel : BaseViewModel<ILoginModel>() {
 
     fun login() {
         UserRepository.instance
-                .getUserInfo(userName, password)
+                .login(userName, password)
+                .schedulerTransformer()
+                .
+
     }
 
 }

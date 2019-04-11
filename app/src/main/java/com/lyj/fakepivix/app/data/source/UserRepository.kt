@@ -1,10 +1,10 @@
 package com.lyj.fakepivix.app.data.source
 
 import com.lyj.fakepivix.app.data.model.response.LoginData
-import com.lyj.fakepivix.app.data.model.response.User
 import com.lyj.fakepivix.app.network.ApiException
 import com.lyj.fakepivix.app.network.ApiService
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
+import com.lyj.fakepivix.app.utils.SPUtil
 import io.reactivex.Observable
 
 /**
@@ -20,10 +20,10 @@ class UserRepository private constructor(){
         val instance: UserRepository by lazy { UserRepository() }
     }
 
-    var user: User? = null
-    var accessToken = ""
+    var loginData: LoginData? = null
+    var accessToken: String? = null
 
-    fun getUserInfo(userName: String, password: String): Observable<LoginData> {
+    fun login(userName: String, password: String): Observable<LoginData> {
         return RetrofitManager.instance
                 .obtainService(ApiService::class.java)
                 .login()
@@ -34,9 +34,16 @@ class UserRepository private constructor(){
                     it.response
                 }
                 .doOnNext {
-                    accessToken = it.access_token
-                    user = it.user
+                    loginData = it
+                    SPUtil.saveLoginData(it)
                 }
 
+    }
+
+    fun reLogin(loginData: LoginData) {
+        this.loginData = loginData
+        with(loginData) {
+            val refresh_token = loginData.refresh_token
+        }
     }
 }
