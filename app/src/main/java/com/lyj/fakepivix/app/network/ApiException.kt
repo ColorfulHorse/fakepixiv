@@ -22,9 +22,12 @@ class ApiException constructor(var code: Int) : Exception() {
         const val CODE_EMPTY_DATA = 400
         const val CODE_UNKNOWN = 9999
 
+        const val CODE_ACCOUNT_EERROR = 1508
+
         const val MESSAGE_SUCCESS = "成功"
         const val MESSAGE_EMPTY_DATA = "暂时没有数据"
         const val MESSAGE_UNKNOWN = "未知错误"
+        const val MESSAGE_ACCOUNT_EERROR = "账号或密码错误"
     }
 
     private fun getMessage(code: Int): String =

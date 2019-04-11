@@ -31,6 +31,8 @@ class RetrofitManager private constructor() {
             .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
             .readTimeout(TIME_OUT, TimeUnit.SECONDS)
             //.sslSocketFactory(getSSLSocketFactory(), getTrustManager())
+            .addInterceptor(SwitchBaseUrlInterceptor())
+            .addInterceptor(CommonParamsInterceptor())
             .addInterceptor(LoggerInterceptor())
             .build()
 

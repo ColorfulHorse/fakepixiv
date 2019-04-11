@@ -9,8 +9,16 @@ package com.lyj.fakepivix.app.constant
  */
 interface Constant {
     object Net {
+
         const val BASE_URL = "https://app-api.pixiv.net"
-        const val AUTH_URL = "https://auth.secure.pixiv.net"
+        const val AUTH_URL = "https://oauth.secure.pixiv.net"
+
+        const val SWITCH_HEADER = "SWITCH-HEADER" // 用于分辨是否需要切换baseUrl
+        const val TAG_BASE = "BASE_URL"
+        const val TAG_AUTH = "TAG_AUTH"
+
+        const val GRANT_TYPE_PWD = "password"
+        const val GRANT_TYPE_TOKEN = "refresh_token"
         const val HEADER_TOKEN = "access_token"
     }
 

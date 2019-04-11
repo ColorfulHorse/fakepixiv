@@ -1,5 +1,6 @@
 package com.lyj.fakepivix.app.data.source
 
+import com.lyj.fakepivix.app.constant.Constant
 import com.lyj.fakepivix.app.data.model.response.LoginData
 import com.lyj.fakepivix.app.network.ApiException
 import com.lyj.fakepivix.app.network.ApiService
@@ -26,24 +27,45 @@ class UserRepository private constructor(){
     fun login(userName: String, password: String): Observable<LoginData> {
         return RetrofitManager.instance
                 .obtainService(ApiService::class.java)
-                .login()
+                .login(userName = userName, password = password)
                 .map {
-                    if (it.has_error) {
-                        throw ApiException()
+                    with(it) {
+                        if (has_error) {
+                            throw ApiException(errors.system.code)
+                        }
+                        response
                     }
-                    it.response
                 }
                 .doOnNext {
+                    accessToken = "${it.token_type} ${it.access_token}"
                     loginData = it
                     SPUtil.saveLoginData(it)
                 }
 
     }
 
-    fun reLogin(loginData: LoginData) {
-        this.loginData = loginData
-        with(loginData) {
-            val refresh_token = loginData.refresh_token
+    /**
+     * 用refreshToken登陆
+     */
+    fun reLogin(cache: LoginData) {
+        this.loginData = cache
+        with(cache) {
+            RetrofitManager.instance
+                    .obtainService(ApiService::class.java)
+                    .login(grantType = Constant.Net.GRANT_TYPE_TOKEN, refreshToken = refresh_token, deviceToken = device_token)
+                    .map {
+                        with(it) {
+                            if (has_error) {
+                                throw ApiException(errors.system.code)
+                            }
+                            response
+                        }
+                    }
+                    .doOnNext {
+                        accessToken = it.access_token
+                        loginData = it
+                        SPUtil.saveLoginData(it)
+                    }
         }
     }
 }

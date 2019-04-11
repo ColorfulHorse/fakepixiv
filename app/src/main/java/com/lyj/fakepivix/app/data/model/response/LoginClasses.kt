@@ -11,7 +11,17 @@ package com.lyj.fakepivix.app.data.model.response
 
 data class LoginResp(
         val response: LoginData = LoginData(),
-        val has_error: Boolean = false
+        val has_error: Boolean = false,
+        val errors: Errors = Errors()
+)
+
+data class Errors(
+        val system: SystemError = SystemError()
+)
+
+data class SystemError(
+        val code: Int = -1,
+        val message: String = ""
 )
 
 data class LoginData(

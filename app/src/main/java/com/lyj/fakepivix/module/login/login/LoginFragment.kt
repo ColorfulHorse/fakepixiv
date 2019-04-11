@@ -1,12 +1,16 @@
 package com.lyj.fakepivix.module.login.login
 
+import android.content.Intent
 import android.databinding.Observable
 import android.os.Bundle
 import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.app.base.FragmentationFragment
+import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
+import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.databinding.FragmentLoginBinding
+import com.lyj.fakepivix.module.home.MainActivity
 import com.lyj.fakepivix.module.login.register.RegisterFragment
 import kotlinx.android.synthetic.main.fragment_login.*
 
@@ -35,18 +39,26 @@ class LoginFragment : FragmentationFragment<FragmentLoginBinding, LoginViewModel
         btn_register.setOnClickListener {
             start(RegisterFragment.newInstance())
         }
-        mViewModel.loading.addOnPropertyChangedCallback(object: Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                val loading = mViewModel.loading.get()
-                loading?.let {
-                    if (it) {
 
-                    } else {
-
+        with(mViewModel) {
+            loginState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp {
+                _, _ ->
+                when (loginState.get()) {
+                    is LoadState.Loading -> showLoadingDialog()
+                    is LoadState.Succeed, is LoadState.Failed -> {
+                        hideLoadingDialog()
+                        startActivity(MainActivity::class.java)
                     }
                 }
-            }
-        })
+            })
+        }
+    }
+
+    private fun showLoadingDialog() {
+
+    }
+
+    private fun hideLoadingDialog() {
 
     }
 

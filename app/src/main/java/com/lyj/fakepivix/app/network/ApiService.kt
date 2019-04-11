@@ -1,12 +1,11 @@
 package com.lyj.fakepivix.app.network
 
 
+import com.lyj.fakepivix.app.constant.Constant
 import com.lyj.fakepivix.app.data.model.response.IllustListResp
 import com.lyj.fakepivix.app.data.model.response.LoginResp
 import io.reactivex.Observable
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 /**
  * @author 19930
@@ -38,8 +37,11 @@ interface ApiService {
     /**
      * 登录
      */
+    @Headers("SWITCH-HEADER:TAG_AUTH")
     @POST("/auth/token")
     @FormUrlEncoded
-    fun login(client_id: String, client_secret: String, grant_type: String): Observable<LoginResp>
+    fun login(@Field("client_id") clientId: String = "MOBrBDS8blbauoSck0ZfDbtuzpyT", @Field("client_secret")clientSecret: String = "lsACyCD94FhDUtGTXi3QzcFE2uU1hqtDaKeqrdwj",
+              @Field("get_secure_url")get_secure_url: Boolean = true, @Field("include_policy")include_policy: Boolean = true, @Field("grant_type")grantType: String = Constant.Net.GRANT_TYPE_PWD,
+              @Field("username")userName: String = "", @Field("password")password: String = "", @Field("device_token")deviceToken: String = "", @Field("refresh_token")refreshToken: String = ""): Observable<LoginResp>
 
 }

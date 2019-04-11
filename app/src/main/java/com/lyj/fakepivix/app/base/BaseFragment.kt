@@ -1,6 +1,7 @@
 package com.lyj.fakepivix.app.base
 
 import android.arch.lifecycle.LifecycleObserver
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
@@ -65,6 +66,10 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
                         onKeyboardChanged(isOpen, height)
                     }
                     .init()
+    }
+
+    fun <T : Any> startActivity(clazz: Class<T>) {
+        startActivity(Intent(activity, clazz))
     }
 
     /**

@@ -7,7 +7,10 @@ import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.data.source.UserRepository
 import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
+import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.reactivex.schedulerTransformer
+import io.reactivex.disposables.Disposable
+import io.reactivex.rxkotlin.subscribeBy
 
 /**
  * @author greensun
@@ -21,7 +24,7 @@ class LoginViewModel : BaseViewModel<ILoginModel>() {
     var keyboardOpened = ObservableField(false)
 
     // 是否加载完成
-    var loading = ObservableField(false)
+    var loginState : ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
     var loginEnable = ObservableField(false)
 
@@ -56,15 +59,18 @@ class LoginViewModel : BaseViewModel<ILoginModel>() {
         })
     }
 
-    override fun onCreate(owner: LifecycleOwner) {
-        super.onCreate(owner)
-    }
 
     fun login() {
-        UserRepository.instance
+        val disposable = UserRepository.instance
                 .login(userName, password)
                 .schedulerTransformer()
-                .
+                .doOnSubscribe { loginState.set(LoadState.Loading) }
+                .subscribeBy(onNext = {
+                    loginState.set(LoadState.Succeed)
+                }, onError = {
+                    loginState.set(LoadState.Failed(it))
+                })
+        addDisposable(disposable)
 
     }
 

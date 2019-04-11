@@ -74,7 +74,7 @@
                 android:gravity="center"
                 android:text="@string/btn_login"
                 android:enabled="@{vm.loginEnable}"
-                android:onClick="@{vm::login}"
+                android:onClick="@{() -> vm.login()}"
                 android:layout_marginTop="16dp"
                 android:textStyle="bold"
                 />
