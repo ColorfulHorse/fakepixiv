@@ -28,7 +28,7 @@ object SPUtil {
 
     fun getLoginData(): LoginData? {
         val str = sp.getString(Constant.SP.KEY_LOGIN_CACHE, "")
-        if (str.isEmpty()) {
+        if (str.isNotEmpty()) {
             return gson.fromJson(str, LoginData::class.java)
         }
         return null

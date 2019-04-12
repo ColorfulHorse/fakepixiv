@@ -34,6 +34,7 @@ class RetrofitManager private constructor() {
             .addInterceptor(SwitchBaseUrlInterceptor())
             .addInterceptor(CommonParamsInterceptor())
             .addInterceptor(LoggerInterceptor())
+            .addInterceptor(ApiExceptionInterceptor())
             .build()
 
     val retrofit: Retrofit = Retrofit.Builder()
@@ -44,7 +45,7 @@ class RetrofitManager private constructor() {
             .build()
 
     companion object {
-        const val TIME_OUT = 10L
+        const val TIME_OUT = 15L
         val instance: RetrofitManager by lazy {
             RetrofitManager()
         }

@@ -71,7 +71,6 @@ class LoginViewModel : BaseViewModel<ILoginModel>() {
                     loginState.set(LoadState.Failed(it))
                 })
         addDisposable(disposable)
-
     }
 
 }

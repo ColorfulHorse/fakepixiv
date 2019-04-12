@@ -14,8 +14,13 @@ import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.module.AppGlideModule
 import com.bumptech.glide.request.RequestOptions
+import com.lyj.fakepivix.app.network.retrofit.CommonParamsInterceptor
+import com.lyj.fakepivix.app.network.retrofit.LoggerInterceptor
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
+import com.lyj.fakepivix.app.network.retrofit.SwitchBaseUrlInterceptor
+import okhttp3.OkHttpClient
 import java.io.InputStream
+import java.util.concurrent.TimeUnit
 
 /**
  * @author greensun
@@ -27,6 +32,12 @@ import java.io.InputStream
 @GlideModule
 class GlideConfigModule : AppGlideModule() {
 
+    val client = OkHttpClient
+            .Builder()
+            .connectTimeout(RetrofitManager.TIME_OUT, TimeUnit.SECONDS)
+            .readTimeout(RetrofitManager.TIME_OUT, TimeUnit.SECONDS)
+            .build()
+
     override fun applyOptions(context: Context, builder: GlideBuilder) {
         super.applyOptions(context, builder)
         builder
@@ -36,6 +47,6 @@ class GlideConfigModule : AppGlideModule() {
     }
 
     override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
-        registry.replace(GlideUrl::class.java, InputStream::class.java, OkHttpUrlLoader.Factory(RetrofitManager.instance.client))
+        registry.replace(GlideUrl::class.java, InputStream::class.java, OkHttpUrlLoader.Factory(client))
     }
 }

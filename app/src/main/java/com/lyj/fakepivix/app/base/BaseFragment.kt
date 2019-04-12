@@ -68,9 +68,6 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
                     .init()
     }
 
-    fun <T : Any> startActivity(clazz: Class<T>) {
-        startActivity(Intent(activity, clazz))
-    }
 
     /**
      * 软键盘监听

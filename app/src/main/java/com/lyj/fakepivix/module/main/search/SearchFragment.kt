@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.module.home.search
+package com.lyj.fakepivix.module.main.search
 
 import android.os.Bundle
 import com.flyco.tablayout.listener.CustomTabEntity
@@ -7,7 +7,6 @@ import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.entity.TabBean
 import com.lyj.fakepivix.databinding.FragmentSearchBinding
-import com.lyj.fakepivix.module.home.news.NewsFragment
 
 
 /**

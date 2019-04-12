@@ -18,17 +18,24 @@ import com.lyj.fakepivix.app.utils.mapUrl
  * @desc
  */
 
-@BindingAdapter(value = ["url", "error"], requireAll = false)
-fun ImageView.url(url: String, error: Drawable?) {
-    var req = GlideApp.with(this)
-            .load(url.mapUrl())
-    error?.let {
+@BindingAdapter(value = ["url", "placeHolder", "error", "circle"], requireAll = false)
+fun ImageView.url(url: String?, placeHolder: Drawable?, error: Drawable?, circle: Boolean = false) {
+    url?.let {
+        val req = GlideApp.with(this)
+                .load(url.mapUrl())
         val options = RequestOptions()
-                .error(error)
-        req = req.apply(options)
+        placeHolder?.let {
+            options.placeholder(placeHolder)
+        }
+        error?.let {
+            options.error(error)
+        }
+        if (circle) {
+            options.circleCrop()
+        }
+        req.apply(options).into(this)
     }
-    req.into(this)
 }
 
 @BindingConversion
-fun boolToVisiable(visibility: Boolean) = if (visibility) View.VISIBLE else View.GONE
+fun boolToVisibility(visibility: Boolean) = if (visibility) View.VISIBLE else View.GONE

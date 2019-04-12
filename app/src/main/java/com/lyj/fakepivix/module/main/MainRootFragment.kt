@@ -1,9 +1,8 @@
-package com.lyj.fakepivix.module.home
+package com.lyj.fakepivix.module.main
 
 import android.os.Bundle
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.gyf.barlibrary.ImmersionBar
@@ -12,9 +11,9 @@ import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.entity.TabBean
 import com.lyj.fakepivix.databinding.MainRoot
-import com.lyj.fakepivix.module.home.home.HomeFragment
-import com.lyj.fakepivix.module.home.news.NewsFragment
-import com.lyj.fakepivix.module.home.search.SearchFragment
+import com.lyj.fakepivix.module.main.home.HomeFragment
+import com.lyj.fakepivix.module.main.news.NewsFragment
+import com.lyj.fakepivix.module.main.search.SearchFragment
 
 /**
  * @author greensun

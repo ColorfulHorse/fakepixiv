@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.module.home.home
+package com.lyj.fakepivix.module.main.home
 
 import android.os.Bundle
 import com.flyco.tablayout.listener.CustomTabEntity

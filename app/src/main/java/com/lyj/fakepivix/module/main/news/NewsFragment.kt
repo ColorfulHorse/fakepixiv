@@ -1,7 +1,6 @@
-package com.lyj.fakepivix.module.home.news
+package com.lyj.fakepivix.module.main.news
 
 import android.os.Bundle
-import android.support.design.widget.TabLayout
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationFragment
