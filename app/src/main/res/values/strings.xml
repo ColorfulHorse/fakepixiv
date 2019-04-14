@@ -39,4 +39,8 @@
     <string name="subtab_follower">关注者</string>
     <string name="subtab_news">最新</string>
     <string name="subtab_friend">好P友</string>
+    <string name="title_rank">排行榜</string>
+    <string name="read_more">查看更多</string>
+    <string name="title_live">人气直播</string>
+    <string name="tag_live">LIVE</string>
 </resources>

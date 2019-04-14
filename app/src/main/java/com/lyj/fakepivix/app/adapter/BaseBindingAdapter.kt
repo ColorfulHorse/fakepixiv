@@ -6,6 +6,7 @@ import android.databinding.ViewDataBinding
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.view.ViewGroup
 import com.bumptech.glide.Glide.init
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -18,7 +19,7 @@ import com.lyj.fakepivix.R.id.recyclerView
  *
  * @desc
  */
-open class BaseBindingAdapter<T, VB : ViewDataBinding>(@LayoutRes layoutId: Int, val data: ObservableList<T>, val itemBindId: Int) : BaseQuickAdapter<T, BaseBindingAdapter.BaseBindingViewHolder<VB>>(layoutId, data) {
+open class BaseBindingAdapter<T, VB : ViewDataBinding>(@LayoutRes layoutId: Int, val data: ObservableList<T>, val itemBindId: Int) : BaseQuickAdapter<T, BaseBindingViewHolder<VB>>(layoutId, data) {
 
     init {
         data.addOnListChangedCallback(object : ObservableList.OnListChangedCallback<ObservableList<T>>(){
@@ -53,9 +54,7 @@ open class BaseBindingAdapter<T, VB : ViewDataBinding>(@LayoutRes layoutId: Int,
         helper.binding?.setVariable(itemBindId, item)
     }
 
-    open class BaseBindingViewHolder<VB : ViewDataBinding>(view: View) : BaseViewHolder(view) {
-        val binding: VB? = DataBindingUtil.bind(view)
-    }
+
 
     fun getRecyView(): RecyclerView {
         return recyclerView

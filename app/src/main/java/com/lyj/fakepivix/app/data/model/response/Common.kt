@@ -1,5 +1,7 @@
 package com.lyj.fakepivix.app.data.model.response
 
+import com.chad.library.adapter.base.entity.MultiItemEntity
+
 /**
  * @author greensun
  *
@@ -16,7 +18,7 @@ data class IllustListResp(
         val ranking_illusts: List<RankingIllust> = listOf()
 )
 
-data class Illust(
+data class Illust (
         val caption: String = "",
         val create_date: String = "",
         val height: Int = 0,
@@ -40,7 +42,16 @@ data class Illust(
         val visible: Boolean = false,
         val width: Int = 0,
         val x_restrict: Int = 0
-)
+): MultiItemEntity {
+    companion object {
+        const val TYPE_ILLUST = 1
+    }
+
+    override fun getItemType(): Int = when(type) {
+        "illust" -> TYPE_ILLUST
+        else -> TYPE_ILLUST
+    }
+}
 
 data class User(
         val account: String = "",

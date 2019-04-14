@@ -5,6 +5,8 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'org.jetbrains.dokka'
+
 //apply from: rootProject.getRootDir().getAbsolutePath() + "/utils.gradle"
 
 android {
