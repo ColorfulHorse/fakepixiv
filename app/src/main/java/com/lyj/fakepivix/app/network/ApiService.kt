@@ -37,7 +37,7 @@ interface ApiService {
 
     /**
      * 登录
-     * header 用于切换baseUrl[SwitchBaseUrlInterceptor]
+     * header 用于切换baseUrl [SwitchBaseUrlInterceptor]
      * [grantType] 登录方式，账号密码或refreshToken登录二选一
      */
     @Headers("SWITCH-HEADER:TAG_AUTH")
@@ -57,10 +57,12 @@ interface ApiService {
     /**
      * 主页直播
      */
-    fun getIllustLiveData()
+    @GET("/v1/live/list")
+    fun getIllustLiveData(@Query("list_type") type: String = "popular")
 
     /**
      * 主页特辑
      */
-    fun getIllustPixivisionData()
+    @GET("/v1/spotlight/articles")
+    fun getIllustPixivisionData(@Query("filter") filter: String = "for_android", @Query("category") category: String = "all")
 }

@@ -19,7 +19,7 @@ interface Constant {
 
         const val GRANT_TYPE_PWD = "password"
         const val GRANT_TYPE_TOKEN = "refresh_token"
-        const val HEADER_TOKEN = "access_token"
+        const val HEADER_TOKEN = "Authorization"
     }
 
     object SP {

@@ -21,6 +21,8 @@ class CommonParamsInterceptor : Interceptor {
             val token = UserRepository.instance.accessToken
             token?.let {
                 val newReq =  oldReq.newBuilder()
+                        .addHeader("App-OS", "android")
+                        .addHeader("Accept-Language", "zh_CN")
                         .addHeader(Constant.Net.HEADER_TOKEN, token)
                         .build()
                 return chain.proceed(newReq)
