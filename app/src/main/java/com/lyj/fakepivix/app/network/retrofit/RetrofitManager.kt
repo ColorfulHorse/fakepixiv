@@ -1,6 +1,7 @@
 package com.lyj.fakepivix.app.network.retrofit
 
 import com.lyj.fakepivix.app.constant.Constant
+import com.lyj.fakepivix.app.network.ApiService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -26,7 +27,9 @@ class RetrofitManager private constructor() {
 
     private val services:MutableMap<String, Any> = mutableMapOf()
 
-    val client = OkHttpClient
+    val apiService: ApiService by lazy { retrofit.create(ApiService::class.java) }
+
+    private val client: OkHttpClient = OkHttpClient
             .Builder()
             .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
             .readTimeout(TIME_OUT, TimeUnit.SECONDS)
@@ -49,19 +52,6 @@ class RetrofitManager private constructor() {
         val instance: RetrofitManager by lazy {
             RetrofitManager()
         }
-    }
-
-
-    @Synchronized
-    fun <T: Any> obtainService(clazz: Class<T>) : T  {
-        val service: T
-        if (!services.contains(clazz.name)) {
-            service = retrofit.create(clazz)
-            services[clazz.name] = service
-        }else{
-            service = services[clazz.name] as T
-        }
-        return service
     }
 
     private fun getTrustManager(): X509TrustManager {

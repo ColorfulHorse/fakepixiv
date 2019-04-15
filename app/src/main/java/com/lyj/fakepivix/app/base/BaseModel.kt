@@ -9,7 +9,7 @@ import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
  * @desc
  */
 open class BaseModel : IModel {
-    protected val mApi: ApiService = RetrofitManager.instance.obtainService(ApiService::class.java)
+    protected val mApi: ApiService = RetrofitManager.instance.apiService
 
     override fun destroy() {
 

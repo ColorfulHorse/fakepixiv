@@ -2,7 +2,7 @@ package com.lyj.fakepivix.module.main
 
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
-import com.lyj.fakepivix.app.data.source.UserRepository
+import com.lyj.fakepivix.app.data.source.remote.UserRepository
 
 /**
  * @author greensun

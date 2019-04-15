@@ -1,15 +1,13 @@
 package com.lyj.fakepivix.module.login.login
 
-import android.arch.lifecycle.LifecycleOwner
 import android.databinding.Bindable
 import android.databinding.ObservableField
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.app.base.BaseViewModel
-import com.lyj.fakepivix.app.data.source.UserRepository
+import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.reactivex.schedulerTransformer
-import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 
 /**

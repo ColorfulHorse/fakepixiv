@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationActivity
-import com.lyj.fakepivix.app.data.source.UserRepository
+import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import com.lyj.fakepivix.app.reactivex.schedulerTransformer
 import com.lyj.fakepivix.app.utils.SPUtil
 import com.lyj.fakepivix.app.utils.startActivity

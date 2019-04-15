@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 主页排行榜item -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="com.lyj.fakepivix.app.data.model.response.SpotlightArticle"/>
+        <variable
+            name="data"
+            type="SpotlightArticle"/>
+    </data>
+    <android.support.v7.widget.CardView
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+            <View
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/colorPrimary"
+                />
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:scaleType="centerCrop"
+                android:layout_below="@id/header"
+                />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/image"
+                android:layout_alignBottom="@id/image"
+                android:layout_alignStart="@id/image"
+                android:layout_alignEnd="@id/image"
+                >
+
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:textSize="12sp"
+                android:minLines="2"
+                android:maxLines="2"
+                android:padding="8dp"
+                android:textColor="#ff676767"
+                android:layout_below="@id/image"
+                />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</layout>

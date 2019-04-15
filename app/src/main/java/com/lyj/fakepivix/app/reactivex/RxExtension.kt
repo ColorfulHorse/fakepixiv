@@ -1,6 +1,6 @@
 package com.lyj.fakepivix.app.reactivex
 
-import com.lyj.fakepivix.app.data.source.UserRepository
+import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import com.lyj.fakepivix.app.network.ApiException
 import com.lyj.fakepivix.app.utils.SPUtil
 import io.reactivex.Observable

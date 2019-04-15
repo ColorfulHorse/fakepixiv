@@ -12,6 +12,7 @@ import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
+import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.base.FragmentationActivity
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.utils.dp2px
@@ -67,14 +68,14 @@ class LoginActivity : FragmentationActivity<ActivityLoginBinding, WallpaperViewM
                 recyclerView.addItemDecoration(
                         CommonItemDecoration.Builder()
                                 .draw(false)
-                                .verticalWidth(dp2px(3.5f))
+                                .verticalWidth(3.5f.dp2px())
                                 .build())
                 adapter.bindToRecyclerView(recyclerView)
 
                 recyclerView.setItemViewCacheSize(0)
                 // 回收时取消
                 recyclerView.setRecyclerListener {
-                    val holder = it as BaseBindingAdapter.BaseBindingViewHolder<ItemWallpaperBinding>
+                    val holder = it as BaseBindingViewHolder<ItemWallpaperBinding>
                     if (holder.binding != null) {
                         GlideApp.with(this@LoginActivity).clear(holder.binding.img)
                     }

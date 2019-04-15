@@ -2,7 +2,10 @@
 <!-- 主页排行榜item -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-
+        <import type="com.lyj.fakepivix.app.data.model.response.Live"/>
+        <variable
+            name="data"
+            type="Live"/>
     </data>
     <android.support.v7.widget.CardView
         android:layout_width="wrap_content"

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 主页排行榜item -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="com.lyj.fakepivix.app.data.model.response.Illust"/>
+        <variable
+            name="illust"
+            type="Illust"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <com.lyj.fakepivix.widget.RecImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#4D000000"
+            android:padding="5dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:drawableStart="@drawable/ic_thumbnail_multiple"
+            android:drawablePadding="2dp"
+            android:textColor="@color/white"
+            android:layout_alignEnd="@id/image"
+            android:layout_alignTop="@id/image"
+            android:visibility="gone"
+            />
+        <ImageView
+            android:id="@+id/like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_button_like"
+            android:layout_alignEnd="@id/image"
+            android:layout_alignBottom="@id/image"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="16dp"
+            />
+    </RelativeLayout>
+</layout>

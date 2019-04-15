@@ -1,7 +1,7 @@
 package com.lyj.fakepivix.app.network.retrofit
 
 import com.lyj.fakepivix.app.constant.Constant
-import com.lyj.fakepivix.app.data.source.UserRepository
+import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import okhttp3.Interceptor
 import okhttp3.Response
 

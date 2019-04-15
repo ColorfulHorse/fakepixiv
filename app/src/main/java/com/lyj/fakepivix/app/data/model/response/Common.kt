@@ -15,8 +15,9 @@ data class IllustListResp(
         val illusts: List<Illust> = listOf(),
         val next_url: String = "",
         val privacy_policy: PrivacyPolicy = PrivacyPolicy(),
-        val ranking_illusts: List<RankingIllust> = listOf()
+        val ranking_illusts: List<Illust> = listOf()
 )
+
 
 data class Illust (
         val caption: String = "",

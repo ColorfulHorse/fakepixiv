@@ -14,6 +14,7 @@ import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
+import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.utils.mapUrl
 import com.lyj.fakepivix.databinding.ItemWallpaperBinding
@@ -23,13 +24,13 @@ import com.lyj.fakepivix.databinding.ItemWallpaperBinding
  *
  * @date 2019/3/24
  *
- * @desc
+ * @desc 登录页图片墙adapter
  */
 class WallpaperAdapter(data: ObservableList<Illust>, val readyCallback: (() -> Unit)) : BaseBindingAdapter<Illust, ItemWallpaperBinding>(R.layout.item_wallpaper, data, BR.illust), ListPreloader.PreloadModelProvider<Illust> {
     var start = -1
     var end = -1
     private val map = mutableMapOf<Int, Boolean>()
-    override fun convert(helper: BaseBindingAdapter.BaseBindingViewHolder<ItemWallpaperBinding>, item: Illust) {
+    override fun convert(helper: BaseBindingViewHolder<ItemWallpaperBinding>, item: Illust) {
 
         helper.binding?.let {
             var request = GlideApp.with(mContext)

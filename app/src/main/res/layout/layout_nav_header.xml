@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:text="北野青阳"
+                    android:text="@{user.name}"
                     android:maxLines="1"
                     android:ellipsize="end"
                     />

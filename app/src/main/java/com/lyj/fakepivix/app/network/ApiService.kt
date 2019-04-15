@@ -4,6 +4,7 @@ package com.lyj.fakepivix.app.network
 import com.lyj.fakepivix.app.constant.Constant
 import com.lyj.fakepivix.app.data.model.response.IllustListResp
 import com.lyj.fakepivix.app.data.model.response.LoginResp
+import com.lyj.fakepivix.app.network.retrofit.SwitchBaseUrlInterceptor
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -36,6 +37,8 @@ interface ApiService {
 
     /**
      * 登录
+     * header 用于切换baseUrl[SwitchBaseUrlInterceptor]
+     * [grantType] 登录方式，账号密码或refreshToken登录二选一
      */
     @Headers("SWITCH-HEADER:TAG_AUTH")
     @POST("/auth/token")
@@ -44,4 +47,20 @@ interface ApiService {
               @Field("get_secure_url")get_secure_url: Boolean = true, @Field("include_policy")include_policy: Boolean = true, @Field("grant_type")grantType: String = Constant.Net.GRANT_TYPE_PWD,
               @Field("username")userName: String = "", @Field("password")password: String = "", @Field("device_token")deviceToken: String = "", @Field("refresh_token")refreshToken: String = ""): Observable<LoginResp>
 
+    /**
+     * 主页插画
+     */
+    @GET("/v1/illust/recommended")
+    fun getIllustRecommendData(@Query("filter") filter: String = "for_android", @Query("include_ranking_illusts") ranking: Boolean = true,
+                               @Query("include_privacy_policy") privacy: Boolean = true): Observable<IllustListResp>
+
+    /**
+     * 主页直播
+     */
+    fun getIllustLiveData()
+
+    /**
+     * 主页特辑
+     */
+    fun getIllustPixivisionData()
 }

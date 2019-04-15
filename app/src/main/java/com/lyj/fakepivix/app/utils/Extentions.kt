@@ -9,7 +9,7 @@ import android.support.v4.content.ContextCompat.startActivity
 import android.view.inputmethod.InputMethodManager
 import com.bumptech.glide.load.model.GlideUrl
 import android.view.WindowManager
-
+import com.lyj.fakepivix.app.App
 
 
 /**
@@ -19,14 +19,14 @@ import android.view.WindowManager
  *
  * @desc
  */
-fun Context.px2dp(value: Float): Int {
-    val scale =  resources.displayMetrics.density
-    return (value/scale+0.5f).toInt()
+fun Number.px2dp(): Int {
+    val scale =  App.context.resources.displayMetrics.density
+    return (toFloat()/scale+0.5f).toInt()
 }
 
-fun Context.dp2px(value: Float): Int {
-    val scale =  resources.displayMetrics.density
-    return (value*scale+0.5f).toInt()
+fun Number.dp2px(): Int {
+    val scale =  App.context.resources.displayMetrics.density
+    return (toFloat()*scale+0.5f).toInt()
 }
 
 fun Activity.statusBarColor(color: Int) {

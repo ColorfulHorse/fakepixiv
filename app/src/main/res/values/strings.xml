@@ -43,4 +43,5 @@
     <string name="read_more">查看更多</string>
     <string name="title_live">人气直播</string>
     <string name="tag_live">LIVE</string>
+    <string name="title_recommend">为你推荐</string>
 </resources>
