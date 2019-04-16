@@ -4,6 +4,9 @@ import android.databinding.ObservableArrayList
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.data.model.response.SpotlightArticle
+import com.lyj.fakepivix.app.data.source.remote.PixivisionRepository
+import com.lyj.fakepivix.app.network.LoadState
+import io.reactivex.rxkotlin.subscribeBy
 
 /**
  * @author greensun
@@ -17,7 +20,19 @@ class PixivisionViewModel : BaseViewModel<IModel?>() {
 
     val data = ObservableArrayList<SpotlightArticle>()
 
+    var loadState: LoadState = LoadState.Idle
+
     fun load() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val disposable = PixivisionRepository.instance
+                .loadRecommend()
+                .doOnSubscribe{ loadState = LoadState.Loading }
+                .subscribeBy(onNext = {
+                    loadState = LoadState.Succeed
+                    data.clear()
+                    data.addAll(it)
+                }, onError = {
+                    loadState = LoadState.Failed(it)
+                })
+        addDisposable(disposable)
     }
 }

@@ -1,16 +1,10 @@
 package com.lyj.fakepivix.app.adapter
 
-import android.databinding.DataBindingUtil
 import android.databinding.ObservableList
 import android.databinding.ViewDataBinding
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
-import android.view.View
-import android.view.ViewGroup
-import com.bumptech.glide.Glide.init
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
-import com.lyj.fakepivix.R.id.recyclerView
 
 /**
  * @author greensun

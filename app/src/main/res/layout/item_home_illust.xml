@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 主页排行榜item -->
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <import type="com.lyj.fakepivix.app.data.model.response.Illust"/>
         <variable
@@ -14,7 +15,10 @@
         <com.lyj.fakepivix.widget.RecImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            app:url="@{illust.image_urls.square_medium}"
+            />
         <TextView
             android:id="@+id/count"
             android:layout_width="wrap_content"
@@ -28,13 +32,14 @@
             android:textColor="@color/white"
             android:layout_alignEnd="@id/image"
             android:layout_alignTop="@id/image"
-            android:visibility="gone"
+            android:text="@{String.valueOf(illust.page_count)}"
+            android:visibility="@{illust.page_count>1}"
             />
         <ImageView
             android:id="@+id/like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_button_like"
+            android:src="@{illust._bookmarked?@drawable/ic_button_liked:@drawable/ic_button_like}"
             android:layout_alignEnd="@id/image"
             android:layout_alignBottom="@id/image"
             android:layout_marginEnd="10dp"

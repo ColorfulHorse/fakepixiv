@@ -12,7 +12,9 @@ import com.lyj.fakepivix.app.adapter.BaseMultiBindingAdapter
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationFragment;
 import com.lyj.fakepivix.app.entity.TabBean
+import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.*
+import com.lyj.fakepivix.widget.CommonItemDecoration
 
 
 /**
@@ -44,6 +46,10 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
             initHeader()
             recyclerView.layoutManager = layoutManager
             recyclerView.adapter = mAdapter
+            recyclerView.addItemDecoration(CommonItemDecoration.Builder()
+                    .draw(false)
+                    .verticalWidth(3.5f.dp2px())
+                    .build())
         }
     }
 
@@ -54,9 +60,9 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
         rankHeader = RankHeader(context, mViewModel.rankViewModel)
         liveHeader = LiveHeader(context, mViewModel.liveViewModel)
         pixivisionHeader = PixivisionHeader(context, mViewModel.pixivisionViewModel)
-        mAdapter.addHeaderView(title)
-        mAdapter.addHeaderView(liveHeader.mBinding?.root)
         mAdapter.addHeaderView(rankHeader.mBinding?.root)
+        mAdapter.addHeaderView(liveHeader.mBinding?.root)
+        //mAdapter.addHeaderView(title)
         mAdapter.addHeaderView(pixivisionHeader.mBinding?.root, 10)
     }
 

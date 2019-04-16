@@ -20,20 +20,23 @@ import com.lyj.fakepivix.app.utils.mapUrl
 
 @BindingAdapter(value = ["url", "placeHolder", "error", "circle"], requireAll = false)
 fun ImageView.url(url: String?, placeHolder: Drawable?, error: Drawable?, circle: Boolean = false) {
+
     url?.let {
-        val req = GlideApp.with(this)
-                .load(url.mapUrl())
-        val options = RequestOptions()
-        placeHolder?.let {
-            options.placeholder(placeHolder)
+        if (url.isNotEmpty()) {
+            val req = GlideApp.with(this)
+                    .load(url.mapUrl())
+            val options = RequestOptions()
+            placeHolder?.let {
+                options.placeholder(placeHolder)
+            }
+            error?.let {
+                options.error(error)
+            }
+            if (circle) {
+                options.circleCrop()
+            }
+            req.apply(options).into(this)
         }
-        error?.let {
-            options.error(error)
-        }
-        if (circle) {
-            options.circleCrop()
-        }
-        req.apply(options).into(this)
     }
 }
 

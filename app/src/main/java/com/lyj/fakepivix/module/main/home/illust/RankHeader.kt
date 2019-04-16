@@ -3,6 +3,7 @@ package com.lyj.fakepivix.module.main.home.illust
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.PagerSnapHelper
 import android.view.LayoutInflater
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
@@ -36,9 +37,10 @@ class RankHeader(val context: Context?, val viewModel: RankViewModel) {
                 recyclerView.layoutManager = layoutManager
                 recyclerView.addItemDecoration(CommonItemDecoration.Builder()
                         .draw(false)
-                        .edge(false)
+                        .edge(16.dp2px(), 5.dp2px())
                         .horizontalWidth(10.dp2px())
                         .build())
+                PagerSnapHelper().attachToRecyclerView(recyclerView)
                 recyclerView.adapter = adapter
             }
         }

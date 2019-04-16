@@ -3,6 +3,8 @@ package com.lyj.fakepivix.module.main.home.illust
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.PagerSnapHelper
+import android.support.v7.widget.SnapHelper
 import android.view.LayoutInflater
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
@@ -26,7 +28,7 @@ class LiveHeader(val context: Context?, val viewModel: LiveViewModel) {
 
     val mBinding: HeaderLiveBinding? = DataBindingUtil.bind(rootView)
 
-    val adapter: BaseBindingAdapter<Live, ItemHomeLiveBinding> = BaseBindingAdapter(R.layout.item_home_rank_illust, viewModel.data, BR.data)
+    val adapter: BaseBindingAdapter<Live, ItemHomeLiveBinding> = BaseBindingAdapter(R.layout.item_home_live, viewModel.data, BR.data)
 
     init {
         if (mBinding != null) {
@@ -36,9 +38,10 @@ class LiveHeader(val context: Context?, val viewModel: LiveViewModel) {
                 recyclerView.layoutManager = layoutManager
                 recyclerView.addItemDecoration(CommonItemDecoration.Builder()
                         .draw(false)
-                        .edge(false)
+                        .edge(16.dp2px(), 5.dp2px())
                         .horizontalWidth(10.dp2px())
                         .build())
+                PagerSnapHelper().attachToRecyclerView(recyclerView)
                 recyclerView.adapter = adapter
             }
         }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 主页排行榜item -->
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <import type="com.lyj.fakepivix.app.data.model.response.Live"/>
         <variable
@@ -21,6 +22,7 @@
                 android:layout_height="180dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
+                app:url="@{data.thumbnail_image_url}"
                 />
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -44,6 +46,9 @@
                         android:layout_width="10dp"
                         android:layout_height="10dp"
                         android:scaleType="centerCrop"
+                        app:url="@{data.owner.user.profile_image_urls.medium}"
+                        app:circle="@{true}"
+                        app:placeHolder="@{@drawable/no_profile}"
                         />
                     <TextView
                         android:id="@+id/members"
@@ -54,6 +59,7 @@
                         android:textSize="12sp"
                         android:textColor="@color/white"
                         android:layout_marginStart="5dp"
+                        android:text="@{String.valueOf(data.member_count)}"
                         />
                     <TextView
                         android:id="@+id/views"
@@ -64,6 +70,7 @@
                         android:textSize="12sp"
                         android:textColor="@color/white"
                         android:layout_marginStart="5dp"
+                        android:text="@{String.valueOf(data.total_audience_count)}"
                         />
                 </LinearLayout>
                 <TextView
@@ -75,6 +82,7 @@
                     android:layout_above="@+id/container_user"
                     android:textStyle="bold"
                     android:layout_marginBottom="8dp"
+                    android:text="@{data.name}"
                     />
 
                 <ImageView
@@ -88,7 +96,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_below="@+id/play"
                     android:layout_alignStart="@+id/play"
                     android:layout_alignEnd="@+id/play"

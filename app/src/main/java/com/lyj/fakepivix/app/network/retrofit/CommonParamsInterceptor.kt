@@ -17,7 +17,7 @@ class CommonParamsInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val oldReq = chain.request()
         val url = oldReq.url().toString()
-        if (Constant.Net.BASE_URL == url) {
+        if (url.contains(Constant.Net.BASE_URL)) {
             val token = UserRepository.instance.accessToken
             token?.let {
                 val newReq =  oldReq.newBuilder()

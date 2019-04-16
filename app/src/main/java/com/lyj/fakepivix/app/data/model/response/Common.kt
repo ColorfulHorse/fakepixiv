@@ -23,7 +23,7 @@ data class Illust (
         val caption: String = "",
         val create_date: String = "",
         val height: Int = 0,
-        val id: Int = 0,
+        val id: Long = 0,
         val image_urls: ImageUrls = ImageUrls(),
         val is_bookmarked: Boolean = false,
         val is_muted: Boolean = false,
@@ -61,6 +61,7 @@ data class User(
         val is_premium: Boolean = false,
         val mail_address: String = "",
         val name: String = "",
+        val is_followed: Boolean = false,
         val profile_image_urls: ProfileImageUrls = ProfileImageUrls(),
         val require_policy_agreement: Boolean = false,
         val x_restrict: Int = 0
@@ -69,7 +70,8 @@ data class User(
 data class ProfileImageUrls(
         val px_16x16: String = "",
         val px_170x170: String = "",
-        val px_50x50: String = ""
+        val px_50x50: String = "",
+        val medium: String = ""
 )
 
 data class MetaSinglePage(

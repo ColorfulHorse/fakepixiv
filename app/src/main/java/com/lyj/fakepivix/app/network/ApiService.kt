@@ -4,6 +4,8 @@ package com.lyj.fakepivix.app.network
 import com.lyj.fakepivix.app.constant.Constant
 import com.lyj.fakepivix.app.data.model.response.IllustListResp
 import com.lyj.fakepivix.app.data.model.response.LoginResp
+import com.lyj.fakepivix.app.data.model.response.RankLiveResp
+import com.lyj.fakepivix.app.data.model.response.SpotLightResp
 import com.lyj.fakepivix.app.network.retrofit.SwitchBaseUrlInterceptor
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -58,11 +60,11 @@ interface ApiService {
      * 主页直播
      */
     @GET("/v1/live/list")
-    fun getIllustLiveData(@Query("list_type") type: String = "popular")
+    fun getIllustLiveData(@Query("list_type") type: String = "popular"): Observable<RankLiveResp>
 
     /**
      * 主页特辑
      */
     @GET("/v1/spotlight/articles")
-    fun getIllustPixivisionData(@Query("filter") filter: String = "for_android", @Query("category") category: String = "all")
+    fun getIllustPixivisionData(@Query("filter") filter: String = "for_android", @Query("category") category: String = "all"): Observable<SpotLightResp>
 }

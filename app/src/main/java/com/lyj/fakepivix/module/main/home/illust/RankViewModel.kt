@@ -16,4 +16,9 @@ class RankViewModel : BaseViewModel<IModel?>() {
     override val mModel: IModel? = null
 
     val data = ObservableArrayList<Illust>()
+
+    fun onData(list: List<Illust>) {
+        data.clear()
+        data.addAll(list)
+    }
 }

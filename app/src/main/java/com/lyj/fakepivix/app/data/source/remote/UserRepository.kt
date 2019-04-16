@@ -29,7 +29,7 @@ class UserRepository private constructor(){
                 .login(userName = userName, password = password)
                 .map { it.response }
                 .doOnNext {
-                    accessToken = "${it.token_type} ${it.access_token}"
+                    accessToken = "Bearer ${it.access_token}"
                     loginData = it
                     SPUtil.saveLoginData(it)
                 }
@@ -47,7 +47,7 @@ class UserRepository private constructor(){
                     .login(grantType = Constant.Net.GRANT_TYPE_TOKEN, refreshToken = refresh_token, deviceToken = device_token)
                     .map { it.response }
                     .doOnNext {
-                        accessToken = "${it.token_type} ${it.access_token}"
+                        accessToken = "Bearer ${it.access_token}"
                         loginData = it
                         SPUtil.saveLoginData(it)
                     }

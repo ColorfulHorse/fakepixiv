@@ -97,7 +97,7 @@ data class SpotLightResp(
 data class SpotlightArticle(
     val article_url: String = "",
     val category: String = "",
-    val id: Int = 0,
+    val id: Long = 0,
     val publish_date: String = "",
     val pure_title: String = "",
     val subcategory_label: String = "",

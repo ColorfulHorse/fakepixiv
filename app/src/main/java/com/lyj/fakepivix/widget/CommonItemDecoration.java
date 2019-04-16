@@ -21,13 +21,15 @@ import android.view.View;
 public class CommonItemDecoration extends RecyclerView.ItemDecoration {
     private static final String TAG = CommonItemDecoration.class.getSimpleName();
 
-    // 水平间隔
-    private int hWidth = -1;
-    // 竖直间隔
-    private int vWidth = -1;
+    // 水平排列的间隔
+    private int hWidth;
+    // 竖直排列的间隔
+    private int vWidth;
     private Paint paint;
     private @ColorInt int color;
     private boolean draw = false;
+    private int hEdge;
+    private int vEdge;
     // 是否需要边缘间隔
     private boolean edge = true;
 
@@ -74,6 +76,15 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
     public void setEdge(boolean edge) {
         this.edge = edge;
     }
+    
+
+    public void sethEdge(int hEdge) {
+        this.hEdge = hEdge;
+    }
+
+    public void setvEdge(int vEdge) {
+        this.vEdge = vEdge;
+    }
 
     public void setColor(int color) {
         this.color = color;
@@ -114,8 +125,9 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
             return this;
         }
 
-        public Builder edge(boolean isEdge) {
-            itemDecoration.setEdge(isEdge);
+        public Builder edge(int h, int v) {
+            itemDecoration.sethEdge(h);
+            itemDecoration.setvEdge(v);
             return this;
         }
 
@@ -126,8 +138,8 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        int vWidth = this.vWidth!=-1?this.vWidth:this.hWidth;
-        int hWidth = this.hWidth!=-1?this.hWidth:this.vWidth;
+        int vWidth = this.vWidth>0?this.vWidth:this.hWidth;
+        int hWidth = this.hWidth>0?this.hWidth:this.vWidth;
         RecyclerView.LayoutManager manager = parent.getLayoutManager();
         int size = parent.getAdapter().getItemCount();
         int position = parent.getChildAdapterPosition(view);
@@ -164,20 +176,35 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
                 //Log.e(TAG, "position:"+position+"=====itemCount:"+itemCount);
                 Log.e(TAG, "position:"+position+"=====mainSize:"+mainSize);
 
-                if (spanIndex < itemCount - 1) {
-                    // 不是该行最后一个
+                if (spanIndex == 0) {
+                    // 是该行/列第一个
                     if (isVertical) {
-                        outRect.right = hWidth!=-1?hWidth:vWidth;
+                        outRect.left = hEdge;
+                        outRect.right = hWidth;
                     }else {
-                        outRect.bottom = vWidth!=-1?vWidth:hWidth;
+                        outRect.top = vEdge;
+                        outRect.bottom = vWidth;
                     }
-                }else {
+                } else if (spanIndex < itemCount - 1) {
+                    // 不是该行/列最后一个
+                    if (isVertical) {
+                        outRect.right = hWidth;
+                    }else {
+                        outRect.bottom = vWidth;
+                    }
+                } else {
                     if (mainSize < spanCount) {
-                        // 是该行最后一个，但没有占满
+                        // 是该行/列最后一个，但没有占满
                         if (isVertical) {
-                            outRect.right = hWidth!=-1?hWidth:vWidth;
+                            outRect.right = hWidth;
                         }else {
-                            outRect.bottom = vWidth!=-1?vWidth:hWidth;
+                            outRect.bottom = vWidth;
+                        }
+                    }else {
+                        if (isVertical) {
+                            outRect.right = hEdge;
+                        }else {
+                            outRect.bottom = vEdge;
                         }
                     }
                 }
@@ -186,42 +213,45 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
                 int distance = itemCount - 1 - spanIndex;
                 int lastPos = position + distance;
                 if (lastPos < size - 1) {
-                    // 不是最后一行
+                    // 不是最后一行/列
                     if (isVertical) {
-                        outRect.bottom = vWidth!=-1?vWidth:hWidth;
+                        outRect.bottom = vWidth;
                     }else {
-                        outRect.right = hWidth!=-1?hWidth:vWidth;
+                        outRect.right = hWidth;
+                    }
+                }else {
+                    // 是最后一行要加边缘
+                    if (isVertical) {
+                        outRect.bottom = vEdge;
+                    }else {
+                        outRect.right = hEdge;
                     }
                 }
                 return;
             }
             // linear
             if (isVertical) {
-                if (!edge) {
-                    if (position < size-1) {
-                        outRect.bottom = vWidth!=-1?vWidth:hWidth;
-                    }
+                if (position == 0) {
+                    outRect.top = vEdge;
+                    outRect.bottom = vWidth;
+                }else if (position == size - 1){
+                    outRect.bottom = vEdge;
                 }else {
-                    if (position == 0) {
-                        outRect.top = vWidth!=-1?vWidth:hWidth;
-                    }
-                    outRect.bottom = vWidth!=-1?vWidth:hWidth;
-                    outRect.left = hWidth!=-1?hWidth:vWidth;
-                    outRect.right = hWidth!=-1?hWidth:vWidth;
+                    outRect.bottom = vWidth;
                 }
+                outRect.left = hEdge;
+                outRect.right = hEdge;
             }else {
-                if (!edge) {
-                    if (position < size-1) {
-                        outRect.right = hWidth!=-1?hWidth:vWidth;
-                    }
+                if (position == 0) {
+                    outRect.left = hEdge;
+                    outRect.right = hWidth;
+                }else if (position == size - 1){
+                    outRect.right = hEdge;
                 }else {
-                    if (position == 0) {
-                        outRect.left = hWidth!=-1?hWidth:vWidth;
-                    }
-                    outRect.right = hWidth!=-1?hWidth:vWidth;
-                    outRect.top = vWidth!=-1?vWidth:hWidth;
-                    outRect.bottom = vWidth!=-1?vWidth:hWidth;
+                    outRect.right = hWidth;
                 }
+                outRect.top = vEdge;
+                outRect.bottom = vEdge;
             }
         }
     }
@@ -229,8 +259,8 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
         if (draw) {
-            int vWidth = this.vWidth!=-1?this.vWidth:this.hWidth;
-            int hWidth = this.hWidth!=-1?this.hWidth:this.vWidth;
+            int vWidth = this.vWidth>0?this.vWidth:this.hWidth;
+            int hWidth = this.hWidth>0?this.hWidth:this.vWidth;
             int left, top, right, bottom;
             RecyclerView.LayoutManager manager = parent.getLayoutManager();
             int size = parent.getAdapter().getItemCount();
