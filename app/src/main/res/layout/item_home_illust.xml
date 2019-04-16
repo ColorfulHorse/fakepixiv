@@ -15,7 +15,7 @@
         <com.lyj.fakepivix.widget.RecImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:scaleType="centerCrop"
             app:url="@{illust.image_urls.square_medium}"
             />

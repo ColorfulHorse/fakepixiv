@@ -50,7 +50,7 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     public void sethWidth(int hWidth) {
-        this.hWidth = hWidth;
+        this.hWidth = hWidth/2*2;
     }
 
     public int getvWidth() {
@@ -58,7 +58,7 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     public void setvWidth(int vWidth) {
-        this.vWidth = vWidth;
+        this.vWidth = vWidth/2*2;
     }
 
     public Paint getPaint() {
@@ -79,11 +79,11 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
     
 
     public void sethEdge(int hEdge) {
-        this.hEdge = hEdge;
+        this.hEdge = hEdge*2/2;
     }
 
     public void setvEdge(int vEdge) {
-        this.vEdge = vEdge;
+        this.vEdge = vEdge*2/2;
     }
 
     public void setColor(int color) {
@@ -140,6 +140,8 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         int vWidth = this.vWidth>0?this.vWidth:this.hWidth;
         int hWidth = this.hWidth>0?this.hWidth:this.vWidth;
+        if (vWidth == 0 && hWidth == 0)
+            return;
         RecyclerView.LayoutManager manager = parent.getLayoutManager();
         int size = parent.getAdapter().getItemCount();
         int position = parent.getChildAdapterPosition(view);
@@ -180,32 +182,38 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
                     // 是该行/列第一个
                     if (isVertical) {
                         outRect.left = hEdge;
-                        outRect.right = hWidth;
+                        outRect.right = hWidth/2;
                     }else {
                         outRect.top = vEdge;
-                        outRect.bottom = vWidth;
+                        outRect.bottom = vWidth/2;
                     }
-                } else if (spanIndex < itemCount - 1) {
-                    // 不是该行/列最后一个
-                    if (isVertical) {
-                        outRect.right = hWidth;
-                    }else {
-                        outRect.bottom = vWidth;
-                    }
-                } else {
+                } else if (spanIndex == itemCount - 1) {
                     if (mainSize < spanCount) {
                         // 是该行/列最后一个，但没有占满
                         if (isVertical) {
+                            outRect.left = hWidth/2;
                             outRect.right = hWidth;
                         }else {
+                            outRect.top = vWidth/2;
                             outRect.bottom = vWidth;
                         }
                     }else {
                         if (isVertical) {
+                            outRect.left = hWidth/2;
                             outRect.right = hEdge;
                         }else {
+                            outRect.top = vWidth/2;
                             outRect.bottom = vEdge;
                         }
+                    }
+                } else {
+                    // 中间列
+                    if (isVertical) {
+                        outRect.left = hWidth/2;
+                        outRect.right = hWidth/2;
+                    }else {
+                        outRect.top = vWidth/2;
+                        outRect.bottom = vWidth/2;
                     }
                 }
 

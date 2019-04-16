@@ -57,7 +57,7 @@ class LoginActivity : FragmentationActivity<ActivityLoginBinding, WallpaperViewM
                         super.onScrollStateChanged(recyclerView, newState)
                         if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                             val view = recyclerView.getChildAt(recyclerView.childCount-1)
-                            if (view.bottom != recyclerView.bottom) {
+                            if (view.bottom < recyclerView.bottom) {
                                 recyclerView.smoothScrollBy(0, 20, LinearInterpolator())
                             }
                         }
