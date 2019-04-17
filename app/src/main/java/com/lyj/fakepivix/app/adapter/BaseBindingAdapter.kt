@@ -22,6 +22,7 @@ open class BaseBindingAdapter<T, VB : ViewDataBinding>(@LayoutRes layoutId: Int,
             }
 
             override fun onItemRangeRemoved(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
+
                 notifyItemRangeRemoved(positionStart + headerLayoutCount, itemCount)
             }
 
@@ -35,6 +36,10 @@ open class BaseBindingAdapter<T, VB : ViewDataBinding>(@LayoutRes layoutId: Int,
 
             override fun onItemRangeInserted(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
                 notifyItemRangeInserted(positionStart + headerLayoutCount, itemCount)
+                val dataSize = if (mData == null) 0 else mData.size
+                if (dataSize == itemCount) {
+                    notifyDataSetChanged()
+                }
             }
 
             override fun onItemRangeChanged(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
