@@ -23,13 +23,7 @@
             android:id="@+id/count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#4D000000"
-            android:padding="5dp"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:drawableStart="@drawable/ic_thumbnail_multiple"
-            android:drawablePadding="2dp"
-            android:textColor="@color/white"
+            style="@style/Count_Tag"
             android:layout_alignEnd="@id/image"
             android:layout_alignTop="@id/image"
             android:text="@{String.valueOf(illust.page_count)}"
@@ -37,13 +31,12 @@
             />
         <ImageView
             android:id="@+id/like"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:scaleType="centerInside"
             android:src="@{illust._bookmarked?@drawable/ic_button_liked:@drawable/ic_button_like}"
             android:layout_alignEnd="@id/image"
             android:layout_alignBottom="@id/image"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="16dp"
             />
     </RelativeLayout>
 </layout>

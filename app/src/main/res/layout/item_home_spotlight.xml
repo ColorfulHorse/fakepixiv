@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 主页排行榜item -->
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <import type="com.lyj.fakepivix.app.data.model.response.SpotlightArticle"/>
         <variable
@@ -10,6 +11,8 @@
     <android.support.v7.widget.CardView
         android:layout_width="240dp"
         android:layout_height="wrap_content"
+        app:cardPreventCornerOverlap="true"
+        app:cardCornerRadius="4dp"
         >
         <RelativeLayout
             android:layout_width="wrap_content"

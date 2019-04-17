@@ -4,6 +4,7 @@ import android.databinding.ObservableList
 import android.databinding.ViewDataBinding
 import android.support.annotation.LayoutRes
 import android.util.SparseIntArray
+import android.view.View
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.entity.MultiItemEntity
 
@@ -25,23 +26,23 @@ open class BaseMultiBindingAdapter<T : MultiItemEntity>(data: ObservableList<T>)
             }
 
             override fun onItemRangeRemoved(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
-                notifyItemRangeRemoved(positionStart, itemCount)
+                notifyItemRangeRemoved(positionStart + headerLayoutCount, itemCount)
             }
 
             override fun onItemRangeMoved(sender: ObservableList<T>?, fromPosition: Int, toPosition: Int, itemCount: Int) {
                 if (itemCount == 1) {
-                    notifyItemMoved(fromPosition, toPosition)
+                    notifyItemMoved(fromPosition + headerLayoutCount, toPosition + headerLayoutCount)
                 }else {
                     notifyDataSetChanged()
                 }
             }
 
             override fun onItemRangeInserted(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
-                notifyItemRangeInserted(positionStart, itemCount)
+                notifyItemRangeInserted(positionStart + headerLayoutCount, itemCount)
             }
 
             override fun onItemRangeChanged(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
-                notifyItemRangeChanged(positionStart, itemCount)
+                notifyItemRangeChanged(positionStart + headerLayoutCount, itemCount)
             }
 
         })
@@ -50,9 +51,11 @@ open class BaseMultiBindingAdapter<T : MultiItemEntity>(data: ObservableList<T>)
     /**
      * [variableId] layout中变量对应的BR.xxx id
      */
-    fun addItemType(type: Int, @LayoutRes layoutResId: Int, variableId: Int) {
+    fun addItemType(type: Int, @LayoutRes layoutResId: Int, variableId: Int?) {
         addItemType(type, layoutResId)
-        variableIds.put(type, variableId)
+        variableId?.let {
+            variableIds.put(type, variableId)
+        }
     }
 
 
@@ -61,6 +64,10 @@ open class BaseMultiBindingAdapter<T : MultiItemEntity>(data: ObservableList<T>)
         if (id != -1) {
             helper.binding?.setVariable(id, item)
         }
+    }
+
+    override fun createBaseViewHolder(view: View): BaseBindingViewHolder<ViewDataBinding> {
+        return BaseBindingViewHolder(view)
     }
 
 }

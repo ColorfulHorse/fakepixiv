@@ -46,6 +46,7 @@ data class Illust (
 ): MultiItemEntity {
     companion object {
         const val TYPE_ILLUST = 1
+        const val TYPE_PIXIVISION = 2
     }
 
     override fun getItemType(): Int = when(type) {

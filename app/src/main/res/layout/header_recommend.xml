@@ -10,8 +10,8 @@
     android:text="@string/title_recommend"
     android:drawableStart="@drawable/ic_home_recommended"
     android:drawablePadding="5dp"
-    android:layout_marginTop="16dp"
-    android:layout_marginBottom="10dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="10dp"
     >
 
 </TextView>

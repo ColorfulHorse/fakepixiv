@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
+import android.view.View
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseMultiBindingAdapter
@@ -41,7 +42,13 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
 
     override fun init(savedInstanceState: Bundle?) {
         layoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
-        mAdapter = HomeIllustAdapter(mViewModel.data)
+
+        val pixivisionViewModel = PixivisionViewModel()
+        lifecycle.addObserver(pixivisionViewModel)
+        // 特辑列表
+        pixivisionHeader = PixivisionHeader(context, pixivisionViewModel)
+        mAdapter = HomeIllustAdapter(mViewModel.data, pixivisionHeader)
+        mAdapter.emptyView = layoutInflater.inflate(R.layout.layout_common_loading, null)
         with(mBinding) {
             initHeader()
             recyclerView.layoutManager = layoutManager
@@ -56,14 +63,14 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
     private fun initHeader() {
         val title = layoutInflater.inflate(R.layout.header_recommend, null)
         lifecycle.addObserver(mViewModel.liveViewModel)
-        lifecycle.addObserver(mViewModel.pixivisionViewModel)
+        //lifecycle.addObserver(mViewModel.pixivisionViewModel)
         rankHeader = RankHeader(context, mViewModel.rankViewModel)
         liveHeader = LiveHeader(context, mViewModel.liveViewModel)
-        pixivisionHeader = PixivisionHeader(context, mViewModel.pixivisionViewModel)
+       // pixivisionHeader = PixivisionHeader(context, mViewModel.pixivisionViewModel)
         mAdapter.addHeaderView(rankHeader.mBinding?.root)
         mAdapter.addHeaderView(liveHeader.mBinding?.root)
-        //mAdapter.addHeaderView(title)
-        mAdapter.addHeaderView(pixivisionHeader.mBinding?.root, 10)
+        mAdapter.addHeaderView(title)
+        //mAdapter.addHeaderView(pixivisionHeader.mBinding?.root, 10)
     }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {

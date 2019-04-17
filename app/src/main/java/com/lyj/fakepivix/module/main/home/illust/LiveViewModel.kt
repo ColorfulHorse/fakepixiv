@@ -35,4 +35,9 @@ class LiveViewModel : BaseViewModel<IModel?>() {
                 })
         addDisposable(disposable)
     }
+
+    fun onData(lives: List<Live>) {
+        data.clear()
+        data.addAll(lives)
+    }
 }

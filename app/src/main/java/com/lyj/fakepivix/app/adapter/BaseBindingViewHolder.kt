@@ -6,5 +6,12 @@ import android.view.View
 import com.chad.library.adapter.base.BaseViewHolder
 
 open class BaseBindingViewHolder<VB : ViewDataBinding>(view: View) : BaseViewHolder(view) {
-    val binding: VB? = DataBindingUtil.bind(view)
+    val binding: VB? = let {
+        try {
+            DataBindingUtil.bind(view)
+        }catch (e: IllegalArgumentException) {
+            null
+        }
+    }
+
 }
