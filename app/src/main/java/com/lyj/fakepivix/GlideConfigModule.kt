@@ -36,6 +36,7 @@ class GlideConfigModule : AppGlideModule() {
             .Builder()
             .connectTimeout(RetrofitManager.TIME_OUT, TimeUnit.SECONDS)
             .readTimeout(RetrofitManager.TIME_OUT, TimeUnit.SECONDS)
+            .addInterceptor(LoggerInterceptor())
             .build()
 
     override fun applyOptions(context: Context, builder: GlideBuilder) {

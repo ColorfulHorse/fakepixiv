@@ -37,7 +37,7 @@
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="Count_Tag">
-        <item name="android:padding">5dp</item>
+        <item name="android:padding">6dp</item>
         <item name="android:paddingStart">8dp</item>
         <item name="android:paddingEnd">8dp</item>
         <item name="android:textSize">12sp</item>

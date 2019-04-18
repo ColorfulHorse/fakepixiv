@@ -26,6 +26,8 @@
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 app:url="@{data.thumbnail_image_url}"
+                app:fade="@{true}"
+                app:placeHolder="@{@drawable/common_placeholder}"
                 />
             <RelativeLayout
                 android:layout_width="wrap_content"

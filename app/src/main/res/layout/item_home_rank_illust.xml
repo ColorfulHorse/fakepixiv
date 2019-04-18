@@ -25,6 +25,8 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 app:url="@{data.image_urls.square_medium}"
+                app:fade="@{true}"
+                app:placeHolder="@{@drawable/common_placeholder}"
                 />
             <RelativeLayout
                 android:layout_width="match_parent"

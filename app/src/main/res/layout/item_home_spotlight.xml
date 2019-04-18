@@ -32,6 +32,8 @@
                 android:scaleType="centerCrop"
                 android:layout_below="@id/header"
                 app:url="@{data.thumbnail}"
+                app:fade="@{true}"
+                app:placeHolder="@{@drawable/common_placeholder}"
                 />
             <RelativeLayout
                 android:layout_width="wrap_content"

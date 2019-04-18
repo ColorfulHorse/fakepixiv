@@ -9,11 +9,13 @@ import android.util.Log
 import android.view.Gravity
 import android.view.View
 import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader
+import com.bumptech.glide.util.FixedPreloadSizeProvider
 import com.bumptech.glide.util.ViewPreloadSizeProvider
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
+import com.lyj.fakepivix.app.App.Companion.context
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.adapter.BaseMultiBindingAdapter
 import com.lyj.fakepivix.app.base.BaseViewModel
@@ -71,12 +73,13 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
                         adapter?.let {
                             val last = it.itemCount - 1
                             val pos = layoutManager.findLastVisibleItemPosition()
+                            Log.e("scroll", "position:$pos")
                             if (pos < last) {
                                 val layoutManager = recyclerView.layoutManager
                                 if (layoutManager is LinearLayoutManager) {
                                     if (layoutManager.orientation == LinearLayoutManager.VERTICAL) {
-                                        val scale = pos*1f/last
-                                        if (scale >= 0.8f) {
+                                        if (last - pos <= 10) {
+                                            Log.e("scroll", "loadmore====position:$pos")
                                             mViewModel.loadMore()
                                         }
                                     }
@@ -88,16 +91,21 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
             })
 
 
-//            recyclerView.setItemViewCacheSize(0)
-//            // 回收时取消
-//            recyclerView.setRecyclerListener {
-//                val holder = it as BaseBindingViewHolder<ItemHomeIllustBinding>
-//                if (holder.binding != null) {
-//                    GlideApp.with(mActivity).clear(holder.binding.image)
-//                }
-//            }
+            recyclerView.setItemViewCacheSize(0)
+            // 回收时取消
+            recyclerView.setRecyclerListener {
+                if (it is BaseBindingViewHolder<*>) {
+                    it.binding?.let {
+                        binding ->
+                        if (binding is ItemHomeIllustBinding) {
+                            GlideApp.with(mActivity).clear(binding.image)
+                        }
+                    }
+                }
+            }
 
-            val sizeProvider = ViewPreloadSizeProvider<Illust>()
+            //val sizeProvider = ViewPreloadSizeProvider<Illust>()
+            val sizeProvider = FixedPreloadSizeProvider<Illust>(180.dp2px(), 180.dp2px())
             val recyPreloader = RecyclerViewPreloader<Illust>(mActivity, mAdapter, sizeProvider, 8)
             recyclerView.addOnScrollListener(recyPreloader)
         }
