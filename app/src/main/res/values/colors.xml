@@ -133,7 +133,6 @@
     <color name="md_edittext_error">#ffdd2c00</color>
     <color name="md_material_blue_600">#ff2196f3</color>
     <color name="md_material_blue_800">#ff1565c0</color>
-    <color name="more_button_text">#ff748c98</color>
     <color name="mtrl_btn_bg_color_disabled">#1f000000</color>
     <color name="mtrl_btn_text_color_disabled">#61000000</color>
     <color name="mtrl_btn_transparent_bg_color">#00ffffff</color>
@@ -241,4 +240,5 @@
     <color name="menu_item_font_black">#ff69606d</color>
     <color name="tab_textColor_n">#ff69606d</color>
     <color name="normal_text_dark">#ff212121</color>
+    <color name="more_button_text">#ff748c98</color>
 </resources>

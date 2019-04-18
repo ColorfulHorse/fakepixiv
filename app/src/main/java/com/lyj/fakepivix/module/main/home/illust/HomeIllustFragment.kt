@@ -5,13 +5,20 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.Gravity
 import android.view.View
+import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader
+import com.bumptech.glide.util.ViewPreloadSizeProvider
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.flyco.tablayout.listener.CustomTabEntity
+import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
+import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.adapter.BaseMultiBindingAdapter
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationFragment;
+import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.entity.TabBean
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.*
@@ -42,7 +49,6 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
 
     override fun init(savedInstanceState: Bundle?) {
         layoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
-
         val pixivisionViewModel = PixivisionViewModel()
         lifecycle.addObserver(pixivisionViewModel)
         // 特辑列表
@@ -52,11 +58,48 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
         with(mBinding) {
             initHeader()
             recyclerView.layoutManager = layoutManager
-            recyclerView.adapter = mAdapter
+            mAdapter.bindToRecyclerView(recyclerView)
             recyclerView.addItemDecoration(CommonItemDecoration.Builder()
                     .draw(false)
                     .verticalWidth(3.5f.dp2px())
                     .build())
+            recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (dy > 0) {
+                        val adapter = recyclerView.adapter
+                        adapter?.let {
+                            val last = it.itemCount - 1
+                            val pos = layoutManager.findLastVisibleItemPosition()
+                            if (pos < last) {
+                                val layoutManager = recyclerView.layoutManager
+                                if (layoutManager is LinearLayoutManager) {
+                                    if (layoutManager.orientation == LinearLayoutManager.VERTICAL) {
+                                        val scale = pos*1f/last
+                                        if (scale >= 0.8f) {
+                                            mViewModel.loadMore()
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+
+
+//            recyclerView.setItemViewCacheSize(0)
+//            // 回收时取消
+//            recyclerView.setRecyclerListener {
+//                val holder = it as BaseBindingViewHolder<ItemHomeIllustBinding>
+//                if (holder.binding != null) {
+//                    GlideApp.with(mActivity).clear(holder.binding.image)
+//                }
+//            }
+
+            val sizeProvider = ViewPreloadSizeProvider<Illust>()
+            val recyPreloader = RecyclerViewPreloader<Illust>(mActivity, mAdapter, sizeProvider, 8)
+            recyclerView.addOnScrollListener(recyPreloader)
         }
     }
 

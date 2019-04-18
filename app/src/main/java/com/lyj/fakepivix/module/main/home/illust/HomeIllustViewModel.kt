@@ -28,6 +28,7 @@ class HomeIllustViewModel : BaseViewModel<IHomeIllustModel>() {
 
     val data = ObservableArrayList<Illust>()
     var loadState: LoadState = LoadState.Idle
+    var loadMoreState: LoadState = LoadState.Idle
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
@@ -68,6 +69,21 @@ class HomeIllustViewModel : BaseViewModel<IHomeIllustModel>() {
 //                    loadState = LoadState.Failed(it)
 //                })
         addDisposable(disposable)
+    }
+
+    fun loadMore() {
+        if (loadMoreState !is LoadState.Loading) {
+            val disposable = IllustRepository.instance
+                    .loadMore()
+                    .doOnSubscribe { loadMoreState = LoadState.Loading }
+                    .subscribeBy(onNext = {
+                        loadMoreState = LoadState.Succeed
+                        data.addAll(it.illusts)
+                    }, onError = {
+                        loadMoreState = LoadState.Failed(it)
+                    })
+            addDisposable(disposable)
+        }
     }
 
 }

@@ -5,6 +5,8 @@ import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.ListPreloader
+import com.bumptech.glide.RequestBuilder
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.lyj.fakepivix.BR
@@ -21,7 +23,7 @@ import com.lyj.fakepivix.databinding.HeaderPixivisionBinding
  *
  * @desc
  */
-class HomeIllustAdapter(data: ObservableList<Illust>, val header: PixivisionHeader) : BaseMultiBindingAdapter<Illust>(data) {
+class HomeIllustAdapter(data: ObservableList<Illust>, val header: PixivisionHeader) : BaseMultiBindingAdapter<Illust>(data), ListPreloader.PreloadModelProvider<Illust> {
 
     companion object {
         const val TYPE_ARTICLE_VIEW = 200
@@ -66,5 +68,17 @@ class HomeIllustAdapter(data: ObservableList<Illust>, val header: PixivisionHead
         return super.isFixedViewType(type)
     }
 
+
+    override fun getPreloadItems(position: Int): MutableList<Illust> {
+        if (data.isNotEmpty()) {
+            if (position < data.size) {
+                return data.subList(position, position + 1)
+            }
+        }
+        return mutableListOf()
+    }
+
+
+    override fun getPreloadRequestBuilder(item: Illust): RequestBuilder<*>? = null
 
 }

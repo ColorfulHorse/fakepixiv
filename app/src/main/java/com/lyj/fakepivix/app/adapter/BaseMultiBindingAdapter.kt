@@ -27,6 +27,7 @@ open class BaseMultiBindingAdapter<T : MultiItemEntity>(data: ObservableList<T>)
 
             override fun onItemRangeRemoved(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
                 notifyItemRangeRemoved(positionStart + headerLayoutCount, itemCount)
+                compatibilityDataSizeChanged(0)
             }
 
             override fun onItemRangeMoved(sender: ObservableList<T>?, fromPosition: Int, toPosition: Int, itemCount: Int) {
@@ -39,6 +40,7 @@ open class BaseMultiBindingAdapter<T : MultiItemEntity>(data: ObservableList<T>)
 
             override fun onItemRangeInserted(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
                 notifyItemRangeInserted(positionStart + headerLayoutCount, itemCount)
+                compatibilityDataSizeChanged(itemCount)
             }
 
             override fun onItemRangeChanged(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
@@ -68,6 +70,18 @@ open class BaseMultiBindingAdapter<T : MultiItemEntity>(data: ObservableList<T>)
 
     override fun createBaseViewHolder(view: View): BaseBindingViewHolder<ViewDataBinding> {
         return BaseBindingViewHolder(view)
+    }
+
+    /**
+     * compatible getLoadMoreViewCount and getEmptyViewCount may change
+     *
+     * @param size Need compatible data size
+     */
+    private fun compatibilityDataSizeChanged(size: Int) {
+        val dataSize = if (mData == null) 0 else mData.size
+        if (dataSize == size) {
+            notifyDataSetChanged()
+        }
     }
 
 }

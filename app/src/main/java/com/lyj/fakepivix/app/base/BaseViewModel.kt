@@ -12,11 +12,14 @@ import org.jetbrains.annotations.NotNull
 
 /**
  * @author greensun
+ *
  * @date 2019/3/16
+ *
  * @desc
  */
 abstract class BaseViewModel<M : IModel?> : BaseObservable(), LifecycleObserver {
-    private var mDisposable: CompositeDisposable? = null
+
+    private val mDisposable: CompositeDisposable by lazy { CompositeDisposable() }
 
 
     protected abstract val mModel: M
@@ -30,7 +33,7 @@ abstract class BaseViewModel<M : IModel?> : BaseObservable(), LifecycleObserver 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     open fun onDestroy(@NotNull owner: LifecycleOwner) {
         mModel?.destroy()
-        mDisposable?.dispose()
+        mDisposable.dispose()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
@@ -39,11 +42,6 @@ abstract class BaseViewModel<M : IModel?> : BaseObservable(), LifecycleObserver 
     }
 
     protected fun addDisposable(disposable: Disposable) {
-        mDisposable?.let {
-            mDisposable = CompositeDisposable()
-        }
-        mDisposable?.add(disposable)
+        mDisposable.add(disposable)
     }
-
-
 }

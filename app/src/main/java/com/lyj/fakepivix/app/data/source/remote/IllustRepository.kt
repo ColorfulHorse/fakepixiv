@@ -47,4 +47,21 @@ class IllustRepository private constructor() {
                 .schedulerTransformer()
     }
 
+    fun loadMore(): Observable<IllustListResp> {
+        return RetrofitManager.instance
+                .apiService
+                .getMoreIllustRecommend(nextUrl)
+                .retryWhenTokenInvalid()
+                .doOnNext {
+                    with(it) {
+                        nextUrl = next_url
+                        illusts.forEach {
+                            illust ->
+                            illustList[illust.id.toString()] = illust
+                        }
+                    }
+                }
+                .schedulerTransformer()
+    }
+
 }

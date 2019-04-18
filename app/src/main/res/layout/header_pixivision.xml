@@ -39,8 +39,9 @@
                     android:layout_centerVertical="true"
                     android:textSize="12sp"
                     android:text="@string/read_more"
-                    android:drawableEnd="@drawable/ic_recommended_user_more"
-                    android:drawablePadding="8dp"
+                    android:textColor="@color/more_button_text"
+                    android:drawableEnd="@drawable/icon_next"
+                    android:drawablePadding="10dp"
                     />
             </RelativeLayout>
         </RelativeLayout>

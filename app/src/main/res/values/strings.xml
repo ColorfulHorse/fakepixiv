@@ -44,4 +44,5 @@
     <string name="title_live">人气直播</string>
     <string name="tag_live">LIVE</string>
     <string name="title_recommend">为你推荐</string>
+    <string name="tag_new">New</string>
 </resources>

@@ -57,6 +57,12 @@ interface ApiService {
                                @Query("include_privacy_policy") privacy: Boolean = true): Observable<IllustListResp>
 
     /**
+     * 加载更多
+     */
+    @GET
+    fun getMoreIllustRecommend(@Url nextUrl: String): Observable<IllustListResp>
+
+    /**
      * 主页直播
      */
     @GET("/v1/live/list")
