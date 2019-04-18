@@ -98,7 +98,7 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
                     it.binding?.let {
                         binding ->
                         if (binding is ItemHomeIllustBinding) {
-                            GlideApp.with(mActivity).clear(binding.image)
+                            GlideApp.with(this@HomeIllustFragment).clear(binding.image)
                         }
                     }
                 }
@@ -106,7 +106,7 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
 
             //val sizeProvider = ViewPreloadSizeProvider<Illust>()
             val sizeProvider = FixedPreloadSizeProvider<Illust>(180.dp2px(), 180.dp2px())
-            val recyPreloader = RecyclerViewPreloader<Illust>(mActivity, mAdapter, sizeProvider, 8)
+            val recyPreloader = RecyclerViewPreloader<Illust>(this@HomeIllustFragment, mAdapter, sizeProvider, 8)
             recyclerView.addOnScrollListener(recyPreloader)
         }
     }

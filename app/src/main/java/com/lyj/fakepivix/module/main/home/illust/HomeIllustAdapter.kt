@@ -90,7 +90,7 @@ class HomeIllustAdapter(data: ObservableList<Illust>, val header: PixivisionHead
     }
 
 
-    override fun getPreloadRequestBuilder(item: Illust): RequestBuilder<*>? = GlideApp.with(mContext)
+    override fun getPreloadRequestBuilder(item: Illust): RequestBuilder<*>? = GlideApp.with(recyclerView)
             .load(item.image_urls.square_medium.mapUrl())
 
 
