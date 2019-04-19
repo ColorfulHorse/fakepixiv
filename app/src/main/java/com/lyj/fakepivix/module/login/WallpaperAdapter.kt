@@ -3,6 +3,9 @@ package com.lyj.fakepivix.module.login
 import android.databinding.ObservableList
 import android.graphics.drawable.Drawable
 import android.support.v7.widget.GridLayoutManager
+import android.util.Log
+import android.view.View
+import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.ListPreloader
 import com.bumptech.glide.RequestBuilder
@@ -10,6 +13,7 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.util.ViewPreloadSizeProvider
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
@@ -17,6 +21,7 @@ import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.utils.mapUrl
+import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
 import com.lyj.fakepivix.databinding.ItemWallpaperBinding
 
 /**
@@ -30,6 +35,8 @@ class WallpaperAdapter(data: ObservableList<Illust>, val readyCallback: (() -> U
     var start = -1
     var end = -1
     private val map = mutableMapOf<Int, Boolean>()
+    var sizeProvider: ViewPreloadSizeProvider<Illust>? = null
+
     override fun convert(helper: BaseBindingViewHolder<ItemWallpaperBinding>, item: Illust) {
 
         helper.binding?.let {
@@ -66,7 +73,28 @@ class WallpaperAdapter(data: ObservableList<Illust>, val readyCallback: (() -> U
         }
     }
 
-    override fun getPreloadItems(position: Int): MutableList<Illust> = data.subList(position, position+1)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseBindingViewHolder<ItemWallpaperBinding> {
+        val vh = super.onCreateViewHolder(parent, viewType)
+        sizeProvider?.let {
+            vh.binding?.let {
+                binding -> it.setView(binding.img)
+            }
+        }
+        return vh
+    }
+
+    override fun getPreloadItems(position: Int): MutableList<Illust> {
+        if (data.isNotEmpty()) {
+            var end = position + 2
+            if (end >= data.size) {
+                end = data.size - 1
+            }
+            if (end > position) {
+                return data.subList(position, end)
+            }
+        }
+        return mutableListOf()
+    }
 
     override fun getPreloadRequestBuilder(item: Illust): RequestBuilder<*>? {
         val url = item.image_urls.square_medium.mapUrl()

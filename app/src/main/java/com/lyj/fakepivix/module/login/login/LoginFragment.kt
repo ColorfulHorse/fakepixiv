@@ -63,7 +63,6 @@ class LoginFragment : FragmentationFragment<FragmentLoginBinding, LoginViewModel
     }
 
     private fun showLoadingDialog() {
-
     }
 
     private fun hideLoadingDialog() {

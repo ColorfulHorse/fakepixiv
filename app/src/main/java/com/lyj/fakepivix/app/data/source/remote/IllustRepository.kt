@@ -1,7 +1,6 @@
 package com.lyj.fakepivix.app.data.source.remote
 
 import android.util.ArrayMap
-import android.util.SparseArray
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.IllustListResp
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager

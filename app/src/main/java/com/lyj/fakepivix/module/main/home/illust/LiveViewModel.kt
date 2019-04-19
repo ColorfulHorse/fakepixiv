@@ -1,6 +1,7 @@
 package com.lyj.fakepivix.module.main.home.illust
 
 import android.databinding.ObservableArrayList
+import android.databinding.ObservableField
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.data.model.response.Live
@@ -20,18 +21,18 @@ class LiveViewModel : BaseViewModel<IModel?>() {
 
     val data = ObservableArrayList<Live>()
 
-    var loadState: LoadState = LoadState.Idle
+    var loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
     fun load() {
         val disposable = LiveRepository.instance
                 .loadRecommend()
-                .doOnSubscribe{ loadState = LoadState.Loading }
+                .doOnSubscribe{ loadState.set(LoadState.Loading) }
                 .subscribeBy(onNext = {
-                    loadState = LoadState.Succeed
+                    loadState.set(LoadState.Succeed)
                     data.clear()
                     data.addAll(it)
                 }, onError = {
-                    loadState = LoadState.Failed(it)
+                    loadState.set(LoadState.Failed(it))
                 })
         addDisposable(disposable)
     }
@@ -39,5 +40,10 @@ class LiveViewModel : BaseViewModel<IModel?>() {
     fun onData(lives: List<Live>) {
         data.clear()
         data.addAll(lives)
+    }
+
+    fun refresh() {
+        data.clear()
+        load()
     }
 }

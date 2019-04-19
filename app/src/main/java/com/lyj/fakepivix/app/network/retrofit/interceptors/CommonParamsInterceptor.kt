@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.app.network.retrofit
+package com.lyj.fakepivix.app.network.retrofit.interceptors
 
 import com.lyj.fakepivix.app.constant.Constant
 import com.lyj.fakepivix.app.data.source.remote.UserRepository

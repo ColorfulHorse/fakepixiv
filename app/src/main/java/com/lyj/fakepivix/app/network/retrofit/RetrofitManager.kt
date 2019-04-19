@@ -2,6 +2,10 @@ package com.lyj.fakepivix.app.network.retrofit
 
 import com.lyj.fakepivix.app.constant.Constant
 import com.lyj.fakepivix.app.network.ApiService
+import com.lyj.fakepivix.app.network.retrofit.interceptors.ApiExceptionInterceptor
+import com.lyj.fakepivix.app.network.retrofit.interceptors.CommonParamsInterceptor
+import com.lyj.fakepivix.app.network.retrofit.interceptors.LoggerInterceptor
+import com.lyj.fakepivix.app.network.retrofit.interceptors.SwitchBaseUrlInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

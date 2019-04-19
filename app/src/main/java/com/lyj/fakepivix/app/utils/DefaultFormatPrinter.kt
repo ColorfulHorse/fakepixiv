@@ -16,7 +16,7 @@
 package com.lyj.fakepivix.app.utils
 
 import android.text.TextUtils
-import com.lyj.fakepivix.app.network.retrofit.LoggerInterceptor
+import com.lyj.fakepivix.app.network.retrofit.interceptors.LoggerInterceptor
 
 
 import okhttp3.MediaType

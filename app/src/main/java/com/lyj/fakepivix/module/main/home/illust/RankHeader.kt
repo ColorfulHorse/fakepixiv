@@ -19,7 +19,7 @@ import com.lyj.fakepivix.widget.CommonItemDecoration
  *
  * @date 2019/4/15
  *
- * @desc
+ * @desc 插画排行榜list
  */
 class RankHeader(val context: Context?, val viewModel: RankViewModel) {
 
@@ -30,6 +30,7 @@ class RankHeader(val context: Context?, val viewModel: RankViewModel) {
     val adapter: BaseBindingAdapter<Illust, ItemHomeRankIllustBinding> = BaseBindingAdapter(R.layout.item_home_rank_illust, viewModel.data, BR.data)
 
     init {
+        adapter.emptyView = LayoutInflater.from(context).inflate(R.layout.layout_common_loading, null)
         if (mBinding != null) {
             with(mBinding) {
                 vm = viewModel

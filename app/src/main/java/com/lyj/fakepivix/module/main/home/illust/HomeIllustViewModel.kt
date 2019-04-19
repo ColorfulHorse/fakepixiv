@@ -2,13 +2,11 @@ package com.lyj.fakepivix.module.main.home.illust
 
 import android.arch.lifecycle.LifecycleOwner
 import android.databinding.ObservableArrayList
+import android.databinding.ObservableField
 import com.lyj.fakepivix.app.base.BaseViewModel
-import com.lyj.fakepivix.app.data.model.RecommendGroup
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
-import com.lyj.fakepivix.app.data.source.remote.LiveRepository
 import com.lyj.fakepivix.app.network.LoadState
-import io.reactivex.rxkotlin.Observables
 import io.reactivex.rxkotlin.subscribeBy
 
 /**
@@ -24,11 +22,11 @@ class HomeIllustViewModel : BaseViewModel<IHomeIllustModel>() {
 
     val rankViewModel: RankViewModel = RankViewModel()
     val liveViewModel: LiveViewModel = LiveViewModel()
-    //val pixivisionViewModel: PixivisionViewModel = PixivisionViewModel()
+    val pixivisionViewModel: PixivisionViewModel = PixivisionViewModel()
 
     val data = ObservableArrayList<Illust>()
-    var loadState: LoadState = LoadState.Idle
-    var loadMoreState: LoadState = LoadState.Idle
+    var loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
+    var loadMoreState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
@@ -36,54 +34,62 @@ class HomeIllustViewModel : BaseViewModel<IHomeIllustModel>() {
     }
 
     fun lazyLoad() {
-        val liveOb = LiveRepository.instance
-                .loadRecommend()
-        val illustOb = IllustRepository.instance
-                .loadRecommend()
-        val disposable = Observables.combineLatest(liveOb, illustOb) {
-            lives, res ->
-            RecommendGroup(lives, res)
-        }
-                .doOnSubscribe { loadState = LoadState.Loading }
-                .subscribeBy(onNext = {
-                    loadState = LoadState.Succeed
-                    data.clear()
-                    data.addAll(it.illustListResp.illusts)
-                    rankViewModel.onData(it.illustListResp.ranking_illusts)
-                    liveViewModel.onData(it.lives)
-                }, onError = {
-                    loadState = LoadState.Failed(it)
-                })
-
-//        liveViewModel.load()
-//        pixivisionViewModel.load()
-//        val disposable = IllustRepository.instance
+//        val liveOb = LiveRepository.instance
 //                .loadRecommend()
+//        val illustOb = IllustRepository.instance
+//                .loadRecommend()
+//        val disposable = Observables.combineLatest(liveOb, illustOb) {
+//            lives, res ->
+//            RecommendGroup(lives, res)
+//        }
 //                .doOnSubscribe { loadState = LoadState.Loading }
 //                .subscribeBy(onNext = {
 //                    loadState = LoadState.Succeed
 //                    data.clear()
-//                    data.addAll(it.illusts)
-//                    rankViewModel.onData(it.ranking_illusts)
+//                    data.addAll(it.illustListResp.illusts)
+//                    rankViewModel.onData(it.illustListResp.ranking_illusts)
+//                    liveViewModel.onData(it.lives)
 //                }, onError = {
 //                    loadState = LoadState.Failed(it)
 //                })
+
+        liveViewModel.load()
+        val disposable = IllustRepository.instance
+                .loadRecommend()
+                .doOnSubscribe {
+                    loadState.set(LoadState.Loading)
+                }
+                .subscribeBy(onNext = {
+                    loadState.set(LoadState.Succeed)
+                    data.clear()
+                    data.addAll(it.illusts)
+                    rankViewModel.onData(it.ranking_illusts)
+                }, onError = {
+                    loadState.set(LoadState.Failed(it))
+                })
         addDisposable(disposable)
     }
 
     fun loadMore() {
-        if (loadMoreState !is LoadState.Loading) {
+        if (loadMoreState.get() !is LoadState.Loading) {
             val disposable = IllustRepository.instance
                     .loadMore()
-                    .doOnSubscribe { loadMoreState = LoadState.Loading }
+                    .doOnSubscribe { loadMoreState.set(LoadState.Loading) }
                     .subscribeBy(onNext = {
-                        loadMoreState = LoadState.Succeed
+                        loadMoreState.set(LoadState.Succeed)
                         data.addAll(it.illusts)
                     }, onError = {
-                        loadMoreState = LoadState.Failed(it)
+                        loadMoreState.set(LoadState.Failed(it))
                     })
             addDisposable(disposable)
         }
+    }
+
+    fun refresh() {
+        data.clear()
+        lazyLoad()
+        liveViewModel.refresh()
+        pixivisionViewModel.refresh()
     }
 
 }

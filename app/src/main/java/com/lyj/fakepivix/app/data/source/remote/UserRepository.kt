@@ -2,7 +2,6 @@ package com.lyj.fakepivix.app.data.source.remote
 
 import com.lyj.fakepivix.app.constant.Constant
 import com.lyj.fakepivix.app.data.model.response.LoginData
-import com.lyj.fakepivix.app.network.ApiService
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
 import com.lyj.fakepivix.app.utils.SPUtil
 import io.reactivex.Observable

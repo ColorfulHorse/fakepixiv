@@ -21,7 +21,7 @@ import com.lyj.fakepivix.app.utils.mapUrl
  * @desc
  */
 
-val factory: DrawableCrossFadeFactory = DrawableCrossFadeFactory.Builder(300).setCrossFadeEnabled(true).build()
+val factory: DrawableCrossFadeFactory = DrawableCrossFadeFactory.Builder(400).setCrossFadeEnabled(true).build()
 
 @BindingAdapter(value = ["url", "placeHolder", "error", "circle", "fade"], requireAll = false)
 fun ImageView.url(url: String?, placeHolder: Drawable?, error: Drawable?, circle: Boolean = false, fade: Boolean = false) {

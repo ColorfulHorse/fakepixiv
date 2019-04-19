@@ -1,29 +1,22 @@
 package com.lyj.fakepivix.module.main.home.illust
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
-import android.view.Gravity
-import android.view.View
 import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader
-import com.bumptech.glide.util.FixedPreloadSizeProvider
 import com.bumptech.glide.util.ViewPreloadSizeProvider
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.flyco.tablayout.listener.CustomTabEntity
 import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
-import com.lyj.fakepivix.app.App.Companion.context
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
-import com.lyj.fakepivix.app.adapter.BaseMultiBindingAdapter
-import com.lyj.fakepivix.app.base.BaseViewModel
-import com.lyj.fakepivix.app.base.FragmentationFragment;
+import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.entity.TabBean
+import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
+import com.lyj.fakepivix.app.network.LoadState
+import com.lyj.fakepivix.app.utils.attachLoadMore
 import com.lyj.fakepivix.app.utils.dp2px
-import com.lyj.fakepivix.databinding.*
+import com.lyj.fakepivix.databinding.CommonRefreshList
+import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
 import com.lyj.fakepivix.widget.CommonItemDecoration
 
 
@@ -51,7 +44,7 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
 
     override fun init(savedInstanceState: Bundle?) {
         layoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
-        val pixivisionViewModel = PixivisionViewModel()
+        val pixivisionViewModel = mViewModel.pixivisionViewModel
         lifecycle.addObserver(pixivisionViewModel)
         // 特辑列表
         pixivisionHeader = PixivisionHeader(context, pixivisionViewModel)
@@ -65,34 +58,9 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
                     .draw(false)
                     .verticalWidth(3.5f.dp2px())
                     .build())
-            recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    if (dy > 0) {
-                        val adapter = recyclerView.adapter
-                        adapter?.let {
-                            val last = it.itemCount - 1
-                            val pos = layoutManager.findLastVisibleItemPosition()
-                            Log.e("scroll", "position:$pos")
-                            if (pos < last) {
-                                val layoutManager = recyclerView.layoutManager
-                                if (layoutManager is LinearLayoutManager) {
-                                    if (layoutManager.orientation == LinearLayoutManager.VERTICAL) {
-                                        if (last - pos <= 10) {
-                                            Log.e("scroll", "loadmore====position:$pos")
-                                            mViewModel.loadMore()
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            })
-
-
-            recyclerView.setItemViewCacheSize(0)
-            // 回收时取消
+            recyclerView.attachLoadMore{ mViewModel.loadMore() }
+//            recyclerView.setItemViewCacheSize(0)
+//            // 回收时取消
             recyclerView.setRecyclerListener {
                 if (it is BaseBindingViewHolder<*>) {
                     it.binding?.let {
@@ -104,24 +72,40 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
                 }
             }
 
-            //val sizeProvider = ViewPreloadSizeProvider<Illust>()
-            val sizeProvider = FixedPreloadSizeProvider<Illust>(180.dp2px(), 180.dp2px())
+            val sizeProvider = ViewPreloadSizeProvider<Illust>()
+            mAdapter.viewPreloadSizeProvider = sizeProvider
             val recyPreloader = RecyclerViewPreloader<Illust>(this@HomeIllustFragment, mAdapter, sizeProvider, 8)
             recyclerView.addOnScrollListener(recyPreloader)
+            refreshLayout.isEnabled = false
+            refreshLayout.setOnRefreshListener {
+                mViewModel.refresh()
+            }
+
+            with(mViewModel) {
+                loadState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp {
+                    _, _ ->
+                    when(loadState.get()) {
+                        is LoadState.Loading -> {
+                            refreshLayout.isRefreshing = false
+                            refreshLayout.isEnabled = false
+                        }
+                        else -> {
+                            refreshLayout.isEnabled = true
+                        }
+                    }
+                })
+            }
         }
     }
 
     private fun initHeader() {
         val title = layoutInflater.inflate(R.layout.header_recommend, null)
         lifecycle.addObserver(mViewModel.liveViewModel)
-        //lifecycle.addObserver(mViewModel.pixivisionViewModel)
         rankHeader = RankHeader(context, mViewModel.rankViewModel)
         liveHeader = LiveHeader(context, mViewModel.liveViewModel)
-       // pixivisionHeader = PixivisionHeader(context, mViewModel.pixivisionViewModel)
         mAdapter.addHeaderView(rankHeader.mBinding?.root)
         mAdapter.addHeaderView(liveHeader.mBinding?.root)
         mAdapter.addHeaderView(title)
-        //mAdapter.addHeaderView(pixivisionHeader.mBinding?.root, 10)
     }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {

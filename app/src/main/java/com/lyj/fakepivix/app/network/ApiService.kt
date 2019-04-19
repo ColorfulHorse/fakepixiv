@@ -6,7 +6,7 @@ import com.lyj.fakepivix.app.data.model.response.IllustListResp
 import com.lyj.fakepivix.app.data.model.response.LoginResp
 import com.lyj.fakepivix.app.data.model.response.RankLiveResp
 import com.lyj.fakepivix.app.data.model.response.SpotLightResp
-import com.lyj.fakepivix.app.network.retrofit.SwitchBaseUrlInterceptor
+import com.lyj.fakepivix.app.network.retrofit.interceptors.SwitchBaseUrlInterceptor
 import io.reactivex.Observable
 import retrofit2.http.*
 

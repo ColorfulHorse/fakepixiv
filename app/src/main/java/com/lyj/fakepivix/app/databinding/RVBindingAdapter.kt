@@ -2,8 +2,7 @@ package com.lyj.fakepivix.app.databinding
 
 import android.databinding.BindingAdapter
 import android.support.v7.widget.RecyclerView
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
+import com.lyj.fakepivix.app.utils.attachLoadMore
 
 /**
  * @author greensun
@@ -12,9 +11,11 @@ import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
  *
  * @desc
  */
-@BindingAdapter("adapter")
-fun RecyclerView.adapter(adapter: BaseQuickAdapter<*, *>) {
-    adapter.bindToRecyclerView(this)
+
+
+@BindingAdapter(value = ["loadMore"], requireAll = false)
+fun RecyclerView.config(loadMore: () -> Unit) {
+    attachLoadMore{loadMore()}
 }
 
 /*@BindingAdapter(value = ["adapter", "items"], requireAll = true)

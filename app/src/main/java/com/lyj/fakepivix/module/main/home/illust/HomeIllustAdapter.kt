@@ -2,12 +2,14 @@ package com.lyj.fakepivix.module.main.home.illust
 
 import android.databinding.ObservableList
 import android.databinding.ViewDataBinding
+import android.graphics.drawable.Drawable
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.ListPreloader
 import com.bumptech.glide.RequestBuilder
+import com.bumptech.glide.util.ViewPreloadSizeProvider
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.lyj.fakepivix.BR
@@ -20,6 +22,8 @@ import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.databinding.url
 import com.lyj.fakepivix.app.utils.mapUrl
 import com.lyj.fakepivix.databinding.HeaderPixivisionBinding
+import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
+import com.lyj.fakepivix.databinding.ItemHomeLiveBinding
 
 /**
  * @author greensun
@@ -29,7 +33,9 @@ import com.lyj.fakepivix.databinding.HeaderPixivisionBinding
  * @desc
  */
 class HomeIllustAdapter(data: ObservableList<Illust>, val header: PixivisionHeader) : BaseMultiBindingAdapter<Illust>(data), ListPreloader.PreloadModelProvider<Illust> {
+
     private val preLoadCount = 4
+    var viewPreloadSizeProvider: ViewPreloadSizeProvider<Illust>? = null
 
     companion object {
         const val TYPE_ARTICLE_VIEW = 200
@@ -57,7 +63,16 @@ class HomeIllustAdapter(data: ObservableList<Illust>, val header: PixivisionHead
                 return BaseBindingViewHolder(header.mBinding.root)
             }
         }
-        return super.onCreateViewHolder(parent, viewType)
+        val vh = super.onCreateViewHolder(parent, viewType)
+        viewPreloadSizeProvider?.let {
+            vh.binding?.let {
+                binding ->
+                if (binding is ItemHomeIllustBinding) {
+                    it.setView(binding.image)
+                }
+            }
+        }
+        return vh
     }
 
     override fun onBindViewHolder(holder: BaseBindingViewHolder<ViewDataBinding>, position: Int) {
@@ -90,7 +105,7 @@ class HomeIllustAdapter(data: ObservableList<Illust>, val header: PixivisionHead
     }
 
 
-    override fun getPreloadRequestBuilder(item: Illust): RequestBuilder<*>? = GlideApp.with(recyclerView)
+    override fun getPreloadRequestBuilder(item: Illust): RequestBuilder<Drawable>? = GlideApp.with(recyclerView)
             .load(item.image_urls.square_medium.mapUrl())
 
 

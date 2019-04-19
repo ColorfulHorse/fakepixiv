@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.app.network.retrofit
+package com.lyj.fakepivix.app.network.retrofit.interceptors
 
 import com.google.gson.Gson
 import com.lyj.fakepivix.app.constant.Constant
@@ -6,8 +6,6 @@ import com.lyj.fakepivix.app.data.model.response.LoginError
 import com.lyj.fakepivix.app.network.ApiException
 import okhttp3.Interceptor
 import okhttp3.Response
-import retrofit2.HttpException
-import retrofit2.adapter.rxjava2.Result.response
 import java.lang.Exception
 import java.net.ConnectException
 import java.net.SocketTimeoutException

@@ -4,6 +4,7 @@ import android.databinding.ObservableList
 import android.databinding.ViewDataBinding
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 
 /**
@@ -49,6 +50,11 @@ open class BaseBindingAdapter<T, VB : ViewDataBinding>(@LayoutRes layoutId: Int,
     override fun convert(helper: BaseBindingViewHolder<VB>, item: T) {
         helper.binding?.setVariable(itemBindId, item)
     }
+
+    override fun createBaseViewHolder(view: View): BaseBindingViewHolder<VB> {
+        return BaseBindingViewHolder(view)
+    }
+
 
 
 
