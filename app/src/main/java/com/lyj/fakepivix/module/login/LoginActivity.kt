@@ -50,8 +50,8 @@ class LoginActivity : FragmentationActivity<ActivityLoginBinding, WallpaperViewM
                 // 自动滚动
                 mAdapter = WallpaperAdapter(data) {
                     overlayVisibility.set(false)
-                    recyclerView.smoothScrollToPosition(recyclerView.adapter?.itemCount!! - 4)
-                    //recyclerView.smoothScrollBy(0, 20, LinearInterpolator())
+                    //recyclerView.smoothScrollToPosition(recyclerView.adapter?.itemCount!! - 4)
+                    recyclerView.smoothScrollBy(0, 20, LinearInterpolator())
                 }
                 recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {

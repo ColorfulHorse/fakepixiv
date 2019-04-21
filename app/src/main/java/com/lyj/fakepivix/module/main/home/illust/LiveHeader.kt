@@ -6,21 +6,25 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PagerSnapHelper
 import android.support.v7.widget.SnapHelper
 import android.view.LayoutInflater
+import android.view.View
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
 import com.lyj.fakepivix.app.data.model.response.Live
+import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
+import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.HeaderLiveBinding
 import com.lyj.fakepivix.databinding.ItemHomeLiveBinding
 import com.lyj.fakepivix.widget.CommonItemDecoration
+import kotlinx.android.synthetic.main.layout_error_small.view.*
 
 /**
  * @author greensun
  *
  * @date 2019/4/15
  *
- * @desc
+ * @desc 人气直播
  */
 class LiveHeader(val context: Context?, val viewModel: LiveViewModel) {
 
@@ -30,10 +34,16 @@ class LiveHeader(val context: Context?, val viewModel: LiveViewModel) {
 
     val adapter: BaseBindingAdapter<Live, ItemHomeLiveBinding> = BaseBindingAdapter(R.layout.item_home_live, viewModel.data, BR.data)
 
+    private val loadingView: View by lazy { LayoutInflater.from(context).inflate(R.layout.layout_common_loading, null) }
+
+
     init {
         if (mBinding != null) {
             with(mBinding) {
-                vm = viewModel
+                errorView.reload.setOnClickListener {
+                    viewModel.load()
+                }
+                adapter.emptyView = loadingView
                 val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 recyclerView.layoutManager = layoutManager
                 recyclerView.addItemDecoration(CommonItemDecoration.Builder()
@@ -43,6 +53,19 @@ class LiveHeader(val context: Context?, val viewModel: LiveViewModel) {
                         .build())
                 PagerSnapHelper().attachToRecyclerView(recyclerView)
                 recyclerView.adapter = adapter
+
+                with(viewModel) {
+                    loadState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
+                        when (loadState.get()) {
+                            is LoadState.Failed -> {
+                                loadFailed = true
+                            }
+                            else -> {
+                                loadFailed = false
+                            }
+                        }
+                    })
+                }
             }
         }
     }

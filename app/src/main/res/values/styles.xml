@@ -15,6 +15,10 @@
     </style>
 
     <style name="theme_action_dialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:backgroundDimAmount">0</item>
         <item name="android:windowFrame">@null</item>
         <item name="android:windowBackground">@null</item>
         <item name="android:windowNoTitle">true</item>

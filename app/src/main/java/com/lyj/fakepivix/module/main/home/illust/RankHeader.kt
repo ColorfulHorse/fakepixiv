@@ -30,10 +30,8 @@ class RankHeader(val context: Context?, val viewModel: RankViewModel) {
     val adapter: BaseBindingAdapter<Illust, ItemHomeRankIllustBinding> = BaseBindingAdapter(R.layout.item_home_rank_illust, viewModel.data, BR.data)
 
     init {
-        adapter.emptyView = LayoutInflater.from(context).inflate(R.layout.layout_common_loading, null)
         if (mBinding != null) {
             with(mBinding) {
-                vm = viewModel
                 val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 recyclerView.layoutManager = layoutManager
                 recyclerView.addItemDecoration(CommonItemDecoration.Builder()

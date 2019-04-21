@@ -29,7 +29,7 @@
                 app:fade="@{true}"
                 app:placeHolder="@{@drawable/common_placeholder}"
                 />
-            <RelativeLayout
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/image"
@@ -44,7 +44,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_alignParentBottom="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     >
                     <ImageView
                         android:id="@+id/avatar"
@@ -85,39 +86,48 @@
                         android:text="@{String.valueOf(data.total_audience_count)}"
                         />
                 </LinearLayout>
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Illust_Title"
-                    android:layout_above="@+id/container_user"
-                    android:layout_marginBottom="8dp"
-                    android:text="@{data.name}"
-                    />
 
                 <ImageView
                     android:id="@+id/play"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_live_play"
-                    android:layout_alignParentEnd="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/play"
-                    android:layout_alignStart="@+id/play"
-                    android:layout_alignEnd="@+id/play"
-                    android:layout_marginStart="3dp"
-                    android:layout_marginEnd="3dp"
+                    app:layout_constraintTop_toBottomOf="@id/play"
+                    app:layout_constraintStart_toStartOf="@id/play"
+                    app:layout_constraintEnd_toEndOf="@id/play"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="6dp"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/live_tag_bg"
                     android:gravity="center"
                     android:text="@string/tag_live"
                     android:textColor="#ffff0000"
-                    android:textSize="12sp" />
-            </RelativeLayout>
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@id/container_user"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/play"
+                    android:paddingEnd="10dp"
+                    android:layout_marginBottom="8dp"
+                    style="@style/Illust_Title"
+                    android:maxLines="2"
+                    android:text="@{data.name}"
+                    />
+
+            </android.support.constraint.ConstraintLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </layout>

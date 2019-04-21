@@ -1,5 +1,7 @@
 package com.lyj.fakepivix.app.data.model.response
 
+import com.squareup.moshi.JsonClass
+
 /**
  * @author greensun
  *
@@ -11,32 +13,8 @@ package com.lyj.fakepivix.app.data.model.response
 /**
  * 主页插画排行榜response
  */
-//data class Illust(
-//        val caption: String = "",
-//        val create_date: String = "",
-//        val height: Int = 0,
-//        val id: Int = 0,
-//        val image_urls: ImageUrls = ImageUrls(),
-//        val is_bookmarked: Boolean = false,
-//        val is_muted: Boolean = false,
-//        val meta_pages: List<Any> = listOf(),
-//        val meta_single_page: MetaSinglePage = MetaSinglePage(),
-//        val page_count: Int = 0,
-//        val restrict: Int = 0,
-//        val sanity_level: Int = 0,
-//        val series: Any = Any(),
-//        val tags: List<TagX> = listOf(),
-//        val title: String = "",
-//        val tools: List<Any> = listOf(),
-//        val total_bookmarks: Int = 0,
-//        val total_view: Int = 0,
-//        val type: String = "",
-//        val user: User? = null,
-//        val visible: Boolean = false,
-//        val width: Int = 0,
-//        val x_restrict: Int = 0
-//)
 
+@JsonClass(generateAdapter = true)
 data class TagX(
         val name: String = "",
         val translated_name: Any = Any()
@@ -47,14 +25,17 @@ data class TagX(
  *
  * @property live_info
  * @property lives
- * @property next_url
+ * @property next_url  下一部分
  */
+
+@JsonClass(generateAdapter = true)
 data class RankLiveResp(
     val live_info: Any?,
     val lives: List<Live> = listOf(),
     val next_url: String = ""
 )
 
+@JsonClass(generateAdapter = true)
 data class Live(
     val channel_id: String = "",
     val created_at: String = "",
@@ -78,6 +59,7 @@ data class Live(
     val total_audience_count: Int = 0
 )
 
+@JsonClass(generateAdapter = true)
 data class Owner(
     val user: User = User()
 )

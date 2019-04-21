@@ -238,7 +238,11 @@
     <color name="premium_drawer">#fffe8670</color>
     <color name="premium_drawer_clicked">#ffffe1db</color>
     <color name="menu_item_font_black">#ff69606d</color>
-    <color name="tab_textColor_n">#ff69606d</color>
+    <color name="tab_textColor_n">#ff9b9b9b</color>
     <color name="normal_text_dark">#ff212121</color>
     <color name="more_button_text">#ff748c98</color>
+    <color name="gray_bg">#EDEDED</color>
+
+    <color name="bg_error">#fffafafa</color>
+    <color name="error_font_gray">#ff9b9b9b</color>
 </resources>

@@ -35,7 +35,7 @@
                     app:titleTextAppearance="@style/Toolbar_TextAppearance_White"
                     app:title="@string/title_main"
                     app:titleTextColor="@color/white"
-                    app:layout_scrollFlags="scroll|enterAlwaysCollapsed|snap"
+                    app:layout_scrollFlags="scroll|enterAlways|snap"
                     >
                     <com.flyco.tablayout.CommonTabLayout
                         android:id="@+id/tabLayout"

@@ -33,14 +33,14 @@ fun ImageView.url(url: String?, placeHolder: Drawable?, error: Drawable?, circle
                 req = req.transition(DrawableTransitionOptions.withCrossFade(factory))
             }
             val options = RequestOptions()
+            if (circle) {
+                options.circleCrop()
+            }
             placeHolder?.let {
                 options.placeholder(placeHolder)
             }
             error?.let {
                 options.error(error)
-            }
-            if (circle) {
-                options.circleCrop()
             }
             req.apply(options).into(this)
         }

@@ -26,7 +26,10 @@ class LiveViewModel : BaseViewModel<IModel?>() {
     fun load() {
         val disposable = LiveRepository.instance
                 .loadRecommend()
-                .doOnSubscribe{ loadState.set(LoadState.Loading) }
+                .doOnSubscribe{
+                    data.clear()
+                    loadState.set(LoadState.Loading)
+                }
                 .subscribeBy(onNext = {
                     loadState.set(LoadState.Succeed)
                     data.clear()
@@ -42,8 +45,4 @@ class LiveViewModel : BaseViewModel<IModel?>() {
         data.addAll(lives)
     }
 
-    fun refresh() {
-        data.clear()
-        load()
-    }
 }

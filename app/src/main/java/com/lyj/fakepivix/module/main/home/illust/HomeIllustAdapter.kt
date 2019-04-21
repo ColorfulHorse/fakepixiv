@@ -33,8 +33,6 @@ import com.lyj.fakepivix.databinding.ItemHomeLiveBinding
  * @desc
  */
 class HomeIllustAdapter(data: ObservableList<Illust>, val header: PixivisionHeader) : BaseMultiBindingAdapter<Illust>(data), ListPreloader.PreloadModelProvider<Illust> {
-
-    private val preLoadCount = 4
     var viewPreloadSizeProvider: ViewPreloadSizeProvider<Illust>? = null
 
     companion object {
@@ -92,12 +90,11 @@ class HomeIllustAdapter(data: ObservableList<Illust>, val header: PixivisionHead
 
     override fun getPreloadItems(position: Int): MutableList<Illust> {
         if (data.isNotEmpty()) {
-            var end = position + preLoadCount
+            var end = position + 1
             if (end >= data.size) {
                 end = data.size - 1
             }
             if (end > position) {
-                Log.e("preload", "start$position=====end$end")
                 return data.subList(position, end)
             }
         }

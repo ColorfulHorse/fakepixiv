@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/renewal_bg_general">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/error_default_title"
+            android:textColor="@color/error_font_gray"
+            android:textSize="24.0sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24.0dip"
+            android:text="@string/error_default_message"
+            android:textColor="@color/error_font_gray"
+            android:textSize="14.0sp" />
+
+        <TextView
+            android:id="@+id/reload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_err_reload"
+            android:gravity="center"
+            android:paddingLeft="24.0dip"
+            android:paddingTop="10dp"
+            android:paddingRight="24.0dip"
+            android:paddingBottom="10dp"
+            android:text="@string/error_load"
+            android:textColor="@color/error_font_gray" />
+    </LinearLayout>
+</RelativeLayout>

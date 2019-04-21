@@ -54,10 +54,18 @@ class HomeIllustViewModel : BaseViewModel<IHomeIllustModel>() {
 //                })
 
         liveViewModel.load()
+        load()
+    }
+
+    fun load() {
+        when (liveViewModel.loadState.get()) {
+            is LoadState.Idle, is LoadState.Failed -> liveViewModel.load()
+        }
         val disposable = IllustRepository.instance
                 .loadRecommend()
                 .doOnSubscribe {
                     loadState.set(LoadState.Loading)
+                    data.clear()
                 }
                 .subscribeBy(onNext = {
                     loadState.set(LoadState.Succeed)
@@ -83,13 +91,6 @@ class HomeIllustViewModel : BaseViewModel<IHomeIllustModel>() {
                     })
             addDisposable(disposable)
         }
-    }
-
-    fun refresh() {
-        data.clear()
-        lazyLoad()
-        liveViewModel.refresh()
-        pixivisionViewModel.refresh()
     }
 
 }

@@ -33,6 +33,7 @@
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:enabled="@{!vm.loading}"
                     >
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/et_userName"
@@ -50,6 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:enabled="@{!vm.loading}"
                     >
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/et_password"
@@ -73,7 +75,7 @@
                 android:textSize="14sp"
                 android:gravity="center"
                 android:text="@string/btn_login"
-                android:enabled="@{vm.loginEnable}"
+                android:enabled="@{vm.loginEnable &amp;&amp; !vm.loading}"
                 android:onClick="@{() -> vm.login()}"
                 android:layout_marginTop="16dp"
                 android:textStyle="bold"
@@ -103,6 +105,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="20dp"
+            android:enabled="@{!vm.loading}"
             />
         <Button
             android:id="@+id/btn_register"
@@ -121,6 +124,7 @@
             app:layout_constraintWidth_percent="0.8"
             app:layout_constraintVertical_bias="0.4"
             android:visibility="@{!vm.keyboardOpened}"
+            android:enabled="@{!vm.loading}"
             />
     </android.support.constraint.ConstraintLayout>
 </layout>

@@ -43,12 +43,12 @@ class WallpaperAdapter(data: ObservableList<Illust>, val readyCallback: (() -> U
             var request = GlideApp.with(mContext)
                     .load(item.image_urls.square_medium.mapUrl())
             //if ((start == -1) or (helper.adapterPosition <= end)) {
-                    request = request.addListener(object : RequestListener<android.graphics.drawable.Drawable> {
-                        override fun onLoadFailed(e: GlideException?, model: kotlin.Any?, target: Target<android.graphics.drawable.Drawable>?, isFirstResource: kotlin.Boolean): kotlin.Boolean {
+                    request = request.addListener(object : RequestListener<Drawable> {
+                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                             return false
                         }
 
-                        override fun onResourceReady(resource: Drawable?, model: kotlin.Any?, target: Target<android.graphics.drawable.Drawable>?, dataSource: DataSource?, isFirstResource: kotlin.Boolean): kotlin.Boolean {
+                        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
                             val layoutManager = recyclerView.layoutManager as GridLayoutManager
                             if (start == -1) {
                                 // 计算可见item数
@@ -85,7 +85,7 @@ class WallpaperAdapter(data: ObservableList<Illust>, val readyCallback: (() -> U
 
     override fun getPreloadItems(position: Int): MutableList<Illust> {
         if (data.isNotEmpty()) {
-            var end = position + 2
+            var end = position + 1
             if (end >= data.size) {
                 end = data.size - 1
             }

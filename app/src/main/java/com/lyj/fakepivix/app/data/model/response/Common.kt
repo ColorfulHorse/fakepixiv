@@ -1,6 +1,7 @@
 package com.lyj.fakepivix.app.data.model.response
 
 import com.chad.library.adapter.base.entity.MultiItemEntity
+import com.squareup.moshi.JsonClass
 
 /**
  * @author greensun
@@ -9,7 +10,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity
  *
  * @desc
  */
-
+@JsonClass(generateAdapter = true)
 data class IllustListResp(
         val contest_exists: Boolean = false,
         val illusts: List<Illust> = listOf(),
@@ -19,6 +20,7 @@ data class IllustListResp(
 )
 
 
+@JsonClass(generateAdapter = true)
 data class Illust (
         val caption: String = "",
         val create_date: String = "",
@@ -27,12 +29,12 @@ data class Illust (
         val image_urls: ImageUrls = ImageUrls(),
         val is_bookmarked: Boolean = false,
         val is_muted: Boolean = false,
-        val meta_pages: List<Any> = listOf(),
+        val meta_pages: List<MetaPage> = listOf(),
         val meta_single_page: MetaSinglePage = MetaSinglePage(),
         val page_count: Int = 0,
         val restrict: Int = 0,
         val sanity_level: Int = 0,
-        val series: Any = Any(),
+        val series: Series = Series(),
         val tags: List<Tag> = listOf(),
         val title: String = "",
         val tools: List<Any> = listOf(),
@@ -55,6 +57,7 @@ data class Illust (
     }
 }
 
+@JsonClass(generateAdapter = true)
 data class User(
         val account: String = "",
         val id: String = "",
@@ -68,6 +71,7 @@ data class User(
         val x_restrict: Int = 0
 )
 
+@JsonClass(generateAdapter = true)
 data class ProfileImageUrls(
         val px_16x16: String = "",
         val px_170x170: String = "",
@@ -75,22 +79,36 @@ data class ProfileImageUrls(
         val medium: String = ""
 )
 
+@JsonClass(generateAdapter = true)
 data class MetaSinglePage(
         val original_image_url: String = ""
 )
 
+@JsonClass(generateAdapter = true)
+data class MetaPage(
+        val image_urls: ImageUrls = ImageUrls()
+)
+
+@JsonClass(generateAdapter = true)
 data class Tag(
         val name: String = "",
         val translated_name: Any = Any()
 )
 
+@JsonClass(generateAdapter = true)
+data class Series(
+        val id: Int = 0,
+        val title: String = ""
+)
+
+@JsonClass(generateAdapter = true)
 data class ImageUrls(
         val large: String = "",
         val medium: String = "",
         val square_medium: String = ""
 )
 
-
+@JsonClass(generateAdapter = true)
 data class PrivacyPolicy(
         val message: String = "",
         val url: String = "",

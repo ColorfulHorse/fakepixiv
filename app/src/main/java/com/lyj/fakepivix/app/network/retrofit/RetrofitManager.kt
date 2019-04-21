@@ -6,10 +6,13 @@ import com.lyj.fakepivix.app.network.retrofit.interceptors.ApiExceptionIntercept
 import com.lyj.fakepivix.app.network.retrofit.interceptors.CommonParamsInterceptor
 import com.lyj.fakepivix.app.network.retrofit.interceptors.LoggerInterceptor
 import com.lyj.fakepivix.app.network.retrofit.interceptors.SwitchBaseUrlInterceptor
+import com.lyj.fakepivix.app.utils.ExcludeNullAdapter
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.io.File
 import java.lang.Exception
 import java.lang.IllegalArgumentException
@@ -48,7 +51,12 @@ class RetrofitManager private constructor() {
             .baseUrl(Constant.Net.BASE_URL)
             .client(client)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(
+                    Moshi.Builder()
+                            .add(ExcludeNullAdapter())
+                            .add(KotlinJsonAdapterFactory())
+                            .build()
+            ))
             .build()
 
     companion object {

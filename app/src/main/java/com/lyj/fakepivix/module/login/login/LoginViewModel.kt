@@ -22,9 +22,12 @@ class LoginViewModel : BaseViewModel<ILoginModel>() {
     var keyboardOpened = ObservableField(false)
 
     // 是否加载完成
+    @set:Synchronized
     var loginState : ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
     var loginEnable = ObservableField(false)
+
+    var loading = ObservableField(false)
 
     @get:Bindable
     var userName = ""
@@ -62,11 +65,16 @@ class LoginViewModel : BaseViewModel<ILoginModel>() {
         val disposable = UserRepository.instance
                 .login(userName, password)
                 .schedulerTransformer()
-                .doOnSubscribe { loginState.set(LoadState.Loading) }
+                .doOnSubscribe {
+                    loginState.set(LoadState.Loading)
+                    loading.set(true)
+                }
                 .subscribeBy(onNext = {
                     loginState.set(LoadState.Succeed)
+                    loading.set(false)
                 }, onError = {
                     loginState.set(LoadState.Failed(it))
+                    loading.set(false)
                 })
         addDisposable(disposable)
     }

@@ -1,6 +1,7 @@
 package com.lyj.fakepivix.module.login.login
 
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
@@ -9,10 +10,11 @@ import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.ToastUtil
 import com.lyj.fakepivix.app.utils.startActivity
 import com.lyj.fakepivix.databinding.FragmentLoginBinding
-import com.lyj.fakepivix.module.main.MainActivity
 import com.lyj.fakepivix.module.login.register.RegisterFragment
+import com.lyj.fakepivix.module.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_login.*
-import retrofit2.HttpException
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.runBlocking
 
 /**
  * @author greensun
@@ -33,7 +35,7 @@ class LoginFragment : FragmentationFragment<FragmentLoginBinding, LoginViewModel
     }
 
     override var mViewModel: LoginViewModel = LoginViewModel()
-
+    var dialog: AlertDialog? = null
 
     override fun init(savedInstanceState: Bundle?) {
         btn_register.setOnClickListener {
@@ -63,10 +65,22 @@ class LoginFragment : FragmentationFragment<FragmentLoginBinding, LoginViewModel
     }
 
     private fun showLoadingDialog() {
+//        dialog = AlertDialog.Builder(mActivity, R.style.theme_action_dialog)
+//                .setView(R.layout.common_loading_dialog)
+//                .setCancelable(false)
+//                .show()
+//        dialog?.window?.let {
+//            val width = resources.displayMetrics.widthPixels/3*2
+//            val height = width * 0.65f
+//            val lp = it.attributes
+//            lp.width = width
+//            lp.height = height.toInt()
+//            it.attributes = lp
+//        }
     }
 
     private fun hideLoadingDialog() {
-
+        //dialog?.dismiss()
     }
 
 

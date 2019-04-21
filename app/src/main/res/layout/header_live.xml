@@ -2,15 +2,16 @@
 <!-- 插画人气直播header -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-        <import type="com.lyj.fakepivix.module.main.home.illust.LiveViewModel"/>
         <variable
-            name="vm"
-            type="LiveViewModel"/>
+            name="loadFailed"
+            type="Boolean"
+            />
     </data>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingTop="10dp"
         >
         <RelativeLayout
             android:id="@+id/read_more"
@@ -18,8 +19,8 @@
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="5dp"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"
             android:focusableInTouchMode="true"
             android:focusable="true"
             >
@@ -55,7 +56,17 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/read_more"
             android:minHeight="130dp"
             />
-    </LinearLayout>
+        <include
+            android:id="@+id/errorView"
+            layout="@layout/layout_error_small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/read_more"
+            android:layout_alignBottom="@id/recyclerView"
+            android:visibility="@{loadFailed??false}"
+            />
+    </RelativeLayout>
 </layout>

@@ -5,14 +5,19 @@ import android.databinding.DataBindingUtil
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PagerSnapHelper
 import android.view.LayoutInflater
+import android.view.View
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
 import com.lyj.fakepivix.app.data.model.response.SpotlightArticle
+import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
+import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.HeaderPixivisionBinding
 import com.lyj.fakepivix.databinding.ItemHomeSpotlightBinding
 import com.lyj.fakepivix.widget.CommonItemDecoration
+import kotlinx.android.synthetic.main.layout_error_small.view.*
+
 
 /**
  * @author greensun
@@ -25,15 +30,20 @@ class PixivisionHeader(val context: Context?, val viewModel: PixivisionViewModel
 
     private val rootView = LayoutInflater.from(context).inflate(R.layout.header_pixivision, null)
 
+    private val loadingView: View by lazy { LayoutInflater.from(context).inflate(R.layout.layout_common_loading, null) }
+
+
     val mBinding: HeaderPixivisionBinding? = DataBindingUtil.bind(rootView)
 
     val adapter: BaseBindingAdapter<SpotlightArticle, ItemHomeSpotlightBinding> = BaseBindingAdapter(R.layout.item_home_spotlight, viewModel.data, BR.data)
 
     init {
-        adapter.emptyView = LayoutInflater.from(context).inflate(R.layout.layout_common_loading, null)
         if (mBinding != null) {
             with(mBinding) {
-                vm = viewModel
+                errorView.reload.setOnClickListener {
+                    viewModel.load()
+                }
+                adapter.emptyView = loadingView
                 val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 recyclerView.layoutManager = layoutManager
                 recyclerView.addItemDecoration(CommonItemDecoration.Builder()
@@ -43,6 +53,20 @@ class PixivisionHeader(val context: Context?, val viewModel: PixivisionViewModel
                         .build())
                 PagerSnapHelper().attachToRecyclerView(recyclerView)
                 recyclerView.adapter = adapter
+
+
+                with(viewModel) {
+                    viewModel.loadState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
+                        when (loadState.get()) {
+                            is LoadState.Failed -> {
+                                loadFailed = true
+                            }
+                            else -> {
+                                loadFailed = false
+                            }
+                        }
+                    })
+                }
             }
         }
     }

@@ -26,10 +26,12 @@ class PixivisionViewModel : BaseViewModel<IModel?>() {
     fun load() {
         val disposable = PixivisionRepository.instance
                 .loadRecommend()
-                .doOnSubscribe{ loadState.set(LoadState.Loading) }
+                .doOnSubscribe{
+                    loadState.set(LoadState.Loading)
+                    data.clear()
+                }
                 .subscribeBy(onNext = {
                     loadState.set(LoadState.Succeed)
-                    data.clear()
                     data.addAll(it)
                 }, onError = {
                     loadState.set(LoadState.Failed(it))
@@ -37,7 +39,4 @@ class PixivisionViewModel : BaseViewModel<IModel?>() {
         addDisposable(disposable)
     }
 
-    fun refresh() {
-        data.clear()
-    }
 }

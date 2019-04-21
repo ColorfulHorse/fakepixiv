@@ -3,12 +3,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.lyj.fakepivix.module.main.home.illust.PixivisionViewModel"/>
         <variable
-            name="vm"
-            type="PixivisionViewModel"/>
+            name="loadFailed"
+            type="Boolean"
+            />
     </data>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -50,7 +50,18 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/read_more"
             android:minHeight="200dp"
             />
-    </LinearLayout>
+
+        <include
+            android:id="@+id/errorView"
+            layout="@layout/layout_error_small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/read_more"
+            android:layout_alignBottom="@id/recyclerView"
+            android:visibility="@{loadFailed??false}"
+            />
+    </RelativeLayout>
 </layout>
