@@ -4,4 +4,5 @@
     <dimen name="subTab_height">48dp</dimen>
     <dimen name="default_elevation">2dp</dimen>
     <dimen name="small_avatar">20dp</dimen>
+    <dimen name="like_button_size">52dp</dimen>
 </resources>

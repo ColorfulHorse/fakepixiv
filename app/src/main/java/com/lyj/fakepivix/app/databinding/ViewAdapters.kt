@@ -12,6 +12,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.app.utils.mapUrl
+import com.lyj.fakepivix.widget.LikeButton
 
 /**
  * @author greensun
@@ -45,6 +46,11 @@ fun ImageView.url(url: String?, placeHolder: Drawable?, error: Drawable?, circle
             req.apply(options).into(this)
         }
     }
+}
+
+@BindingAdapter(value = ["liked"])
+fun LikeButton.liked(liked: Boolean = false) {
+    this.setLikedWithoutAmin(liked)
 }
 
 @BindingConversion

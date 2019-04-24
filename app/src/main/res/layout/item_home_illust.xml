@@ -32,12 +32,11 @@
             android:text="@{String.valueOf(illust.page_count)}"
             android:visibility="@{illust.page_count>1}"
             />
-        <ImageView
+        <com.lyj.fakepivix.widget.LikeButton
             android:id="@+id/like"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            android:scaleType="centerInside"
-            android:src="@{illust._bookmarked?@drawable/ic_button_liked:@drawable/ic_button_like}"
+            android:layout_width="@dimen/like_button_size"
+            android:layout_height="@dimen/like_button_size"
+            app:liked="@{illust._bookmarked}"
             android:layout_alignEnd="@id/image"
             android:layout_alignBottom="@id/image"
             />

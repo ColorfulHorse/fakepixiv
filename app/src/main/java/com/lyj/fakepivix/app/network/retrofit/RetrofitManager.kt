@@ -53,8 +53,8 @@ class RetrofitManager private constructor() {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(MoshiConverterFactory.create(
                     Moshi.Builder()
-                            .add(ExcludeNullAdapter())
                             .add(KotlinJsonAdapterFactory())
+                            .add(ExcludeNullAdapter())
                             .build()
             ))
             .build()

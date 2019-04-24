@@ -34,7 +34,7 @@ data class Illust (
         val page_count: Int = 0,
         val restrict: Int = 0,
         val sanity_level: Int = 0,
-        val series: Series = Series(),
+        val series: Series?,
         val tags: List<Tag> = listOf(),
         val title: String = "",
         val tools: List<Any> = listOf(),

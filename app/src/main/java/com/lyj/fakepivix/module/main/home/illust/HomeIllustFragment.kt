@@ -3,8 +3,8 @@ package com.lyj.fakepivix.module.main.home.illust
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View
+import android.widget.CheckBox
 import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader
 import com.bumptech.glide.util.ViewPreloadSizeProvider
 import com.lyj.fakepivix.GlideApp
@@ -20,7 +20,6 @@ import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.CommonRefreshList
 import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
 import com.lyj.fakepivix.widget.CommonItemDecoration
-import kotlinx.android.synthetic.main.layout_common_recycler.*
 import kotlinx.android.synthetic.main.layout_error.view.*
 
 
@@ -100,7 +99,6 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
             mAdapter.setOnItemClickListener { adapter, view, position ->
                 ToastUtil.showToast("$position")
             }
-
             // 错误刷新
             errorView.reload.setOnClickListener {
                 mViewModel.load()
