@@ -14,12 +14,12 @@ import javax.annotation.Nullable
  */
 class ExcludeNullAdapter {
     @FromJson
-    fun fromJson(@Nullable value: Any?): Any {
-        return value?: Any()
+    fun fromJson(@Nullable value: String?): String {
+        return value?: ""
     }
 
     @ToJson
-    fun toJson(@Nullable value: Any?): Any {
-        return value?: Any()
+    fun toJson(@Nullable value: String?): String {
+        return value?: ""
     }
 }

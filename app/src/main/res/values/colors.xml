@@ -197,7 +197,6 @@
     <color name="renewal_fg_sub">#ffaaaaaa</color>
     <color name="renewal_font_black">#ff69606d</color>
     <color name="renewal_font_gray">#ff9b9b9b</color>
-    <color name="renewal_font_light_gray">#ffc6cbcc</color>
     <color name="renewal_gray_mask_tag">#33000000</color>
     <color name="ripple_material_dark">#33ffffff</color>
     <color name="ripple_material_light">#1f000000</color>
@@ -245,4 +244,6 @@
 
     <color name="bg_error">#fffafafa</color>
     <color name="error_font_gray">#ff9b9b9b</color>
+    <color name="renewal_font_light_gray">#ffc6cbcc</color>
+    <color name="renewal_font_black">#ff69606d</color>
 </resources>

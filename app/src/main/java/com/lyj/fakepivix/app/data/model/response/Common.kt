@@ -32,6 +32,7 @@ data class Illust (
         val meta_pages: List<MetaPage> = listOf(),
         val meta_single_page: MetaSinglePage = MetaSinglePage(),
         val page_count: Int = 0,
+        val text_length: Int = 0,
         val restrict: Int = 0,
         val sanity_level: Int = 0,
         val series: Series?,
@@ -54,6 +55,16 @@ data class Illust (
     override fun getItemType(): Int = when(type) {
         "illust" -> TYPE_ILLUST
         else -> TYPE_ILLUST
+    }
+
+    fun getTagsText(): String {
+        val sb = StringBuilder()
+        tags.map {
+            if (it.translated_name.isNotEmpty()) it.translated_name else it.name
+        }.forEach {
+            sb.append("  #$it")
+        }
+        return sb.toString()
     }
 }
 
@@ -92,7 +103,7 @@ data class MetaPage(
 @JsonClass(generateAdapter = true)
 data class Tag(
         val name: String = "",
-        val translated_name: Any = Any()
+        val translated_name: String = ""
 )
 
 @JsonClass(generateAdapter = true)

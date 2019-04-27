@@ -69,8 +69,15 @@ interface ApiService {
     fun getIllustLiveData(@Query("list_type") type: String = "popular"): Observable<RankLiveResp>
 
     /**
-     * 主页特辑
+     * 主页插画特辑
      */
     @GET("/v1/spotlight/articles")
-    fun getIllustPixivisionData(@Query("filter") filter: String = "for_android", @Query("category") category: String = "all"): Observable<SpotLightResp>
+    fun getIllustPixivisionData(@Query("filter") filter: String = "for_android", @Query("category") category: String = Constant.Config.CATEGORY_ALL): Observable<SpotLightResp>
+
+
+    /**
+     * 主页漫画特辑
+     */
+    @GET("/v1/spotlight/articles")
+    fun getComicPixivisionData(@Query("filter") filter: String = "for_android", @Query("category") category: String = Constant.Config.CATEGORY_COMIC): Observable<SpotLightResp>
 }

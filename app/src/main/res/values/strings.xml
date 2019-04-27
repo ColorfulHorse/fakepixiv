@@ -48,4 +48,7 @@
     <string name="error_default_title">加载失败</string>
     <string name="error_default_message">请稍后尝试重新加载</string>
     <string name="error_load">重新加载</string>
+    <string name="series">系列</string>
+    <string name="by">by</string>
+    <string name="text_length">字数</string>
 </resources>

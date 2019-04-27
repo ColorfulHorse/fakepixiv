@@ -17,7 +17,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class TagX(
         val name: String = "",
-        val translated_name: Any = Any()
+        val translated_name: String = ""
 )
 
 /**

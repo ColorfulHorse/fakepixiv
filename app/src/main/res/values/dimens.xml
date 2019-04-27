@@ -5,4 +5,5 @@
     <dimen name="default_elevation">2dp</dimen>
     <dimen name="small_avatar">20dp</dimen>
     <dimen name="like_button_size">52dp</dimen>
+    <dimen name="rank_item_size">220dp</dimen>
 </resources>
