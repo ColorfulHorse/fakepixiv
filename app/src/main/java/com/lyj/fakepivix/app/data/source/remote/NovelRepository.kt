@@ -1,8 +1,11 @@
 package com.lyj.fakepivix.app.data.source.remote
 
 import android.util.ArrayMap
+import com.lyj.fakepivix.app.constant.COMIC
+import com.lyj.fakepivix.app.constant.NOVEL
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.IllustListResp
+import com.lyj.fakepivix.app.data.model.response.NovelListResp
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
 import com.lyj.fakepivix.app.reactivex.retryWhenTokenInvalid
 import com.lyj.fakepivix.app.reactivex.schedulerTransformer
@@ -15,29 +18,29 @@ import io.reactivex.Observable
  *
  * @desc
  */
-class IllustRepository private constructor() {
+class NovelRepository private constructor() {
 
     companion object {
-        val instance by lazy { IllustRepository() }
+        val instance by lazy { NovelRepository() }
     }
 
     var nextUrl = ""
 
     private val illustList: ArrayMap<String, Illust> = ArrayMap()
 
-    fun loadRecommend(): Observable<IllustListResp> {
+    fun loadRecommend(): Observable<NovelListResp> {
         return RetrofitManager.instance
                 .apiService
-                .getHomeRecommendData()
+                .getHomeNovelRecommendData()
                 .retryWhenTokenInvalid()
                 .doOnNext {
                     with(it) {
                         nextUrl = next_url
-                        illusts.forEach {
+                        novels.forEach {
                             illust ->
                             illustList[illust.id.toString()] = illust
                         }
-                        ranking_illusts.forEach {
+                        ranking_novels.forEach {
                             illust ->
                             illustList[illust.id.toString()] = illust
                         }
@@ -46,15 +49,15 @@ class IllustRepository private constructor() {
                 .schedulerTransformer()
     }
 
-    fun loadMore(): Observable<IllustListResp> {
+    fun loadMore(): Observable<NovelListResp> {
         return RetrofitManager.instance
                 .apiService
-                .getMoreRecommend(nextUrl)
+                .getMoreNovelRecommend(nextUrl)
                 .retryWhenTokenInvalid()
                 .doOnNext {
                     with(it) {
                         nextUrl = next_url
-                        illusts.forEach {
+                        novels.forEach {
                             illust ->
                             illustList[illust.id.toString()] = illust
                         }

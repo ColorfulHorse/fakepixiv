@@ -9,6 +9,9 @@ import android.view.View
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
+import com.lyj.fakepivix.app.constant.Category
+import com.lyj.fakepivix.app.constant.Constant
+import com.lyj.fakepivix.app.constant.ILLUST
 import com.lyj.fakepivix.app.data.model.response.SpotlightArticle
 import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
 import com.lyj.fakepivix.app.network.LoadState
@@ -26,7 +29,7 @@ import kotlinx.android.synthetic.main.layout_error_small.view.*
  *
  * @desc
  */
-class PixivisionHeader(val context: Context?, val viewModel: PixivisionViewModel) {
+class PixivisionHeader(val context: Context?, val viewModel: PixivisionViewModel, @Category val category: String = ILLUST) {
 
     private val rootView = LayoutInflater.from(context).inflate(R.layout.header_pixivision, null)
 
@@ -41,7 +44,7 @@ class PixivisionHeader(val context: Context?, val viewModel: PixivisionViewModel
         if (mBinding != null) {
             with(mBinding) {
                 errorView.reload.setOnClickListener {
-                    viewModel.load()
+                    viewModel.load(category)
                 }
                 adapter.emptyView = loadingView
                 val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -57,12 +60,12 @@ class PixivisionHeader(val context: Context?, val viewModel: PixivisionViewModel
 
                 with(viewModel) {
                     viewModel.loadState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
-                        when (loadState.get()) {
+                        loadFailed = when (loadState.get()) {
                             is LoadState.Failed -> {
-                                loadFailed = true
+                                true
                             }
                             else -> {
-                                loadFailed = false
+                                false
                             }
                         }
                     })

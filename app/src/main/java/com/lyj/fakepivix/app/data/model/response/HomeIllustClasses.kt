@@ -64,25 +64,3 @@ data class Owner(
     val user: User = User()
 )
 
-
-/**
- *
- *主页pixivision response
- * @property next_url
- * @property spotlight_articles
- */
-data class SpotLightResp(
-    val next_url: String = "",
-    val spotlight_articles: List<SpotlightArticle> = listOf()
-)
-
-data class SpotlightArticle(
-    val article_url: String = "",
-    val category: String = "",
-    val id: Long = 0,
-    val publish_date: String = "",
-    val pure_title: String = "",
-    val subcategory_label: String = "",
-    val thumbnail: String = "",
-    val title: String = ""
-)

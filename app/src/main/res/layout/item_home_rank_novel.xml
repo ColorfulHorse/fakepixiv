@@ -9,6 +9,9 @@
         <variable
             name="data"
             type="Illust" />
+        <!--<variable-->
+            <!--name="StringUtil"-->
+            <!--type="com.lyj.fakepivix.app.utils.StringUtil" />-->
     </data>
 
     <android.support.v7.widget.CardView

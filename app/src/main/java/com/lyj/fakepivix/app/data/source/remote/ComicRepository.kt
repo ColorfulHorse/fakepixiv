@@ -1,6 +1,7 @@
 package com.lyj.fakepivix.app.data.source.remote
 
 import android.util.ArrayMap
+import com.lyj.fakepivix.app.constant.COMIC
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.IllustListResp
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
@@ -15,10 +16,10 @@ import io.reactivex.Observable
  *
  * @desc
  */
-class IllustRepository private constructor() {
+class ComicRepository private constructor() {
 
     companion object {
-        val instance by lazy { IllustRepository() }
+        val instance by lazy { ComicRepository() }
     }
 
     var nextUrl = ""
@@ -28,7 +29,7 @@ class IllustRepository private constructor() {
     fun loadRecommend(): Observable<IllustListResp> {
         return RetrofitManager.instance
                 .apiService
-                .getHomeRecommendData()
+                .getHomeRecommendData(COMIC)
                 .retryWhenTokenInvalid()
                 .doOnNext {
                     with(it) {

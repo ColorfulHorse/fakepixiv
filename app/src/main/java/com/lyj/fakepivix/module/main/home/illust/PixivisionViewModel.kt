@@ -23,9 +23,9 @@ class PixivisionViewModel : BaseViewModel<IModel?>() {
 
     var loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
-    fun load() {
+    fun load(category: String) {
         val disposable = PixivisionRepository.instance
-                .loadRecommend()
+                .loadRecommend(category)
                 .doOnSubscribe{
                     loadState.set(LoadState.Loading)
                     data.clear()

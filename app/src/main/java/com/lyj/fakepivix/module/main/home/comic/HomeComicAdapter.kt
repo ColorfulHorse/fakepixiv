@@ -1,29 +1,22 @@
-package com.lyj.fakepivix.module.main.home.illust
+package com.lyj.fakepivix.module.main.home.comic
 
 import android.databinding.ObservableList
 import android.databinding.ViewDataBinding
 import android.graphics.drawable.Drawable
-import android.support.v7.widget.RecyclerView
-import android.util.Log
-import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.ListPreloader
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.util.ViewPreloadSizeProvider
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
-import com.lyj.fakepivix.R.id.count
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.adapter.BaseMultiBindingAdapter
 import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.databinding.url
 import com.lyj.fakepivix.app.utils.mapUrl
-import com.lyj.fakepivix.databinding.HeaderPixivisionBinding
+import com.lyj.fakepivix.databinding.ItemHomeComicBinding
 import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
-import com.lyj.fakepivix.databinding.ItemHomeLiveBinding
+import com.lyj.fakepivix.module.main.home.illust.PixivisionHeader
 
 /**
  * @author greensun
@@ -32,7 +25,7 @@ import com.lyj.fakepivix.databinding.ItemHomeLiveBinding
  *
  * @desc
  */
-class HomeIllustAdapter(data: ObservableList<Illust>, val header: PixivisionHeader) : BaseMultiBindingAdapter<Illust>(data), ListPreloader.PreloadModelProvider<Illust> {
+class HomeComicAdapter(data: ObservableList<Illust>, val header: PixivisionHeader) : BaseMultiBindingAdapter<Illust>(data), ListPreloader.PreloadModelProvider<Illust> {
     var viewPreloadSizeProvider: ViewPreloadSizeProvider<Illust>? = null
 
     companion object {
@@ -40,14 +33,14 @@ class HomeIllustAdapter(data: ObservableList<Illust>, val header: PixivisionHead
     }
 
     init {
-        addItemType(Illust.TYPE_ILLUST, R.layout.item_home_illust, BR.illust)
+        addItemType(Illust.TYPE_COMIC, R.layout.item_home_comic, BR.data)
     }
 
 
 
     override fun getItemViewType(position: Int): Int {
         val pos = position - headerLayoutCount
-        if (pos == 10) {
+        if (pos == 2) {
             return TYPE_ARTICLE_VIEW
         }
         return super.getItemViewType(position)
@@ -65,7 +58,7 @@ class HomeIllustAdapter(data: ObservableList<Illust>, val header: PixivisionHead
         viewPreloadSizeProvider?.let {
             vh.binding?.let {
                 binding ->
-                if (binding is ItemHomeIllustBinding) {
+                if (binding is ItemHomeComicBinding) {
                     it.setView(binding.image)
                 }
             }
@@ -103,7 +96,7 @@ class HomeIllustAdapter(data: ObservableList<Illust>, val header: PixivisionHead
 
 
     override fun getPreloadRequestBuilder(item: Illust): RequestBuilder<Drawable>? = GlideApp.with(recyclerView)
-            .load(item.image_urls.square_medium.mapUrl())
+            .load(item.image_urls.medium.mapUrl())
 
 
 }

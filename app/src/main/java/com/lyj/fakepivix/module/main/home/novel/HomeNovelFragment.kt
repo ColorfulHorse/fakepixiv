@@ -1,17 +1,19 @@
-package com.lyj.fakepivix.module.main.home.comic
+package com.lyj.fakepivix.module.main.home.novel
 
+import android.content.Context
 import android.os.Bundle
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import androidx.annotation.StringRes
 import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader
 import com.bumptech.glide.util.ViewPreloadSizeProvider
 import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.base.FragmentationFragment
-import com.lyj.fakepivix.app.constant.COMIC
-import com.lyj.fakepivix.app.constant.Constant
+import com.lyj.fakepivix.app.constant.NOVEL
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
 import com.lyj.fakepivix.app.network.LoadState
@@ -20,9 +22,7 @@ import com.lyj.fakepivix.app.utils.attachLoadMore
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.CommonRefreshList
 import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
-import com.lyj.fakepivix.module.main.home.illust.HomeIllustAdapter
-import com.lyj.fakepivix.module.main.home.illust.LiveHeader
-import com.lyj.fakepivix.module.main.home.illust.PixivisionHeader
+import com.lyj.fakepivix.module.main.home.comic.HomeComicFragment
 import com.lyj.fakepivix.module.main.home.illust.RankHeader
 import com.lyj.fakepivix.widget.CommonItemDecoration
 import kotlinx.android.synthetic.main.layout_error.view.*
@@ -35,20 +35,19 @@ import kotlinx.android.synthetic.main.layout_error.view.*
  *
  * @desc
  */
-class HomeComicFragment : FragmentationFragment<CommonRefreshList, HomeComicViewModel>() {
+class HomeNovelFragment : FragmentationFragment<CommonRefreshList, HomeNovelViewModel>() {
 
-    override var mViewModel: HomeComicViewModel = HomeComicViewModel()
+    override var mViewModel: HomeNovelViewModel = HomeNovelViewModel()
 
     companion object {
-        fun newInstance() = HomeComicFragment()
+        fun newInstance() = HomeNovelFragment()
     }
 
 
-    private lateinit var layoutManager: GridLayoutManager
-    private lateinit var mAdapter: HomeComicAdapter
-    // 排行榜，直播，pixivision头部
+    private lateinit var layoutManager: LinearLayoutManager
+    private lateinit var mAdapter: HomeNovelAdapter
+    // 排行榜
     private lateinit var rankHeader: RankHeader
-    private lateinit var pixivisionHeader: PixivisionHeader
 
     private val loadingView: View by lazy { layoutInflater.inflate(R.layout.layout_common_loading, null) }
     private val errorView: View by lazy { layoutInflater.inflate(R.layout.layout_error, null) }
@@ -62,21 +61,14 @@ class HomeComicFragment : FragmentationFragment<CommonRefreshList, HomeComicView
      * 初始化列表
      */
     private fun initList() {
-        layoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
-        val pixivisionViewModel = mViewModel.pixivisionViewModel
-        lifecycle.addObserver(pixivisionViewModel)
-        // 特辑列表
-        pixivisionHeader = PixivisionHeader(context, pixivisionViewModel, COMIC)
-        mAdapter = HomeComicAdapter(mViewModel.data, pixivisionHeader)
+        layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        mAdapter = HomeNovelAdapter(mViewModel.data)
 
         with(mBinding) {
             initHeader()
             recyclerView.layoutManager = layoutManager
             mAdapter.bindToRecyclerView(recyclerView)
-            recyclerView.addItemDecoration(CommonItemDecoration.Builder()
-                    .draw(false)
-                    .verticalWidth(3.5f.dp2px())
-                    .build())
+            recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
             // 加载更多
             recyclerView.attachLoadMore { mViewModel.loadMore() }
 
@@ -84,16 +76,15 @@ class HomeComicFragment : FragmentationFragment<CommonRefreshList, HomeComicView
                 if (it is BaseBindingViewHolder<*>) {
                     it.binding?.let { binding ->
                         if (binding is ItemHomeIllustBinding) {
-                            GlideApp.with(this@HomeComicFragment).clear(binding.image)
+                            GlideApp.with(this@HomeNovelFragment).clear(binding.image)
                         }
                     }
                 }
             }
-
             // 预加载
             val sizeProvider = ViewPreloadSizeProvider<Illust>()
             mAdapter.viewPreloadSizeProvider = sizeProvider
-            val recyPreloader = RecyclerViewPreloader<Illust>(this@HomeComicFragment, mAdapter, sizeProvider, 10)
+            val recyPreloader = RecyclerViewPreloader<Illust>(this@HomeNovelFragment, mAdapter, sizeProvider, 10)
             recyclerView.addOnScrollListener(recyPreloader)
 
             // 刷新
@@ -145,7 +136,7 @@ class HomeComicFragment : FragmentationFragment<CommonRefreshList, HomeComicView
      */
     private fun initHeader() {
         val title = layoutInflater.inflate(R.layout.header_recommend, null)
-        rankHeader = RankHeader(context, mViewModel.rankViewModel)
+        rankHeader = RankHeader(context, mViewModel.rankViewModel, NOVEL)
         mAdapter.addHeaderView(rankHeader.mBinding?.root)
         mAdapter.addHeaderView(title)
     }

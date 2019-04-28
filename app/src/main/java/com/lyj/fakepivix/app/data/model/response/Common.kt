@@ -1,6 +1,8 @@
 package com.lyj.fakepivix.app.data.model.response
 
 import com.chad.library.adapter.base.entity.MultiItemEntity
+import com.lyj.fakepivix.app.constant.COMIC
+import com.lyj.fakepivix.app.constant.ILLUST
 import com.squareup.moshi.JsonClass
 
 /**
@@ -49,12 +51,14 @@ data class Illust (
 ): MultiItemEntity {
     companion object {
         const val TYPE_ILLUST = 1
-        const val TYPE_PIXIVISION = 2
+        const val TYPE_COMIC = 2
+        const val TYPE_NOVEL = 3
     }
 
     override fun getItemType(): Int = when(type) {
-        "illust" -> TYPE_ILLUST
-        else -> TYPE_ILLUST
+        ILLUST -> TYPE_ILLUST
+        COMIC -> TYPE_COMIC
+        else -> TYPE_NOVEL
     }
 
     fun getTagsText(): String {
@@ -124,4 +128,29 @@ data class PrivacyPolicy(
         val message: String = "",
         val url: String = "",
         val version: String = ""
+)
+
+
+/**
+ *
+ *主页pixivision response
+ * @property next_url
+ * @property spotlight_articles
+ */
+@JsonClass(generateAdapter = true)
+data class SpotLightResp(
+        val next_url: String = "",
+        val spotlight_articles: List<SpotlightArticle> = listOf()
+)
+
+@JsonClass(generateAdapter = true)
+data class SpotlightArticle(
+        val article_url: String = "",
+        val category: String = "",
+        val id: Long = 0,
+        val publish_date: String = "",
+        val pure_title: String = "",
+        val subcategory_label: String = "",
+        val thumbnail: String = "",
+        val title: String = ""
 )

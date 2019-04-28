@@ -2,16 +2,19 @@ package com.lyj.fakepivix.module.main.home.illust
 
 import android.content.Context
 import android.databinding.DataBindingUtil
+import android.databinding.ViewDataBinding
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PagerSnapHelper
 import android.view.LayoutInflater
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
+import com.lyj.fakepivix.app.constant.Category
+import com.lyj.fakepivix.app.constant.ILLUST
+import com.lyj.fakepivix.app.constant.NOVEL
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.HeaderRankBinding
-import com.lyj.fakepivix.databinding.ItemHomeRankIllustBinding
 import com.lyj.fakepivix.widget.CommonItemDecoration
 
 /**
@@ -21,15 +24,21 @@ import com.lyj.fakepivix.widget.CommonItemDecoration
  *
  * @desc 插画排行榜list
  */
-class RankHeader(val context: Context?, val viewModel: RankViewModel) {
+class RankHeader(val context: Context?, viewModel: RankViewModel, @Category val category: String = ILLUST) {
 
     private val rootView = LayoutInflater.from(context).inflate(R.layout.header_rank, null)
 
     val mBinding: HeaderRankBinding? = DataBindingUtil.bind(rootView)
 
-    val adapter: BaseBindingAdapter<Illust, ItemHomeRankIllustBinding> = BaseBindingAdapter(R.layout.item_home_rank_illust, viewModel.data, BR.data)
+    val adapter: BaseBindingAdapter<Illust, ViewDataBinding>
 
     init {
+        val layoutId = when(category) {
+            ILLUST -> R.layout.item_home_rank_illust
+            NOVEL -> R.layout.item_home_rank_novel
+            else -> R.layout.item_home_rank_illust
+        }
+        adapter = BaseBindingAdapter(layoutId, viewModel.data, BR.data)
         if (mBinding != null) {
             with(mBinding) {
                 val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

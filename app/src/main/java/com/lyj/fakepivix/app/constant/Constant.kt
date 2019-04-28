@@ -22,11 +22,6 @@ interface Constant {
         const val HEADER_TOKEN = "Authorization"
     }
 
-    object Config {
-        const val CATEGORY_ALL = "all"
-        const val CATEGORY_COMIC = "manga"
-    }
-
     object SP {
         const val KEY_LOGIN_CACHE = "KEY_LOGIN_CACHE"
     }

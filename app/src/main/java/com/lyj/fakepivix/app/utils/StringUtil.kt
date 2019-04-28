@@ -11,11 +11,13 @@ import java.text.DecimalFormat
  */
 object StringUtil {
 
+    @JvmStatic
     fun formatLength(length: Int): String {
         val df = DecimalFormat(",###")
         return df.format(length)
     }
 
+    @JvmStatic
     fun formatCount(count: Int): String {
         if (count > 10000) {
             val df = DecimalFormat(".#k")

@@ -10,6 +10,10 @@
         <variable
             name="data"
             type="Illust" />
+
+        <!--<variable-->
+            <!--name="StringUtil"-->
+            <!--type="com.lyj.fakepivix.app.utils.StringUtil" />-->
     </data>
 
     <RelativeLayout
@@ -46,6 +50,7 @@
                 android:layout_marginBottom="8dp"
                 android:drawableStart="@drawable/ic_manga_like"
                 android:drawablePadding="4dp"
+                android:gravity="center_vertical"
                 android:textColor="@color/renewal_font_light_gray"
                 android:textSize="12.0sp"
                 android:textStyle="bold"

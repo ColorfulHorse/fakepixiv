@@ -10,9 +10,7 @@ import com.lyj.fakepivix.app.entity.TabBean
 import com.lyj.fakepivix.databinding.FragmentHomeBinding
 import com.lyj.fakepivix.module.main.home.comic.HomeComicFragment
 import com.lyj.fakepivix.module.main.home.illust.HomeIllustFragment
-import com.lyj.fakepivix.module.main.home.noval.HomeNovalFragment
-import com.lyj.fakepivix.module.main.news.NewsFragment
-import com.lyj.fakepivix.module.main.search.SearchFragment
+import com.lyj.fakepivix.module.main.home.novel.HomeNovelFragment
 
 
 /**
@@ -59,7 +57,7 @@ class HomeFragment : FragmentationFragment<FragmentHomeBinding, BaseViewModel<*>
     private fun initFragment() {
         var illustFragment = findFragment(HomeIllustFragment::class.java)
         var comicFragment = findFragment(HomeComicFragment::class.java)
-        var novalFragment = findFragment(HomeNovalFragment::class.java)
+        var novalFragment = findFragment(HomeNovelFragment::class.java)
         if (illustFragment == null) {
             illustFragment = HomeIllustFragment.newInstance()
         }
@@ -67,7 +65,7 @@ class HomeFragment : FragmentationFragment<FragmentHomeBinding, BaseViewModel<*>
             comicFragment = HomeComicFragment.newInstance()
         }
         if (novalFragment == null) {
-            novalFragment = HomeNovalFragment.newInstance()
+            novalFragment = HomeNovelFragment.newInstance()
         }
         fragments.clear()
         fragments.add(illustFragment)

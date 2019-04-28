@@ -37,7 +37,7 @@
                     android:scaleType="centerCrop"
                     app:fade="@{true}"
                     app:placeHolder="@{@drawable/common_border_placeholder}"
-                    app:url="@{data.image_urls.square_medium}" />
+                    app:url="@{data.image_urls.medium}" />
 
                 <TextView
                     android:id="@+id/count"

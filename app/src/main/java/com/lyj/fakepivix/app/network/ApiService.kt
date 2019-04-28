@@ -1,11 +1,11 @@
 package com.lyj.fakepivix.app.network
 
 
+import com.lyj.fakepivix.app.constant.Category
 import com.lyj.fakepivix.app.constant.Constant
-import com.lyj.fakepivix.app.data.model.response.IllustListResp
-import com.lyj.fakepivix.app.data.model.response.LoginResp
-import com.lyj.fakepivix.app.data.model.response.RankLiveResp
-import com.lyj.fakepivix.app.data.model.response.SpotLightResp
+import com.lyj.fakepivix.app.constant.ILLUST
+import com.lyj.fakepivix.app.constant.NOVEL
+import com.lyj.fakepivix.app.data.model.response.*
 import com.lyj.fakepivix.app.network.retrofit.interceptors.SwitchBaseUrlInterceptor
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -49,18 +49,6 @@ interface ApiService {
               @Field("get_secure_url")get_secure_url: Boolean = true, @Field("include_policy")include_policy: Boolean = true, @Field("grant_type")grantType: String = Constant.Net.GRANT_TYPE_PWD,
               @Field("username")userName: String = "", @Field("password")password: String = "", @Field("device_token")deviceToken: String = "", @Field("refresh_token")refreshToken: String = ""): Observable<LoginResp>
 
-    /**
-     * 主页插画
-     */
-    @GET("/v1/illust/recommended")
-    fun getIllustRecommendData(@Query("filter") filter: String = "for_android", @Query("include_ranking_illusts") ranking: Boolean = true,
-                               @Query("include_privacy_policy") privacy: Boolean = true): Observable<IllustListResp>
-
-    /**
-     * 加载更多
-     */
-    @GET
-    fun getMoreIllustRecommend(@Url nextUrl: String): Observable<IllustListResp>
 
     /**
      * 主页直播
@@ -68,16 +56,40 @@ interface ApiService {
     @GET("/v1/live/list")
     fun getIllustLiveData(@Query("list_type") type: String = "popular"): Observable<RankLiveResp>
 
-    /**
-     * 主页插画特辑
-     */
-    @GET("/v1/spotlight/articles")
-    fun getIllustPixivisionData(@Query("filter") filter: String = "for_android", @Query("category") category: String = Constant.Config.CATEGORY_ALL): Observable<SpotLightResp>
 
 
     /**
-     * 主页漫画特辑
+     * 主页推荐列表
+     * [category] 插画/漫画
+     */
+    @GET("/v1/{category}/recommended")
+    fun getHomeRecommendData(@Category @Path("category")category: String = ILLUST, @Query("filter") filter: String = "for_android", @Query("include_ranking_illusts") ranking: Boolean = true,
+                             @Query("include_privacy_policy") privacy: Boolean = true): Observable<IllustListResp>
+
+    /**
+     * 主页推荐列表
+     * [category] 小说  神坑接口
+     */
+    @GET("/v1/{category}/recommended")
+    fun getHomeNovelRecommendData(@Category @Path("category")category: String = NOVEL, @Query("filter") filter: String = "for_android", @Query("include_ranking_novels") ranking: Boolean = true,
+                             @Query("include_privacy_policy") privacy: Boolean = true): Observable<NovelListResp>
+
+    /**
+     * 主页特辑
      */
     @GET("/v1/spotlight/articles")
-    fun getComicPixivisionData(@Query("filter") filter: String = "for_android", @Query("category") category: String = Constant.Config.CATEGORY_COMIC): Observable<SpotLightResp>
+    fun getIllustPixivisionData(@Query("filter") filter: String = "for_android", @Query("category") category: String): Observable<SpotLightResp>
+
+    /**
+     * 加载更多
+     */
+    @GET
+    fun getMoreRecommend(@Url nextUrl: String): Observable<IllustListResp>
+
+    /**
+     * 加载更多小说
+     */
+    @GET
+    fun getMoreNovelRecommend(@Url nextUrl: String): Observable<NovelListResp>
+
 }

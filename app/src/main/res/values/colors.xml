@@ -195,7 +195,6 @@
     <color name="renewal_fg_general">#ff3a3a3a</color>
     <color name="renewal_fg_novel_tag">@color/primary</color>
     <color name="renewal_fg_sub">#ffaaaaaa</color>
-    <color name="renewal_font_black">#ff69606d</color>
     <color name="renewal_font_gray">#ff9b9b9b</color>
     <color name="renewal_gray_mask_tag">#33000000</color>
     <color name="ripple_material_dark">#33ffffff</color>

@@ -56,12 +56,12 @@ class LiveHeader(val context: Context?, val viewModel: LiveViewModel) {
 
                 with(viewModel) {
                     loadState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
-                        when (loadState.get()) {
+                        loadFailed = when (loadState.get()) {
                             is LoadState.Failed -> {
-                                loadFailed = true
+                                true
                             }
                             else -> {
-                                loadFailed = false
+                                false
                             }
                         }
                     })
