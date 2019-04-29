@@ -115,4 +115,7 @@ interface ApiService {
     @GET("/v1/{category}/follow")
     fun getFollowNovelData(@Category @Path("category")category: String = NOVEL, @Query("restrict") restrict: String = "all"): Observable<NovelListResp>
 
+    // https://app-api.pixiv.net/v1/illust/new?filter=for_android&content_type=illust   最新-插画
+    // https://app-api.pixiv.net/v1/illust/new?filter=for_android&content_type=manga   最新-漫画
+    // https://app-api.pixiv.net/v1/novel/new 最新-小说
 }
