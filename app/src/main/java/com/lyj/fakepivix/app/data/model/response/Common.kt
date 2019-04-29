@@ -154,3 +154,20 @@ data class SpotlightArticle(
         val thumbnail: String = "",
         val title: String = ""
 )
+
+/**
+ * 用户预览
+ */
+@JsonClass(generateAdapter = true)
+data class UserPreviewListResp(
+    val next_url: String = "",
+    val user_previews: List<UserPreview> = listOf()
+)
+
+@JsonClass(generateAdapter = true)
+data class UserPreview(
+    val illusts: List<Illust> = listOf(),
+    val is_muted: Boolean = false,
+    val novels: List<Illust> = listOf(),
+    val user: User = User()
+)

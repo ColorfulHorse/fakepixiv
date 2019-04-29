@@ -26,7 +26,7 @@ class LiveRepository private constructor() {
     fun loadRecommend(): Observable<List<Live>> {
         return RetrofitManager.instance
                 .apiService
-                .getIllustLiveData()
+                .getLiveListData()
                 .retryWhenTokenInvalid()
                 .map { 
                     nextUrl = it.next_url
