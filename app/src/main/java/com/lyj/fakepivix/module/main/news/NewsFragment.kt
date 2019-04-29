@@ -26,6 +26,9 @@ class NewsFragment : FragmentationFragment<FragmentNewsBinding, BaseViewModel<*>
         mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText(R.string.subtab_follower), true)
         mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText(R.string.subtab_news))
         mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText(R.string.subtab_friend))
+        with(mBinding) {
+
+        }
 
     }
 

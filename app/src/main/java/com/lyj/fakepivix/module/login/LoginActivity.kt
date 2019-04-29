@@ -97,7 +97,6 @@ class LoginActivity : FragmentationActivity<ActivityLoginBinding, WallpaperViewM
 
 
     override fun onDestroy() {
-        //disposable?.dispose()
         super.onDestroy()
         ImmersionBar.with(this).destroy()
     }

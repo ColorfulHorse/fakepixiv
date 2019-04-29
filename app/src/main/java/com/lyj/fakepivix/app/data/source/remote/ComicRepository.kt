@@ -14,7 +14,7 @@ import io.reactivex.Observable
  *
  * @date 2019/4/15
  *
- * @desc
+ * @desc 主页漫画resp
  */
 class ComicRepository private constructor() {
 

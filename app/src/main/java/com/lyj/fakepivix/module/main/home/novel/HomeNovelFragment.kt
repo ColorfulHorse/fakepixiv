@@ -1,30 +1,22 @@
 package com.lyj.fakepivix.module.main.home.novel
 
-import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import androidx.annotation.StringRes
-import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader
-import com.bumptech.glide.util.ViewPreloadSizeProvider
 import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.constant.NOVEL
-import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.ToastUtil
 import com.lyj.fakepivix.app.utils.attachLoadMore
-import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.CommonRefreshList
 import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
-import com.lyj.fakepivix.module.main.home.comic.HomeComicFragment
+import com.lyj.fakepivix.module.main.common.adapter.NovelAdapter
 import com.lyj.fakepivix.module.main.home.illust.RankHeader
-import com.lyj.fakepivix.widget.CommonItemDecoration
 import kotlinx.android.synthetic.main.layout_error.view.*
 
 
@@ -45,7 +37,7 @@ class HomeNovelFragment : FragmentationFragment<CommonRefreshList, HomeNovelView
 
 
     private lateinit var layoutManager: LinearLayoutManager
-    private lateinit var mAdapter: HomeNovelAdapter
+    private lateinit var mAdapter: NovelAdapter
     // 排行榜
     private lateinit var rankHeader: RankHeader
 
@@ -62,7 +54,7 @@ class HomeNovelFragment : FragmentationFragment<CommonRefreshList, HomeNovelView
      */
     private fun initList() {
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        mAdapter = HomeNovelAdapter(mViewModel.data)
+        mAdapter = NovelAdapter(mViewModel.data)
 
         with(mBinding) {
             initHeader()
@@ -81,11 +73,6 @@ class HomeNovelFragment : FragmentationFragment<CommonRefreshList, HomeNovelView
                     }
                 }
             }
-            // 预加载
-            val sizeProvider = ViewPreloadSizeProvider<Illust>()
-            mAdapter.viewPreloadSizeProvider = sizeProvider
-            val recyPreloader = RecyclerViewPreloader<Illust>(this@HomeNovelFragment, mAdapter, sizeProvider, 10)
-            recyclerView.addOnScrollListener(recyPreloader)
 
             // 刷新
             refreshLayout.setOnRefreshListener {

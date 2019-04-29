@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.CheckBox
 import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader
 import com.bumptech.glide.util.ViewPreloadSizeProvider
 import com.lyj.fakepivix.GlideApp
@@ -19,6 +18,7 @@ import com.lyj.fakepivix.app.utils.attachLoadMore
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.CommonRefreshList
 import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
+import com.lyj.fakepivix.module.main.common.adapter.IllustAdapter
 import com.lyj.fakepivix.widget.CommonItemDecoration
 import kotlinx.android.synthetic.main.layout_error.view.*
 
@@ -39,7 +39,7 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
     }
 
     private lateinit var layoutManager: GridLayoutManager
-    private lateinit var mAdapter: HomeIllustAdapter
+    private lateinit var mAdapter: IllustAdapter
     // 排行榜，直播，pixivision头部
     private lateinit var rankHeader: RankHeader
     private lateinit var liveHeader: LiveHeader
@@ -84,12 +84,6 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
                     }
                 }
             }
-
-            // 预加载
-            val sizeProvider = ViewPreloadSizeProvider<Illust>()
-            mAdapter.viewPreloadSizeProvider = sizeProvider
-            val recyPreloader = RecyclerViewPreloader<Illust>(this@HomeIllustFragment, mAdapter, sizeProvider, 10)
-            recyclerView.addOnScrollListener(recyPreloader)
 
             // 刷新
             refreshLayout.setOnRefreshListener {

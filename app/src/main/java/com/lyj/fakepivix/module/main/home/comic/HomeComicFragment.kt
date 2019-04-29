@@ -11,7 +11,6 @@ import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.constant.COMIC
-import com.lyj.fakepivix.app.constant.Constant
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
 import com.lyj.fakepivix.app.network.LoadState
@@ -20,8 +19,7 @@ import com.lyj.fakepivix.app.utils.attachLoadMore
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.CommonRefreshList
 import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
-import com.lyj.fakepivix.module.main.home.illust.HomeIllustAdapter
-import com.lyj.fakepivix.module.main.home.illust.LiveHeader
+import com.lyj.fakepivix.module.main.common.adapter.ComicAdapter
 import com.lyj.fakepivix.module.main.home.illust.PixivisionHeader
 import com.lyj.fakepivix.module.main.home.illust.RankHeader
 import com.lyj.fakepivix.widget.CommonItemDecoration
@@ -45,7 +43,7 @@ class HomeComicFragment : FragmentationFragment<CommonRefreshList, HomeComicView
 
 
     private lateinit var layoutManager: GridLayoutManager
-    private lateinit var mAdapter: HomeComicAdapter
+    private lateinit var mAdapter: ComicAdapter
     // 排行榜，直播，pixivision头部
     private lateinit var rankHeader: RankHeader
     private lateinit var pixivisionHeader: PixivisionHeader
@@ -89,12 +87,6 @@ class HomeComicFragment : FragmentationFragment<CommonRefreshList, HomeComicView
                     }
                 }
             }
-
-            // 预加载
-            val sizeProvider = ViewPreloadSizeProvider<Illust>()
-            mAdapter.viewPreloadSizeProvider = sizeProvider
-            val recyPreloader = RecyclerViewPreloader<Illust>(this@HomeComicFragment, mAdapter, sizeProvider, 10)
-            recyclerView.addOnScrollListener(recyPreloader)
 
             // 刷新
             refreshLayout.setOnRefreshListener {
