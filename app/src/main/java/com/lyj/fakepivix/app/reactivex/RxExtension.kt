@@ -21,10 +21,9 @@ fun <T> Observable<T>.schedulerTransformer(): Observable<T> = this.compose {
 
 /**
  * 用于刷新token
- * {@link Drawable}
  */
 
-@Deprecated("@link{ApiExceptionInterceptor}")
+@Deprecated("更改为ApiExceptionInterceptor实现")
 fun <T> Observable<T>.retryWhenTokenInvalid(): Observable<T> = this.retryWhen {
     it.flatMap { err ->
         if (err is ApiException) {
