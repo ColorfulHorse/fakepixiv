@@ -2,9 +2,12 @@ package com.lyj.fakepivix.app.network.retrofit.interceptors
 
 import com.lyj.fakepivix.app.constant.Constant
 import com.lyj.fakepivix.app.data.model.response.LoginError
+import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import com.lyj.fakepivix.app.network.ApiException
+import com.lyj.fakepivix.app.utils.SPUtil
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import io.reactivex.rxkotlin.subscribeBy
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.net.ConnectException
@@ -23,20 +26,13 @@ private val moshi: Moshi by lazy { Moshi.Builder().add(KotlinJsonAdapterFactory(
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val req = chain.request()
+        val response: Response
         try {
-            chain.proceed(req)
+            response = chain.proceed(req)
         }catch (err: Exception) {
-            when (err) {
-                is SocketTimeoutException -> {
-                    throw ApiException(ApiException.CODE_TIMEOUT)
-                }
-                is ConnectException -> {
-                    throw ApiException(ApiException.CODE_CONNECT)
-                }
-                else -> throw err
-            }
+            val error = convertException(err)
+            throw error
         }
-        val response = chain.proceed(req)
         when(response.code()) {
             400 -> {
                 if (req.url().toString().contains(Constant.Net.AUTH_URL)) {
@@ -50,10 +46,46 @@ private val moshi: Moshi by lazy { Moshi.Builder().add(KotlinJsonAdapterFactory(
                     }
                     throw ApiException()
                 }else {
-                    throw ApiException(ApiException.CODE_TOKEN_INVALID)
+                    // token过期同步刷新token
+                    //throw ApiException(ApiException.CODE_TOKEN_INVALID)
+                    val loginData = SPUtil.getLoginData()
+                    var resp: Response? = null
+                    var throwable: Throwable = ApiException()
+                    loginData?.let {
+                        UserRepository.instance.reLogin(loginData)
+                                .subscribeBy(onNext = {
+                                    val newReq = req.newBuilder()
+                                            .header(Constant.Net.HEADER_TOKEN, "Bearer ${it.access_token}")
+                                            .build()
+                                    try {
+                                        resp = chain.proceed(newReq)
+                                    }catch (err: Exception) {
+                                        throwable = err
+                                    }
+                                }, onError = {
+                                    throwable = it
+                                })
+                    }
+                    if (resp != null) {
+                        return resp as Response
+                    }else {
+                        throw convertException(throwable)
+                    }
                 }
             }
             else -> return chain.proceed(req)
+        }
+    }
+
+    private fun convertException(err: Throwable): Throwable {
+        return when (err) {
+            is SocketTimeoutException -> {
+                ApiException(ApiException.CODE_TIMEOUT)
+            }
+            is ConnectException -> {
+                ApiException(ApiException.CODE_CONNECT)
+            }
+            else -> err
         }
     }
 }

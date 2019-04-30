@@ -18,5 +18,5 @@ const val NOVEL = "novel"
 @MustBeDocumented
 @Target(AnnotationTarget.VALUE_PARAMETER)
 @Retention(AnnotationRetention.SOURCE)
-annotation class Category
+annotation class IllustCategory
 

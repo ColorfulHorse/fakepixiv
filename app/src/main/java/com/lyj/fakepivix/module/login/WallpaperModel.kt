@@ -18,7 +18,7 @@ class WallpaperModel : IWallpaperModel, BaseModel() {
     override fun getData(): Observable<List<Illust>> {
         return mApi.getWallPaperData()
                 .map {
-                    if (!it.illusts.isEmpty()) {
+                    if (it.illusts.isNotEmpty()) {
                         return@map it.illusts
                     }
                     throw ApiException(ApiException.CODE_EMPTY_DATA)

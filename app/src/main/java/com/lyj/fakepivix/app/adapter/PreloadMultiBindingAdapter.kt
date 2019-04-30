@@ -1,6 +1,7 @@
 package com.lyj.fakepivix.app.adapter
 
 import android.databinding.ObservableList
+import android.support.v7.widget.RecyclerView
 import com.bumptech.glide.ListPreloader
 import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader
 import com.bumptech.glide.util.ViewPreloadSizeProvider
@@ -19,7 +20,8 @@ abstract class PreloadMultiBindingAdapter<T : MultiItemEntity>(data: ObservableL
     // 最大预加载数量
     open protected var maxPreLoad = 10
 
-    init {
+    override fun bindToRecyclerView(recyclerView: RecyclerView) {
+        super.bindToRecyclerView(recyclerView)
         val recyPreloader = RecyclerViewPreloader<T>(GlideApp.with(recyclerView), this, sizeProvider, maxPreLoad)
         recyclerView.addOnScrollListener(recyPreloader)
     }

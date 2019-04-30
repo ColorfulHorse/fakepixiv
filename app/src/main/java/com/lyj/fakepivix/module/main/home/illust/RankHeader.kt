@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
-import com.lyj.fakepivix.app.constant.Category
+import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.ILLUST
 import com.lyj.fakepivix.app.constant.NOVEL
 import com.lyj.fakepivix.app.data.model.response.Illust
@@ -24,7 +24,7 @@ import com.lyj.fakepivix.widget.CommonItemDecoration
  *
  * @desc 插画排行榜list
  */
-class RankHeader(val context: Context?, viewModel: RankViewModel, @Category val category: String = ILLUST) {
+class RankHeader(val context: Context?, viewModel: RankViewModel, @IllustCategory val category: String = ILLUST) {
 
     private val rootView = LayoutInflater.from(context).inflate(R.layout.header_rank, null)
 

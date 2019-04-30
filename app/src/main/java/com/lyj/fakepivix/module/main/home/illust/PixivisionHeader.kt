@@ -9,8 +9,7 @@ import android.view.View
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
-import com.lyj.fakepivix.app.constant.Category
-import com.lyj.fakepivix.app.constant.Constant
+import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.ILLUST
 import com.lyj.fakepivix.app.data.model.response.SpotlightArticle
 import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
@@ -29,7 +28,7 @@ import kotlinx.android.synthetic.main.layout_error_small.view.*
  *
  * @desc
  */
-class PixivisionHeader(val context: Context?, val viewModel: PixivisionViewModel, @Category val category: String = ILLUST) {
+class PixivisionHeader(val context: Context?, val viewModel: PixivisionViewModel, @IllustCategory val category: String = ILLUST) {
 
     private val rootView = LayoutInflater.from(context).inflate(R.layout.header_pixivision, null)
 

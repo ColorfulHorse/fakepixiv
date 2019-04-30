@@ -2,6 +2,7 @@ package com.lyj.fakepivix.app.reactivex
 
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import com.lyj.fakepivix.app.network.ApiException
+import com.lyj.fakepivix.app.network.retrofit.interceptors.ApiExceptionInterceptor
 import com.lyj.fakepivix.app.utils.SPUtil
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -20,7 +21,10 @@ fun <T> Observable<T>.schedulerTransformer(): Observable<T> = this.compose {
 
 /**
  * 用于刷新token
+ * {@link Drawable}
  */
+
+@Deprecated("@link{ApiExceptionInterceptor}")
 fun <T> Observable<T>.retryWhenTokenInvalid(): Observable<T> = this.retryWhen {
     it.flatMap { err ->
         if (err is ApiException) {

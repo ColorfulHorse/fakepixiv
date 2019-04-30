@@ -1,7 +1,7 @@
 package com.lyj.fakepivix.app.network
 
 
-import com.lyj.fakepivix.app.constant.Category
+import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.Constant
 import com.lyj.fakepivix.app.constant.ILLUST
 import com.lyj.fakepivix.app.constant.NOVEL
@@ -63,7 +63,7 @@ interface ApiService {
      * [category] 插画/漫画
      */
     @GET("/v1/{category}/recommended")
-    fun getHomeRecommendData(@Category @Path("category")category: String = ILLUST, @Query("filter") filter: String = "for_android", @Query("include_ranking_illusts") ranking: Boolean = true,
+    fun getHomeRecommendData(@IllustCategory @Path("category")category: String = ILLUST, @Query("filter") filter: String = "for_android", @Query("include_ranking_illusts") ranking: Boolean = true,
                              @Query("include_privacy_policy") privacy: Boolean = true): Observable<IllustListResp>
 
     /**
@@ -71,8 +71,8 @@ interface ApiService {
      * [category] 小说  神坑接口
      */
     @GET("/v1/{category}/recommended")
-    fun getHomeNovelRecommendData(@Category @Path("category")category: String = NOVEL, @Query("filter") filter: String = "for_android", @Query("include_ranking_novels") ranking: Boolean = true,
-                             @Query("include_privacy_policy") privacy: Boolean = true): Observable<NovelListResp>
+    fun getHomeNovelRecommendData(@IllustCategory @Path("category")category: String = NOVEL, @Query("filter") filter: String = "for_android", @Query("include_ranking_novels") ranking: Boolean = true,
+                                  @Query("include_privacy_policy") privacy: Boolean = true): Observable<NovelListResp>
 
     /**
      * 主页特辑
@@ -96,24 +96,23 @@ interface ApiService {
 
     /**
      * 最新-推荐用户
-     * [category] 小说
      */
     @GET("/v1/user/recommended")
-    fun getUserRecommend(@Category @Path("category")category: String = NOVEL, @Query("filter") filter: String = "for_android"): Observable<UserPreviewListResp>
+    fun getUserRecommend(@Query("filter") filter: String = "for_android"): Observable<UserPreviewListResp>
 
     /**
      * 最新-关注者
      * [category] 插画/漫画
      */
     @GET("/v1/{category}/follow")
-    fun getFollowIllustData(@Category @Path("category")category: String = ILLUST, @Query("restrict") restrict: String = "all"): Observable<IllustListResp>
+    fun getFollowIllustData(@IllustCategory @Path("category")category: String = ILLUST, @Query("restrict") restrict: String = "all"): Observable<IllustListResp>
 
     /**
      * 最新-关注者
      * [category] 小说
      */
     @GET("/v1/{category}/follow")
-    fun getFollowNovelData(@Category @Path("category")category: String = NOVEL, @Query("restrict") restrict: String = "all"): Observable<NovelListResp>
+    fun getFollowNovelData(@IllustCategory @Path("category")category: String = NOVEL, @Query("restrict") restrict: String = "all"): Observable<NovelListResp>
 
     // https://app-api.pixiv.net/v1/illust/new?filter=for_android&content_type=illust   最新-插画
     // https://app-api.pixiv.net/v1/illust/new?filter=for_android&content_type=manga   最新-漫画
