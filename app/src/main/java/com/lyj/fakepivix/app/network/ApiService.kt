@@ -51,10 +51,10 @@ interface ApiService {
 
 
     /**
-     * 主页直播
+     * 直播列表  [type] following:关注的直播
      */
     @GET("/v1/live/list")
-    fun getIllustLiveData(@Query("list_type") type: String = "popular"): Observable<RankLiveResp>
+    fun getLiveListData(@Query("list_type") type: String = "popular"): Observable<LiveListResp>
 
 
 
@@ -92,4 +92,30 @@ interface ApiService {
     @GET
     fun getMoreNovelRecommend(@Url nextUrl: String): Observable<NovelListResp>
 
+
+
+    /**
+     * 最新-推荐用户
+     * [category] 小说
+     */
+    @GET("/v1/user/recommended")
+    fun getUserRecommend(@Category @Path("category")category: String = NOVEL, @Query("filter") filter: String = "for_android"): Observable<UserPreviewListResp>
+
+    /**
+     * 最新-关注者
+     * [category] 插画/漫画
+     */
+    @GET("/v1/{category}/follow")
+    fun getFollowIllustData(@Category @Path("category")category: String = ILLUST, @Query("restrict") restrict: String = "all"): Observable<IllustListResp>
+
+    /**
+     * 最新-关注者
+     * [category] 小说
+     */
+    @GET("/v1/{category}/follow")
+    fun getFollowNovelData(@Category @Path("category")category: String = NOVEL, @Query("restrict") restrict: String = "all"): Observable<NovelListResp>
+
+    // https://app-api.pixiv.net/v1/illust/new?filter=for_android&content_type=illust   最新-插画
+    // https://app-api.pixiv.net/v1/illust/new?filter=for_android&content_type=manga   最新-漫画
+    // https://app-api.pixiv.net/v1/novel/new 最新-小说
 }

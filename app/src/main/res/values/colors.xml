@@ -25,7 +25,6 @@
     <color name="bg_search_input">#fff5f5f5</color>
     <color name="bg_thumbnail_icon">#4b000000</color>
     <color name="bg_thumbnail_pr">#ffffb600</color>
-    <color name="bg_user_recommended_item_color">#fff6f6f6</color>
     <color name="bg_viewer_status_bar">@android:color/black</color>
     <color name="bg_work_detail">#fff6f6f6</color>
     <color name="black_translucent">#50000000</color>
@@ -245,4 +244,5 @@
     <color name="error_font_gray">#ff9b9b9b</color>
     <color name="renewal_font_light_gray">#ffc6cbcc</color>
     <color name="renewal_font_black">#ff69606d</color>
+    <color name="bg_user_recommended">#fff6f6f6</color>
 </resources>

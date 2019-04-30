@@ -29,7 +29,7 @@ data class TagX(
  */
 
 @JsonClass(generateAdapter = true)
-data class RankLiveResp(
+data class LiveListResp(
     val live_info: Any?,
     val lives: List<Live> = listOf(),
     val next_url: String = ""
