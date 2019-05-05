@@ -7,7 +7,7 @@ import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
 import com.lyj.fakepivix.app.network.LoadState
-import com.lyj.fakepivix.app.reactivex.schedulerTransformer
+import com.lyj.fakepivix.app.reactivex.schedulerTransform
 import io.reactivex.rxkotlin.subscribeBy
 
 /**
@@ -64,7 +64,7 @@ class LoginViewModel : BaseViewModel<ILoginModel>() {
     fun login() {
         val disposable = UserRepository.instance
                 .login(userName, password)
-                .schedulerTransformer()
+                .schedulerTransform()
                 .doOnSubscribe {
                     loginState.set(LoadState.Loading)
                     loading.set(true)

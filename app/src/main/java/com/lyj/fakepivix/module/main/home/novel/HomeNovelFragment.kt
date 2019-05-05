@@ -136,6 +136,6 @@ class HomeNovelFragment : FragmentationFragment<CommonRefreshList, HomeNovelView
 
     override fun immersionBarEnabled(): Boolean = false
 
-    override fun bindLayout(): Int = R.layout.layout_common_recycler
+    override fun bindLayout(): Int = R.layout.layout_common_refresh_recycler
 
 }

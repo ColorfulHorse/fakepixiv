@@ -5,7 +5,8 @@ import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.data.source.remote.IllustRepository
+import com.lyj.fakepivix.app.data.source.remote.HomeComicRepository
+import com.lyj.fakepivix.app.data.source.remote.HomeIllustRepository
 import com.lyj.fakepivix.app.network.LoadState
 import io.reactivex.rxkotlin.subscribeBy
 
@@ -61,7 +62,7 @@ class HomeIllustViewModel : BaseViewModel<IHomeIllustModel>() {
         when (liveViewModel.loadState.get()) {
             is LoadState.Idle, is LoadState.Failed -> liveViewModel.load()
         }
-        val disposable = IllustRepository.instance
+        val disposable = HomeIllustRepository.instance
                 .loadRecommend()
                 .doOnSubscribe {
                     loadState.set(LoadState.Loading)
@@ -80,7 +81,7 @@ class HomeIllustViewModel : BaseViewModel<IHomeIllustModel>() {
 
     fun loadMore() {
         if (loadMoreState.get() !is LoadState.Loading) {
-            val disposable = IllustRepository.instance
+            val disposable = HomeIllustRepository.instance
                     .loadMore()
                     .doOnSubscribe { loadMoreState.set(LoadState.Loading) }
                     .subscribeBy(onNext = {
@@ -93,4 +94,8 @@ class HomeIllustViewModel : BaseViewModel<IHomeIllustModel>() {
         }
     }
 
+    override fun onDestroy(owner: LifecycleOwner) {
+        super.onDestroy(owner)
+        HomeIllustRepository.instance.clear()
+    }
 }

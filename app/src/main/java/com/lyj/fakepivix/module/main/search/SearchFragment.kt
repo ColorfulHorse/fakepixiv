@@ -27,9 +27,9 @@ class SearchFragment : FragmentationFragment<FragmentSearchBinding, BaseViewMode
 
     override fun init(savedInstanceState: Bundle?) {
         val tabs = arrayListOf<CustomTabEntity>(
-                TabBean(title = getString(R.string.subtab_pic)),
-                TabBean(title = getString(R.string.subtab_novel)),
-                TabBean(title = getString(R.string.subtab_user))
+                TabBean(title = getString(R.string.tab_pic)),
+                TabBean(title = getString(R.string.tab_novel)),
+                TabBean(title = getString(R.string.tab_user))
         )
         mBinding.tabLayout.setTabData(tabs)
     }

@@ -1,10 +1,14 @@
 package com.lyj.fakepivix.module.main.news
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import com.lyj.fakepivix.R
+import com.lyj.fakepivix.app.adapter.CommonFragmentAdapter
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.databinding.FragmentNewsBinding
+import com.lyj.fakepivix.module.main.news.follow.NewsFollowFragment
+import me.yokeyword.fragmentation.ISupportFragment
 
 
 /**
@@ -23,11 +27,19 @@ class NewsFragment : FragmentationFragment<FragmentNewsBinding, BaseViewModel<*>
     }
 
     override fun init(savedInstanceState: Bundle?) {
-        mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText(R.string.subtab_follower), true)
-        mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText(R.string.subtab_news))
-        mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText(R.string.subtab_friend))
+        val fragments = listOf<Fragment>(
+                NewsFollowFragment.newInstance(),
+                NewsFollowFragment.newInstance(),
+                NewsFollowFragment.newInstance()
+        )
+        val titles = arrayOf(
+                getString(R.string.tab_follower),
+                getString(R.string.tab_news),
+                getString(R.string.tab_friend)
+                )
         with(mBinding) {
-
+            viewPager.adapter = CommonFragmentAdapter(childFragmentManager, fragments, titles)
+            tabLayout.setupWithViewPager(viewPager)
         }
 
     }

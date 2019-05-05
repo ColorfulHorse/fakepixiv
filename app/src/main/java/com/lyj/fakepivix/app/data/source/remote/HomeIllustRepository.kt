@@ -1,14 +1,10 @@
 package com.lyj.fakepivix.app.data.source.remote
 
 import android.util.ArrayMap
-import com.lyj.fakepivix.app.constant.COMIC
-import com.lyj.fakepivix.app.constant.NOVEL
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.IllustListResp
-import com.lyj.fakepivix.app.data.model.response.NovelListResp
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
-import com.lyj.fakepivix.app.reactivex.retryWhenTokenInvalid
-import com.lyj.fakepivix.app.reactivex.schedulerTransformer
+import com.lyj.fakepivix.app.reactivex.schedulerTransform
 import io.reactivex.Observable
 
 /**
@@ -18,52 +14,54 @@ import io.reactivex.Observable
  *
  * @desc
  */
-class NovelRepository private constructor() {
+class HomeIllustRepository private constructor() {
 
     companion object {
-        val instance by lazy { NovelRepository() }
+        val instance by lazy { HomeIllustRepository() }
     }
 
     var nextUrl = ""
 
     private val illustList: ArrayMap<String, Illust> = ArrayMap()
 
-    fun loadRecommend(): Observable<NovelListResp> {
+    fun loadRecommend(): Observable<IllustListResp> {
         return RetrofitManager.instance
                 .apiService
-                .getHomeNovelRecommendData()
-                .retryWhenTokenInvalid()
+                .getHomeRecommendData()
                 .doOnNext {
                     with(it) {
                         nextUrl = next_url
-                        novels.forEach {
+                        illusts.forEach {
                             illust ->
                             illustList[illust.id.toString()] = illust
                         }
-                        ranking_novels.forEach {
+                        ranking_illusts.forEach {
                             illust ->
                             illustList[illust.id.toString()] = illust
                         }
                     }
                 }
-                .schedulerTransformer()
+                .schedulerTransform()
     }
 
-    fun loadMore(): Observable<NovelListResp> {
+    fun loadMore(): Observable<IllustListResp> {
         return RetrofitManager.instance
                 .apiService
-                .getMoreNovelRecommend(nextUrl)
-                .retryWhenTokenInvalid()
+                .getMoreIllust(nextUrl)
                 .doOnNext {
                     with(it) {
                         nextUrl = next_url
-                        novels.forEach {
+                        illusts.forEach {
                             illust ->
                             illustList[illust.id.toString()] = illust
                         }
                     }
                 }
-                .schedulerTransformer()
+                .schedulerTransform()
+    }
+
+    fun clear() {
+        illustList.clear()
     }
 
 }

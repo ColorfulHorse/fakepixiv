@@ -3,8 +3,7 @@ package com.lyj.fakepivix.app.data.source.remote
 import android.util.ArrayMap
 import com.lyj.fakepivix.app.data.model.response.Live
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
-import com.lyj.fakepivix.app.reactivex.retryWhenTokenInvalid
-import com.lyj.fakepivix.app.reactivex.schedulerTransformer
+import com.lyj.fakepivix.app.reactivex.schedulerTransform
 import io.reactivex.Observable
 
 /**
@@ -27,12 +26,15 @@ class LiveRepository private constructor() {
         return RetrofitManager.instance
                 .apiService
                 .getLiveListData()
-                .retryWhenTokenInvalid()
                 .map { 
                     nextUrl = it.next_url
-                    it.lives.forEach { live -> liveList[live.id] = live }
+//                    it.lives.forEach { live -> liveList[live.id] = live }
                     it.lives
                 }
-                .schedulerTransformer()
+                .schedulerTransform()
+    }
+
+    fun clear() {
+        liveList.clear()
     }
 }

@@ -35,9 +35,9 @@ class HomeFragment : FragmentationFragment<FragmentHomeBinding, BaseViewModel<*>
     override fun init(savedInstanceState: Bundle?) {
         initFragment()
         val tabs = arrayListOf<CustomTabEntity>(
-                TabBean(title = getString(R.string.subtab_illust)),
-                TabBean(title = getString(R.string.subtab_comic)),
-                TabBean(title = getString(R.string.subtab_novel))
+                TabBean(title = getString(R.string.tab_illust)),
+                TabBean(title = getString(R.string.tab_comic)),
+                TabBean(title = getString(R.string.tab_novel))
                 )
         with(mBinding) {
             tabLayout.setTabData(tabs)

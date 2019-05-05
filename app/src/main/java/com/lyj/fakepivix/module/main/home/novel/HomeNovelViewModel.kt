@@ -1,12 +1,13 @@
 package com.lyj.fakepivix.module.main.home.novel
 
+import android.arch.lifecycle.LifecycleOwner
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.data.source.remote.ComicRepository
-import com.lyj.fakepivix.app.data.source.remote.NovelRepository
+import com.lyj.fakepivix.app.data.source.remote.HomeComicRepository
+import com.lyj.fakepivix.app.data.source.remote.HomeNovelRepository
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.module.main.home.illust.RankViewModel
 import io.reactivex.rxkotlin.subscribeBy
@@ -34,7 +35,7 @@ class HomeNovelViewModel : BaseViewModel<IModel?>() {
     }
 
     fun load() {
-        val disposable = NovelRepository.instance
+        val disposable = HomeNovelRepository.instance
                 .loadRecommend()
                 .doOnSubscribe {
                     loadState.set(LoadState.Loading)
@@ -53,7 +54,7 @@ class HomeNovelViewModel : BaseViewModel<IModel?>() {
 
     fun loadMore() {
         if (loadMoreState.get() !is LoadState.Loading) {
-            val disposable = NovelRepository.instance
+            val disposable = HomeNovelRepository.instance
                     .loadMore()
                     .doOnSubscribe { loadMoreState.set(LoadState.Loading) }
                     .subscribeBy(onNext = {
@@ -64,6 +65,11 @@ class HomeNovelViewModel : BaseViewModel<IModel?>() {
                     })
             addDisposable(disposable)
         }
+    }
+
+    override fun onDestroy(owner: LifecycleOwner) {
+        super.onDestroy(owner)
+        HomeNovelRepository.instance.clear()
     }
 
 }

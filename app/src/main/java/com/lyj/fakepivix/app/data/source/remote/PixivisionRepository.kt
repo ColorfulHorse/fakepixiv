@@ -1,11 +1,9 @@
 package com.lyj.fakepivix.app.data.source.remote
 
 import android.util.ArrayMap
-import com.lyj.fakepivix.app.constant.Constant
 import com.lyj.fakepivix.app.data.model.response.SpotlightArticle
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
-import com.lyj.fakepivix.app.reactivex.retryWhenTokenInvalid
-import com.lyj.fakepivix.app.reactivex.schedulerTransformer
+import com.lyj.fakepivix.app.reactivex.schedulerTransform
 import io.reactivex.Observable
 
 /**
@@ -28,17 +26,20 @@ class PixivisionRepository private constructor() {
         return RetrofitManager.instance
                 .apiService
                 .getIllustPixivisionData(category = category)
-                .retryWhenTokenInvalid()
                 .map {
                     with(it) {
                         nextUrl = next_url
-                        spotlight_articles.forEach {
-                            res ->
-                            articleList[res.id.toString()] = res
-                        }
+//                        spotlight_articles.forEach {
+//                            res ->
+//                            articleList[res.id.toString()] = res
+//                        }
                         spotlight_articles
                     }
                 }
-                .schedulerTransformer()
+                .schedulerTransform()
+    }
+
+    fun clear() {
+        articleList.clear()
     }
 }

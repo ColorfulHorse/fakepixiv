@@ -412,6 +412,20 @@ abstract class FragmentationFragment<V : ViewDataBinding, VM : BaseViewModel<out
     /**
      * 获取栈内的fragment对象
      */
+    fun <T : ISupportFragment> findFragment(tag: String): T? {
+        return SupportHelper.findFragment(fragmentManager, tag)
+    }
+
+    /**
+     * 获取栈内的fragment对象
+     */
+    fun <T : ISupportFragment> findChildFragment(tag: String): T? {
+        return SupportHelper.findFragment(childFragmentManager, tag)
+    }
+
+    /**
+     * 获取栈内的fragment对象
+     */
     fun <T : ISupportFragment> findFragment(fragmentClass: Class<T>): T? {
         return SupportHelper.findFragment(fragmentManager, fragmentClass)
     }

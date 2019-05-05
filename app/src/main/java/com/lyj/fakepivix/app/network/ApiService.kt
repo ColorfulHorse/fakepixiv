@@ -84,7 +84,7 @@ interface ApiService {
      * 加载更多
      */
     @GET
-    fun getMoreRecommend(@Url nextUrl: String): Observable<IllustListResp>
+    fun getMoreIllust(@Url nextUrl: String): Observable<IllustListResp>
 
     /**
      * 加载更多小说

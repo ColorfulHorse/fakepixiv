@@ -7,12 +7,10 @@ import com.squareup.moshi.JsonClass
  *
  * @date 2019/4/14
  *
- * @desc
+ * @desc 小说
  */
 
-/**
- * 主页插画排行榜response
- */
+
 @JsonClass(generateAdapter = true)
 data class NovelListResp(
         val contest_exists: Boolean = false,

@@ -1,5 +1,6 @@
 package com.lyj.fakepivix.app.data.model.response
 
+
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.lyj.fakepivix.app.constant.COMIC
 import com.lyj.fakepivix.app.constant.ILLUST
@@ -8,10 +9,11 @@ import com.squareup.moshi.JsonClass
 /**
  * @author greensun
  *
- * @date 2019/3/20
+ * @date 2019/5/5
  *
- * @desc
+ * @desc 插画/漫画
  */
+
 @JsonClass(generateAdapter = true)
 data class IllustListResp(
         val contest_exists: Boolean = false,
@@ -73,28 +75,6 @@ data class Illust (
 }
 
 @JsonClass(generateAdapter = true)
-data class User(
-        val account: String = "",
-        val id: String = "",
-        val is_mail_authorized: Boolean = false,
-        val is_premium: Boolean = false,
-        val mail_address: String = "",
-        val name: String = "",
-        val is_followed: Boolean = false,
-        val profile_image_urls: ProfileImageUrls = ProfileImageUrls(),
-        val require_policy_agreement: Boolean = false,
-        val x_restrict: Int = 0
-)
-
-@JsonClass(generateAdapter = true)
-data class ProfileImageUrls(
-        val px_16x16: String = "",
-        val px_170x170: String = "",
-        val px_50x50: String = "",
-        val medium: String = ""
-)
-
-@JsonClass(generateAdapter = true)
 data class MetaSinglePage(
         val original_image_url: String = ""
 )
@@ -128,46 +108,4 @@ data class PrivacyPolicy(
         val message: String = "",
         val url: String = "",
         val version: String = ""
-)
-
-
-/**
- *
- *主页pixivision response
- * @property next_url
- * @property spotlight_articles
- */
-@JsonClass(generateAdapter = true)
-data class SpotLightResp(
-        val next_url: String = "",
-        val spotlight_articles: List<SpotlightArticle> = listOf()
-)
-
-@JsonClass(generateAdapter = true)
-data class SpotlightArticle(
-        val article_url: String = "",
-        val category: String = "",
-        val id: Long = 0,
-        val publish_date: String = "",
-        val pure_title: String = "",
-        val subcategory_label: String = "",
-        val thumbnail: String = "",
-        val title: String = ""
-)
-
-/**
- * 用户预览
- */
-@JsonClass(generateAdapter = true)
-data class UserPreviewListResp(
-    val next_url: String = "",
-    val user_previews: List<UserPreview> = listOf()
-)
-
-@JsonClass(generateAdapter = true)
-data class UserPreview(
-    val illusts: List<Illust> = listOf(),
-    val is_muted: Boolean = false,
-    val novels: List<Illust> = listOf(),
-    val user: User = User()
 )

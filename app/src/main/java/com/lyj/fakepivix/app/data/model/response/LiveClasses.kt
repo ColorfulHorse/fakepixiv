@@ -7,22 +7,11 @@ import com.squareup.moshi.JsonClass
  *
  * @date 2019/4/14
  *
- * @desc
+ * @desc 直播
  */
 
-/**
- * 主页插画排行榜response
- */
-
-@JsonClass(generateAdapter = true)
-data class TagX(
-        val name: String = "",
-        val translated_name: String = ""
-)
 
 /**
- * 主页人气直播response
- *
  * @property live_info
  * @property lives
  * @property next_url  下一部分

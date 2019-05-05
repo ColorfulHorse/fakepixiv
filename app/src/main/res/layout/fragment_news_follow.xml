@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 关注者插画/漫画 -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+    </data>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:descendantFocusability="blocksDescendants"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                >
+                <com.flyco.tablayout.CommonTabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/sub_tab_height"
+                    android:background="@color/white"
+                    app:tl_textBold="SELECT"
+                    app:tl_textSelectColor="@color/white"
+                    app:tl_textUnselectColor="@color/tab_textColor_n"
+                    app:tl_textsize="@dimen/tab_textSize"
+                    app:tl_iconVisible="false"
+                    app:tl_indicator_style="BLOCK"
+                    app:tl_indicator_color="@color/colorPrimary"
+                    app:tl_indicator_corner_radius="30dp"
+                    app:tl_indicator_anim_enable="false"
+                    app:tl_tab_space_equal="false"
+                    android:layout_centerInParent="true"
+                    />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_search_filter"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    />
+            </RelativeLayout>
+            <FrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</layout>

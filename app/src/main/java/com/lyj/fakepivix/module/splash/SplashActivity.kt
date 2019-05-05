@@ -5,7 +5,7 @@ import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationActivity
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
-import com.lyj.fakepivix.app.reactivex.schedulerTransformer
+import com.lyj.fakepivix.app.reactivex.schedulerTransform
 import com.lyj.fakepivix.app.utils.SPUtil
 import com.lyj.fakepivix.app.utils.startActivity
 import com.lyj.fakepivix.databinding.ActivitySplashBinding
@@ -37,7 +37,7 @@ class SplashActivity : FragmentationActivity<ActivitySplashBinding, BaseViewMode
             disposable = UserRepository.instance
                     .reLogin(cacheData)
                     .timeout(10, TimeUnit.SECONDS)
-                    .schedulerTransformer()
+                    .schedulerTransform()
                     .subscribeBy(onError = {
                         startActivity(MainActivity::class.java)
                     },onComplete = {

@@ -1,12 +1,10 @@
 package com.lyj.fakepivix.app.data.source.remote
 
 import android.util.ArrayMap
-import com.lyj.fakepivix.app.constant.COMIC
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.IllustListResp
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
-import com.lyj.fakepivix.app.reactivex.retryWhenTokenInvalid
-import com.lyj.fakepivix.app.reactivex.schedulerTransformer
+import com.lyj.fakepivix.app.reactivex.schedulerTransform
 import io.reactivex.Observable
 
 /**
@@ -14,12 +12,12 @@ import io.reactivex.Observable
  *
  * @date 2019/4/15
  *
- * @desc 主页漫画resp
+ * @desc
  */
-class ComicRepository private constructor() {
+class FollowIllustRepository private constructor() {
 
     companion object {
-        val instance by lazy { ComicRepository() }
+        val instance by lazy { FollowIllustRepository() }
     }
 
     var nextUrl = ""
@@ -29,8 +27,7 @@ class ComicRepository private constructor() {
     fun loadRecommend(): Observable<IllustListResp> {
         return RetrofitManager.instance
                 .apiService
-                .getHomeRecommendData(COMIC)
-                .retryWhenTokenInvalid()
+                .getFollowIllustData()
                 .doOnNext {
                     with(it) {
                         nextUrl = next_url
@@ -44,14 +41,13 @@ class ComicRepository private constructor() {
                         }
                     }
                 }
-                .schedulerTransformer()
+                .schedulerTransform()
     }
 
     fun loadMore(): Observable<IllustListResp> {
         return RetrofitManager.instance
                 .apiService
-                .getMoreRecommend(nextUrl)
-                .retryWhenTokenInvalid()
+                .getMoreIllust(nextUrl)
                 .doOnNext {
                     with(it) {
                         nextUrl = next_url
@@ -61,7 +57,11 @@ class ComicRepository private constructor() {
                         }
                     }
                 }
-                .schedulerTransformer()
+                .schedulerTransform()
+    }
+
+    fun clear() {
+        illustList.clear()
     }
 
 }
