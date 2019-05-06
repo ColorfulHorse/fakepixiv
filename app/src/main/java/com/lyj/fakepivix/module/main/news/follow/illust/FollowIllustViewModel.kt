@@ -6,8 +6,7 @@ import android.databinding.ObservableField
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.data.source.remote.HomeComicRepository
-import com.lyj.fakepivix.app.data.source.remote.HomeIllustRepository
+import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.network.LoadState
 import io.reactivex.rxkotlin.subscribeBy
 
@@ -32,7 +31,7 @@ class FollowIllustViewModel : BaseViewModel<IModel?>() {
     }
 
     fun load() {
-        val disposable = HomeIllustRepository.instance
+        val disposable = IllustRepository.instance
                 .loadRecommendIllust()
                 .doOnSubscribe {
                     loadState.set(LoadState.Loading)
@@ -50,7 +49,7 @@ class FollowIllustViewModel : BaseViewModel<IModel?>() {
 
     fun loadMore() {
         if (loadMoreState.get() !is LoadState.Loading) {
-            val disposable = HomeIllustRepository.instance
+            val disposable = IllustRepository.instance
                     .loadMore()
                     .doOnSubscribe { loadMoreState.set(LoadState.Loading) }
                     .subscribeBy(onNext = {

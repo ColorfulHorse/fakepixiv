@@ -5,8 +5,9 @@ import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
+import com.lyj.fakepivix.app.constant.COMIC
 import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.data.source.remote.HomeComicRepository
+import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.module.main.home.illust.*
 import io.reactivex.rxkotlin.subscribeBy
@@ -29,19 +30,22 @@ class HomeComicViewModel : BaseViewModel<IModel?>() {
     var loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
     var loadMoreState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
+    var nextUrl = ""
+
     fun lazyLoad() {
         load()
     }
 
     fun load() {
-        val disposable = HomeComicRepository.instance
-                .loadRecommend()
+        val disposable = IllustRepository.instance
+                .loadRecommendIllust(COMIC)
                 .doOnSubscribe {
                     loadState.set(LoadState.Loading)
                     data.clear()
                 }
                 .subscribeBy(onNext = {
                     loadState.set(LoadState.Succeed)
+                    nextUrl = it.next_url
                     data.clear()
                     data.addAll(it.illusts)
                     rankViewModel.onData(it.ranking_illusts)
@@ -53,11 +57,12 @@ class HomeComicViewModel : BaseViewModel<IModel?>() {
 
     fun loadMore() {
         if (loadMoreState.get() !is LoadState.Loading) {
-            val disposable = HomeComicRepository.instance
-                    .loadMore()
+            val disposable = IllustRepository.instance
+                    .loadMore(nextUrl)
                     .doOnSubscribe { loadMoreState.set(LoadState.Loading) }
                     .subscribeBy(onNext = {
                         loadMoreState.set(LoadState.Succeed)
+                        nextUrl = it.next_url
                         data.addAll(it.illusts)
                     }, onError = {
                         loadMoreState.set(LoadState.Failed(it))
@@ -65,10 +70,4 @@ class HomeComicViewModel : BaseViewModel<IModel?>() {
             addDisposable(disposable)
         }
     }
-
-    override fun onDestroy(owner: LifecycleOwner) {
-        super.onDestroy(owner)
-        HomeComicRepository.instance.clear()
-    }
-
 }

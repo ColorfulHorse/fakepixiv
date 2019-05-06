@@ -4,7 +4,6 @@ import android.util.ArrayMap
 import com.lyj.fakepivix.app.constant.COMIC
 import com.lyj.fakepivix.app.constant.ILLUST
 import com.lyj.fakepivix.app.constant.IllustCategory
-import com.lyj.fakepivix.app.constant.NOVEL
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.IllustListResp
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
@@ -16,12 +15,12 @@ import io.reactivex.Observable
  *
  * @date 2019/4/15
  *
- * @desc
+ * @desc 插画、漫画、小说
  */
-class HomeIllustRepository private constructor() {
+class IllustRepository private constructor() {
 
     companion object {
-        val instance by lazy { HomeIllustRepository() }
+        val instance by lazy { IllustRepository() }
     }
 
     private val illustList: ArrayMap<String, Illust> = ArrayMap()
@@ -50,16 +49,19 @@ class HomeIllustRepository private constructor() {
     }
 
     fun loadMore(nextUrl: String, category: String = ILLUST): Observable<IllustListResp> {
-        return RetrofitManager.instance
-                .apiService
-                .getMoreIllust(nextUrl)
-                .doOnNext {
-                    with(it) {
-                        illusts.forEach {
-                            illust ->
-                            illustList[illust.id.toString()] = illust
-                        }
-                    }
+        val service = RetrofitManager.instance.apiService
+        val ob = when(category) {
+            ILLUST, COMIC -> service.getMoreIllust(nextUrl)
+            else -> service.getMoreNovel(nextUrl)
+                    .map { IllustListResp(it.contest_exists, it.novels, it.next_url, it.privacy_policy, it.ranking_novels) }
+        }
+        return ob.doOnNext {
+//                    with(it) {
+//                        illusts.forEach {
+//                            illust ->
+//                            illustList[illust.id.toString()] = illust
+//                        }
+//                    }
                 }
                 .schedulerTransform()
     }
@@ -67,5 +69,4 @@ class HomeIllustRepository private constructor() {
     fun clear() {
         illustList.clear()
     }
-
 }

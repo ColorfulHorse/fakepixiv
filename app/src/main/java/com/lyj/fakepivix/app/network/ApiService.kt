@@ -90,7 +90,7 @@ interface ApiService {
      * 加载更多小说
      */
     @GET
-    fun getMoreNovelRecommend(@Url nextUrl: String): Observable<NovelListResp>
+    fun getMoreNovel(@Url nextUrl: String): Observable<NovelListResp>
 
 
 

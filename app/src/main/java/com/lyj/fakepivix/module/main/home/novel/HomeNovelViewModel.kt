@@ -1,13 +1,12 @@
 package com.lyj.fakepivix.module.main.home.novel
 
-import android.arch.lifecycle.LifecycleOwner
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
+import com.lyj.fakepivix.app.constant.NOVEL
 import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.data.source.remote.HomeComicRepository
-import com.lyj.fakepivix.app.data.source.remote.HomeNovelRepository
+import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.module.main.home.illust.RankViewModel
 import io.reactivex.rxkotlin.subscribeBy
@@ -29,23 +28,25 @@ class HomeNovelViewModel : BaseViewModel<IModel?>() {
     var loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
     var loadMoreState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
+    var nextUrl = ""
 
     fun lazyLoad() {
         load()
     }
 
     fun load() {
-        val disposable = HomeNovelRepository.instance
-                .loadRecommend()
+        val disposable = IllustRepository.instance
+                .loadRecommendIllust(NOVEL)
                 .doOnSubscribe {
                     loadState.set(LoadState.Loading)
                     data.clear()
                 }
                 .subscribeBy(onNext = {
                     loadState.set(LoadState.Succeed)
+                    nextUrl = it.next_url
                     data.clear()
-                    data.addAll(it.novels)
-                    rankViewModel.onData(it.ranking_novels)
+                    data.addAll(it.illusts)
+                    rankViewModel.onData(it.ranking_illusts)
                 }, onError = {
                     loadState.set(LoadState.Failed(it))
                 })
@@ -54,22 +55,17 @@ class HomeNovelViewModel : BaseViewModel<IModel?>() {
 
     fun loadMore() {
         if (loadMoreState.get() !is LoadState.Loading) {
-            val disposable = HomeNovelRepository.instance
-                    .loadMore()
+            val disposable = IllustRepository.instance
+                    .loadMore(nextUrl, NOVEL)
                     .doOnSubscribe { loadMoreState.set(LoadState.Loading) }
                     .subscribeBy(onNext = {
                         loadMoreState.set(LoadState.Succeed)
-                        data.addAll(it.novels)
+                        nextUrl = it.next_url
+                        data.addAll(it.illusts)
                     }, onError = {
                         loadMoreState.set(LoadState.Failed(it))
                     })
             addDisposable(disposable)
         }
     }
-
-    override fun onDestroy(owner: LifecycleOwner) {
-        super.onDestroy(owner)
-        HomeNovelRepository.instance.clear()
-    }
-
 }
