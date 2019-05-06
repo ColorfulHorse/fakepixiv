@@ -28,7 +28,7 @@ class HomeComicRepository private constructor() {
     fun loadRecommend(): Observable<IllustListResp> {
         return RetrofitManager.instance
                 .apiService
-                .getHomeRecommendData(COMIC)
+                .getRecommendIllust(COMIC)
                 .doOnNext {
                     with(it) {
                         nextUrl = next_url

@@ -9,7 +9,6 @@ import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.source.remote.HomeComicRepository
 import com.lyj.fakepivix.app.data.source.remote.HomeIllustRepository
 import com.lyj.fakepivix.app.network.LoadState
-import com.lyj.fakepivix.module.main.home.illust.*
 import io.reactivex.rxkotlin.subscribeBy
 
 /**
@@ -34,7 +33,7 @@ class FollowIllustViewModel : BaseViewModel<IModel?>() {
 
     fun load() {
         val disposable = HomeIllustRepository.instance
-                .loadRecommend()
+                .loadRecommendIllust()
                 .doOnSubscribe {
                     loadState.set(LoadState.Loading)
                     data.clear()

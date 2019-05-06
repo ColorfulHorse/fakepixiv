@@ -63,8 +63,8 @@ interface ApiService {
      * [category] 插画/漫画
      */
     @GET("/v1/{category}/recommended")
-    fun getHomeRecommendData(@IllustCategory @Path("category")category: String = ILLUST, @Query("filter") filter: String = "for_android", @Query("include_ranking_illusts") ranking: Boolean = true,
-                             @Query("include_privacy_policy") privacy: Boolean = true): Observable<IllustListResp>
+    fun getRecommendIllust(@IllustCategory @Path("category")category: String = ILLUST, @Query("filter") filter: String = "for_android", @Query("include_ranking_illusts") ranking: Boolean = true,
+                           @Query("include_privacy_policy") privacy: Boolean = true): Observable<IllustListResp>
 
     /**
      * 主页推荐列表

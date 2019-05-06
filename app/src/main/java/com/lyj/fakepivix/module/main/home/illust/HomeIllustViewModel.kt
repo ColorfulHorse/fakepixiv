@@ -4,8 +4,8 @@ import android.arch.lifecycle.LifecycleOwner
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import com.lyj.fakepivix.app.base.BaseViewModel
+import com.lyj.fakepivix.app.constant.ILLUST
 import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.data.source.remote.HomeComicRepository
 import com.lyj.fakepivix.app.data.source.remote.HomeIllustRepository
 import com.lyj.fakepivix.app.network.LoadState
 import io.reactivex.rxkotlin.subscribeBy
@@ -29,31 +29,9 @@ class HomeIllustViewModel : BaseViewModel<IHomeIllustModel>() {
     var loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
     var loadMoreState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
-    override fun onCreate(owner: LifecycleOwner) {
-        super.onCreate(owner)
-
-    }
+    var nextUrl: String = ""
 
     fun lazyLoad() {
-//        val liveOb = LiveRepository.instance
-//                .loadRecommend()
-//        val illustOb = IllustRepository.instance
-//                .loadRecommend()
-//        val disposable = Observables.combineLatest(liveOb, illustOb) {
-//            lives, res ->
-//            RecommendGroup(lives, res)
-//        }
-//                .doOnSubscribe { loadState = LoadState.Loading }
-//                .subscribeBy(onNext = {
-//                    loadState = LoadState.Succeed
-//                    data.clear()
-//                    data.addAll(it.illustListResp.illusts)
-//                    rankViewModel.onData(it.illustListResp.ranking_illusts)
-//                    liveViewModel.onData(it.lives)
-//                }, onError = {
-//                    loadState = LoadState.Failed(it)
-//                })
-
         liveViewModel.load()
         load()
     }
@@ -63,12 +41,13 @@ class HomeIllustViewModel : BaseViewModel<IHomeIllustModel>() {
             is LoadState.Idle, is LoadState.Failed -> liveViewModel.load()
         }
         val disposable = HomeIllustRepository.instance
-                .loadRecommend()
+                .loadRecommendIllust(ILLUST)
                 .doOnSubscribe {
                     loadState.set(LoadState.Loading)
                     data.clear()
                 }
                 .subscribeBy(onNext = {
+                    nextUrl = it.next_url
                     loadState.set(LoadState.Succeed)
                     data.clear()
                     data.addAll(it.illusts)
@@ -82,7 +61,7 @@ class HomeIllustViewModel : BaseViewModel<IHomeIllustModel>() {
     fun loadMore() {
         if (loadMoreState.get() !is LoadState.Loading) {
             val disposable = HomeIllustRepository.instance
-                    .loadMore()
+                    .loadMore(nextUrl)
                     .doOnSubscribe { loadMoreState.set(LoadState.Loading) }
                     .subscribeBy(onNext = {
                         loadMoreState.set(LoadState.Succeed)
@@ -92,10 +71,5 @@ class HomeIllustViewModel : BaseViewModel<IHomeIllustModel>() {
                     })
             addDisposable(disposable)
         }
-    }
-
-    override fun onDestroy(owner: LifecycleOwner) {
-        super.onDestroy(owner)
-        HomeIllustRepository.instance.clear()
     }
 }
