@@ -19,7 +19,7 @@ class CommonFragmentAdapter(fm: FragmentManager, private val fragments: List<Fra
 
     override fun getPageTitle(position: Int): CharSequence? {
         titles?.let {
-            titles[position]
+            return titles[position]
         }
         return super.getPageTitle(position)
     }

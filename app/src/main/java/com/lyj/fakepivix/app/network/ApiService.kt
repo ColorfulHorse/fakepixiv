@@ -104,7 +104,7 @@ interface ApiService {
      * 最新-关注者
      * [category] 插画/漫画
      */
-    @GET("/v1/{category}/follow")
+    @GET("/v2/{category}/follow")
     fun getFollowIllustData(@IllustCategory @Path("category")category: String = ILLUST, @Query("restrict") restrict: String = "all"): Observable<IllustListResp>
 
     /**

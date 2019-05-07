@@ -38,6 +38,7 @@ class NewsFragment : FragmentationFragment<FragmentNewsBinding, BaseViewModel<*>
                 getString(R.string.tab_friend)
                 )
         with(mBinding) {
+            viewPager.offscreenPageLimit = 2
             viewPager.adapter = CommonFragmentAdapter(childFragmentManager, fragments, titles)
             tabLayout.setupWithViewPager(viewPager)
         }

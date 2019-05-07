@@ -3,23 +3,20 @@ package com.lyj.fakepivix.module.main.news.follow.illust
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import com.flyco.tablayout.listener.CustomTabEntity
+import android.view.View
+import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
-import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationFragment
-import com.lyj.fakepivix.app.entity.TabBean
+import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.utils.ToastUtil
 import com.lyj.fakepivix.app.utils.attachLoadMore
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.CommonList
-import com.lyj.fakepivix.databinding.FragmentNewsFollowBinding
 import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
 import com.lyj.fakepivix.module.main.common.adapter.IllustAdapter
 import com.lyj.fakepivix.widget.CommonItemDecoration
-import kotlinx.android.synthetic.main.layout_common_refresh_recycler.*
-import me.yokeyword.fragmentation.ISupportFragment
 
 
 /**
@@ -39,10 +36,16 @@ class FollowIllustFragment : FragmentationFragment<CommonList, FollowIllustViewM
 
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var mAdapter: IllustAdapter
+    private val loadingView: View by lazy { layoutInflater.inflate(R.layout.layout_common_loading, null) }
 
 
     override fun init(savedInstanceState: Bundle?) {
         initList()
+    }
+
+    override fun onLazyInitView(savedInstanceState: Bundle?) {
+        super.onLazyInitView(savedInstanceState)
+        mViewModel.load()
     }
 
     /**
@@ -52,9 +55,8 @@ class FollowIllustFragment : FragmentationFragment<CommonList, FollowIllustViewM
         layoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
 
         mAdapter = IllustAdapter(mViewModel.data)
-        TODO()
-        //mAdapter.addItemType()
-
+        mAdapter.addItemType(Illust.TYPE_COMIC, R.layout.item_home_illust, BR.illust)
+        mAdapter.emptyView = loadingView
         with(mBinding) {
             recyclerView.layoutManager = layoutManager
             mAdapter.bindToRecyclerView(recyclerView)
@@ -73,11 +75,6 @@ class FollowIllustFragment : FragmentationFragment<CommonList, FollowIllustViewM
                         }
                     }
                 }
-            }
-
-            // 刷新
-            refreshLayout.setOnRefreshListener {
-                mViewModel.load()
             }
 
             mAdapter.setOnItemClickListener { adapter, view, position ->

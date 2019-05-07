@@ -25,6 +25,9 @@ class IllustRepository private constructor() {
 
     private val illustList: ArrayMap<String, Illust> = ArrayMap()
 
+    /**
+     * 获取推荐
+     */
     fun loadRecommendIllust(@IllustCategory category: String): Observable<IllustListResp> {
         val service = RetrofitManager.instance.apiService
         val ob = when(category) {
@@ -46,6 +49,19 @@ class IllustRepository private constructor() {
 //                    }
                 }
                 .schedulerTransform()
+    }
+
+    /**
+     * 获取关注的
+     */
+    fun loadFollowedIllust(@IllustCategory category: String): Observable<IllustListResp> {
+        val service = RetrofitManager.instance.apiService
+        val ob = when(category) {
+            ILLUST, COMIC -> service.getFollowIllustData()
+            else -> service.getFollowNovelData()
+                    .map { IllustListResp(it.contest_exists, it.novels, it.next_url, it.privacy_policy, it.ranking_novels) }
+        }
+        return ob.schedulerTransform()
     }
 
     fun loadMore(nextUrl: String, category: String = ILLUST): Observable<IllustListResp> {

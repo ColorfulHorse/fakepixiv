@@ -33,7 +33,7 @@ class LiveViewModel : BaseViewModel<IModel?>() {
                 .subscribeBy(onNext = {
                     loadState.set(LoadState.Succeed)
                     data.clear()
-                    data.addAll(it)
+                    data.addAll(it.lives)
                 }, onError = {
                     loadState.set(LoadState.Failed(it))
                 })

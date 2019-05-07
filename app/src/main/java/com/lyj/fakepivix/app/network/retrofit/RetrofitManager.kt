@@ -32,7 +32,7 @@ import javax.net.ssl.*
  */
 class RetrofitManager private constructor() {
 
-    private val services:MutableMap<String, Any> = mutableMapOf()
+    private val services: MutableMap<String, Any> = mutableMapOf()
 
     val apiService: ApiService by lazy { retrofit.create(ApiService::class.java) }
 

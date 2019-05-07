@@ -8,7 +8,7 @@ import com.lyj.fakepivix.app.base.IModel
  *
  * @date 2019/3/13
  *
- * @desc 登录
+ * @desc
  */
 class NewsFollowViewModel : BaseViewModel<IModel?>() {
 

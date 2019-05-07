@@ -1,10 +1,10 @@
 package com.lyj.fakepivix.module.main.news.follow.illust
 
-import android.arch.lifecycle.LifecycleOwner
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
+import com.lyj.fakepivix.app.constant.ILLUST
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.network.LoadState
@@ -15,7 +15,7 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @date 2019/3/13
  *
- * @desc 登录
+ * @desc
  */
 class FollowIllustViewModel : BaseViewModel<IModel?>() {
 
@@ -25,20 +25,18 @@ class FollowIllustViewModel : BaseViewModel<IModel?>() {
     var loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
     var loadMoreState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
-    override fun onCreate(owner: LifecycleOwner) {
-        super.onCreate(owner)
-
-    }
+    var nextUrl = ""
 
     fun load() {
         val disposable = IllustRepository.instance
-                .loadRecommendIllust()
+                .loadFollowedIllust(ILLUST)
                 .doOnSubscribe {
                     loadState.set(LoadState.Loading)
                     data.clear()
                 }
                 .subscribeBy(onNext = {
                     loadState.set(LoadState.Succeed)
+                    nextUrl = it.next_url
                     data.clear()
                     data.addAll(it.illusts)
                 }, onError = {
@@ -50,10 +48,11 @@ class FollowIllustViewModel : BaseViewModel<IModel?>() {
     fun loadMore() {
         if (loadMoreState.get() !is LoadState.Loading) {
             val disposable = IllustRepository.instance
-                    .loadMore()
+                    .loadMore(nextUrl)
                     .doOnSubscribe { loadMoreState.set(LoadState.Loading) }
                     .subscribeBy(onNext = {
                         loadMoreState.set(LoadState.Succeed)
+                        nextUrl = it.next_url
                         data.addAll(it.illusts)
                     }, onError = {
                         loadMoreState.set(LoadState.Failed(it))
@@ -62,8 +61,4 @@ class FollowIllustViewModel : BaseViewModel<IModel?>() {
         }
     }
 
-    override fun onDestroy(owner: LifecycleOwner) {
-        super.onDestroy(owner)
-        HomeComicRepository.instance.clear()
-    }
 }
