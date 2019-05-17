@@ -35,7 +35,6 @@ class LoginFragment : FragmentationFragment<FragmentLoginBinding, LoginViewModel
     }
 
     override var mViewModel: LoginViewModel = LoginViewModel()
-    var dialog: AlertDialog? = null
 
     override fun init(savedInstanceState: Bundle?) {
         btn_register.setOnClickListener {

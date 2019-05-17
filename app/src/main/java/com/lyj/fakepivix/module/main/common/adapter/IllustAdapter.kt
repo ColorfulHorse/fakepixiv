@@ -5,12 +5,14 @@ import android.databinding.ViewDataBinding
 import android.graphics.drawable.Drawable
 import android.view.ViewGroup
 import com.bumptech.glide.RequestBuilder
-import com.lyj.fakepivix.BR
-import com.lyj.fakepivix.GlideApp
-import com.lyj.fakepivix.R
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.util.FixedPreloadSizeProvider
+import com.lyj.fakepivix.*
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.adapter.PreloadMultiBindingAdapter
 import com.lyj.fakepivix.app.data.model.response.Illust
+import com.lyj.fakepivix.app.databinding.factory
 import com.lyj.fakepivix.app.utils.mapUrl
 import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
 
@@ -22,7 +24,6 @@ import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
  * @desc
  */
 open class IllustAdapter(data: ObservableList<Illust>) : PreloadMultiBindingAdapter<Illust>(data) {
-
     init {
         addItemType(Illust.TYPE_ILLUST, R.layout.item_home_illust, BR.illust)
     }
@@ -40,7 +41,7 @@ open class IllustAdapter(data: ObservableList<Illust>) : PreloadMultiBindingAdap
     }
 
 
-    override fun getPreloadRequestBuilder(item: Illust): RequestBuilder<Drawable>? = GlideApp.with(recyclerView)
-            .load(item.image_urls.square_medium.mapUrl())
-
+    override fun getPreloadRequestBuilder(item: Illust): RequestBuilder<Drawable>? =
+            GlideApp.with(mContext)
+            .load(item.image_urls.medium.mapUrl())
 }

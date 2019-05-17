@@ -66,7 +66,6 @@ class FollowIllustFragment : FragmentationFragment<CommonList, FollowIllustViewM
                     .build())
             // 加载更多
             recyclerView.attachLoadMore { mViewModel.loadMore() }
-
             recyclerView.setRecyclerListener {
                 if (it is BaseBindingViewHolder<*>) {
                     it.binding?.let { binding ->

@@ -32,7 +32,7 @@
                     app:tl_textBold="SELECT"
                     app:tl_textSelectColor="@color/white"
                     app:tl_textUnselectColor="@color/tab_textColor_n"
-                    app:tl_textsize="@dimen/tab_textSize"
+                    app:tl_textsize="@dimen/sub_tab_textSize"
                     app:tl_iconVisible="false"
                     app:tl_indicator_style="BLOCK"
                     app:tl_indicator_color="@color/colorPrimary"
@@ -40,6 +40,8 @@
                     app:tl_indicator_anim_enable="false"
                     app:tl_tab_space_equal="false"
                     android:layout_centerInParent="true"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
                     />
                 <ImageView
                     android:layout_width="wrap_content"

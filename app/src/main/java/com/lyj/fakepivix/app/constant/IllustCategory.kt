@@ -13,6 +13,8 @@ import android.support.annotation.StringDef
 const val ILLUST = "illust"
 const val COMIC = "manga"
 const val NOVEL = "novel"
+// 插画·漫画
+const val ILLUSTANDCOMIC = "ILLUSTANDCOMIC"
 
 @StringDef(ILLUST, COMIC, NOVEL)
 @MustBeDocumented

@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.layout_error.view.*
  *
  * @date 2019/4/3
  *
- * @desc
+ * @desc 主页推荐-插画
  */
 class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustViewModel>() {
 

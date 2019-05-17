@@ -31,7 +31,7 @@ import android.support.v7.app.AppCompatActivity
 abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>?> : ImmersionFragment() {
 
     protected lateinit var mBinding: V
-    protected abstract var mViewModel: VM
+    abstract var mViewModel: VM
     protected var mToolbar: Toolbar? = null
     private var mImmersionBar: ImmersionBar? = null
 
