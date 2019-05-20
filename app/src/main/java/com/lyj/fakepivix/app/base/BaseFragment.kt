@@ -37,6 +37,8 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
 
     protected var keyboardOpen = false
 
+    var initializer: (() -> Unit)? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, bindLayout(), container, false)
         mViewModel?.let {
@@ -51,6 +53,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         init(savedInstanceState)
+        initializer?.invoke()
     }
 
     abstract fun init(savedInstanceState: Bundle?)

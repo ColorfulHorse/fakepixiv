@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data >
+
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        >
+        <com.flyco.tablayout.CommonTabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/sub_tab_height"
+            android:background="@color/white"
+            app:tl_textBold="SELECT"
+            app:tl_textSelectColor="@color/white"
+            app:tl_textUnselectColor="@color/tab_textColor_n"
+            app:tl_textsize="@dimen/sub_tab_textSize"
+            app:tl_iconVisible="false"
+            app:tl_indicator_style="BLOCK"
+            app:tl_indicator_color="@color/colorPrimary"
+            app:tl_indicator_corner_radius="30dp"
+            app:tl_indicator_anim_enable="false"
+            app:tl_tab_space_equal="false"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search_filter"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            />
+    </RelativeLayout>
+</layout>

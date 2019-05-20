@@ -11,6 +11,7 @@ import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.utils.ToastUtil
+import com.lyj.fakepivix.app.utils.attachHeader
 import com.lyj.fakepivix.app.utils.attachLoadMore
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.CommonList
@@ -75,7 +76,6 @@ class FollowIllustFragment : FragmentationFragment<CommonList, FollowIllustViewM
                     }
                 }
             }
-
             mAdapter.setOnItemClickListener { adapter, view, position ->
                 ToastUtil.showToast("$position")
             }

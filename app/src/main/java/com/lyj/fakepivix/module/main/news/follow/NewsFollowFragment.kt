@@ -12,10 +12,10 @@ import com.lyj.fakepivix.app.constant.NOVEL
 import com.lyj.fakepivix.app.data.model.response.IllustListResp
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.entity.TabBean
+import com.lyj.fakepivix.app.utils.attachHeader
 import com.lyj.fakepivix.databinding.FragmentNewsFollowBinding
 import com.lyj.fakepivix.module.main.common.IllustListFragment
 import com.lyj.fakepivix.module.main.common.IllustListViewModel
-import com.lyj.fakepivix.module.main.news.follow.illust.FollowIllustFragment
 import io.reactivex.Observable
 import me.yokeyword.fragmentation.ISupportFragment
 
@@ -56,19 +56,23 @@ class NewsFollowFragment : FragmentationFragment<FragmentNewsFollowBinding, Base
                 TabBean(title = getString(R.string.tab_pic)),
                 TabBean(title = getString(R.string.tab_novel))
         )
-        mBinding.tabLayout.setTabData(tabs)
-        mBinding.tabLayout.setOnTabSelectListener(object : OnTabSelectListener {
-            override fun onTabSelect(position: Int) {
-                showHideFragment(fragments[position])
-            }
+        with(mBinding) {
+            tabLayout.setTabData(tabs)
+            tabLayout.setOnTabSelectListener(object : OnTabSelectListener {
+                override fun onTabSelect(position: Int) {
+                    showHideFragment(fragments[position])
+                }
 
-            override fun onTabReselect(position: Int) {
+                override fun onTabReselect(position: Int) {
 
-            }
+                }
 
-        })
+            })
+//            followIllustFragment.initializer = {
+//                followIllustFragment.getRecyclerView().attachHeader(header)
+//            }
+        }
     }
-
 
     override fun immersionBarEnabled(): Boolean = false
 

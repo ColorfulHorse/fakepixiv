@@ -60,7 +60,6 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
         // 特辑列表
         pixivisionHeader = PixivisionHeader(context, pixivisionViewModel)
         mAdapter = HomeIllustAdapter(mViewModel.data, pixivisionHeader)
-
         with(mBinding) {
             initHeader()
             recyclerView.layoutManager = layoutManager

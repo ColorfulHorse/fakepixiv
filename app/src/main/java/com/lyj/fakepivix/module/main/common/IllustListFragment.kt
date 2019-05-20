@@ -2,6 +2,9 @@ package com.lyj.fakepivix.module.main.common
 
 import android.nfc.cardemulation.CardEmulation.EXTRA_CATEGORY
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
+import android.support.v4.view.ViewCompat
+import android.support.v4.view.ViewParentCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -120,6 +123,11 @@ class IllustListFragment : FragmentationFragment<CommonList, IllustListViewModel
                         }
                     }
                 }*/
+                recyclerView.setRecyclerListener {
+                    if (it is BaseBindingViewHolder<*>) {
+
+                    }
+                }
 
                 mAdapter.setOnItemClickListener { adapter, view, position ->
                     ToastUtil.showToast("$position")
@@ -152,6 +160,8 @@ class IllustListFragment : FragmentationFragment<CommonList, IllustListViewModel
             }
         }
     }
+
+    fun getRecyclerView() = mBinding.recyclerView
 
     override fun immersionBarEnabled(): Boolean = false
 

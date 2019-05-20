@@ -1,7 +1,13 @@
 package com.lyj.fakepivix.app.utils
 
+import android.support.v4.view.ViewParentCompat
+import android.support.v4.widget.ViewDragHelper
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
+import android.view.ViewGroup
+import android.widget.AbsListView
+import android.widget.LinearLayout
 import com.lyj.fakepivix.R
 
 /**
@@ -46,6 +52,29 @@ fun RecyclerView.attachLoadMore(threshold: Int = 12, loadMore: () -> Unit) {
                     }
                 }
             }
+        }
+    })
+}
+
+fun RecyclerView.attachHeader(view: View) {
+    addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            var result = view.translationY - dy
+            if (dy > 0) {
+//                if (translationY == 0f)
+//                    return
+                if (result < - view.height) {
+                    result = - view.height.toFloat()
+                }
+            }else {
+//                if (translationY == - view.height.toFloat())
+//                    return
+                if (result > 0) {
+                    result = 0f
+                }
+            }
+            view.translationY = result
         }
     })
 }
