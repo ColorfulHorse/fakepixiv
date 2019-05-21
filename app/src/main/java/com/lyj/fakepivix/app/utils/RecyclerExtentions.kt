@@ -1,5 +1,6 @@
 package com.lyj.fakepivix.app.utils
 
+import android.support.v4.view.ViewCompat
 import android.support.v4.view.ViewParentCompat
 import android.support.v4.widget.ViewDragHelper
 import android.support.v7.widget.LinearLayoutManager
@@ -60,21 +61,24 @@ fun RecyclerView.attachHeader(view: View) {
     addOnScrollListener(object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
-            var result = view.translationY - dy
+            var result = - dy
+            var target = view.top - dy
             if (dy > 0) {
-//                if (translationY == 0f)
-//                    return
-                if (result < - view.height) {
-                    result = - view.height.toFloat()
+                if (target == - view.height) {
+                    return
+                }
+                if (target < - view.height) {
+                    result = - view.height - view.top
                 }
             }else {
-//                if (translationY == - view.height.toFloat())
-//                    return
-                if (result > 0) {
-                    result = 0f
+                if (target == 0) {
+                    return
+                }
+                if (target > 0) {
+                    result = - view.top
                 }
             }
-            view.translationY = result
+            view.layout(view.left, view.top+result, view.right, view.bottom+result)
         }
     })
 }

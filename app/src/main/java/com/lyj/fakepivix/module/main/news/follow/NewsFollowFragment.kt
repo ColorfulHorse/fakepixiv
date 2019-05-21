@@ -68,9 +68,9 @@ class NewsFollowFragment : FragmentationFragment<FragmentNewsFollowBinding, Base
                 }
 
             })
-//            followIllustFragment.initializer = {
-//                followIllustFragment.getRecyclerView().attachHeader(header)
-//            }
+            followIllustFragment.initializer = {
+               // followIllustFragment.getRecyclerView().attachHeader(header)
+            }
         }
     }
 

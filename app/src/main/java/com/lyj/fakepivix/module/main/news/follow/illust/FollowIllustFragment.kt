@@ -1,6 +1,9 @@
 package com.lyj.fakepivix.module.main.news.follow.illust
 
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
+import android.support.design.widget.CoordinatorLayout
+import android.support.v4.view.NestedScrollingChild2
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
