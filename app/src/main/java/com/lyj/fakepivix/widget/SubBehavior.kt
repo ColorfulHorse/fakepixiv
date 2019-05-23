@@ -13,43 +13,47 @@ import android.view.View
  *
  * @desc
  */
-open class SubBehavior : AppBarLayout.ScrollingViewBehavior {
+open class SubBehavior : CoordinatorLayout.Behavior<View> {
+    var anchorId = -1
+    lateinit var dependency: View
 
     constructor(): super()
 
     constructor(context: Context, attrs: AttributeSet): super(context, attrs)
 
-    override fun onStartNestedScroll(coordinatorLayout: CoordinatorLayout, child: View, directTargetChild: View, target: View, axes: Int, type: Int): Boolean {
-        val b = super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, axes, type)
+//    override fun onAttachedToLayoutParams(params: CoordinatorLayout.LayoutParams) {
+//        super.onAttachedToLayoutParams(params)
+//        anchorId =  params.anchorId
+//    }
+//
+//    override fun layoutDependsOn(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
+//        if (anchorId == dependency.id) {
+//            this.dependency = dependency
+//        }
+//        return false
+//    }
+
+    override fun onDependentViewChanged(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
+        val wm = View.MeasureSpec.makeMeasureSpec(parent.width, View.MeasureSpec.EXACTLY)
+        val hm = View.MeasureSpec.makeMeasureSpec(parent.height - dependency.bottom, View.MeasureSpec.EXACTLY)
+        child.measure(wm, hm)
+        child.layout(parent.left, dependency.bottom, parent.right, parent.bottom)
         return true
     }
 
-    override fun onNestedScrollAccepted(coordinatorLayout: CoordinatorLayout, child: View, directTargetChild: View, target: View, axes: Int, type: Int) {
-        super.onNestedScrollAccepted(coordinatorLayout, child, directTargetChild, target, axes, type)
+    override fun onMeasureChild(parent: CoordinatorLayout, child: View, parentWidthMeasureSpec: Int, widthUsed: Int, parentHeightMeasureSpec: Int, heightUsed: Int): Boolean {
+        val lp = child.layoutParams as CoordinatorLayout.LayoutParams
+        dependency = parent.findViewById<View>(lp.anchorId)
+        val pw = View.MeasureSpec.getSize(parentWidthMeasureSpec)
+        val ph = View.MeasureSpec.getSize(parentHeightMeasureSpec)
+        val wm = View.MeasureSpec.makeMeasureSpec(pw, View.MeasureSpec.EXACTLY)
+        val hm = View.MeasureSpec.makeMeasureSpec(ph - dependency.bottom, View.MeasureSpec.EXACTLY)
+        child.measure(wm, hm)
+        return true
     }
 
-    override fun onStopNestedScroll(coordinatorLayout: CoordinatorLayout, child: View, target: View, type: Int) {
-        super.onStopNestedScroll(coordinatorLayout, child, target, type)
-    }
-
-    override fun onNestedScroll(coordinatorLayout: CoordinatorLayout, child: View, target: View, dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int, type: Int) {
-        super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, type)
-    }
-
-
-    override fun onNestedPreScroll(coordinatorLayout: CoordinatorLayout, child: View, target: View, dx: Int, dy: Int, consumed: IntArray, type: Int) {
-        super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type)
-    }
-
-    override fun onNestedFling(coordinatorLayout: CoordinatorLayout, child: View, target: View, velocityX: Float, velocityY: Float, consumed: Boolean): Boolean {
-        return super.onNestedFling(coordinatorLayout, child, target, velocityX, velocityY, consumed)
-    }
-
-    override fun onNestedPreFling(coordinatorLayout: CoordinatorLayout, child: View, target: View, velocityX: Float, velocityY: Float): Boolean {
-        return super.onNestedPreFling(coordinatorLayout, child, target, velocityX, velocityY)
-    }
-
-    override fun layoutDependsOn(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
-        return super.layoutDependsOn(parent, child, dependency)
+    override fun onLayoutChild(parent: CoordinatorLayout, child: View, layoutDirection: Int): Boolean {
+        child.layout(parent.left, dependency.bottom, parent.right, parent.bottom)
+        return true
     }
 }

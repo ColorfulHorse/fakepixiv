@@ -14,12 +14,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="com.lyj.fakepivix.widget.ScrollingHeaderBehavior"
-            >
-
+        <!--<android.support.design.widget.AppBarLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:layout_behavior="com.lyj.fakepivix.widget.ScrollingHeaderBehavior"-->
+            <!--&gt;-->
+            <!-- app:layout_behavior="com.lyj.fakepivix.widget.ScrollingHeaderBehavior"-->
             <RelativeLayout
                 android:id="@+id/header"
                 android:layout_width="match_parent"
@@ -56,12 +56,13 @@
                     android:layout_centerVertical="true"
                     />
             </RelativeLayout>
-        </android.support.design.widget.AppBarLayout>
+        <!--</android.support.design.widget.AppBarLayout>-->
 
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:layout_anchor="@id/header"
             app:layout_behavior="com.lyj.fakepivix.widget.SubBehavior"
             />
     </android.support.design.widget.CoordinatorLayout>
