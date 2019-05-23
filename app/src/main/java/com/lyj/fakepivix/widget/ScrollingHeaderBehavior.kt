@@ -28,21 +28,57 @@ class ScrollingHeaderBehavior : CoordinatorLayout.Behavior<View> {
 
     override fun onNestedPreScroll(coordinatorLayout: CoordinatorLayout, child: View, target: View, dx: Int, dy: Int, consumed: IntArray, type: Int) {
         //super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type)
-        //ViewCompat.offsetTopAndBottom(coordinatorLayout, -dy)
-        val hidden = (dy > 0) and (coordinatorLayout.scrollY < child.height)
-        val show = (dy < 0) and (coordinatorLayout.scrollY > 0) and (!target.canScrollVertically(-1))
-        if (hidden or show) {
-            coordinatorLayout.scrollBy(0,  dy)
-            consumed[1] = dy
+        var result = dy
+        if (dy > 0) {
+            if (coordinatorLayout.scrollY == child.height)
+                return
+            if (coordinatorLayout.scrollY + dy > child.height) {
+                result = child.height - coordinatorLayout.scrollY
+            }
+            coordinatorLayout.scrollBy(0,  result)
+            consumed[1] = result
+        }else {
+            if (coordinatorLayout.scrollY == 0)
+                return
+            if (coordinatorLayout.scrollY + dy < 0) {
+                result = - coordinatorLayout.scrollY
+            }
+            coordinatorLayout.scrollBy(0,  result)
+            consumed[1] = result
         }
+//        val hidden = (dy > 0) and (coordinatorLayout.scrollY < child.height)
+//        val show = (dy < 0) and (coordinatorLayout.scrollY > 0) and (target.canScrollVertically(-1))
+//        if (hidden or show) {
+//            coordinatorLayout.scrollBy(0,  dy)
+//            consumed[1] = dy
+//        }
+//        var result = - dy
+//        var target = child.top - dy
+//        if (dy > 0) {
+//            if (target == - child.height) {
+//                return
+//            }
+//            if (target < - child.height) {
+//                result = - child.height - child.top
+//            }
+//        }else {
+//            if (target == 0) {
+//                return
+//            }
+//            if (target > 0) {
+//                result = - child.top
+//            }
+//        }
+//        ViewCompat.offsetTopAndBottom(child, result)
+//        consumed[1] = dy
     }
 
     override fun onNestedPreFling(coordinatorLayout: CoordinatorLayout, child: View, target: View, velocityX: Float, velocityY: Float): Boolean {
-        val hidden = (velocityY > 0) and (coordinatorLayout.scrollY < child.height)
-        val show = (velocityY < 0) and (coordinatorLayout.scrollY > 0) and (target.canScrollVertically(-1))
-        if (hidden or show) {
-            return true
-        }
+//        val hidden = (velocityY > 0) and (coordinatorLayout.scrollY < child.height)
+//        val show = (velocityY < 0) and (coordinatorLayout.scrollY > 0) and (target.canScrollVertically(-1))
+//        if (hidden or show) {
+//            return true
+//        }
         return false
     }
 

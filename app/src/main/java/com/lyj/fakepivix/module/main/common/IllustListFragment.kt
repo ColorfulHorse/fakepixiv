@@ -24,6 +24,7 @@ import com.lyj.fakepivix.app.utils.ToastUtil
 import com.lyj.fakepivix.app.utils.attachLoadMore
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.CommonList
+import com.lyj.fakepivix.databinding.CommonRefreshList
 import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
 import com.lyj.fakepivix.module.main.common.adapter.ComicAdapter
 import com.lyj.fakepivix.module.main.common.adapter.IllustAdapter
@@ -40,7 +41,7 @@ import kotlinx.android.synthetic.main.layout_common_refresh_recycler.*
  *
  * @desc 公共listFragment
  */
-class IllustListFragment : FragmentationFragment<CommonList, IllustListViewModel?>() {
+class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListViewModel?>() {
 
     override var mViewModel: IllustListViewModel? = null
     set(value) {
@@ -165,6 +166,6 @@ class IllustListFragment : FragmentationFragment<CommonList, IllustListViewModel
 
     override fun immersionBarEnabled(): Boolean = false
 
-    override fun bindLayout(): Int = R.layout.layout_common_recycler
+    override fun bindLayout(): Int = R.layout.layout_common_refresh_recycler
 
 }
