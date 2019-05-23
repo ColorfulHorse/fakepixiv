@@ -23,9 +23,6 @@ class ScrollingHeaderBehavior : CoordinatorLayout.Behavior<View> {
 
 
     override fun onStartNestedScroll(parent: CoordinatorLayout, child: View, directTargetChild: View, target: View, nestedScrollAxes: Int, type: Int): Boolean {
-        val b = super.onStartNestedScroll(parent, child, directTargetChild, target, nestedScrollAxes, type)
-        parent.translationX
-        parent.scrollY
         return true
     }
 

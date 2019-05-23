@@ -14,24 +14,11 @@ import android.view.View
  * @desc
  */
 open class SubBehavior : CoordinatorLayout.Behavior<View> {
-    var anchorId = -1
-    lateinit var dependency: View
+    private lateinit var dependency: View
 
     constructor(): super()
 
     constructor(context: Context, attrs: AttributeSet): super(context, attrs)
-
-//    override fun onAttachedToLayoutParams(params: CoordinatorLayout.LayoutParams) {
-//        super.onAttachedToLayoutParams(params)
-//        anchorId =  params.anchorId
-//    }
-//
-//    override fun layoutDependsOn(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
-//        if (anchorId == dependency.id) {
-//            this.dependency = dependency
-//        }
-//        return false
-//    }
 
     override fun onDependentViewChanged(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
         val wm = View.MeasureSpec.makeMeasureSpec(parent.width, View.MeasureSpec.EXACTLY)
