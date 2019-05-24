@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v4.view.ViewCompat
 import android.support.v4.view.ViewParentCompat
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -41,7 +42,7 @@ import kotlinx.android.synthetic.main.layout_common_refresh_recycler.*
  *
  * @desc 公共listFragment
  */
-class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListViewModel?>() {
+class IllustListFragment : FragmentationFragment<CommonList, IllustListViewModel?>() {
 
     override var mViewModel: IllustListViewModel? = null
     set(value) {
@@ -166,6 +167,6 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
 
     override fun immersionBarEnabled(): Boolean = false
 
-    override fun bindLayout(): Int = R.layout.layout_common_refresh_recycler
+    override fun bindLayout(): Int = R.layout.layout_common_recycler
 
 }

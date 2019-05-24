@@ -23,7 +23,10 @@ class ScrollingHeaderBehavior : CoordinatorLayout.Behavior<View> {
 
 
     override fun onStartNestedScroll(parent: CoordinatorLayout, child: View, directTargetChild: View, target: View, nestedScrollAxes: Int, type: Int): Boolean {
-        return true
+        if (nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL) {
+            return true
+        }
+        return false
     }
 
     override fun onNestedPreScroll(coordinatorLayout: CoordinatorLayout, child: View, target: View, dx: Int, dy: Int, consumed: IntArray, type: Int) {
@@ -52,25 +55,6 @@ class ScrollingHeaderBehavior : CoordinatorLayout.Behavior<View> {
 //            coordinatorLayout.scrollBy(0,  dy)
 //            consumed[1] = dy
 //        }
-//        var result = - dy
-//        var target = child.top - dy
-//        if (dy > 0) {
-//            if (target == - child.height) {
-//                return
-//            }
-//            if (target < - child.height) {
-//                result = - child.height - child.top
-//            }
-//        }else {
-//            if (target == 0) {
-//                return
-//            }
-//            if (target > 0) {
-//                result = - child.top
-//            }
-//        }
-//        ViewCompat.offsetTopAndBottom(child, result)
-//        consumed[1] = dy
     }
 
     override fun onNestedPreFling(coordinatorLayout: CoordinatorLayout, child: View, target: View, velocityX: Float, velocityY: Float): Boolean {
