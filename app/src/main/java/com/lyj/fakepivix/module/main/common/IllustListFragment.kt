@@ -1,38 +1,30 @@
 package com.lyj.fakepivix.module.main.common
 
-import android.nfc.cardemulation.CardEmulation.EXTRA_CATEGORY
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
-import android.support.v4.view.ViewCompat
-import android.support.v4.view.ViewParentCompat
-import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.lyj.fakepivix.BR
-import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.adapter.PreloadMultiBindingAdapter
 import com.lyj.fakepivix.app.base.FragmentationFragment
-import com.lyj.fakepivix.app.constant.*
+import com.lyj.fakepivix.app.constant.IllustCategory
+import com.lyj.fakepivix.app.constant.IllustCategory.*
+
+
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
-import com.lyj.fakepivix.app.network.ApiException
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.ToastUtil
 import com.lyj.fakepivix.app.utils.attachLoadMore
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.CommonList
-import com.lyj.fakepivix.databinding.CommonRefreshList
-import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
 import com.lyj.fakepivix.module.main.common.adapter.ComicAdapter
 import com.lyj.fakepivix.module.main.common.adapter.IllustAdapter
 import com.lyj.fakepivix.module.main.common.adapter.NovelAdapter
-import com.lyj.fakepivix.module.main.news.follow.illust.FollowIllustViewModel
 import com.lyj.fakepivix.widget.CommonItemDecoration
-import kotlinx.android.synthetic.main.layout_common_refresh_recycler.*
 
 
 /**

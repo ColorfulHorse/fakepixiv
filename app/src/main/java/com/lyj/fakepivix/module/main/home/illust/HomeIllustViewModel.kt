@@ -3,7 +3,8 @@ package com.lyj.fakepivix.module.main.home.illust
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import com.lyj.fakepivix.app.base.BaseViewModel
-import com.lyj.fakepivix.app.constant.ILLUST
+import com.lyj.fakepivix.app.constant.IllustCategory.ILLUST
+
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.network.LoadState

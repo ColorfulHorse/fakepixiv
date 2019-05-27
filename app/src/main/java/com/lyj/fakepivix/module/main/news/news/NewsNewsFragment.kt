@@ -1,7 +1,6 @@
-package com.lyj.fakepivix.module.main.news.follow
+package com.lyj.fakepivix.module.main.news.news
 
 import android.os.Bundle
-import android.widget.TextView
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.lyj.fakepivix.R
@@ -13,6 +12,7 @@ import com.lyj.fakepivix.app.constant.IllustCategory.*
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.entity.TabBean
 import com.lyj.fakepivix.databinding.FragmentNewsFollowBinding
+import com.lyj.fakepivix.databinding.FragmentNewsNewsBinding
 import com.lyj.fakepivix.module.main.common.IllustListFragment
 import com.lyj.fakepivix.module.main.common.IllustListViewModel
 import me.yokeyword.fragmentation.ISupportFragment
@@ -23,35 +23,42 @@ import me.yokeyword.fragmentation.ISupportFragment
  *
  * @date 2019/4/3
  *
- * @desc
+ * @desc 最新-最新
  */
-class NewsFollowFragment : FragmentationFragment<FragmentNewsFollowBinding, BaseViewModel<*>?>() {
+class NewsNewsFragment : FragmentationFragment<FragmentNewsNewsBinding, BaseViewModel<*>?>() {
 
     override var mViewModel: BaseViewModel<*>? = null
 
-    lateinit var illustViewModel: IllustListViewModel
-    lateinit var novelViewModel: IllustListViewModel
+    private lateinit var illustViewModel: IllustListViewModel
+    private lateinit var comicViewModel: IllustListViewModel
+    private lateinit var novelViewModel: IllustListViewModel
 
     companion object {
-        fun newInstance() = NewsFollowFragment()
+        fun newInstance() = NewsNewsFragment()
     }
 
     override fun init(savedInstanceState: Bundle?) {
-        val followIllustFragment = IllustListFragment.newInstance(ILLUSTANDCOMIC)
-        val followNovelFragment = IllustListFragment.newInstance(NOVEL)
-        illustViewModel = IllustListViewModel(ILLUSTANDCOMIC) {
-            IllustRepository.instance.loadFollowedIllust(ILLUST)
+        val illustFragment = IllustListFragment.newInstance(ILLUST)
+        val comicFragment = IllustListFragment.newInstance(COMIC)
+        val novelFragment = IllustListFragment.newInstance(NOVEL)
+        illustViewModel = IllustListViewModel(ILLUST) {
+            IllustRepository.instance.loadNewIllust(ILLUST)
+        }
+        comicViewModel = IllustListViewModel(COMIC) {
+            IllustRepository.instance.loadNewIllust(COMIC)
         }
         novelViewModel = IllustListViewModel(NOVEL) {
-            IllustRepository.instance.loadFollowedIllust(NOVEL)
+            IllustRepository.instance.loadNewIllust(NOVEL)
         }
-        followIllustFragment.mViewModel = illustViewModel
-        followNovelFragment.mViewModel = novelViewModel
+        illustFragment.mViewModel = illustViewModel
+        comicFragment.mViewModel = comicViewModel
+        novelFragment.mViewModel = novelViewModel
 
-        val fragments = arrayListOf<ISupportFragment>(followIllustFragment, followNovelFragment)
-        loadMultipleRootFragment(R.id.fragment_container, 0, fragments[0], fragments[1])
+        val fragments = arrayListOf<ISupportFragment>(illustFragment, comicFragment, novelFragment)
+        loadMultipleRootFragment(R.id.fragment_container, 0, fragments[0], fragments[1], fragments[2])
         val tabs = arrayListOf<CustomTabEntity>(
-                TabBean(title = getString(R.string.tab_pic)),
+                TabBean(title = getString(R.string.tab_illust)),
+                TabBean(title = getString(R.string.tab_comic)),
                 TabBean(title = getString(R.string.tab_novel))
         )
         with(mBinding) {
@@ -71,6 +78,6 @@ class NewsFollowFragment : FragmentationFragment<FragmentNewsFollowBinding, Base
 
     override fun immersionBarEnabled(): Boolean = false
 
-    override fun bindLayout(): Int = R.layout.fragment_news_follow
+    override fun bindLayout(): Int = R.layout.fragment_news_news
 
 }

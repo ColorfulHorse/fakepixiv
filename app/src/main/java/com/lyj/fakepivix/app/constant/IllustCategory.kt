@@ -1,5 +1,6 @@
 package com.lyj.fakepivix.app.constant
 
+import android.support.annotation.IdRes
 import android.support.annotation.StringDef
 
 /**
@@ -10,15 +11,16 @@ import android.support.annotation.StringDef
  * @desc illust分类
  */
 
-const val ILLUST = "illust"
-const val COMIC = "manga"
-const val NOVEL = "novel"
-// 插画·漫画
-const val ILLUSTANDCOMIC = "ILLUSTANDCOMIC"
-
-@StringDef(ILLUST, COMIC, NOVEL)
-@MustBeDocumented
-@Target(AnnotationTarget.VALUE_PARAMETER)
-@Retention(AnnotationRetention.SOURCE)
-annotation class IllustCategory
+//@StringDef(value = [ILLUST, COMIC, NOVEL, ILLUSTANDCOMIC])
+//@Target(AnnotationTarget.VALUE_PARAMETER)
+//@Retention(AnnotationRetention.SOURCE)
+//annotation class IllustCategory {
+//    companion object {
+//        const val ILLUST = "illust"
+//        const val COMIC = "manga"
+//        const val NOVEL = "novel"
+//        // 插画·漫画
+//        const val ILLUSTANDCOMIC = "ILLUSTANDCOMIC"
+//    }
+//}
 

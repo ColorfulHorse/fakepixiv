@@ -4,8 +4,9 @@ import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
-import com.lyj.fakepivix.app.constant.ILLUST
 import com.lyj.fakepivix.app.constant.IllustCategory
+import com.lyj.fakepivix.app.constant.IllustCategory.ILLUST
+
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.IllustListResp
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
@@ -20,7 +21,7 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc
  */
-abstract class IllustListViewModel(@IllustCategory var category: String = ILLUST) : BaseViewModel<IModel?>() {
+class IllustListViewModel(@IllustCategory var category: String = ILLUST, var action: (() -> Observable<IllustListResp>)) : BaseViewModel<IModel?>() {
 
     override var mModel: IModel? = null
 
@@ -31,7 +32,7 @@ abstract class IllustListViewModel(@IllustCategory var category: String = ILLUST
     var nextUrl = ""
 
     fun load() {
-        val disposable = getIllustList()
+        val disposable = action()
                 .doOnSubscribe {
                     loadState.set(LoadState.Loading)
                     data.clear()
@@ -62,6 +63,4 @@ abstract class IllustListViewModel(@IllustCategory var category: String = ILLUST
             addDisposable(disposable)
         }
     }
-
-    abstract fun getIllustList(): Observable<IllustListResp>
 }

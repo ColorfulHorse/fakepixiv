@@ -10,7 +10,8 @@ import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
 import com.lyj.fakepivix.app.constant.IllustCategory
-import com.lyj.fakepivix.app.constant.ILLUST
+import com.lyj.fakepivix.app.constant.IllustCategory.ILLUST
+
 import com.lyj.fakepivix.app.data.model.response.SpotlightArticle
 import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
 import com.lyj.fakepivix.app.network.LoadState

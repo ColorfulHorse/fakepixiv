@@ -122,7 +122,7 @@
                     app:layout_constraintEnd_toStartOf="@id/play"
                     android:paddingEnd="10dp"
                     android:layout_marginBottom="8dp"
-                    style="@style/Illust_Title"
+                    style="@style/illust_title"
                     android:maxLines="2"
                     android:text="@{data.name}"
                     />

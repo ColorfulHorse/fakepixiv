@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    >
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -24,7 +25,7 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
-    <style name="Toolbar_TextAppearance_White">
+    <style name="toolbar_textAppearance_white">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
@@ -33,14 +34,15 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="Tab_TextAppearance">
+    <style name="tab_textAppearance">
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">normal</item>
     </style>
 
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
-    <style name="Count_Tag">
+    <!-- 插画数量View style -->
+    <style name="count_tag">
         <item name="android:padding">6dp</item>
         <item name="android:paddingStart">8dp</item>
         <item name="android:paddingEnd">8dp</item>
@@ -52,7 +54,8 @@
         <item name="android:background">#4D000000</item>
     </style>
 
-    <style name="Illust_Title">
+    <!-- Illust标题文字样式 -->
+    <style name="illust_title">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
@@ -61,4 +64,23 @@
         <item name="android:maxLines">1</item>
     </style>
 
+    <!-- 二级tab样式 -->
+    <style name="tab_segment_sub">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/sub_tab_height</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <!--<item name="tl_textBold">SELECT</item>-->
+        <!--<item name="tl_textSelectColor">@color/white</item>-->
+        <!--<item name="tl_textUnselectColor">@color/tab_textColor_n</item>-->
+        <!--<item name="tl_textsize">@dimen/sub_tab_textSize</item>-->
+        <!--<item name="tl_iconVisible">false</item>-->
+        <!--<item name="tl_indicator_style">BLOCK</item>-->
+        <!--<item name="tl_indicator_color">@color/colorPrimary</item>-->
+        <!--<item name="tl_indicator_corner_radius">30dp</item>-->
+        <!--<item name="tl_indicator_anim_enable">false</item>-->
+        <!--<item name="tl_tab_space_equal">false</item>-->
+    </style>
 </resources>

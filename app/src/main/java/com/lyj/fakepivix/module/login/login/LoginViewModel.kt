@@ -64,7 +64,6 @@ class LoginViewModel : BaseViewModel<ILoginModel>() {
     fun login() {
         val disposable = UserRepository.instance
                 .login(userName, password)
-                .schedulerTransform()
                 .doOnSubscribe {
                     loginState.set(LoadState.Loading)
                     loading.set(true)

@@ -10,8 +10,10 @@ import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
 import com.lyj.fakepivix.app.constant.IllustCategory
-import com.lyj.fakepivix.app.constant.ILLUST
-import com.lyj.fakepivix.app.constant.NOVEL
+import com.lyj.fakepivix.app.constant.IllustCategory.ILLUST
+import com.lyj.fakepivix.app.constant.IllustCategory.NOVEL
+
+
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.HeaderRankBinding

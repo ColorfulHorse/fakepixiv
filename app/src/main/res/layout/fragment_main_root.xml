@@ -32,7 +32,7 @@
                     android:layout_height="?attr/actionBarSize"
                     android:background="@color/colorPrimary"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                    app:titleTextAppearance="@style/Toolbar_TextAppearance_White"
+                    app:titleTextAppearance="@style/toolbar_textAppearance_white"
                     app:title="@string/title_main"
                     app:titleTextColor="@color/white"
                     app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed|snap"

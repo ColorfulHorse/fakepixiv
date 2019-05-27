@@ -1,10 +1,9 @@
 package com.lyj.fakepivix.app.data.source.remote
 
 import android.util.ArrayMap
-import com.lyj.fakepivix.app.constant.COMIC
-import com.lyj.fakepivix.app.constant.ILLUST
-import com.lyj.fakepivix.app.constant.ILLUSTANDCOMIC
 import com.lyj.fakepivix.app.constant.IllustCategory
+import com.lyj.fakepivix.app.constant.IllustCategory.*
+import com.lyj.fakepivix.app.constant.Restrict
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.IllustListResp
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
@@ -56,11 +55,24 @@ class IllustRepository private constructor() {
      * 获取关注的
      * [filter] 筛选条件
      */
-    fun loadFollowedIllust(@IllustCategory category: String, filter: String = "all"): Observable<IllustListResp> {
+    fun loadFollowedIllust(@IllustCategory category: String, @Restrict filter: String = Restrict.ALL): Observable<IllustListResp> {
         val service = RetrofitManager.instance.apiService
         val ob = when(category) {
             ILLUST, COMIC -> service.getFollowIllustData(restrict = filter)
             else -> service.getFollowNovelData(restrict = filter)
+                    .map { IllustListResp(it.contest_exists, it.novels, it.next_url, it.privacy_policy, it.ranking_novels) }
+        }
+        return ob.schedulerTransform()
+    }
+
+    /**
+     * 获取最新的
+     */
+    fun loadNewIllust(@IllustCategory category: String): Observable<IllustListResp> {
+        val service = RetrofitManager.instance.apiService
+        val ob = when(category) {
+            ILLUST, COMIC -> service.getNewIllustData(category = category)
+            else -> service.getNewNovelData()
                     .map { IllustListResp(it.contest_exists, it.novels, it.next_url, it.privacy_policy, it.ranking_novels) }
         }
         return ob.schedulerTransform()

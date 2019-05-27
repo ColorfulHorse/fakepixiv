@@ -2,7 +2,9 @@ package com.lyj.fakepivix.app.data.source.remote
 
 import com.lyj.fakepivix.app.constant.Constant
 import com.lyj.fakepivix.app.data.model.response.LoginData
+import com.lyj.fakepivix.app.data.model.response.UserPreviewListResp
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
+import com.lyj.fakepivix.app.reactivex.schedulerTransform
 import com.lyj.fakepivix.app.utils.SPUtil
 import io.reactivex.Observable
 
@@ -32,6 +34,7 @@ class UserRepository private constructor(){
                     loginData = it
                     SPUtil.saveLoginData(it)
                 }
+                .schedulerTransform()
 
     }
 
@@ -51,5 +54,12 @@ class UserRepository private constructor(){
                         SPUtil.saveLoginData(it)
                     }
         }
+    }
+
+    fun getRecommendUsers(): Observable<UserPreviewListResp> {
+        return RetrofitManager.instance
+                .apiService
+                .getUserRecommend()
+                .schedulerTransform()
     }
 }

@@ -24,7 +24,7 @@
                 app:tabIndicatorFullWidth="true"
                 app:tabTextColor="@color/tab_textColor_n"
                 app:tabSelectedTextColor="@color/normal_text_dark"
-                app:tabTextAppearance="@style/Tab_TextAppearance"
+                app:tabTextAppearance="@style/tab_textAppearance"
                 />
         </android.support.design.widget.AppBarLayout>
         <android.support.v4.view.ViewPager

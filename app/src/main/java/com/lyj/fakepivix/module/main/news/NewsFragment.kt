@@ -8,6 +8,7 @@ import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.databinding.FragmentNewsBinding
 import com.lyj.fakepivix.module.main.news.follow.NewsFollowFragment
+import com.lyj.fakepivix.module.main.news.news.NewsNewsFragment
 import me.yokeyword.fragmentation.ISupportFragment
 
 
@@ -29,7 +30,7 @@ class NewsFragment : FragmentationFragment<FragmentNewsBinding, BaseViewModel<*>
     override fun init(savedInstanceState: Bundle?) {
         val fragments = listOf<Fragment>(
                 NewsFollowFragment.newInstance(),
-                NewsFollowFragment.newInstance(),
+                NewsNewsFragment.newInstance(),
                 NewsFollowFragment.newInstance()
         )
         val titles = arrayOf(

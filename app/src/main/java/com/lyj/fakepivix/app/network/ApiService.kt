@@ -1,10 +1,10 @@
 package com.lyj.fakepivix.app.network
 
 
-import com.lyj.fakepivix.app.constant.IllustCategory
+import com.lyj.fakepivix.app.constant.IllustCategory.*
 import com.lyj.fakepivix.app.constant.Constant
-import com.lyj.fakepivix.app.constant.ILLUST
-import com.lyj.fakepivix.app.constant.NOVEL
+import com.lyj.fakepivix.app.constant.IllustCategory
+import com.lyj.fakepivix.app.constant.Restrict
 import com.lyj.fakepivix.app.data.model.response.*
 import com.lyj.fakepivix.app.network.retrofit.interceptors.SwitchBaseUrlInterceptor
 import io.reactivex.Observable
@@ -106,16 +106,28 @@ interface ApiService {
      * [filter] 筛选条件 全部/公开/私密
      */
     @GET("/v2/{category}/follow")
-    fun getFollowIllustData(@IllustCategory @Path("category")category: String = ILLUST, @Query("restrict") restrict: String = "all"): Observable<IllustListResp>
+    fun getFollowIllustData(@IllustCategory @Path("category")category: String = ILLUST, @Restrict @Query("restrict") restrict: String = Restrict.ALL): Observable<IllustListResp>
 
     /**
      * 最新-关注者
      * [category] 小说
      */
     @GET("/v1/{category}/follow")
-    fun getFollowNovelData(@IllustCategory @Path("category")category: String = NOVEL, @Query("restrict") restrict: String = "all"): Observable<NovelListResp>
+    fun getFollowNovelData(@IllustCategory @Path("category")category: String = NOVEL, @Restrict @Query("restrict") restrict: String = Restrict.ALL): Observable<NovelListResp>
 
-    // https://app-api.pixiv.net/v1/illust/new?filter=for_android&content_type=illust   最新-插画
-    // https://app-api.pixiv.net/v1/illust/new?filter=for_android&content_type=manga   最新-漫画
-    // https://app-api.pixiv.net/v1/novel/new 最新-小说
+
+
+    /**
+     * 最新-最新
+     * [category] 插画/漫画
+     */
+    @GET("/v1/illust/new")
+    fun getNewIllustData(@Query("filter") filter:String = "for_android", @IllustCategory @Query("content_type")category: String): Observable<IllustListResp>
+
+    /**
+     * 最新-最新
+     * [category] 小说
+     */
+    @GET("/v1/novel/new")
+    fun getNewNovelData(): Observable<NovelListResp>
 }

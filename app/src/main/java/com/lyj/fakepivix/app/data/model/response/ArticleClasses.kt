@@ -1,8 +1,5 @@
 package com.lyj.fakepivix.app.data.model.response
 
-import com.chad.library.adapter.base.entity.MultiItemEntity
-import com.lyj.fakepivix.app.constant.COMIC
-import com.lyj.fakepivix.app.constant.ILLUST
 import com.squareup.moshi.JsonClass
 
 /**
