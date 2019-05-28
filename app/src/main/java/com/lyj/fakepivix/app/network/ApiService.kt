@@ -130,4 +130,61 @@ interface ApiService {
      */
     @GET("/v1/novel/new")
     fun getNewNovelData(): Observable<NovelListResp>
+
+    /**
+     * 最新-好P友
+     * 插画漫画
+     */
+    @GET("/v2/illust/mypixiv")
+    fun getFriendIllustData(): Observable<IllustListResp>
+
+    /**
+     * 最新-好P友
+     * 小说
+     */
+    @GET("/v1/illust/mypixiv")
+    fun getFriendNovelData(): Observable<NovelListResp>
+
+
+    /**
+     * 获取热门搜索标签
+     * [category] 插画漫画/小说
+     */
+    @GET("/v1/trending-tags/{category}")
+    fun getIllustSearchTag(@IllustCategory @Path("category")category: String): Observable<SearchTagListResp>
+
+
+    /**
+     * 获取用户作品列表
+     * [userId] 用户id
+     */
+    @GET("/v1/user/illusts")
+    fun getUserIllustData(@Query("user_id")userId: String, @IllustCategory @Query("type")category: String = ILLUST): Observable<IllustListResp>
+
+
+    /**
+     * 获取相关作品
+     */
+    @GET("/v2/illust/related")
+    fun getRelatedIllustData(@Query("illust_id")illustId: String): Observable<IllustListResp>
+
+    /**
+     * 获取作品评论
+     */
+    @GET("/v2/illust/comments")
+    fun getIllustComment(@Query("illust_id")illustId: String): Observable<CommentListResp>
+
+    /**
+     * 收藏
+     */
+    @POST("/v2/illust/bookmark/add")
+    @FormUrlEncoded
+    fun starIllust(@Field("illust_id")illustId: String, @Restrict @Field("restrict") restrict: String = Restrict.PUBLIC): Observable<Any>
+
+    /**
+     * 取消收藏
+     */
+    @POST("/v2/illust/bookmark/delete")
+    @FormUrlEncoded
+    fun unStarIllust(@Field("illust_id")illustId: String): Observable<Any>
 }

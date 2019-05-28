@@ -57,17 +57,4 @@ class ScrollingHeaderBehavior : CoordinatorLayout.Behavior<View> {
 //        }
     }
 
-    override fun onNestedPreFling(coordinatorLayout: CoordinatorLayout, child: View, target: View, velocityX: Float, velocityY: Float): Boolean {
-//        val hidden = (velocityY > 0) and (coordinatorLayout.scrollY < child.height)
-//        val show = (velocityY < 0) and (coordinatorLayout.scrollY > 0) and (target.canScrollVertically(-1))
-//        if (hidden or show) {
-//            return true
-//        }
-        return false
-    }
-
-    override fun onNestedFling(coordinatorLayout: CoordinatorLayout, child: View, target: View, velocityX: Float, velocityY: Float, consumed: Boolean): Boolean {
-        return super.onNestedFling(coordinatorLayout, child, target, velocityX, velocityY, consumed)
-    }
-
 }

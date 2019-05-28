@@ -34,7 +34,7 @@ import com.lyj.fakepivix.widget.CommonItemDecoration
  *
  * @desc 公共listFragment
  */
-class IllustListFragment : FragmentationFragment<CommonList, IllustListViewModel?>() {
+class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListViewModel?>() {
 
     override var mViewModel: IllustListViewModel? = null
     set(value) {
@@ -159,6 +159,6 @@ class IllustListFragment : FragmentationFragment<CommonList, IllustListViewModel
 
     override fun immersionBarEnabled(): Boolean = false
 
-    override fun bindLayout(): Int = R.layout.layout_common_recycler
+    override fun bindLayout(): Int = R.layout.layout_common_refresh_recycler
 
 }

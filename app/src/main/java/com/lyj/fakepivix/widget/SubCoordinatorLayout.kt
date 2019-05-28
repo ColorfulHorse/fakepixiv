@@ -14,68 +14,17 @@ import android.view.View
  *
  * @date 2019/5/23
  *
- * @desc
+ * @desc 可嵌套的
  */
 class SubCoordinatorLayout : CoordinatorLayout, NestedScrollingChild2 {
     val mChildHelper = NestedScrollingChildHelper(this).apply {
         isNestedScrollingEnabled = true
     }
-    var lastX = 0
-    var lastY = 0
-    var mNestedYOffset = 0
-    val comsumed = IntArray(2)
     val windowOffset = IntArray(2)
 
     constructor(context: Context): super(context)
     constructor(context: Context, attributeSet: AttributeSet): super(context, attributeSet)
     constructor(context: Context, attributeSet: AttributeSet, @AttrRes defStyleAttr: Int): super(context, attributeSet, defStyleAttr)
-
-//    override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
-//        when(ev.action) {
-//            MotionEvent.ACTION_DOWN -> {
-//                lastX = ev.x.toInt()
-//                lastY = ev.y.toInt()
-//                var axes = ViewCompat.SCROLL_AXIS_NONE
-//                if (canScrollHorizontally(-1)) {
-//                    axes = ViewCompat.SCROLL_AXIS_HORIZONTAL
-//                }
-//                if (canScrollVertically(-1)) {
-//                    axes = ViewCompat.SCROLL_AXIS_VERTICAL
-//                }
-//                startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL, ViewCompat.TYPE_TOUCH)
-//            }
-//            MotionEvent.ACTION_MOVE -> {
-//                dispatchNestedPreScroll(lastX - ev.x.toInt(), lastY - ev.y.toInt(), comsumed, windowOffset, ViewCompat.TYPE_TOUCH)
-//                lastX = ev.x.toInt()
-//                lastY = ev.y.toInt()
-//            }
-//        }
-//        return super.onTouchEvent(ev)
-//    }
-
-//    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
-//        var b = false
-//        when(ev.action) {
-//            MotionEvent.ACTION_DOWN -> {
-//                lastX = ev.x.toInt()
-//                lastY = ev.y.toInt()
-//                startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL, ViewCompat.TYPE_TOUCH)
-//            }
-//            MotionEvent.ACTION_MOVE -> {
-//                var deltaY = lastY - ev.y.toInt()
-//                dispatchNestedPreScroll(0, deltaY, comsumed, windowOffset, 0)
-//                val unconsumedY = deltaY - comsumed[1]
-//                dispatchNestedScroll(0, comsumed[1], 0, unconsumedY, windowOffset, 0)
-//                //stopNestedScroll(ViewCompat.TYPE_TOUCH)
-//                lastX = ev.x.toInt()
-//                lastY = ev.y.toInt()
-//            }
-//            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-//                stopNestedScroll(ViewCompat.TYPE_TOUCH)
-//            }
-//        }
-//        return super.dispatchTouchEvent(ev)
-//    }
 
     override fun setNestedScrollingEnabled(enabled: Boolean) {
         mChildHelper.isNestedScrollingEnabled = enabled
@@ -115,15 +64,35 @@ class SubCoordinatorLayout : CoordinatorLayout, NestedScrollingChild2 {
     }
 
     override fun onNestedPreScroll(target: View, dx: Int, dy: Int, consumed: IntArray, type: Int) {
-        var delta = dy
-        if (dispatchNestedPreScroll(dx, dy, consumed, windowOffset, type)) {
+        if (dy > 0) {
+            // 上滑时先让父控件消费
+            var delta = dy
+            if (dispatchNestedPreScroll(dx, dy, consumed, windowOffset, type)) {
+                val unConsumed = dy - consumed[1]
+                dispatchNestedScroll(0, consumed[1], 0, unConsumed, windowOffset, 0)
+                delta = unConsumed
+            }
+            if (delta != 0) {
+                super.onNestedPreScroll(target, dx, delta, consumed, type)
+            }
+        }else {
+            // 下滑时自己先消费
+            super.onNestedPreScroll(target, dx, dy, consumed, type)
             val unConsumed = dy - consumed[1]
-            dispatchNestedScroll(0, comsumed[1], 0, unConsumed, windowOffset, 0)
-            delta = unConsumed
+            if (unConsumed != 0) {
+                if (dispatchNestedPreScroll(dx, unConsumed, consumed, windowOffset, type)) {
+                    dispatchNestedScroll(0, consumed[1], 0, unConsumed, windowOffset, 0)
+                }
+            }
         }
-        if (delta != 0) {
-            super.onNestedPreScroll(target, dx, delta, consumed, type)
-        }
+    }
+
+    override fun onNestedFling(target: View, velocityX: Float, velocityY: Float, consumed: Boolean): Boolean {
+        return true
+    }
+
+    override fun onNestedPreFling(target: View, velocityX: Float, velocityY: Float): Boolean {
+        return this.dispatchNestedPreFling(velocityX, velocityY)
     }
 
     override fun onStopNestedScroll(target: View, type: Int) {

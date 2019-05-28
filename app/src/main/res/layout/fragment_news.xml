@@ -4,12 +4,12 @@
     <data>
 
     </data>
-    <LinearLayout
+    <com.lyj.fakepivix.widget.SubCoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         >
         <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -18,18 +18,22 @@
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tab_height"
+                android:minHeight="48dp"
                 app:tabMode="fixed"
                 app:tabIndicatorColor="@color/colorPrimary"
                 app:tabIndicatorHeight="3dp"
                 app:tabIndicatorFullWidth="true"
                 app:tabTextColor="@color/tab_textColor_n"
                 app:tabSelectedTextColor="@color/normal_text_dark"
-                app:tabTextAppearance="@style/tab_textAppearance"
+                app:tabTextAppearance="@style/Tab_TextAppearance"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
                 />
         </android.support.design.widget.AppBarLayout>
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            />
+    </com.lyj.fakepivix.widget.SubCoordinatorLayout>
 </layout>
