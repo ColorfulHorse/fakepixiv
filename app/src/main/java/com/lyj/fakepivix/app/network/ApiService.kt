@@ -63,7 +63,7 @@ interface ApiService {
      * [category] 插画/漫画
      */
     @GET("/v1/{category}/recommended")
-    fun getRecommendIllust(@IllustCategory @Path("category")category: String = ILLUST, @Query("filter") filter: String = "for_android", @Query("include_ranking_illusts") ranking: Boolean = true,
+    fun getRecommendIllust(@IllustCategory @Path("category")category: String = ILLUST, @Query("include_ranking_illusts") ranking: Boolean = true,
                            @Query("include_privacy_policy") privacy: Boolean = true): Observable<IllustListResp>
 
     /**
@@ -71,14 +71,14 @@ interface ApiService {
      * [category] 小说  神坑接口
      */
     @GET("/v1/{category}/recommended")
-    fun getHomeNovelRecommendData(@IllustCategory @Path("category")category: String = NOVEL, @Query("filter") filter: String = "for_android", @Query("include_ranking_novels") ranking: Boolean = true,
+    fun getHomeNovelRecommendData(@IllustCategory @Path("category")category: String = NOVEL, @Query("include_ranking_novels") ranking: Boolean = true,
                                   @Query("include_privacy_policy") privacy: Boolean = true): Observable<NovelListResp>
 
     /**
      * 主页特辑
      */
     @GET("/v1/spotlight/articles")
-    fun getIllustPixivisionData(@Query("filter") filter: String = "for_android", @Query("category") category: String): Observable<SpotLightResp>
+    fun getIllustPixivisionData(@Query("category") category: String): Observable<SpotLightResp>
 
     /**
      * 加载更多
@@ -98,7 +98,7 @@ interface ApiService {
      * 最新-推荐用户
      */
     @GET("/v1/user/recommended")
-    fun getUserRecommend(@Query("filter") filter: String = "for_android"): Observable<UserPreviewListResp>
+    fun getUserRecommend(): Observable<UserPreviewListResp>
 
     /**
      * 最新-关注者
@@ -122,7 +122,7 @@ interface ApiService {
      * [category] 插画/漫画
      */
     @GET("/v1/illust/new")
-    fun getNewIllustData(@Query("filter") filter:String = "for_android", @IllustCategory @Query("content_type")category: String): Observable<IllustListResp>
+    fun getNewIllustData(@IllustCategory @Query("content_type")category: String): Observable<IllustListResp>
 
     /**
      * 最新-最新

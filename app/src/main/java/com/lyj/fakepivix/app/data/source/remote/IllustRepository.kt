@@ -6,6 +6,7 @@ import com.lyj.fakepivix.app.constant.IllustCategory.*
 import com.lyj.fakepivix.app.constant.Restrict
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.IllustListResp
+import com.lyj.fakepivix.app.network.ApiException
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
 import com.lyj.fakepivix.app.reactivex.schedulerTransform
 import io.reactivex.Observable
@@ -57,10 +58,16 @@ class IllustRepository private constructor() {
      */
     fun loadFollowedIllust(@IllustCategory category: String, @Restrict filter: String = Restrict.ALL): Observable<IllustListResp> {
         val service = RetrofitManager.instance.apiService
-        val ob = when(category) {
+        var ob = when(category) {
             ILLUST, COMIC -> service.getFollowIllustData(restrict = filter)
             else -> service.getFollowNovelData(restrict = filter)
                     .map { IllustListResp(it.contest_exists, it.novels, it.next_url, it.privacy_policy, it.ranking_novels) }
+        }
+        ob = ob.map {
+            if (it.illusts.isEmpty()) {
+                throw ApiException(ApiException.CODE_EMPTY_DATA)
+            }
+            it
         }
         return ob.schedulerTransform()
     }
@@ -74,6 +81,25 @@ class IllustRepository private constructor() {
             ILLUST, COMIC -> service.getNewIllustData(category = category)
             else -> service.getNewNovelData()
                     .map { IllustListResp(it.contest_exists, it.novels, it.next_url, it.privacy_policy, it.ranking_novels) }
+        }
+        return ob.schedulerTransform()
+    }
+
+    /**
+     * 获取好P友
+     */
+    fun loadFriendIllust(@IllustCategory category: String): Observable<IllustListResp> {
+        val service = RetrofitManager.instance.apiService
+        var ob = when(category) {
+            ILLUSTANDCOMIC -> service.getFriendIllustData()
+            else -> service.getFriendNovelData()
+                    .map { IllustListResp(it.contest_exists, it.novels, it.next_url, it.privacy_policy, it.ranking_novels) }
+        }
+        ob = ob.map {
+            if (it.illusts.isEmpty()) {
+                throw ApiException(ApiException.CODE_EMPTY_DATA)
+            }
+            it
         }
         return ob.schedulerTransform()
     }

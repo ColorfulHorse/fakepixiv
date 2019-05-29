@@ -15,15 +15,23 @@ import okhttp3.Response
 class CommonParamsInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val oldReq = chain.request()
+        var oldReq = chain.request()
         val url = oldReq.url().toString()
         if (url.contains(Constant.Net.BASE_URL)) {
             val token = UserRepository.instance.accessToken
+            if ("GET" == oldReq.method()) {
+                oldReq = oldReq.newBuilder().url(oldReq.url()
+                        .newBuilder()
+                        .addQueryParameter("filter", "for_android")
+                        .build()
+                ).build()
+            }
             token?.let {
-                val newReq =  oldReq.newBuilder()
+                val newReq = oldReq
+                        .newBuilder()
                         .addHeader("App-OS", "android")
                         .addHeader("Accept-Language", "zh_CN")
-                        //.addHeader(Constant.Net.HEADER_TOKEN, token)
+                        .addHeader(Constant.Net.HEADER_TOKEN, token)
                         .build()
                 return chain.proceed(newReq)
             }

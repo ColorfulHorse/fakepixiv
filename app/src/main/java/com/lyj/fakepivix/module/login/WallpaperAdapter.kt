@@ -41,7 +41,7 @@ class WallpaperAdapter(data: ObservableList<Illust>, val readyCallback: (() -> U
 
         helper.binding?.let {
             var request = GlideApp.with(mContext)
-                    .load(item.image_urls.square_medium.mapUrl())
+                    .load(item.image_urls.square_medium)
             //if ((start == -1) or (helper.adapterPosition <= end)) {
                     request = request.addListener(object : RequestListener<Drawable> {
                         override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
@@ -97,7 +97,7 @@ class WallpaperAdapter(data: ObservableList<Illust>, val readyCallback: (() -> U
     }
 
     override fun getPreloadRequestBuilder(item: Illust): RequestBuilder<*>? {
-        val url = item.image_urls.square_medium.mapUrl()
+        val url = item.image_urls.square_medium
         return Glide.with(mContext).load(url)
     }
 }

@@ -1,5 +1,6 @@
 package com.lyj.fakepivix.module.splash
 
+import android.app.Activity
 import android.os.Bundle
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.BaseViewModel
@@ -29,7 +30,6 @@ class SplashActivity : FragmentationActivity<ActivitySplashBinding, BaseViewMode
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val cacheData = SPUtil.getLoginData()
         if (cacheData == null) {
             startActivity(LoginActivity::class.java)

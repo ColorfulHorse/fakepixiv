@@ -38,4 +38,13 @@ object SPUtil {
         }
         return null
     }
+
+    fun save(key: String, value: String) {
+        sp.edit().putString(key, value)
+                .apply()
+    }
+
+    fun get(key: String, defValue: String): String {
+        return sp.getString(key, defValue)
+    }
 }

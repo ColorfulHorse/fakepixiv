@@ -20,4 +20,5 @@ object GlideUtil {
 /**
  * 转换图片url
  */
+@Deprecated("改为拦截器实现", ReplaceWith("改为拦截器实现"))
 fun String.mapUrl() : GlideUrl = GlideUrl(this, GlideUtil.HEADERS)

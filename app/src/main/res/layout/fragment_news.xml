@@ -25,7 +25,7 @@
                 app:tabIndicatorFullWidth="true"
                 app:tabTextColor="@color/tab_textColor_n"
                 app:tabSelectedTextColor="@color/normal_text_dark"
-                app:tabTextAppearance="@style/Tab_TextAppearance"
+                app:tabTextAppearance="@style/tab_textAppearance"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
                 />
         </android.support.design.widget.AppBarLayout>

@@ -17,7 +17,7 @@
             <com.flyco.tablayout.CommonTabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/sub_tab_height"
+                android:layout_height="@dimen/tab_height"
                 android:background="@color/white"
                 app:tl_textBold="SELECT"
                 app:tl_textSelectColor="@color/white"

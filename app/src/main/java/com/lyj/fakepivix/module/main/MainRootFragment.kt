@@ -20,7 +20,7 @@ import com.lyj.fakepivix.module.main.search.SearchFragment
  *
  * @date 2019/4/7
  *
- * @desc
+ * @desc 主页root fragment
  */
 class MainRootFragment : FragmentationFragment<MainRoot, BaseViewModel<*>?>() {
     companion object {
@@ -122,7 +122,9 @@ class MainRootFragment : FragmentationFragment<MainRoot, BaseViewModel<*>?>() {
         when (position) {
             0 -> mToolbar?.setTitle(R.string.tab_home)
             1 -> mToolbar?.setTitle(R.string.tab_news)
-            2 -> mToolbar?.setTitle(R.string.tab_search)
+            2 -> {
+                mToolbar?.setTitle(R.string.tab_search)
+            }
         }
         prePosition = position
     }

@@ -24,5 +24,9 @@ interface Constant {
 
     object SP {
         const val KEY_LOGIN_CACHE = "KEY_LOGIN_CACHE"
+
+        const val KEY_RESTRICT_ILLUST = "KEY_RESTRICT_ILLUST"
+
+        const val KEY_RESTRICT_NOVEL = "KEY_RESTRICT_NOVEL"
     }
 }

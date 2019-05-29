@@ -56,18 +56,19 @@ class HomeComicViewModel : BaseViewModel<IModel?>() {
     }
 
     fun loadMore() {
-        if (loadMoreState.get() !is LoadState.Loading) {
-            val disposable = IllustRepository.instance
-                    .loadMore(nextUrl)
-                    .doOnSubscribe { loadMoreState.set(LoadState.Loading) }
-                    .subscribeBy(onNext = {
-                        loadMoreState.set(LoadState.Succeed)
-                        nextUrl = it.next_url
-                        data.addAll(it.illusts)
-                    }, onError = {
-                        loadMoreState.set(LoadState.Failed(it))
-                    })
-            addDisposable(disposable)
-        }
+        if (nextUrl.isBlank())
+            return
+        val disposable = IllustRepository.instance
+                .loadMore(nextUrl)
+                .doOnSubscribe { loadMoreState.set(LoadState.Loading) }
+                .subscribeBy(onNext = {
+                    loadMoreState.set(LoadState.Succeed)
+                    nextUrl = it.next_url
+                    data.addAll(it.illusts)
+                }, onError = {
+                    loadMoreState.set(LoadState.Failed(it))
+                })
+        addDisposable(disposable)
+
     }
 }

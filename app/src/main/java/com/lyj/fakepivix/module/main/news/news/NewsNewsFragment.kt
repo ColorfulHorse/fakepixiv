@@ -63,6 +63,7 @@ class NewsNewsFragment : FragmentationFragment<FragmentNewsNewsBinding, BaseView
         )
         with(mBinding) {
             tabLayout.setTabData(tabs)
+            tabLayout.currentTab = 0
             tabLayout.setOnTabSelectListener(object : OnTabSelectListener {
                 override fun onTabSelect(position: Int) {
                     showHideFragment(fragments[position])

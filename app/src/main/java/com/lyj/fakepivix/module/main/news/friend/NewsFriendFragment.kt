@@ -1,25 +1,19 @@
-package com.lyj.fakepivix.module.main.news.follow
+package com.lyj.fakepivix.module.main.news.friend
+
 
 import android.os.Bundle
-import android.widget.TextView
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationFragment
-import com.lyj.fakepivix.app.constant.Constant
-import com.lyj.fakepivix.app.constant.IllustCategory
-import com.lyj.fakepivix.app.constant.IllustCategory.*
-import com.lyj.fakepivix.app.constant.Restrict
-
-
+import com.lyj.fakepivix.app.constant.IllustCategory.ILLUSTANDCOMIC
+import com.lyj.fakepivix.app.constant.IllustCategory.NOVEL
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.entity.TabBean
-import com.lyj.fakepivix.app.utils.SPUtil
 import com.lyj.fakepivix.databinding.FragmentNewsFollowBinding
 import com.lyj.fakepivix.module.main.common.IllustListFragment
 import com.lyj.fakepivix.module.main.common.IllustListViewModel
-import me.yokeyword.fragmentation.ISupportFragment
 
 
 /**
@@ -27,11 +21,11 @@ import me.yokeyword.fragmentation.ISupportFragment
  *
  * @date 2019/4/3
  *
- * @desc 最新-关注者
+ * @desc 最新-好P友
  */
-class NewsFollowFragment : FragmentationFragment<FragmentNewsFollowBinding, NewsFollowViewModel>() {
+class NewsFriendFragment : FragmentationFragment<FragmentNewsFollowBinding, BaseViewModel<*>?>() {
 
-    override var mViewModel: NewsFollowViewModel = NewsFollowViewModel()
+    override var mViewModel: BaseViewModel<*>? = null
 
     lateinit var illustViewModel: IllustListViewModel
     lateinit var novelViewModel: IllustListViewModel
@@ -39,7 +33,7 @@ class NewsFollowFragment : FragmentationFragment<FragmentNewsFollowBinding, News
     val fragments: MutableList<IllustListFragment> = mutableListOf()
 
     companion object {
-        fun newInstance() = NewsFollowFragment()
+        fun newInstance() = NewsFriendFragment()
     }
 
     override fun init(savedInstanceState: Bundle?) {
@@ -56,30 +50,11 @@ class NewsFollowFragment : FragmentationFragment<FragmentNewsFollowBinding, News
                     val fragment = fragments[position]
                     showHideFragment(fragment)
                 }
-
                 override fun onTabReselect(position: Int) {
 
                 }
 
             })
-            restrict.setOnClickListener {
-                val category = when(tabLayout.currentTab) {
-                    0 -> ILLUSTANDCOMIC
-                    else -> NOVEL
-                }
-                val dialog = RestrictDialog()
-                dialog.category = category
-                dialog.onRestrict = {
-                    // 筛选当前fragment 列表数据
-                    val vm = fragments[tabLayout.currentTab].mViewModel
-                    vm?.action = {
-                        IllustRepository.instance.loadFollowedIllust(ILLUST, it)
-                    }
-                    vm?.load()
-                }
-                dialog.show(fragmentManager, "RestrictDialog")
-            }
-
         }
     }
 
@@ -87,14 +62,11 @@ class NewsFollowFragment : FragmentationFragment<FragmentNewsFollowBinding, News
         val followIllustFragment = IllustListFragment.newInstance(ILLUSTANDCOMIC)
         val followNovelFragment = IllustListFragment.newInstance(NOVEL)
 
-        val illustRestrict = SPUtil.get(Constant.SP.KEY_RESTRICT_ILLUST, Restrict.PUBLIC)
-        val novelRestrict = SPUtil.get(Constant.SP.KEY_RESTRICT_NOVEL, Restrict.PUBLIC)
-
         illustViewModel = IllustListViewModel(ILLUSTANDCOMIC) {
-            IllustRepository.instance.loadFollowedIllust(ILLUST, illustRestrict)
+            IllustRepository.instance.loadFriendIllust(ILLUSTANDCOMIC)
         }
         novelViewModel = IllustListViewModel(NOVEL) {
-            IllustRepository.instance.loadFollowedIllust(NOVEL, novelRestrict)
+            IllustRepository.instance.loadFriendIllust(NOVEL)
         }
         followIllustFragment.mViewModel = illustViewModel
         followNovelFragment.mViewModel = novelViewModel
@@ -105,6 +77,6 @@ class NewsFollowFragment : FragmentationFragment<FragmentNewsFollowBinding, News
 
     override fun immersionBarEnabled(): Boolean = false
 
-    override fun bindLayout(): Int = R.layout.fragment_news_follow
+    override fun bindLayout(): Int = R.layout.fragment_news_news
 
 }

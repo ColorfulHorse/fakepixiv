@@ -43,5 +43,5 @@ open class IllustAdapter(data: ObservableList<Illust>) : PreloadMultiBindingAdap
 
     override fun getPreloadRequestBuilder(item: Illust): RequestBuilder<Drawable>? =
             GlideApp.with(mContext)
-            .load(item.image_urls.medium.mapUrl())
+            .load(item.image_urls.medium)
 }

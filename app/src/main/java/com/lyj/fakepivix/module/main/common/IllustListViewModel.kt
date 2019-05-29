@@ -6,6 +6,7 @@ import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.IllustCategory.ILLUST
+import com.lyj.fakepivix.app.constant.Restrict
 
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.IllustListResp
@@ -32,35 +33,37 @@ class IllustListViewModel(@IllustCategory var category: String = ILLUST, var act
     var nextUrl = ""
 
     fun load() {
-        val disposable = action()
-                .doOnSubscribe {
-                    loadState.set(LoadState.Loading)
-                    data.clear()
-                }
-                .subscribeBy(onNext = {
-                    loadState.set(LoadState.Succeed)
-                    nextUrl = it.next_url
-                    data.clear()
-                    data.addAll(it.illusts)
-                }, onError = {
-                    loadState.set(LoadState.Failed(it))
-                })
-        addDisposable(disposable)
-    }
-
-    fun loadMore() {
         if (loadMoreState.get() !is LoadState.Loading) {
-            val disposable = IllustRepository.instance
-                    .loadMore(nextUrl, category)
-                    .doOnSubscribe { loadMoreState.set(LoadState.Loading) }
+            val disposable = action()
+                    .doOnSubscribe {
+                        loadState.set(LoadState.Loading)
+                        data.clear()
+                    }
                     .subscribeBy(onNext = {
-                        loadMoreState.set(LoadState.Succeed)
+                        loadState.set(LoadState.Succeed)
                         nextUrl = it.next_url
+                        data.clear()
                         data.addAll(it.illusts)
                     }, onError = {
-                        loadMoreState.set(LoadState.Failed(it))
+                        loadState.set(LoadState.Failed(it))
                     })
             addDisposable(disposable)
         }
+    }
+
+    fun loadMore() {
+        if (nextUrl.isBlank())
+            return
+        val disposable = IllustRepository.instance
+                .loadMore(nextUrl, category)
+                .doOnSubscribe { loadMoreState.set(LoadState.Loading) }
+                .subscribeBy(onNext = {
+                    loadMoreState.set(LoadState.Succeed)
+                    nextUrl = it.next_url
+                    data.addAll(it.illusts)
+                }, onError = {
+                    loadMoreState.set(LoadState.Failed(it))
+                })
+        addDisposable(disposable)
     }
 }

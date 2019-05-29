@@ -11,7 +11,6 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.lyj.fakepivix.GlideApp
-import com.lyj.fakepivix.app.utils.mapUrl
 import com.lyj.fakepivix.widget.LikeButton
 
 /**
@@ -29,7 +28,7 @@ fun ImageView.url(url: String?, placeHolder: Drawable?, error: Drawable?, circle
     url?.let {
         if (url.isNotEmpty()) {
             var req = GlideApp.with(this)
-                    .load(url.mapUrl())
+                    .load(url)
             if (fade) {
                 req = req.transition(DrawableTransitionOptions.withCrossFade(factory))
             }

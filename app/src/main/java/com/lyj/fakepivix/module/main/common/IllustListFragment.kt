@@ -1,5 +1,6 @@
 package com.lyj.fakepivix.module.main.common
 
+import android.nfc.cardemulation.CardEmulation.EXTRA_CATEGORY
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
@@ -12,6 +13,7 @@ import com.lyj.fakepivix.app.adapter.PreloadMultiBindingAdapter
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.IllustCategory.*
+import com.lyj.fakepivix.app.constant.Restrict
 
 
 import com.lyj.fakepivix.app.data.model.response.Illust
@@ -21,10 +23,13 @@ import com.lyj.fakepivix.app.utils.ToastUtil
 import com.lyj.fakepivix.app.utils.attachLoadMore
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.CommonList
+import com.lyj.fakepivix.databinding.CommonRefreshList
 import com.lyj.fakepivix.module.main.common.adapter.ComicAdapter
 import com.lyj.fakepivix.module.main.common.adapter.IllustAdapter
 import com.lyj.fakepivix.module.main.common.adapter.NovelAdapter
 import com.lyj.fakepivix.widget.CommonItemDecoration
+import kotlinx.android.synthetic.main.layout_common_refresh_recycler.*
+import kotlinx.android.synthetic.main.layout_error.view.*
 
 
 /**
@@ -32,7 +37,7 @@ import com.lyj.fakepivix.widget.CommonItemDecoration
  *
  * @date 2019/4/3
  *
- * @desc 公共listFragment
+ * @desc 公共illust listFragment
  */
 class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListViewModel?>() {
 
@@ -117,14 +122,18 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
                         }
                     }
                 }*/
-                recyclerView.setRecyclerListener {
-                    if (it is BaseBindingViewHolder<*>) {
 
-                    }
+                mAdapter.setOnItemClickListener { _, _, position ->
+                    ToastUtil.showToast("$position")
                 }
 
-                mAdapter.setOnItemClickListener { adapter, view, position ->
-                    ToastUtil.showToast("$position")
+                refreshLayout.setOnRefreshListener {
+                    vm.load()
+                }
+
+                // 错误刷新
+                errorView.reload.setOnClickListener {
+                    vm.load()
                 }
             }
         }
@@ -140,14 +149,17 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
                     when (loadState.get()) {
                         is LoadState.Loading -> {
                             mAdapter.emptyView = loadingView
+                            refreshLayout.isRefreshing = false
+                            mBinding.refreshLayout.isEnabled = false
                             mAdapter.notifyDataSetChanged()
                         }
                         is LoadState.Failed -> {
                             mAdapter.emptyView = errorView
+                            mBinding.refreshLayout.isEnabled = true
                             mAdapter.notifyDataSetChanged()
                         }
                         else -> {
-
+                            mBinding.refreshLayout.isEnabled = true
                         }
                     }
                 })

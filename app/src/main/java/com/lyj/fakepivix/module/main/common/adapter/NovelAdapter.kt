@@ -39,6 +39,6 @@ class NovelAdapter(data: ObservableList<Illust>) : PreloadMultiBindingAdapter<Il
     }
 
     override fun getPreloadRequestBuilder(item: Illust): RequestBuilder<Drawable>? = GlideApp.with(recyclerView)
-            .load(item.image_urls.medium.mapUrl())
+            .load(item.image_urls.medium)
 
 }

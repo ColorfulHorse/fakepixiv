@@ -8,6 +8,7 @@ import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.databinding.FragmentNewsBinding
 import com.lyj.fakepivix.module.main.news.follow.NewsFollowFragment
+import com.lyj.fakepivix.module.main.news.friend.NewsFriendFragment
 import com.lyj.fakepivix.module.main.news.news.NewsNewsFragment
 import me.yokeyword.fragmentation.ISupportFragment
 
@@ -31,7 +32,7 @@ class NewsFragment : FragmentationFragment<FragmentNewsBinding, BaseViewModel<*>
         val fragments = listOf<Fragment>(
                 NewsFollowFragment.newInstance(),
                 NewsNewsFragment.newInstance(),
-                NewsFollowFragment.newInstance()
+                NewsFriendFragment.newInstance()
         )
         val titles = arrayOf(
                 getString(R.string.tab_follower),

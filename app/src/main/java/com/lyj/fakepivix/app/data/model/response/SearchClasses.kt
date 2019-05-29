@@ -1,5 +1,7 @@
 package com.lyj.fakepivix.app.data.model.response
 
+import com.chad.library.adapter.base.entity.MultiItemEntity
+
 /**
  * @author greensun
  *
@@ -15,5 +17,12 @@ data class SearchTagListResp(
 data class TrendTag(
     val illust: Illust = Illust(),
     val tag: String = "",
-    val translated_name: String = ""
-)
+    val translated_name: String = "",
+    var type: Int = TYPE_NORMAL
+): MultiItemEntity {
+    companion object {
+        const val TYPE_NORMAL = 0
+        const val TYPE_HEADER = 1
+    }
+    override fun getItemType(): Int = type
+}

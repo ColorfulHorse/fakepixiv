@@ -49,6 +49,7 @@
                     android:layout_marginBottom="4dp"
                     />
                 <ImageView
+                    android:id="@+id/restrict"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_search_filter"
