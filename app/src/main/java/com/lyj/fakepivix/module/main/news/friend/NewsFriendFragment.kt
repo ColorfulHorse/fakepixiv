@@ -12,6 +12,7 @@ import com.lyj.fakepivix.app.constant.IllustCategory.NOVEL
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.entity.TabBean
 import com.lyj.fakepivix.databinding.FragmentNewsFollowBinding
+import com.lyj.fakepivix.databinding.FragmentNewsNewsBinding
 import com.lyj.fakepivix.module.main.common.IllustListFragment
 import com.lyj.fakepivix.module.main.common.IllustListViewModel
 
@@ -23,7 +24,7 @@ import com.lyj.fakepivix.module.main.common.IllustListViewModel
  *
  * @desc 最新-好P友
  */
-class NewsFriendFragment : FragmentationFragment<FragmentNewsFollowBinding, BaseViewModel<*>?>() {
+class NewsFriendFragment : FragmentationFragment<FragmentNewsNewsBinding, BaseViewModel<*>?>() {
 
     override var mViewModel: BaseViewModel<*>? = null
 

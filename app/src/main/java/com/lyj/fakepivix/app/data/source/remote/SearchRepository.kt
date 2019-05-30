@@ -3,6 +3,7 @@ package com.lyj.fakepivix.app.data.source.remote
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.data.model.response.LiveListResp
 import com.lyj.fakepivix.app.data.model.response.SearchTagListResp
+import com.lyj.fakepivix.app.data.model.response.TrendTag
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
 import com.lyj.fakepivix.app.reactivex.schedulerTransform
 import io.reactivex.Observable
@@ -24,6 +25,10 @@ class SearchRepository {
         return RetrofitManager.instance
                 .apiService
                 .getIllustSearchTag(category)
+                .map {
+                    it.trend_tags[0].type = TrendTag.TYPE_HEADER
+                    it
+                }
                 .schedulerTransform()
     }
 }

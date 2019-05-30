@@ -32,6 +32,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:background="#33000000"
             android:padding="16dp"
             >
             <LinearLayout
@@ -58,14 +59,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
-                    android:layout_marginTop="12dp"
                     android:textColor="@color/white"
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:gravity="center_horizontal"
                     android:layout_gravity="center_horizontal"
                     android:text="@{tag.translated_name}"
-                    android:visibility="@{TextUtils.isEmpty(tag.translated_name)}"
+                    android:visibility="@{!TextUtils.isEmpty(tag.translated_name)}"
                     />
             </LinearLayout>
         </RelativeLayout>

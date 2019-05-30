@@ -1,6 +1,7 @@
 package com.lyj.fakepivix.app.data.model.response
 
 import com.chad.library.adapter.base.entity.MultiItemEntity
+import com.squareup.moshi.JsonClass
 
 /**
  * @author greensun
@@ -9,11 +10,12 @@ import com.chad.library.adapter.base.entity.MultiItemEntity
  *
  * @desc 搜索response
  */
-
+@JsonClass(generateAdapter = true)
 data class SearchTagListResp(
     val trend_tags: List<TrendTag> = listOf()
 )
 
+@JsonClass(generateAdapter = true)
 data class TrendTag(
     val illust: Illust = Illust(),
     val tag: String = "",

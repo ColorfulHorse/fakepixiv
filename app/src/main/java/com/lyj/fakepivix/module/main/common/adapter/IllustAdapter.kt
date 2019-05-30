@@ -3,18 +3,20 @@ package com.lyj.fakepivix.module.main.common.adapter
 import android.databinding.ObservableList
 import android.databinding.ViewDataBinding
 import android.graphics.drawable.Drawable
+import android.support.v4.app.FragmentActivity
 import android.view.ViewGroup
 import com.bumptech.glide.RequestBuilder
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.util.FixedPreloadSizeProvider
-import com.lyj.fakepivix.*
+import com.lyj.fakepivix.BR
+import com.lyj.fakepivix.GlideApp
+import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.adapter.PreloadMultiBindingAdapter
+import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.databinding.factory
-import com.lyj.fakepivix.app.utils.mapUrl
+import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
+import com.lyj.fakepivix.module.main.illust.IllustDetailRootFragment
+import me.yokeyword.fragmentation.SupportHelper
 
 /**
  * @author greensun
@@ -26,6 +28,13 @@ import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
 open class IllustAdapter(data: ObservableList<Illust>) : PreloadMultiBindingAdapter<Illust>(data) {
     init {
         addItemType(Illust.TYPE_ILLUST, R.layout.item_home_illust, BR.illust)
+
+        setOnItemClickListener { _, _, position ->
+            IllustRepository.instance.illustList = data
+            val top = SupportHelper.getTopFragment((mContext as FragmentActivity).supportFragmentManager) as FragmentationFragment<*, *>
+            top.start(IllustDetailRootFragment.newInstance(position))
+        }
+
     }
 
 
@@ -38,6 +47,10 @@ open class IllustAdapter(data: ObservableList<Illust>) : PreloadMultiBindingAdap
             }
         }
         return vh
+    }
+
+    override fun isFixedViewType(type: Int): Boolean {
+        return super.isFixedViewType(type) or (type == Illust.TYPE_LARGE)
     }
 
 

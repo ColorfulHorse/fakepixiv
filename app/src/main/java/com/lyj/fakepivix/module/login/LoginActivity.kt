@@ -15,11 +15,14 @@ import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.base.FragmentationActivity
 import com.lyj.fakepivix.app.data.model.response.Illust
+import com.lyj.fakepivix.app.fragmentation.HorizontalAnimator
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.ActivityLoginBinding
 import com.lyj.fakepivix.databinding.ItemWallpaperBinding
 import com.lyj.fakepivix.module.login.login.LoginFragment
 import com.lyj.fakepivix.widget.CommonItemDecoration
+import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator
+import me.yokeyword.fragmentation.anim.FragmentAnimator
 
 /**
  * @author greensun
@@ -38,6 +41,8 @@ class LoginActivity : FragmentationActivity<ActivityLoginBinding, WallpaperViewM
         super.onCreate(savedInstanceState)
         initView()
     }
+
+    override fun onCreateFragmentAnimator(): FragmentAnimator = HorizontalAnimator()
 
     private fun initView() {
         ImmersionBar.with(this).init()

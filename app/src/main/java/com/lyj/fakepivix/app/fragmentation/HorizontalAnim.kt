@@ -30,7 +30,7 @@ class HorizontalAnimator : FragmentAnimator, Parcelable {
     }
 
     companion object {
-
+        @JvmField
         val CREATOR: Parcelable.Creator<HorizontalAnimator> = object : Parcelable.Creator<HorizontalAnimator> {
             override fun createFromParcel(`in`: Parcel): HorizontalAnimator {
                 return HorizontalAnimator(`in`)

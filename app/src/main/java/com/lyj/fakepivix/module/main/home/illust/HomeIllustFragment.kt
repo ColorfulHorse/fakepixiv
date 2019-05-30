@@ -86,9 +86,9 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
                 mViewModel.lazyLoad()
             }
 
-            mAdapter.setOnItemClickListener { adapter, view, position ->
-                ToastUtil.showToast("$position")
-            }
+//            mAdapter.setOnItemClickListener { adapter, view, position ->
+//                ToastUtil.showToast("$position")
+//            }
             // 错误刷新
             errorView.reload.setOnClickListener {
                 mViewModel.load()

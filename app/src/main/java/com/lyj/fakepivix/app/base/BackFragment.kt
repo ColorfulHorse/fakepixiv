@@ -14,7 +14,7 @@ import com.lyj.fakepivix.R
  *
  * @desc
  */
-abstract class BackFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel>> : FragmentationFragment<V, VM>() {
+abstract class BackFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>?> : FragmentationFragment<V, VM>() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)

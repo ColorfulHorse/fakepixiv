@@ -54,12 +54,15 @@ data class Illust (
         const val TYPE_ILLUST = 1
         const val TYPE_COMIC = 2
         const val TYPE_NOVEL = 3
+        // 详情大图
+        const val TYPE_LARGE = 3
     }
 
     override fun getItemType(): Int = when(type) {
         ILLUST -> TYPE_ILLUST
         COMIC -> TYPE_COMIC
-        else -> TYPE_NOVEL
+        NOVEL -> TYPE_NOVEL
+        else -> TYPE_LARGE
     }
 
     fun getTagsText(): String {

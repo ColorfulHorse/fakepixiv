@@ -24,7 +24,7 @@ class IllustRepository private constructor() {
         val instance by lazy { IllustRepository() }
     }
 
-    private val illustList: ArrayMap<String, Illust> = ArrayMap()
+    var illustList: MutableList<Illust> = mutableListOf()
 
     /**
      * 获取推荐
@@ -125,7 +125,4 @@ class IllustRepository private constructor() {
                 .schedulerTransform()
     }
 
-    fun clear() {
-        illustList.clear()
-    }
 }

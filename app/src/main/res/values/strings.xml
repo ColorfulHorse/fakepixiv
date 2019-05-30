@@ -55,4 +55,7 @@
     <string name="all">全部</string>
     <string name="pub">公开</string>
     <string name="pri">私密</string>
+    <string name="pageNum">%d/%d</string>
+    <string name="share">分享</string>
+    <string name="filter_setting">屏蔽设定</string>
 </resources>
