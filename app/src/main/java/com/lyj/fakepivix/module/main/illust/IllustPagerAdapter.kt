@@ -13,16 +13,9 @@ import com.lyj.fakepivix.app.data.model.response.Illust
  *
  * @desc
  */
-class IllustPagerAdapter(val data: List<Illust>, val currentPosition: Int, fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
-    var lastPosition = -1
+class IllustPagerAdapter(val data: List<Illust>, fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
-        var pos = currentPosition
-        if (lastPosition == -1) {
-
-        }
-        position - lastPosition
-        lastPosition
         return IllustDetailFragment.newInstance(position)
     }
 

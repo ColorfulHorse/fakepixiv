@@ -47,8 +47,9 @@ class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, B
                 true
             }
         }
-        mBinding.viewPager.adapter = IllustPagerAdapter(IllustRepository.instance.illustList, position, childFragmentManager)
+        mBinding.viewPager.adapter = IllustPagerAdapter(IllustRepository.instance.illustList, childFragmentManager)
         mBinding.viewPager.offscreenPageLimit = 2
+        mBinding.viewPager.currentItem = position
     }
 
     override fun bindLayout(): Int = R.layout.fragment_illust_detail_root
