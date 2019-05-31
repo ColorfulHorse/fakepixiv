@@ -19,7 +19,7 @@ abstract class BackFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
         mToolbar?.let {
-            it.setNavigationIcon(R.drawable.md_nav_back)
+            it.setNavigationIcon(R.drawable.ic_arrow_back_white)
             it.setNavigationOnClickListener {
                 if (keyboardOpen) {
                     hideSoftInput()

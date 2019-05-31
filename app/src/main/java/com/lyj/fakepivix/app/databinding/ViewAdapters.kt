@@ -37,10 +37,23 @@ fun ImageView.url(url: String?, placeHolder: Drawable?, error: Drawable?, circle
                 options.circleCrop()
             }
             placeHolder?.let {
-                options.placeholder(placeHolder)
+                if (circle) {
+                    val thumbnail = GlideApp.with(this)
+                            .load(placeHolder)
+                            .circleCrop()
+                    req = req.thumbnail(thumbnail)
+                }else {
+                    options.placeholder(placeHolder)
+                }
             }
             error?.let {
-                options.error(error)
+                if (circle) {
+                    req = req.error(GlideApp.with(this)
+                            .load(error)
+                            .circleCrop())
+                }else {
+                    options.error(error)
+                }
             }
             req.apply(options).into(this)
         }

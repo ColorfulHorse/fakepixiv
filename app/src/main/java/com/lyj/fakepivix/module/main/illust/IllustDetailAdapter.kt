@@ -9,6 +9,7 @@ import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.adapter.PreloadMultiBindingAdapter
 import com.lyj.fakepivix.app.data.model.response.Illust
+import com.lyj.fakepivix.app.data.model.response.TrendTag
 import com.lyj.fakepivix.databinding.ItemIllustDetailBinding
 
 /**
@@ -33,6 +34,11 @@ class IllustDetailAdapter(val data: ObservableList<Illust>) : PreloadMultiBindin
             }
         }
     }
+
+    override fun isFixedViewType(type: Int): Boolean {
+        return super.isFixedViewType(type) or (type == Illust.TYPE_LARGE)
+    }
+
 
     override fun getPreloadRequestBuilder(item: Illust): RequestBuilder<*>? =
             GlideApp.with(mContext)

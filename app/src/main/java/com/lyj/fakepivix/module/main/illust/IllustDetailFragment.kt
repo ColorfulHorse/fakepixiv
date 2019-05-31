@@ -44,6 +44,10 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
         }
         layoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
         mAdapter = IllustDetailAdapter(mViewModel.data)
+        with(mBinding) {
+            recyclerView.layoutManager = layoutManager
+            mAdapter.bindToRecyclerView(recyclerView)
+        }
     }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {

@@ -8,4 +8,6 @@
     <dimen name="rank_item_size">220dp</dimen>
     <dimen name="sub_tab_height">40dp</dimen>
     <dimen name="sub_tab_textSize">12sp</dimen>
+    <dimen name="detail_padding_h">16dp</dimen>
+    <dimen name="corners_default">4dp</dimen>
 </resources>

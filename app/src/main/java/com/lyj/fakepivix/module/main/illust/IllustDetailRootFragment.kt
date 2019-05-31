@@ -2,6 +2,7 @@ package com.lyj.fakepivix.module.main.illust
 
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
+import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.BackFragment
 import com.lyj.fakepivix.app.base.BaseViewModel
@@ -50,6 +51,13 @@ class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, B
         mBinding.viewPager.adapter = IllustPagerAdapter(IllustRepository.instance.illustList, childFragmentManager)
         mBinding.viewPager.offscreenPageLimit = 2
         mBinding.viewPager.currentItem = position
+    }
+
+    override fun initImmersionBar() {
+        ImmersionBar.with(this)
+                .titleBar(mBinding.toolbar)
+                .transparentStatusBar()
+                .init()
     }
 
     override fun bindLayout(): Int = R.layout.fragment_illust_detail_root

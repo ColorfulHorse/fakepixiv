@@ -58,4 +58,7 @@
     <string name="pageNum">%d/%d</string>
     <string name="share">分享</string>
     <string name="filter_setting">屏蔽设定</string>
+    <string name="follow">关注</string>
+    <string name="preview_user">查看个人简介</string>
+    <string name="comment">评论</string>
 </resources>

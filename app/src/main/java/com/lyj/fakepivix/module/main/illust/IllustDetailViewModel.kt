@@ -6,6 +6,7 @@ import android.databinding.ObservableList
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.data.model.response.Illust
+import com.lyj.fakepivix.app.data.model.response.ImageUrls
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 
 /**
@@ -27,9 +28,14 @@ class IllustDetailViewModel : BaseViewModel<IModel?>() {
         set(value) {
             field = value
             val illust = IllustRepository.instance.illustList[position]
-            data.addAll(illust.meta_pages.map {
-                Illust(image_urls = it.image_urls)
-            })
+            if (illust.meta_pages.isNotEmpty()) {
+                val list = illust.meta_pages.map {
+                    Illust(image_urls = it.image_urls)
+                }
+                data.addAll(list)
+            }else {
+                data.add(Illust(image_urls = ImageUrls(illust.meta_single_page.original_image_url)))
+            }
         }
 
 

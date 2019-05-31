@@ -16,7 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/transparent"
+            android:background="@drawable/gradient_toolbar"
             app:contentInsetStart="0dp"
             >
             <RelativeLayout
