@@ -61,4 +61,9 @@
     <string name="follow">关注</string>
     <string name="preview_user">查看个人简介</string>
     <string name="comment">评论</string>
+    <string name="read_count">阅读</string>
+    <string name="like">喜欢！</string>
+    <string name="no_comment">暂无评论</string>
+    <string name="comment_placeholder">添加评论...</string>
+    <string name="related_work">相关作品</string>
 </resources>

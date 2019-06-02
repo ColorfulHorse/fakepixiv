@@ -15,7 +15,7 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @date 2019/3/13
  *
- * @desc 登录
+ * @desc
  */
 class HomeIllustViewModel : BaseViewModel<IHomeIllustModel>() {
 

@@ -17,7 +17,6 @@
     <color name="bg_general_new">#ffffffff</color>
     <color name="bg_illust_edit_action">#ff313131</color>
     <color name="bg_image">#ffeeeeee</color>
-    <color name="bg_item">#ffeeeeee</color>
     <color name="bg_ppoint_purchase_button_gradation_end">#ff33bbff</color>
     <color name="bg_ppoint_purchase_button_gradation_start">#ffbbff33</color>
     <color name="bg_premium">#ff57c2ff</color>
@@ -73,7 +72,6 @@
     <color name="dim_foreground_disabled_material_light">#80323232</color>
     <color name="dim_foreground_material_dark">#ffbebebe</color>
     <color name="dim_foreground_material_light">#ff323232</color>
-    <color name="emoji_button_color">#ffb3b3b3</color>
     <color name="error_color_material_dark">#ffff7043</color>
     <color name="error_color_material_light">#ffff5722</color>
     <color name="exo_edit_mode_background_color">#fff4f3f0</color>
@@ -245,4 +243,10 @@
     <color name="renewal_font_light_gray">#ffc6cbcc</color>
     <color name="renewal_font_black">#ff69606d</color>
     <color name="bg_user_recommended">#fff6f6f6</color>
+    <color name="detail_divider">#ffe2e5e5</color>
+    <color name="text_detail_desc">#ff665d6a</color>
+    <color name="bg_item">#ffeeeeee</color>
+    <color name="detail_title_black">#ff333333</color>
+    <color name="inout_hint_color">#ffb3b3b3</color>
+    <color name="detail_read_more">#ffaaaaaa</color>
 </resources>

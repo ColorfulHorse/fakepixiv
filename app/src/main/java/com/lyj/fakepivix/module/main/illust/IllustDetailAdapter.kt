@@ -10,6 +10,7 @@ import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.adapter.PreloadMultiBindingAdapter
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.TrendTag
+import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
 import com.lyj.fakepivix.databinding.ItemIllustDetailBinding
 
 /**
@@ -23,6 +24,9 @@ class IllustDetailAdapter(val data: ObservableList<Illust>) : PreloadMultiBindin
 
     init {
         addItemType(Illust.TYPE_LARGE, R.layout.item_illust_detail, BR.data)
+        addItemType(Illust.TYPE_ILLUST, R.layout.item_home_illust, BR.illust)
+        addItemType(Illust.TYPE_COMIC, R.layout.item_home_illust, BR.illust)
+        addItemType(Illust.TYPE_NOVEL, R.layout.item_home_illust, BR.illust)
     }
 
     override fun onBindViewHolder(holder: BaseBindingViewHolder<ViewDataBinding>, position: Int) {
@@ -31,6 +35,8 @@ class IllustDetailAdapter(val data: ObservableList<Illust>) : PreloadMultiBindin
             binding ->
             if (binding is ItemIllustDetailBinding) {
                 sizeProvider.setView(binding.cover)
+            }else if (binding is ItemHomeIllustBinding) {
+                sizeProvider.setView(binding.image)
             }
         }
     }
