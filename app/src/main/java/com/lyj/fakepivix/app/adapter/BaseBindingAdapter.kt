@@ -14,37 +14,39 @@ import com.chad.library.adapter.base.BaseQuickAdapter
  *
  * @desc
  */
-open class BaseBindingAdapter<T, VB : ViewDataBinding>(@LayoutRes layoutId: Int, val data: ObservableList<T>, val itemBindId: Int) : BaseQuickAdapter<T, BaseBindingViewHolder<VB>>(layoutId, data) {
+open class BaseBindingAdapter<T, VB : ViewDataBinding>(@LayoutRes layoutId: Int, data: List<T>, val itemBindId: Int) : BaseQuickAdapter<T, BaseBindingViewHolder<VB>>(layoutId, data) {
 
     init {
-        data.addOnListChangedCallback(object : ObservableList.OnListChangedCallback<ObservableList<T>>(){
-            override fun onChanged(sender: ObservableList<T>?) {
-                notifyDataSetChanged()
-            }
-
-            override fun onItemRangeRemoved(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
-                notifyItemRangeRemoved(positionStart + headerLayoutCount, itemCount)
-                compatibilityDataSizeChanged(0)
-            }
-
-            override fun onItemRangeMoved(sender: ObservableList<T>?, fromPosition: Int, toPosition: Int, itemCount: Int) {
-                if (itemCount == 1) {
-                    notifyItemMoved(fromPosition + headerLayoutCount, toPosition + headerLayoutCount)
-                }else {
+        if(data is ObservableList<T>) {
+            data.addOnListChangedCallback(object : ObservableList.OnListChangedCallback<ObservableList<T>>(){
+                override fun onChanged(sender: ObservableList<T>?) {
                     notifyDataSetChanged()
                 }
-            }
 
-            override fun onItemRangeInserted(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
-                notifyItemRangeInserted(positionStart + headerLayoutCount, itemCount)
-                compatibilityDataSizeChanged(itemCount)
-            }
+                override fun onItemRangeRemoved(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
+                    notifyItemRangeRemoved(positionStart + headerLayoutCount, itemCount)
+                    compatibilityDataSizeChanged(0)
+                }
 
-            override fun onItemRangeChanged(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
-                notifyItemRangeChanged(positionStart + headerLayoutCount, itemCount)
-            }
+                override fun onItemRangeMoved(sender: ObservableList<T>?, fromPosition: Int, toPosition: Int, itemCount: Int) {
+                    if (itemCount == 1) {
+                        notifyItemMoved(fromPosition + headerLayoutCount, toPosition + headerLayoutCount)
+                    }else {
+                        notifyDataSetChanged()
+                    }
+                }
 
-        })
+                override fun onItemRangeInserted(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
+                    notifyItemRangeInserted(positionStart + headerLayoutCount, itemCount)
+                    compatibilityDataSizeChanged(itemCount)
+                }
+
+                override fun onItemRangeChanged(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
+                    notifyItemRangeChanged(positionStart + headerLayoutCount, itemCount)
+                }
+
+            })
+        }
     }
 
     override fun convert(helper: BaseBindingViewHolder<VB>, item: T) {

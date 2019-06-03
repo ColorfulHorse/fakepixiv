@@ -4,6 +4,7 @@ package com.lyj.fakepivix.app.data.model.response
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.lyj.fakepivix.app.constant.IllustCategory.*
 import com.squareup.moshi.JsonClass
+import com.squareup.moshi.JsonQualifier
 
 /**
  * @author greensun
@@ -44,7 +45,7 @@ data class Illust (
         val tools: List<Any> = listOf(),
         val total_bookmarks: Int = 0,
         val total_view: Int = 0,
-        val type: String = "",
+        var type: String = "",
         val user: User? = null,
         val visible: Boolean = false,
         val width: Int = 0,
@@ -55,7 +56,7 @@ data class Illust (
         const val TYPE_COMIC = 2
         const val TYPE_NOVEL = 3
         // 详情大图
-        const val TYPE_LARGE = 3
+        const val TYPE_LARGE = 4
     }
 
     override fun getItemType(): Int = when(type) {
@@ -89,7 +90,8 @@ data class MetaPage(
 @JsonClass(generateAdapter = true)
 data class Tag(
         val name: String = "",
-        val translated_name: String = ""
+        val translated_name: String = "",
+        var isTranslated: Boolean = false
 )
 
 @JsonClass(generateAdapter = true)

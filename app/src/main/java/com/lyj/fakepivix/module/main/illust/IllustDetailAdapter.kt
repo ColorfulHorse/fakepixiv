@@ -2,6 +2,7 @@ package com.lyj.fakepivix.module.main.illust
 
 import android.databinding.ObservableList
 import android.databinding.ViewDataBinding
+import android.view.View
 import com.bumptech.glide.RequestBuilder
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.GlideApp
@@ -22,11 +23,17 @@ import com.lyj.fakepivix.databinding.ItemIllustDetailBinding
  */
 class IllustDetailAdapter(val data: ObservableList<Illust>) : PreloadMultiBindingAdapter<Illust>(data) {
 
+    var startSize = data.size
+
     init {
         addItemType(Illust.TYPE_LARGE, R.layout.item_illust_detail, BR.data)
         addItemType(Illust.TYPE_ILLUST, R.layout.item_home_illust, BR.illust)
         addItemType(Illust.TYPE_COMIC, R.layout.item_home_illust, BR.illust)
         addItemType(Illust.TYPE_NOVEL, R.layout.item_home_illust, BR.illust)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return super.getItemViewType(position)
     }
 
     override fun onBindViewHolder(holder: BaseBindingViewHolder<ViewDataBinding>, position: Int) {
@@ -39,6 +46,10 @@ class IllustDetailAdapter(val data: ObservableList<Illust>) : PreloadMultiBindin
                 sizeProvider.setView(binding.image)
             }
         }
+    }
+
+    fun addView(view: View) {
+
     }
 
     override fun isFixedViewType(type: Int): Boolean {

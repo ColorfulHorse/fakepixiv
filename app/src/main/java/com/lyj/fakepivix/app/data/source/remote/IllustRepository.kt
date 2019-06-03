@@ -105,6 +105,24 @@ class IllustRepository private constructor() {
     }
 
     /**
+     * 获取用户作品
+     */
+    fun loadUserIllust(userId: String): Observable<IllustListResp> {
+        return RetrofitManager.instance.apiService
+                .getUserIllustData(userId)
+                .schedulerTransform()
+    }
+
+    /**
+     * 获取相关作品
+     */
+    fun loadRelatedIllust(illustId: String): Observable<IllustListResp> {
+        return RetrofitManager.instance.apiService
+                .getRelatedIllustData(illustId)
+                .schedulerTransform()
+    }
+
+    /**
      * 加载更多
      */
     fun loadMore(nextUrl: String, category: String = ILLUST): Observable<IllustListResp> {

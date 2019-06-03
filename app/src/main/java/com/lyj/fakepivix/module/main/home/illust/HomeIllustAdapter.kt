@@ -28,8 +28,14 @@ class HomeIllustAdapter(data: ObservableList<Illust>, val header: PixivisionHead
         val pos = position - headerLayoutCount
         if (pos == 10) {
             return TYPE_ARTICLE_VIEW
+        }else if (pos > 10) {
+            return super.getItemViewType(position - 1)
         }
         return super.getItemViewType(position)
+    }
+
+    override fun getItemCount(): Int {
+        return super.getItemCount() + 1
     }
 
 

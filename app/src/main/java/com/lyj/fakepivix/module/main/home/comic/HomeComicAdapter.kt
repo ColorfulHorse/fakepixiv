@@ -3,6 +3,7 @@ package com.lyj.fakepivix.module.main.home.comic
 import android.databinding.ObservableList
 import android.databinding.ViewDataBinding
 import android.graphics.drawable.Drawable
+import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.RequestBuilder
 import com.lyj.fakepivix.GlideApp

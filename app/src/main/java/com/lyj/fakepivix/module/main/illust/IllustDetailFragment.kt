@@ -44,15 +44,17 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
         }
         layoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
         mAdapter = IllustDetailAdapter(mViewModel.data)
-        with(mBinding) {
-            recyclerView.layoutManager = layoutManager
-            mAdapter.bindToRecyclerView(recyclerView)
-        }
     }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
-
+        with(mBinding) {
+            recyclerView.layoutManager = layoutManager
+            mAdapter.bindToRecyclerView(recyclerView)
+            val descFooter = DescFooter(mActivity, mViewModel.illust)
+            mAdapter.addFooterView(descFooter.rootView)
+            mViewModel.load()
+        }
     }
 
     override fun immersionBarEnabled(): Boolean {

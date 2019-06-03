@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 主页排行榜item -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="com.lyj.fakepivix.app.data.model.response.Illust"/>
+        <variable
+            name="illust"
+            type="Illust"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <!--
+        app:url="@{illust.image_urls.medium}"
+            app:fade="@{true}"
+            app:placeHolder="@{@drawable/common_border_placeholder}"
+        -->
+        <com.lyj.fakepivix.widget.RecImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:url="@{illust.image_urls.medium}"
+            app:fade="@{true}"
+            app:placeHolder="@{@drawable/common_border_placeholder}"
+            />
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/count_tag"
+            android:layout_alignEnd="@id/image"
+            android:layout_alignTop="@id/image"
+            android:text="@{String.valueOf(illust.page_count)}"
+            android:visibility="@{illust.page_count>1}"
+            />
+    </RelativeLayout>
+</layout>

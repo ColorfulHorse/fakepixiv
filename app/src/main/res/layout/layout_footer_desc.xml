@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?><!-- 详情页作品描述 -->
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <import type="com.lyj.fakepivix.app.data.model.response.Illust" />
-
+        <import type="com.lyj.fakepivix.app.utils.DateUtil"/>
+        <import type="com.lyj.fakepivix.app.utils.StringUtil"/>
         <variable
             name="data"
             type="Illust" />
@@ -16,7 +18,7 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
@@ -30,7 +32,11 @@
                 android:layout_height="32dp"
                 android:layout_gravity="center"
                 android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp" />
+                android:layout_marginRight="16dp"
+                app:url="@{data.user.profile_image_urls.px_170x170}"
+                app:placeHolder="@{@drawable/ic_profile_premium}"
+                app:circle="@{true}"
+                />
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -46,7 +52,9 @@
                     android:paddingEnd="72dp"
                     android:textColor="@color/renewal_font_black"
                     android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:text="@{data.title}"
+                    />
 
                 <TextView
                     android:id="@+id/nickName"
@@ -54,7 +62,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:textColor="@color/renewal_font_gray"
-                    android:textSize="10sp" />
+                    android:textSize="10sp"
+                    android:text="@{data.user.name}"
+                    />
             </LinearLayout>
         </LinearLayout>
 
@@ -72,7 +82,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/more_button_text"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:text="@{DateUtil.format(data.create_date)}"
+                />
 
             <TextView
                 android:id="@+id/read_count"
@@ -82,6 +94,7 @@
                 android:layout_marginStart="12dp"
                 android:paddingEnd="4dp"
                 android:textColor="@color/more_button_text"
+                android:text="@{StringUtil.formatCount(data.total_view)}"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -102,6 +115,7 @@
                 android:paddingEnd="4dp"
                 android:textColor="@color/primary"
                 android:textSize="12sp"
+                android:text="@{StringUtil.formatCount(data.total_bookmarks)}"
                 android:textStyle="bold" />
 
             <TextView
@@ -131,7 +145,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/detail_padding_h"
             android:layout_marginEnd="@dimen/detail_padding_h"
-            android:layout_marginBottom="8dp" />
+            />
 
         <!--<TextView-->
         <!--android:id="@id/description_title_textview"-->
@@ -150,6 +164,7 @@
             android:id="@id/desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:layout_marginStart="@dimen/detail_padding_h"
             android:layout_marginEnd="@dimen/detail_padding_h"
             android:layout_marginBottom="32dp"

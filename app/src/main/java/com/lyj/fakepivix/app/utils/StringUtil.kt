@@ -21,7 +21,7 @@ object StringUtil {
     fun formatCount(count: Int): String {
         if (count > 10000) {
             val df = DecimalFormat(".#k")
-            return df.format(1215 / 1000f)
+            return df.format(count / 1000f)
         }
         return count.toString()
     }
