@@ -43,7 +43,7 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
             mViewModel.position = position
         }
         layoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
-        mAdapter = IllustDetailAdapter(mViewModel.data)
+        mAdapter = IllustDetailAdapter(mViewModel)
     }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
@@ -51,10 +51,22 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
         with(mBinding) {
             recyclerView.layoutManager = layoutManager
             mAdapter.bindToRecyclerView(recyclerView)
-            val descFooter = DescFooter(mActivity, mViewModel.illust)
-            mAdapter.addFooterView(descFooter.rootView)
-            mViewModel.load()
+            initFooter()
         }
+    }
+
+    /**
+     * 实例化作品描述，用户作品，作品评论
+     */
+    private fun initFooter() {
+        val descFooter = DescFooter(mActivity, mViewModel.illust)
+        val userFooter = UserFooter(mActivity, mViewModel.userFooterViewModel)
+        val commentFooter = CommentFooter(mActivity, mViewModel.commentFooterViewModel)
+        val relatedCaptionFooter = RelatedCaptionFooter(mActivity, mViewModel.relatedCaptionFooterViewModel)
+        mAdapter.descFooter = descFooter
+        mAdapter.userFooter = userFooter
+        mAdapter.commentFooter = commentFooter
+        mAdapter.relatedCaptionFooter = relatedCaptionFooter
     }
 
     override fun immersionBarEnabled(): Boolean {

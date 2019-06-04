@@ -3,10 +3,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.lyj.fakepivix.app.data.model.response.User"/>
+        <import type="com.lyj.fakepivix.module.main.illust.UserFooterViewModel"/>
         <variable
-            name="data"
-            type="User"/>
+            name="vm"
+            type="UserFooterViewModel"/>
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
                 android:id="@+id/avatar"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                app:url="@{data.profile_image_urls.px_170x170}"
+                app:url="@{vm.user.profile_image_urls.px_170x170}"
                 app:placeHolder="@{@drawable/ic_profile_premium}"
                 app:circle="@{true}"
                 android:layout_centerVertical="true"
@@ -41,7 +41,7 @@
                 android:textColor="@color/renewal_font_black"
                 android:layout_toEndOf="@+id/avatar"
                 android:layout_toStartOf="@+id/follow"
-                android:text="@{data.name}"
+                android:text="@{vm.user.name}"
                 />
             <Button
                 android:id="@+id/follow"
@@ -49,21 +49,31 @@
                 android:layout_height="wrap_content"
                 android:minHeight="0dp"
                 android:minWidth="0dp"
-                android:textColor="@{data._followed?@color/white:@color/colorPrimary}"
+                android:textColor="@{vm.user._followed?@color/white:@color/colorPrimary}"
                 android:textSize="12sp"
                 android:padding="5dp"
-                android:text="@{data._followed?@string/followed:@string/follow}"
-                android:background="@{data._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_primary}"
+                android:text="@{vm.user._followed?@string/followed:@string/follow}"
+                android:background="@{vm.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_primary}"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 />
         </RelativeLayout>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            />
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="w,3:1"
+                android:layout_marginTop="12dp"
+                android:focusableInTouchMode="false"
+                />
+        </android.support.constraint.ConstraintLayout>
 
         <TextView
             android:id="@+id/userPreview"

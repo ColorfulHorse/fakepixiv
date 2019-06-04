@@ -27,6 +27,9 @@ class HomeComicAdapter(data: ObservableList<Illust>, val header: PixivisionHeade
     }
 
 
+    /**
+     * 由于中间插入了item
+     */
     override fun getItemViewType(position: Int): Int {
         val pos = position - headerLayoutCount
         if (pos == 2) {
@@ -34,6 +37,21 @@ class HomeComicAdapter(data: ObservableList<Illust>, val header: PixivisionHeade
         }
         return super.getItemViewType(position)
     }
+
+    override fun getItemCount(): Int {
+        if (!data.isNullOrEmpty()) {
+            return super.getItemCount() + 1
+        }
+        return super.getItemCount()
+    }
+
+    override fun getItem(position: Int): Illust? {
+        if (position > 2) {
+            return super.getItem(position - 1)
+        }
+        return super.getItem(position)
+    }
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseBindingViewHolder<ViewDataBinding> {

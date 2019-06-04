@@ -145,6 +145,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/detail_padding_h"
             android:layout_marginEnd="@dimen/detail_padding_h"
+            android:focusableInTouchMode="false"
             />
 
         <!--<TextView-->
