@@ -8,7 +8,6 @@ import android.support.annotation.ColorInt;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 /**
@@ -21,44 +20,24 @@ import android.view.View;
 public class CommonItemDecoration extends RecyclerView.ItemDecoration {
     private static final String TAG = CommonItemDecoration.class.getSimpleName();
 
-    // 水平排列的间隔
-    private int hWidth;
-    // 竖直排列的间隔
-    private int vWidth;
+    // 主轴方向分割线宽度
+    private int mainWidth;
+    // 交叉轴方向分割线宽度
+    private int crossWidth;
     private Paint paint;
-    private @ColorInt int color;
+    private @ColorInt
+    int color;
     private boolean draw = false;
-    private int hEdge;
-    private int vEdge;
-    // 是否需要边缘间隔
-    private boolean edge = true;
+    // 边缘宽度
+    private int mainEdge;
+    private int crossEdge;
 
-    public boolean isDraw() {
-        return draw;
+    protected CommonItemDecoration() {
+        init();
     }
 
     public void setDraw(boolean draw) {
         this.draw = draw;
-    }
-
-    private CommonItemDecoration() {
-        init();
-    }
-
-    public int gethWidth() {
-        return hWidth;
-    }
-
-    public void sethWidth(int hWidth) {
-        this.hWidth = hWidth/2*2;
-    }
-
-    public int getvWidth() {
-        return vWidth;
-    }
-
-    public void setvWidth(int vWidth) {
-        this.vWidth = vWidth/2*2;
     }
 
     public Paint getPaint() {
@@ -73,17 +52,36 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
         return color;
     }
 
-    public void setEdge(boolean edge) {
-        this.edge = edge;
-    }
-    
-
-    public void sethEdge(int hEdge) {
-        this.hEdge = hEdge*2/2;
+    public int getMainWidth() {
+        return mainWidth;
     }
 
-    public void setvEdge(int vEdge) {
-        this.vEdge = vEdge*2/2;
+    public void setMainWidth(int mainWidth) {
+        this.mainWidth = mainWidth;
+    }
+
+    public int getCrossWidth() {
+        return crossWidth;
+    }
+
+    public void setCrossWidth(int crossWidth) {
+        this.crossWidth = crossWidth;
+    }
+
+    public int getMainEdge() {
+        return mainEdge;
+    }
+
+    public void setMainEdge(int mainEdge) {
+        this.mainEdge = mainEdge;
+    }
+
+    public int getCrossEdge() {
+        return crossEdge;
+    }
+
+    public void setCrossEdge(int crossEdge) {
+        this.crossEdge = crossEdge;
     }
 
     public void setColor(int color) {
@@ -92,26 +90,22 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     private void init() {
-        paint = new Paint(Paint.ANTI_ALIAS_FLAG|Paint.DITHER_FLAG);
+        paint = new Paint(Paint.ANTI_ALIAS_FLAG| Paint.DITHER_FLAG);
         paint.setColor(Color.parseColor("#f1f1f1"));
         paint.setStyle(Paint.Style.FILL);
     }
 
 
     public static class Builder {
-        private CommonItemDecoration itemDecoration;
+        protected CommonItemDecoration itemDecoration;
 
         public Builder() {
             itemDecoration = new CommonItemDecoration();
         }
 
-        public Builder verticalWidth(int width) {
-            itemDecoration.setvWidth(width);
-            return this;
-        }
-
-        public Builder horizontalWidth(int width) {
-            itemDecoration.sethWidth(width);
+        public Builder dividerWidth(int mainWidth, int crossWidth) {
+            itemDecoration.setMainWidth(mainWidth);
+            itemDecoration.setCrossWidth(crossWidth);
             return this;
         }
 
@@ -120,14 +114,15 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
             return this;
         }
 
-        public Builder draw(boolean isDraw) {
-            itemDecoration.setDraw(isDraw);
+        public Builder draw(boolean draw) {
+            itemDecoration.setDraw(draw);
             return this;
         }
 
-        public Builder edge(int h, int v) {
-            itemDecoration.sethEdge(h);
-            itemDecoration.setvEdge(v);
+
+        public Builder edge(int mainEdge, int crossEdge) {
+            itemDecoration.setMainEdge(mainEdge);
+            itemDecoration.setCrossEdge(crossEdge);
             return this;
         }
 
@@ -136,11 +131,13 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
         }
     }
 
+
+
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        int vWidth = this.vWidth>0?this.vWidth:this.hWidth;
-        int hWidth = this.hWidth>0?this.hWidth:this.vWidth;
-        if (vWidth == 0 && hWidth == 0)
+        mainWidth = mainWidth > 0 ? mainWidth : crossWidth;
+        crossWidth = crossWidth > 0 ? crossWidth : mainWidth;
+        if (mainWidth <= 0)
             return;
         RecyclerView.LayoutManager manager = parent.getLayoutManager();
         int size = parent.getAdapter().getItemCount();
@@ -155,111 +152,99 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
                 int spanCount = glManager.getSpanCount();
                 // 该item占了几列
                 int spanSize = glManager.getSpanSizeLookup().getSpanSize(position);
-                // 该item在第几个位置
+                // 该item在第几列/行
                 int spanIndex = glManager.getSpanSizeLookup().getSpanIndex(position, spanCount);
-                // 该行有多少item
-                int itemCount = spanIndex + 1;
-                // 该行占了几列(有效列)
-                int mainSize = spanSize;
-                for (int i = position + 1; i<size; i++) {
-                    int index = glManager.getSpanSizeLookup().getSpanIndex(i, spanCount);
-                    if (index <= spanIndex) {
-                        // 换行了
-                        break;
-                    }else {
-                        itemCount += 1;
-                        mainSize += glManager.getSpanSizeLookup().getSpanSize(i);
+
+                int groupIndex = glManager.getSpanSizeLookup().getSpanGroupIndex(position, spanCount);
+                int lastGroupIndex = glManager.getSpanSizeLookup().getSpanGroupIndex(size - 1, spanCount);
+
+                if (crossEdge != 0) {
+                    // 去除小数
+                    int minEdge = Math.round(crossEdge * 1f / spanCount);
+                    if (minEdge < 1) {
+                        minEdge = 1;
                     }
+                    int realEdge = minEdge * spanCount;
+                    if (mainEdge == crossEdge) {
+                        mainEdge = realEdge;
+                    }
+                    crossEdge = realEdge;
+                }
+                // 去除小数
+                int minWidth = Math.round(crossWidth*1f/spanCount);
+                if (minWidth < 1) {
+                    minWidth = 1;
+                }
+                int realDividerWidth = minWidth*spanCount;
+                // 每个item平分的边缘和分割线的宽度和
+                if (mainWidth == crossWidth) {
+                    mainWidth = realDividerWidth;
+                }
+                crossWidth = realDividerWidth;
+                int itemUseWidth = (crossEdge*2+crossWidth*(spanCount-1))/spanCount;
+                int lt, rb;
+                lt = crossWidth*spanIndex - itemUseWidth*spanIndex + crossEdge;
+                rb = itemUseWidth*(spanIndex+spanSize) - crossWidth*(spanIndex+spanSize-1) - crossEdge;
+//                Log.e(TAG, "position:"+position+"=====spanIndex:"+spanIndex+"=====mainSize:"+mainSize+"=====spanCount:"+spanCount+"=====itemCount:"+itemCount+"=====rowIndex:"+rowIndex);
+
+                if (isVertical) {
+                    outRect.left = lt;
+                    outRect.right = rb;
+                }else {
+                    outRect.top = lt;
+                    outRect.bottom = rb;
                 }
 
-                for (int j = spanIndex - 1, pos = position-1; j >=0 ; j--, pos--) {
-                    mainSize += glManager.getSpanSizeLookup().getSpanSize(pos);
-                }
-                //Log.e(TAG, "position:"+position+"=====itemCount:"+itemCount);
-                Log.e(TAG, "position:"+position+"=====mainSize:"+mainSize);
 
-                if (spanIndex == 0) {
-                    // 是该行/列第一个
+                if (groupIndex == 0) {
+                    // 是第一一行/列
                     if (isVertical) {
-                        outRect.left = hEdge;
-                        outRect.right = hWidth/2;
+                        outRect.top = mainEdge;
                     }else {
-                        outRect.top = vEdge;
-                        outRect.bottom = vWidth/2;
-                    }
-                } else if (spanIndex == itemCount - 1) {
-                    if (mainSize < spanCount) {
-                        // 是该行/列最后一个，但没有占满
-                        if (isVertical) {
-                            outRect.left = hWidth/2;
-                            outRect.right = hWidth;
-                        }else {
-                            outRect.top = vWidth/2;
-                            outRect.bottom = vWidth;
-                        }
-                    }else {
-                        if (isVertical) {
-                            outRect.left = hWidth/2;
-                            outRect.right = hEdge;
-                        }else {
-                            outRect.top = vWidth/2;
-                            outRect.bottom = vEdge;
-                        }
-                    }
-                } else {
-                    // 中间列
-                    if (isVertical) {
-                        outRect.left = hWidth/2;
-                        outRect.right = hWidth/2;
-                    }else {
-                        outRect.top = vWidth/2;
-                        outRect.bottom = vWidth/2;
+                        outRect.left = mainEdge;
                     }
                 }
-
-
-                int distance = itemCount - 1 - spanIndex;
-                int lastPos = position + distance;
-                if (lastPos < size - 1) {
+                if (groupIndex < lastGroupIndex) {
                     // 不是最后一行/列
                     if (isVertical) {
-                        outRect.bottom = vWidth;
+                        outRect.bottom = mainWidth;
                     }else {
-                        outRect.right = hWidth;
+                        outRect.right = mainWidth;
                     }
                 }else {
                     // 是最后一行要加边缘
                     if (isVertical) {
-                        outRect.bottom = vEdge;
+                        outRect.bottom = mainEdge;
                     }else {
-                        outRect.right = hEdge;
+                        outRect.right = mainEdge;
                     }
                 }
+                //Log.e(TAG, "position:"+position+"===left:"+outRect.left+"===right:"+outRect.right+"===top:"+outRect.top+"===bottom:"+outRect.bottom);
                 return;
             }
             // linear
             if (isVertical) {
                 if (position == 0) {
-                    outRect.top = vEdge;
-                    outRect.bottom = vWidth;
+                    outRect.top = mainEdge;
+                    outRect.bottom = mainWidth;
                 }else if (position == size - 1){
-                    outRect.bottom = vEdge;
+                    outRect.bottom = mainEdge;
                 }else {
-                    outRect.bottom = vWidth;
+                    outRect.bottom = mainWidth;
                 }
-                outRect.left = hEdge;
-                outRect.right = hEdge;
+                outRect.left = crossEdge;
+                outRect.right = crossEdge;
             }else {
                 if (position == 0) {
-                    outRect.left = hEdge;
-                    outRect.right = hWidth;
+                    outRect.left = mainEdge;
+                    outRect.right = mainWidth;
                 }else if (position == size - 1){
-                    outRect.right = hEdge;
+                    outRect.right = mainEdge;
                 }else {
-                    outRect.right = hWidth;
+                    outRect.right = mainWidth;
                 }
-                outRect.top = vEdge;
-                outRect.bottom = vEdge;
+                outRect.top = crossEdge;
+                outRect.bottom = crossEdge;
             }
         }
     }
@@ -267,125 +252,185 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
         if (draw) {
-            int vWidth = this.vWidth>0?this.vWidth:this.hWidth;
-            int hWidth = this.hWidth>0?this.hWidth:this.vWidth;
-            int left, top, right, bottom;
             RecyclerView.LayoutManager manager = parent.getLayoutManager();
             int size = parent.getAdapter().getItemCount();
             if (manager instanceof LinearLayoutManager) {
                 LinearLayoutManager llManager = (LinearLayoutManager) manager;
                 boolean isVertical = llManager.getOrientation() == LinearLayoutManager.VERTICAL;
-                // grid
                 if (manager instanceof GridLayoutManager) {
                     GridLayoutManager glManager = (GridLayoutManager) manager;
-                    for (int i = 0; i <parent.getChildCount() ; i++) {
+                    int spanCount = glManager.getSpanCount();
+                    int lastGroupIndex = glManager.getSpanSizeLookup().getSpanGroupIndex(size - 1, spanCount);
+
+                    for (int i = 0; i < parent.getChildCount() ; i++) {
                         View view = parent.getChildAt(i);
                         int position = parent.getChildAdapterPosition(view);
-                        // 列数
-                        int spanCount = glManager.getSpanCount();
                         // 该item占了几列
                         int spanSize = glManager.getSpanSizeLookup().getSpanSize(position);
-                        // 该item在第几个位置
+                        // 该item在第几列/行
                         int spanIndex = glManager.getSpanSizeLookup().getSpanIndex(position, spanCount);
-                        // 该行有多少item
-                        int itemCount = spanIndex + 1;
-                        // 该行占了几列
-                        int mainSize = spanSize;
-                        for (int j = position + 1; j <size; j++) {
-                            int index = glManager.getSpanSizeLookup().getSpanIndex(j, spanCount);
-                            if (index <= spanIndex) {
-                                // 换行了
-                                break;
-                            }else {
-                                itemCount += 1;
-                                mainSize += glManager.getSpanSizeLookup().getSpanSize(j);
-                            }
+                        int groupIndex = glManager.getSpanSizeLookup().getSpanGroupIndex(position, spanCount);
+                        int realIndex = spanIndex;
+                        if (spanSize > 0) {
+                            realIndex = spanIndex + (spanSize - 1);
                         }
+                        int left, top , bottom, right;
+                        left = view.getLeft();
+                        top = view.getTop();
+                        bottom = view.getBottom();
+                        right = view.getRight();
+                        if (isVertical) {
+                            int t = top;
+                            if (groupIndex == 0) {
+                                t = parent.getPaddingTop();
+                            }
+                            int b = bottom + mainWidth;
+                            if (groupIndex == lastGroupIndex) {
+                                b = bottom + mainEdge;
+                            }
 
-                        for (int j = spanIndex - 1, pos = position-1; j >=0 ; j--, pos--) {
-                            mainSize += glManager.getSpanSizeLookup().getSpanSize(pos);
-                        }
-                        boolean lastNotFull = false;
-                        if (spanIndex < itemCount - 1) {
-                            // 不是该行最后一个
-                            if (isVertical) {
-                                left = view.getRight();
-                                top = view.getTop();
-                                right = view.getRight() + hWidth;
-                                bottom = view.getBottom();
-                            }else {
-                                left = view.getLeft();
-                                top = view.getBottom();
-                                right = view.getRight();
-                                bottom = view.getBottom() + vWidth;
+                            int r = right + crossWidth;
+                            if (realIndex == spanCount - 1) {
+                                r = right + crossEdge;
                             }
-                            c.drawRect(new Rect(left, top, right, bottom), paint);
+
+                            if (spanIndex == 0) {
+                                // 第一列画左边缘
+                                c.drawRect(new Rect(parent.getPaddingLeft(), t, left, b), paint);
+                            }
+                            // 每个item画右分割线
+                            c.drawRect(new Rect(right, t, r, b), paint);
+
+                            if (groupIndex == 0) {
+                                // 第一行画上边缘
+                                c.drawRect(new Rect(left, parent.getPaddingTop(), right, top), paint);
+                            }
+                            // 每一个item画下边分割线
+                            c.drawRect(new Rect(left, bottom, right, b), paint);
+
+                            if (realIndex < spanCount - 1) {
+                                boolean full = true;
+                                if (position < size - 1) {
+                                    // 不是最后一个
+                                    int nextIndex = glManager.getSpanSizeLookup().getSpanIndex(position+1, spanCount);
+                                    if (nextIndex <= spanIndex) {
+                                        // 换行了
+                                        full = false;
+                                    }
+                                }else {
+                                    full = false;
+                                }
+                                if (!full) {
+                                    // 没占满
+                                    // 画右边缘
+                                    c.drawRect(new Rect(parent.getRight() - parent.getPaddingRight() - crossEdge, t, parent.getRight() - parent.getPaddingRight(), b), paint);
+                                    // 画下分割线
+                                    c.drawRect(new Rect(r, bottom, parent.getRight() - parent.getPaddingRight() - crossEdge, b), paint);
+                                }
+                            }
                         }else {
-                            if (mainSize < spanCount) {
-                                lastNotFull = true;
-                                // 是该行最后一个，但没有占满
-                                if (isVertical) {
-                                    left = view.getRight();
-                                    top = view.getTop();
-                                    right = view.getRight() + hWidth;
-                                    bottom = view.getBottom();
-                                }else {
-                                    left = view.getLeft();
-                                    top = view.getBottom();
-                                    right = view.getRight();
-                                    bottom = view.getBottom() + vWidth;
-                                }
-                                c.drawRect(new Rect(left, top, right, bottom), paint);
+                            int l = left;
+                            if (groupIndex == 0) {
+                                l = parent.getPaddingLeft();
                             }
-                        }
+
+                            int r = right + mainWidth;
+                            if (groupIndex == lastGroupIndex) {
+                                r = right + mainEdge;
+                            }
+
+                            int b = bottom + crossWidth;
+                            if (realIndex == spanCount - 1) {
+                                b = bottom + crossEdge;
+                            }
+
+                            if (spanIndex == 0) {
+                                // 第一列画上边缘
+                                c.drawRect(new Rect(l, top - crossEdge, r, top), paint);
+                            }
+
+                            // 每个item画下分割线
+                            c.drawRect(new Rect(l, bottom, r, b), paint);
 
 
-                        int distance = itemCount - 1 - spanIndex;
-                        int lastPos = position + distance;
-                        if (lastPos < size - 1) {
-                            // 不是最后一行
-                            if (isVertical) {
-                                left = view.getLeft();
-                                top = view.getBottom();
-                                if (lastNotFull) {
-                                    right = parent.getRight() - parent.getPaddingRight();
+                            if (groupIndex == 0) {
+                                // 第一行画左边缘
+                                c.drawRect(new Rect(left - mainEdge, top, left, bottom), paint);
+                            }
+                            // 每一个item画右边分割线
+                            c.drawRect(new Rect(right, top, r, bottom), paint);
+
+                            if (realIndex < spanCount - 1) {
+                                boolean full = true;
+                                if (position < size - 1) {
+                                    // 不是最后一个
+                                    int nextIndex = glManager.getSpanSizeLookup().getSpanIndex(position+1, spanCount);
+                                    if (nextIndex <= spanIndex) {
+                                        // 换行了
+                                        full = false;
+                                    }
                                 }else {
-                                    right = view.getRight() + vWidth;
+                                    full = false;
                                 }
-                                bottom = view.getBottom() + vWidth;
-                            }else {
-                                left = view.getRight();
-                                top = view.getTop();
-                                right = view.getRight() + hWidth;
-                                if (lastNotFull) {
-                                    bottom = parent.getBottom() - parent.getPaddingBottom();
-                                }else {
-                                    bottom = view.getBottom() + hWidth;
+                                if (!full) {
+                                    // 没占满
+                                    // 画右分割线
+                                    c.drawRect(new Rect(right, b, r,parent.getBottom() - parent.getPaddingBottom() - crossEdge), paint);
+                                    // 画下边缘
+                                    c.drawRect(new Rect(left, parent.getBottom() - parent.getPaddingBottom() - crossEdge, r, parent.getBottom() - parent.getPaddingBottom()), paint);
                                 }
                             }
-                            c.drawRect(new Rect(left, top, right, bottom), paint);
                         }
                     }
                     return;
                 }
+
                 // linear
-                for (int i = 0; i <parent.getChildCount() ; i++) {
+
+                for (int i = 0; i < parent.getChildCount() ; i++) {
                     View view = parent.getChildAt(i);
                     int position = parent.getChildAdapterPosition(view);
-                    if (position < size-1) {
+                    int left = view.getLeft();
+                    int top = view.getTop();
+                    int bottom = view.getBottom();
+                    int right = view.getRight();
+
+                    if (position == 0) {
                         if (isVertical) {
-                            left = view.getLeft();
-                            top = view.getBottom();
-                            right = view.getRight();
-                            bottom = view.getBottom() + vWidth;
-                            c.drawRect(new Rect(left, top, right, bottom), paint);
+                            c.drawRect(new Rect(left, top - mainEdge, right, top), paint);
                         }else {
-                            left = view.getRight();
-                            top = view.getTop();
-                            right = view.getRight() + hWidth;
-                            bottom = view.getBottom();
-                            c.drawRect(new Rect(left, top, right, bottom), paint);
+                            c.drawRect(new Rect(left - mainEdge, top, left, bottom), paint);
                         }
+                    }
+
+                    int b = bottom + mainWidth;
+                    if (position == size - 1) {
+                        b = bottom + mainEdge;
+                    }
+                    int r = right + mainWidth;
+                    if (position == size - 1) {
+                        r = right + mainEdge;
+                    }
+                    int t = top;
+                    if (position == 0) {
+                        t = top - mainEdge;
+                    }
+                    int l = left;
+                    if (position == 0) {
+                        l = left - mainEdge;
+                    }
+                    if (isVertical) {
+                        c.drawRect(new Rect(left, bottom, right, b), paint);
+                    }else {
+                        c.drawRect(new Rect(right, top, r, bottom), paint);
+                    }
+
+                    if (isVertical) {
+                        c.drawRect(new Rect(left - crossEdge, t, left, b), paint);
+                        c.drawRect(new Rect(right, t, right + crossEdge, b), paint);
+                    }else {
+                        c.drawRect(new Rect(l, top - crossEdge, r, top), paint);
+                        c.drawRect(new Rect(l, bottom, r, bottom + crossEdge), paint);
                     }
                 }
             }

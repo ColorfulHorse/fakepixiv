@@ -1,27 +1,21 @@
 package com.lyj.fakepivix.module.login
 
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.animation.LinearInterpolator
 import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader
 import com.bumptech.glide.util.ViewPreloadSizeProvider
 import com.gyf.barlibrary.ImmersionBar
-import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
-import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.base.FragmentationActivity
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.fragmentation.HorizontalAnimator
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.ActivityLoginBinding
-import com.lyj.fakepivix.databinding.ItemWallpaperBinding
 import com.lyj.fakepivix.module.login.login.LoginFragment
 import com.lyj.fakepivix.widget.CommonItemDecoration
-import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator
 import me.yokeyword.fragmentation.anim.FragmentAnimator
 
 /**
@@ -86,8 +80,7 @@ class LoginActivity : FragmentationActivity<ActivityLoginBinding, WallpaperViewM
                 recyclerView.layoutManager = layoutManager
                 recyclerView.addItemDecoration(
                         CommonItemDecoration.Builder()
-                                .draw(false)
-                                .verticalWidth(3.5f.dp2px())
+                                .dividerWidth(3.5f.dp2px(), 3.5f.dp2px())
                                 .build())
                 mAdapter.bindToRecyclerView(recyclerView)
                 val sizeProvider = ViewPreloadSizeProvider<Illust>()

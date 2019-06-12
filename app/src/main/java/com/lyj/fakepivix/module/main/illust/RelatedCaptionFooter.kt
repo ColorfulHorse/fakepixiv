@@ -39,7 +39,7 @@ class RelatedCaptionFooter(val context: Context, val viewModel: RelatedCaptionVi
         mBinding = DataBindingUtil.bind(rootView)
 
         mBinding?.let {
-
+            mBinding.vm = viewModel
         }
     }
 }

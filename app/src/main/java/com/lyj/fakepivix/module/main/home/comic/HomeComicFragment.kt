@@ -70,8 +70,7 @@ class HomeComicFragment : FragmentationFragment<CommonRefreshList, HomeComicView
             recyclerView.layoutManager = layoutManager
             mAdapter.bindToRecyclerView(recyclerView)
             recyclerView.addItemDecoration(CommonItemDecoration.Builder()
-                    .draw(false)
-                    .verticalWidth(3.5f.dp2px())
+                    .dividerWidth(3.5.dp2px(), 3.5f.dp2px())
                     .build())
             // 加载更多
             recyclerView.attachLoadMore { mViewModel.loadMore() }

@@ -42,6 +42,7 @@ class CommentFooter(val context: Context, val viewModel: CommentFooterViewModel)
 
     init {
         mBinding = DataBindingUtil.bind(rootView)
+        mBinding?.vm = viewModel
 //
 //        mBinding?.let {
 //            mAdapter.bindToRecyclerView(it.recyclerView)

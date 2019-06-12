@@ -44,7 +44,7 @@ open class BaseMultiBindingAdapter<T : MultiItemEntity>(data: ObservableList<T>)
                     val count = getItemCount() - data.size
                     start += count
                 }
-                notifyItemRangeInserted(positionStart, itemCount)
+                notifyItemRangeInserted(start, itemCount)
                 compatibilityDataSizeChanged(itemCount)
             }
 

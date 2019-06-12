@@ -70,7 +70,7 @@ class SearchIllustFragment : FragmentationFragment<CommonList, SearchIllustViewM
                 mAdapter = SearchTagAdapter(data)
                 recyclerView.addItemDecoration(CommonItemDecoration.Builder()
                         .draw(false)
-                        .verticalWidth(1f.dp2px())
+                        .dividerWidth(1f.dp2px(), 1f.dp2px())
                         .build())
                 mAdapter.emptyView = loadingView
                 recyclerView.layoutManager = layoutManager

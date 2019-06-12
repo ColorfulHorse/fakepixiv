@@ -1,6 +1,5 @@
 package com.lyj.fakepivix.module.main.common
 
-import android.nfc.cardemulation.CardEmulation.EXTRA_CATEGORY
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
@@ -8,12 +7,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
-import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.adapter.PreloadMultiBindingAdapter
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.IllustCategory.*
-import com.lyj.fakepivix.app.constant.Restrict
 
 
 import com.lyj.fakepivix.app.data.model.response.Illust
@@ -22,7 +19,6 @@ import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.ToastUtil
 import com.lyj.fakepivix.app.utils.attachLoadMore
 import com.lyj.fakepivix.app.utils.dp2px
-import com.lyj.fakepivix.databinding.CommonList
 import com.lyj.fakepivix.databinding.CommonRefreshList
 import com.lyj.fakepivix.module.main.common.adapter.ComicAdapter
 import com.lyj.fakepivix.module.main.common.adapter.IllustAdapter
@@ -98,8 +94,7 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
                             mAdapter.addItemType(Illust.TYPE_COMIC, R.layout.item_home_illust, BR.illust)
                         }
                         recyclerView.addItemDecoration(CommonItemDecoration.Builder()
-                                .draw(false)
-                                .verticalWidth(3.5f.dp2px())
+                                .dividerWidth(3.5f.dp2px(), 3.5f.dp2px())
                                 .build())
                     }
                     NOVEL -> {

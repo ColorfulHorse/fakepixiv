@@ -23,7 +23,8 @@ import okhttp3.MediaType
 import okhttp3.Request
 
 
-class DefaultFormatPrinter : FormatPrinter {
+class DefaultFormatPrinter(val tag: String = TAG) : FormatPrinter {
+
 
     /**
      * 打印网络请求信息, 当网络请求时 {[okhttp3.RequestBody]} 可以解析的情况
@@ -113,7 +114,7 @@ class DefaultFormatPrinter : FormatPrinter {
     }
 
     companion object {
-        private val TAG = "ArmsHttpLog"
+        private val TAG = "DefaultHttpLog"
         private val LINE_SEPARATOR = System.getProperty("line.separator")
         private val DOUBLE_SEPARATOR = LINE_SEPARATOR!! + LINE_SEPARATOR
 
@@ -254,12 +255,12 @@ class DefaultFormatPrinter : FormatPrinter {
             return builder.toString()
         }
 
-        private fun getTag(isRequest: Boolean): String {
-            return if (isRequest) {
-                "$TAG-Request"
-            } else {
-                "$TAG-Response"
-            }
+    }
+    private fun getTag(isRequest: Boolean): String {
+        return if (isRequest) {
+            "$tag-Request"
+        } else {
+            "$tag-Response"
         }
     }
 }

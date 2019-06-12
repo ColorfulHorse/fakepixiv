@@ -26,6 +26,10 @@ class IllustDetailViewModel : BaseViewModel<IModel?>() {
 
     var data: ObservableList<Illust> = ObservableArrayList()
 
+    var total = ObservableField(0)
+    var current = ObservableField(1)
+    var toolbarVisibility = ObservableField(true)
+
     val userFooterViewModel = UserFooterViewModel()
     val commentFooterViewModel = CommentFooterViewModel()
     val relatedCaptionFooterViewModel = RelatedCaptionViewModel()
@@ -47,8 +51,9 @@ class IllustDetailViewModel : BaseViewModel<IModel?>() {
         } else {
             data.add(Illust(image_urls = ImageUrls(illust.meta_single_page.original_image_url)))
         }
+        total.set(data.size)
         userFooterViewModel.user.set(illust.user)
-        commentFooterViewModel.user.set(illust.user)
+        commentFooterViewModel.illust.set(illust)
     }
 
     fun load() {

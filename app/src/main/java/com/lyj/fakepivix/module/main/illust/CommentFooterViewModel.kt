@@ -21,27 +21,12 @@ import io.reactivex.rxkotlin.subscribeBy
 class CommentFooterViewModel : BaseViewModel<IModel?>() {
     override val mModel: IModel? = null
 
-    var user = ObservableField<User>()
+    var illust = ObservableField<Illust>()
     var data = ObservableArrayList<Comment>()
 
     var loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
     fun load() {
-//        val p = user.get()
-//        if (p != null) {
-//            val disposable = IllustRepository.instance
-//                    .loadUserIllust(p.id)
-//                    .doOnSubscribe {
-//                        data.clear()
-//                        loadState.set(LoadState.Loading)
-//                    }
-//                    .subscribeBy(onNext = {
-//                        loadState.set(LoadState.Succeed)
-//                        data.addAll(it.illusts)
-//                    }, onError = {
-//                        loadState.set(LoadState.Failed(it))
-//                    })
-//            addDisposable(disposable)
-//        }
+
     }
 }

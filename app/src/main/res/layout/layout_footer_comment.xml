@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?><!-- 详情页作品评论 -->
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <import type="com.lyj.fakepivix.module.main.illust.CommentFooterViewModel"/>
+        <variable
+            name="vm"
+            type="CommentFooterViewModel"/>
     </data>
 
     <LinearLayout
@@ -32,7 +36,11 @@
             <ImageView
                 android:id="@+id/avatar"
                 android:layout_width="40dp"
-                android:layout_height="40dp" />
+                android:layout_height="40dp"
+                app:url="@{vm.illust.user.profile_image_urls.medium}"
+                app:placeHolder="@{@drawable/no_profile}"
+                app:circle="@{true}"
+                />
 
             <TextView
                 android:id="@+id/input"

@@ -36,7 +36,7 @@ class UserFooterViewModel : BaseViewModel<IModel?>() {
                     }
                     .subscribeBy(onNext = {
                         loadState.set(LoadState.Succeed)
-                        data.addAll(it.illusts)
+                        data.addAll(it.illusts.take(3))
                     }, onError = {
                         loadState.set(LoadState.Failed(it))
                     })
