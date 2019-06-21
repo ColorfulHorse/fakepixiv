@@ -1,14 +1,20 @@
 package com.lyj.fakepivix.module.main.illust
 
 import android.os.Bundle
+import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
+import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.PreloadMultiBindingAdapter
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.data.model.response.Illust
+import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
 import com.lyj.fakepivix.app.utils.dp2px
+import com.lyj.fakepivix.app.utils.screenHeight
+import com.lyj.fakepivix.app.utils.screenWidth
 import com.lyj.fakepivix.databinding.FragmentIllustDetailBinding
 import com.lyj.fakepivix.widget.CommonItemDecoration
 import com.lyj.fakepivix.widget.DetailItemDecoration
@@ -72,6 +78,13 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
             recyclerView.addItemDecoration(DetailItemDecoration.Builder()
                     .dividerWidth(3.5f.dp2px(), 3.5f.dp2px())
                     .build())
+            caption.show.setOnClickListener {
+                val dialog = BottomDialogFragment.newInstance().apply {
+                    detailViewModel = mViewModel
+                }
+                dialog.show(childFragmentManager, "BottomDialogFragment")
+            }
+            //initBottomSheet()
         }
     }
 
@@ -82,6 +95,46 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
             mAdapter.bindToRecyclerView(recyclerView)
             initFooter()
         }
+    }
+
+    /**
+     * 初始化
+     */
+    private fun initBottomSheet() {
+//        with(mBinding) {
+//            val descFooter = DescFooter(mActivity, mViewModel.illust, bottomSheet.descContainer)
+//            val userFooter = UserFooter(mActivity, mViewModel.userFooterViewModel, bottomSheet.userContainer)
+//            val commentFooter = CommentFooter(mActivity, mViewModel.commentFooterViewModel, bottomSheet.commentContainer)
+//            mViewModel.illust.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
+//                bottomSheet.caption.setVariable(BR.data, mViewModel.illust.get())
+//            })
+//            bottomSheet.caption.show.setImageResource(R.drawable.action_detail_rev)
+//            bottomSheet.descContainer.tagsLabel.visibility = View.VISIBLE
+//            bottomSheet.descContainer.descLabel.visibility = View.VISIBLE
+//            bottomSheet.descContainer.containerCaption.visibility = View.GONE
+//            val bottomSheetBehavior = BottomSheetBehavior.from<View>(bottomSheet.root)
+//            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+//            bottomSheet.caption.show.setOnClickListener {
+//                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+//            }
+//            bottomSheetBehavior.isFitToContents = true
+//            bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+//                override fun onSlide(p0: View, p1: Float) {
+//
+//                }
+//
+//                override fun onStateChanged(view: View, state: Int) {
+//                    if (state == BottomSheetBehavior.STATE_COLLAPSED) {
+//                        mViewModel.userFooterViewModel.load()
+//                        mViewModel.commentFooterViewModel.load()
+//                    }
+//                }
+//
+//            })
+//            caption.show.setOnClickListener {
+//                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+//            }
+//        }
     }
 
     /**

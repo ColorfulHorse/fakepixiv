@@ -67,4 +67,9 @@
     <string name="no_comment">暂无评论</string>
     <string name="comment_placeholder">添加评论...</string>
     <string name="related_work">相关作品</string>
+    <string name="reply">回复</string>
+    <string name="delete">删除</string>
+    <string name="see_reply">查看回复</string>
+    <string name="tags">标签</string>
+    <string name="desc_label">简介</string>
 </resources>

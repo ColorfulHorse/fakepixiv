@@ -6,7 +6,6 @@ import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.data.model.response.Comment
 import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.data.model.response.User
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.network.LoadState
 import io.reactivex.rxkotlin.subscribeBy
@@ -16,17 +15,49 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @date 2019/6/3
  *
- * @desc 详情页用户item
+ * @desc 详情页用户评论
  */
-class CommentFooterViewModel : BaseViewModel<IModel?>() {
+class CommentFooterViewModel(val parent: IllustDetailViewModel) : BaseViewModel<IModel?>() {
     override val mModel: IModel? = null
 
-    var illust = ObservableField<Illust>()
+    //var illust = ObservableField<Illust>()
+
     var data = ObservableArrayList<Comment>()
+    var noneData = ObservableField(false)
+    var showMore = ObservableField(false)
 
     var loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
-    fun load() {
+    var nextUrl = ""
 
+    /**
+     * 由于共用了viewModel，需要限制初次加载
+     */
+    fun load() {
+        if (loadState.get() is LoadState.Idle) {
+            reLoad()
+        }
+    }
+
+    fun reLoad() {
+        val illust = parent.illust.get()
+        illust?.let { res ->
+            IllustRepository.instance
+                    .loadIllustComment(res.id.toString())
+                    .doOnSubscribe { loadState.set(LoadState.Loading) }
+                    .subscribeBy(onNext = {
+                        loadState.set(LoadState.Succeed)
+                        nextUrl = it.next_url
+                        if (it.comments.isEmpty()) {
+                            noneData.set(true)
+                        }else{
+                            showMore.set(it.comments.size > 2)
+                            data.clear()
+                            data.addAll(it.comments.take(2))
+                        }
+                    }, onError = {
+                        loadState.set(LoadState.Failed(it))
+                    })
+        }
     }
 }

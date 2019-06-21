@@ -11,7 +11,7 @@ import com.lyj.fakepivix.app.base.IModel
  *
  * @desc 详情页用户item
  */
-class RelatedCaptionViewModel : BaseViewModel<IModel?>() {
+class RelatedCaptionViewModel(val parent: IllustDetailViewModel) : BaseViewModel<IModel?>() {
     override val mModel: IModel? = null
     var loading = ObservableField<Boolean>(false)
 }

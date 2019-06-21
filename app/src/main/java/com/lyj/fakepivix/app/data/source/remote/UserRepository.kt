@@ -18,6 +18,7 @@ import io.reactivex.Observable
 class UserRepository private constructor(){
 
     companion object {
+        @JvmStatic
         val instance: UserRepository by lazy { UserRepository() }
     }
 

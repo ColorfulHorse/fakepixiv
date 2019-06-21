@@ -13,6 +13,7 @@ import android.widget.Button
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
+import com.lyj.fakepivix.app.data.model.response.Comment
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.Tag
 import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
@@ -20,6 +21,7 @@ import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.databinding.*
 import com.lyj.fakepivix.module.main.common.adapter.IllustAdapter
 import com.lyj.fakepivix.widget.FlowLayoutManager
+import kotlinx.android.synthetic.main.layout_error_small.view.*
 
 /**
  * @author greensun
@@ -28,7 +30,7 @@ import com.lyj.fakepivix.widget.FlowLayoutManager
  *
  * @desc 用户简介
  */
-class CommentFooter(val context: Context, val viewModel: CommentFooterViewModel) {
+class CommentFooter(val context: Context, val viewModel: CommentFooterViewModel, var mBinding: LayoutFooterCommentBinding? = null) {
 
     val rootView: View by lazy { LayoutInflater.from(context).inflate(R.layout.layout_footer_comment, null) }
 
@@ -36,27 +38,35 @@ class CommentFooter(val context: Context, val viewModel: CommentFooterViewModel)
 
     private val errorView: View by lazy { LayoutInflater.from(context).inflate(R.layout.layout_error_small, null) }
 
-    val mBinding: LayoutFooterCommentBinding?
-
-    //var mAdapter = BaseBindingAdapter<Illust, ItemIllustBinding>(R.layout.item_illust, viewModel.data, BR.illust)
+    var mAdapter = BaseBindingAdapter<Comment, ItemIllustBinding>(R.layout.item_comment, viewModel.data, BR.data)
 
     init {
-        mBinding = DataBindingUtil.bind(rootView)
+        if (mBinding == null) {
+            mBinding = DataBindingUtil.bind(rootView)
+        }
         mBinding?.vm = viewModel
+        mAdapter.emptyView = loadingView
 //
-//        mBinding?.let {
-//            mAdapter.bindToRecyclerView(it.recyclerView)
-//            it.recyclerView.layoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
-//        }
-//        viewModel.loadState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
-//            when(viewModel.loadState.get()) {
-//                is LoadState.Loading -> {
-//                    mAdapter.emptyView = loadingView
-//                }
-//                is LoadState.Failed -> {
-//                    mAdapter.emptyView = errorView
-//                }
-//            }
-//        })
+        mBinding?.let {
+            mAdapter.bindToRecyclerView(it.recyclerView)
+            it.recyclerView.layoutManager = LinearLayoutManager(context)
+        }
+
+        errorView.reload.setOnClickListener {
+            viewModel.reLoad()
+        }
+        viewModel.loadState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
+            when(viewModel.loadState.get()) {
+                is LoadState.Loading -> {
+                    mAdapter.emptyView = loadingView
+                }
+                is LoadState.Failed -> {
+                    mAdapter.emptyView = errorView
+                }
+                is LoadState.Succeed -> {
+
+                }
+            }
+        })
     }
 }

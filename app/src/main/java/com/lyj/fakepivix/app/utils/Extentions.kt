@@ -6,6 +6,7 @@ import android.content.Intent
 import android.support.annotation.ColorRes
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.ContextCompat.startActivity
+import android.util.Half.toFloat
 import android.view.inputmethod.InputMethodManager
 import com.bumptech.glide.load.model.GlideUrl
 import android.view.WindowManager
@@ -27,6 +28,14 @@ fun Number.px2dp(): Int {
 fun Number.dp2px(): Int {
     val scale =  App.context.resources.displayMetrics.density
     return (toFloat()*scale+0.5f).toInt()
+}
+
+fun screenWidth(): Int {
+    return App.context.resources.displayMetrics.widthPixels
+}
+
+fun screenHeight(): Int {
+    return App.context.resources.displayMetrics.heightPixels
 }
 
 fun Activity.statusBarColor(color: Int) {

@@ -17,16 +17,23 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc 详情页用户item
  */
-class UserFooterViewModel : BaseViewModel<IModel?>() {
+class UserFooterViewModel(val parent: IllustDetailViewModel) : BaseViewModel<IModel?>() {
     override val mModel: IModel? = null
 
-    var user = ObservableField<User>()
     var data = ObservableArrayList<Illust>()
 
     var loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
+    val illust = parent.illust
+
     fun load() {
-        val p = user.get()
+        if (loadState.get() is LoadState.Idle) {
+            reLoad()
+        }
+    }
+
+    fun reLoad() {
+        val p = parent.illust.get()?.user
         if (p != null) {
             val disposable = IllustRepository.instance
                     .loadUserIllust(p.id)
@@ -36,6 +43,7 @@ class UserFooterViewModel : BaseViewModel<IModel?>() {
                     }
                     .subscribeBy(onNext = {
                         loadState.set(LoadState.Succeed)
+                        data.clear()
                         data.addAll(it.illusts.take(3))
                     }, onError = {
                         loadState.set(LoadState.Failed(it))

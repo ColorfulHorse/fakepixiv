@@ -4,6 +4,7 @@ import android.util.ArrayMap
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.IllustCategory.*
 import com.lyj.fakepivix.app.constant.Restrict
+import com.lyj.fakepivix.app.data.model.response.CommentListResp
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.IllustListResp
 import com.lyj.fakepivix.app.network.ApiException
@@ -119,6 +120,21 @@ class IllustRepository private constructor() {
     fun loadRelatedIllust(illustId: String): Observable<IllustListResp> {
         return RetrofitManager.instance.apiService
                 .getRelatedIllustData(illustId)
+                .schedulerTransform()
+    }
+
+    /**
+     * 获取作品评论
+     */
+    fun loadIllustComment(illustId: String): Observable<CommentListResp> {
+        return RetrofitManager.instance.apiService
+                .getIllustComment(illustId)
+                .schedulerTransform()
+    }
+
+    fun loadMoreComment(nextUrl: String): Observable<CommentListResp> {
+        return RetrofitManager.instance.apiService
+                .getIllustComment(nextUrl)
                 .schedulerTransform()
     }
 

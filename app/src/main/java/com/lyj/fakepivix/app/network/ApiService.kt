@@ -174,6 +174,9 @@ interface ApiService {
     @GET("/v2/illust/comments")
     fun getIllustComment(@Query("illust_id")illustId: String): Observable<CommentListResp>
 
+    @GET
+    fun getMoreComment(@Url nextUrl: String): Observable<CommentListResp>
+
     /**
      * 收藏
      */

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.lyj.fakepivix.app.data.model.response.Comment" />
+
+        <import type="com.lyj.fakepivix.app.utils.DateUtil" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="com.lyj.fakepivix.app.data.source.remote.UserRepository" />
+
+        <variable
+            name="data"
+            type="Comment" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_general_new"
+        android:tag="layout/view_comment_item_0">
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:circle="@{true}"
+            app:placeHolder="@{@drawable/no_profile}"
+            app:url="@{data.user.profile_image_urls.medium}" />
+
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/avatar"
+            android:layout_toRightOf="@id/avatar"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/nickName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{data.user.name}"
+                    android:textColor="@color/detail_title_black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <!--<TextView-->
+                <!--android:id="@+id/author_comment_mark"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="4dp"-->
+                <!--android:layout_marginLeft="4dp"-->
+                <!--android:background="@drawable/bg_button_follow_clicked"-->
+                <!--android:paddingLeft="4dp"-->
+                <!--android:paddingTop="2dp"-->
+                <!--android:paddingRight="4dp"-->
+                <!--android:paddingBottom="2dp"-->
+                <!--android:text="@string/comment_workauthor"-->
+                <!--android:textColor="@color/font_color_white"-->
+                <!--android:textSize="10sp"-->
+                <!--android:textStyle="bold" />-->
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="4sp"
+                android:lineSpacingMultiplier="1.0"
+                android:text="@{data.comment}"
+                android:textColor="@color/renewal_font_black"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp">
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@{DateUtil.format(data.date)}"
+                    android:textColor="@color/gray_text"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="•"
+                    android:textColor="@color/gray_text"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/reply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@string/reply"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/dot_remove"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="•"
+                    android:textColor="@color/gray_text"
+                    android:textSize="12sp"
+                    android:visibility="@{TextUtils.equals(UserRepository.instance.loginData.user.id, data.user.id)}" />
+
+                <TextView
+                    android:id="@+id/remove"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@string/delete"
+                    android:textColor="@color/blue_text"
+                    android:textSize="12sp"
+                    android:visibility="@{TextUtils.equals(UserRepository.instance.loginData.user.id, data.user.id)}" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/see_reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_below="@id/container"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@id/avatar"
+            android:background="@drawable/bg_see_reply"
+            android:paddingStart="16dp"
+            android:paddingLeft="16dp"
+            android:paddingTop="10dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="10dp"
+            android:text="@string/see_reply"
+            android:visibility="@{data.has_replies}"
+            />
+    </RelativeLayout>
+</layout>

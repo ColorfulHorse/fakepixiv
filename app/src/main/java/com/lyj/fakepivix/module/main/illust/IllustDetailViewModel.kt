@@ -8,7 +8,7 @@ import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.ImageUrls
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
-import io.reactivex.disposables.Disposable
+import com.lyj.fakepivix.app.network.LoadState
 import io.reactivex.rxkotlin.subscribeBy
 
 /**
@@ -22,17 +22,19 @@ class IllustDetailViewModel : BaseViewModel<IModel?>() {
 
     override val mModel: IModel? = null
 
-    var illust: Illust = Illust()
+    var illust = ObservableField<Illust>()
 
     var data: ObservableList<Illust> = ObservableArrayList()
+
+    var loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
     var total = ObservableField(0)
     var current = ObservableField(1)
     var toolbarVisibility = ObservableField(true)
 
-    val userFooterViewModel = UserFooterViewModel()
-    val commentFooterViewModel = CommentFooterViewModel()
-    val relatedCaptionFooterViewModel = RelatedCaptionViewModel()
+    val userFooterViewModel = UserFooterViewModel(this)
+    val commentFooterViewModel = CommentFooterViewModel(this)
+    val relatedCaptionFooterViewModel = RelatedCaptionViewModel(this)
 
     var position = -1
         set(value) {
@@ -42,7 +44,7 @@ class IllustDetailViewModel : BaseViewModel<IModel?>() {
 
     private fun initData() {
         val illust = IllustRepository.instance.illustList[position]
-        this.illust = illust
+        this.illust.set(illust)
         if (illust.meta_pages.isNotEmpty()) {
             val list = illust.meta_pages.map {
                 Illust(image_urls = it.image_urls)
@@ -52,19 +54,20 @@ class IllustDetailViewModel : BaseViewModel<IModel?>() {
             data.add(Illust(image_urls = ImageUrls(illust.meta_single_page.original_image_url)))
         }
         total.set(data.size)
-        userFooterViewModel.user.set(illust.user)
-        commentFooterViewModel.illust.set(illust)
+        //userFooterViewModel.user.set(illust.user)
+        //commentFooterViewModel.illust.set(illust)
     }
 
     fun load() {
         val disposable = IllustRepository.instance
-                .loadRelatedIllust(illust.id.toString())
-                .doOnSubscribe { relatedCaptionFooterViewModel.loading.set(true) }
+                .loadRelatedIllust(illust.get()?.id.toString())
+                .doOnSubscribe { loadState.set(LoadState.Loading) }
                 .subscribeBy(onNext = {
-                    relatedCaptionFooterViewModel.loading.set(false)
+                    loadState.set(LoadState.Succeed)
+                    data.clear()
                     data.addAll(it.illusts)
                 }, onError = {
-                    relatedCaptionFooterViewModel.loading.set(false)
+                    loadState.set(LoadState.Failed(it))
                 })
         addDisposable(disposable)
     }
