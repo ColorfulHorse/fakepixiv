@@ -1,8 +1,13 @@
 package com.lyj.fakepivix.module.main.common.adapter
 
+import android.app.Activity
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.databinding.ObservableList
 import android.databinding.ViewDataBinding
 import android.graphics.drawable.Drawable
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.view.ViewGroup
 import com.bumptech.glide.RequestBuilder
@@ -34,7 +39,7 @@ open class IllustAdapter(data: ObservableList<Illust>) : PreloadMultiBindingAdap
             val top = SupportHelper.getTopFragment((mContext as FragmentActivity).supportFragmentManager) as FragmentationFragment<*, *>
             top.start(IllustDetailRootFragment.newInstance(position))
         }
-
+        ViewModelProviders.of(FragmentActivity()).get()
     }
 
 

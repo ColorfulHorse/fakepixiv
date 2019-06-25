@@ -187,4 +187,8 @@ interface ApiService {
     @POST("/v2/illust/bookmark/delete")
     @FormUrlEncoded
     fun unStarIllust(@Field("illust_id")illustId: String): Observable<Any>
+
+    // https://app-api.pixiv.net/v1/user/follow/delete  user_id=6996493
+    // https://app-api.pixiv.net/v1/user/follow/add  user_id=6996493&restrict=public
+    // https://app-api.pixiv.net/v1/user/related?filter=for_android&seed_user_id=6996493
 }
