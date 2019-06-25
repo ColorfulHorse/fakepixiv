@@ -2,7 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-
+        <import type="com.lyj.fakepivix.module.main.illust.IllustDetailViewModel"/>
+        <variable
+            name="vm"
+            type="IllustDetailViewModel"/>
     </data>
 
     <RelativeLayout
@@ -12,28 +15,39 @@
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <RelativeLayout
+            android:id="@+id/toolbarWrapper"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@drawable/gradient_toolbar"
-            app:contentInsetStart="0dp"
             >
-            <RelativeLayout
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    android:id="@+id/pageNum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:textColor="@color/white"
-                    android:layout_centerInParent="true"
-                    android:shadowRadius="6"
-                    android:shadowColor="@color/black"
-                    android:text="@string/pageNum"
-                    />
-            </RelativeLayout>
-        </android.support.v7.widget.Toolbar>
+                android:layout_height="match_parent"
+                app:contentInsetStart="0dp"
+                android:visibility="@{vm.toolbarVisibility}"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="@{vm.total > 1}"
+                    >
+                    <TextView
+                        android:id="@+id/pageNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textColor="@color/white"
+                        android:layout_centerInParent="true"
+                        android:shadowRadius="6"
+                        android:shadowColor="@color/black"
+                        android:text='@{vm.current+"/"+vm.total}'
+                        />
+                </RelativeLayout>
+            </android.support.v7.widget.Toolbar>
+        </RelativeLayout>
     </RelativeLayout>
 </layout>

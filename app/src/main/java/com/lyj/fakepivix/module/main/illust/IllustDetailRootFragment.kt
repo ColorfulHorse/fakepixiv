@@ -1,7 +1,10 @@
 package com.lyj.fakepivix.module.main.illust
 
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
+import android.support.v4.view.ViewPager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.BackFragment
@@ -38,6 +41,7 @@ class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, B
             position = it.getInt(EXTRA_POSITION, -1)
         }
         mToolbar?.let {
+            it.overflowIcon = ContextCompat.getDrawable(mActivity, R.drawable.ic_more)
             it.inflateMenu(R.menu.menu_detail_toolbar)
             it.setOnMenuItemClickListener { menu ->
                 when (menu.itemId) {
@@ -48,14 +52,36 @@ class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, B
                 true
             }
         }
-        mBinding.viewPager.adapter = IllustPagerAdapter(IllustRepository.instance.illustList, childFragmentManager)
-        mBinding.viewPager.offscreenPageLimit = 2
-        mBinding.viewPager.currentItem = position
+        val adapter = IllustPagerAdapter(IllustRepository.instance.illustList, childFragmentManager)
+        with(mBinding) {
+            viewPager.adapter = adapter
+            viewPager.offscreenPageLimit = 2
+            viewPager.currentItem = position
+            viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                override fun onPageScrollStateChanged(p0: Int) {
+
+                }
+
+                override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
+
+                }
+
+                override fun onPageSelected(position: Int) {
+                    val fragment = adapter.getFragment(position)
+                    vm = fragment?.mViewModel
+                    Log.e("xxx", "onPageSelected+: $position fragment${fragment == null}")
+                }
+
+            })
+            adapter.getFragment(position) {
+                vm = it.mViewModel
+            }
+        }
     }
 
     override fun initImmersionBar() {
         ImmersionBar.with(this)
-                .titleBar(mBinding.toolbar)
+                .titleBar(mBinding.toolbarWrapper)
                 .transparentStatusBar()
                 .init()
     }

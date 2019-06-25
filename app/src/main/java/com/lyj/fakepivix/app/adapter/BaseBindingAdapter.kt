@@ -24,25 +24,25 @@ open class BaseBindingAdapter<T, VB : ViewDataBinding>(@LayoutRes layoutId: Int,
                 }
 
                 override fun onItemRangeRemoved(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
-                    notifyItemRangeRemoved(positionStart + headerLayoutCount, itemCount)
+                    notifyItemRangeRemoved(positionStart, itemCount)
                     compatibilityDataSizeChanged(0)
                 }
 
                 override fun onItemRangeMoved(sender: ObservableList<T>?, fromPosition: Int, toPosition: Int, itemCount: Int) {
                     if (itemCount == 1) {
-                        notifyItemMoved(fromPosition + headerLayoutCount, toPosition + headerLayoutCount)
+                        notifyItemMoved(fromPosition, toPosition)
                     }else {
                         notifyDataSetChanged()
                     }
                 }
 
                 override fun onItemRangeInserted(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
-                    notifyItemRangeInserted(positionStart + headerLayoutCount, itemCount)
+                    notifyItemRangeInserted(positionStart, itemCount)
                     compatibilityDataSizeChanged(itemCount)
                 }
 
                 override fun onItemRangeChanged(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
-                    notifyItemRangeChanged(positionStart + headerLayoutCount, itemCount)
+                    notifyItemRangeChanged(positionStart, itemCount)
                 }
 
             })

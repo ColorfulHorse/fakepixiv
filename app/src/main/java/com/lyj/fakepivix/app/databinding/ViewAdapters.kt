@@ -11,6 +11,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.lyj.fakepivix.GlideApp
+import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.widget.LikeButton
 
 /**
@@ -67,3 +68,6 @@ fun LikeButton.liked(liked: Boolean = false) {
 
 @BindingConversion
 fun boolToVisibility(visibility: Boolean) = if (visibility) View.VISIBLE else View.GONE
+
+@BindingConversion
+fun stateToVisibility(loadState: LoadState) = if (loadState is LoadState.Loading) View.VISIBLE else View.GONE

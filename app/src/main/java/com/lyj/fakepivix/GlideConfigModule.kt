@@ -16,6 +16,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.lyj.fakepivix.app.App
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
 import com.lyj.fakepivix.app.network.retrofit.interceptors.LoggerInterceptor
+import com.lyj.fakepivix.app.utils.DefaultFormatPrinter
 import okhttp3.OkHttpClient
 import java.io.File
 import java.io.InputStream
@@ -46,7 +47,7 @@ class GlideConfigModule : AppGlideModule() {
                         .build()
                 it.proceed(req)
             }
-            .addInterceptor(LoggerInterceptor())
+            .addInterceptor(LoggerInterceptor(DefaultFormatPrinter("GlideHttpLog")))
             .build()
 
     override fun applyOptions(context: Context, builder: GlideBuilder) {

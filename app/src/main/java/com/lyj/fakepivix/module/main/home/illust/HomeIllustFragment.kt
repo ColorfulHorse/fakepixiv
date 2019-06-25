@@ -10,7 +10,6 @@ import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
 import com.lyj.fakepivix.app.network.LoadState
-import com.lyj.fakepivix.app.utils.ToastUtil
 import com.lyj.fakepivix.app.utils.attachLoadMore
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.CommonRefreshList
@@ -65,11 +64,10 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
             recyclerView.layoutManager = layoutManager
             mAdapter.bindToRecyclerView(recyclerView)
             recyclerView.addItemDecoration(CommonItemDecoration.Builder()
-                    .draw(false)
-                    .verticalWidth(3.5f.dp2px())
+                    .dividerWidth(0, 3.5f.dp2px())
                     .build())
             // 加载更多
-            //recyclerView.attachLoadMore { mViewModel.loadMore() }
+            recyclerView.attachLoadMore { mViewModel.loadMore() }
 
             recyclerView.setRecyclerListener {
                 if (it is BaseBindingViewHolder<*>) {

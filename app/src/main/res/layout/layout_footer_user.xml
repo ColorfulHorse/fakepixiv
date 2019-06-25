@@ -3,10 +3,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.lyj.fakepivix.app.data.model.response.User"/>
+        <import type="com.lyj.fakepivix.module.main.illust.UserFooterViewModel"/>
         <variable
-            name="data"
-            type="User"/>
+            name="vm"
+            type="UserFooterViewModel"/>
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,8 +23,8 @@
                 android:id="@+id/avatar"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                app:url="@{data.profile_image_urls.px_170x170}"
-                app:placeHolder="@{@drawable/ic_profile_premium}"
+                app:url="@{vm.user.profile_image_urls.medium}"
+                app:placeHolder="@{@drawable/no_profile}"
                 app:circle="@{true}"
                 android:layout_centerVertical="true"
                 />
@@ -41,7 +41,7 @@
                 android:textColor="@color/renewal_font_black"
                 android:layout_toEndOf="@+id/avatar"
                 android:layout_toStartOf="@+id/follow"
-                android:text="@{data.name}"
+                android:text="@{vm.user.name}"
                 />
             <Button
                 android:id="@+id/follow"
@@ -49,22 +49,57 @@
                 android:layout_height="wrap_content"
                 android:minHeight="0dp"
                 android:minWidth="0dp"
-                android:textColor="@{data._followed?@color/white:@color/colorPrimary}"
+                android:textColor="@{vm.user._followed?@color/white:@color/colorPrimary}"
                 android:textSize="12sp"
                 android:padding="5dp"
-                android:text="@{data._followed?@string/followed:@string/follow}"
-                android:background="@{data._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_primary}"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@{vm.user._followed?@string/followed:@string/follow}"
+                android:background="@{vm.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_primary}"
                 android:layout_centerVertical="true"
+                style="?attr/borderlessButtonStyle"
+                android:textStyle="normal"
                 android:layout_alignParentEnd="true"
                 />
         </RelativeLayout>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="0dp"
             android:layout_marginTop="12dp"
-            />
-
+            >
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minHeight="100dp"
+                />
+        </android.support.v7.widget.CardView>
+        <!--<android.support.constraint.ConstraintLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="12dp"-->
+            <!--&gt;-->
+            <!--<android.support.v7.widget.CardView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="0dp"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintTop_toTopOf="parent"-->
+                <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--app:layout_constraintDimensionRatio="w,3:1"-->
+                <!--app:cardCornerRadius="4dp"-->
+                <!--app:cardElevation="0dp"-->
+                <!--&gt;-->
+                <!--<android.support.v7.widget.RecyclerView-->
+                    <!--android:id="@+id/recyclerView"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--/>-->
+            <!--</android.support.v7.widget.CardView>-->
+        <!--</android.support.constraint.ConstraintLayout>-->
         <TextView
             android:id="@+id/userPreview"
             android:layout_width="wrap_content"
@@ -81,7 +116,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="1dp"
             android:layout_marginTop="24dp"
             android:background="@color/md_divider_black"
             />

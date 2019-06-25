@@ -26,28 +26,45 @@ class IllustDetailViewModel : BaseViewModel<IModel?>() {
 
     var data: ObservableList<Illust> = ObservableArrayList()
 
+    var total = ObservableField(0)
+    var current = ObservableField(1)
+    var toolbarVisibility = ObservableField(true)
+
+    val userFooterViewModel = UserFooterViewModel()
+    val commentFooterViewModel = CommentFooterViewModel()
+    val relatedCaptionFooterViewModel = RelatedCaptionViewModel()
+
     var position = -1
         set(value) {
             field = value
-            val illust = IllustRepository.instance.illustList[position]
-            this.illust = illust
-            if (illust.meta_pages.isNotEmpty()) {
-                val list = illust.meta_pages.map {
-                    Illust(image_urls = it.image_urls)
-                }
-                data.addAll(list)
-            }else {
-                data.add(Illust(image_urls = ImageUrls(illust.meta_single_page.original_image_url)))
-            }
+            initData()
         }
+
+    private fun initData() {
+        val illust = IllustRepository.instance.illustList[position]
+        this.illust = illust
+        if (illust.meta_pages.isNotEmpty()) {
+            val list = illust.meta_pages.map {
+                Illust(image_urls = it.image_urls)
+            }
+            data.addAll(list)
+        } else {
+            data.add(Illust(image_urls = ImageUrls(illust.meta_single_page.original_image_url)))
+        }
+        total.set(data.size)
+        userFooterViewModel.user.set(illust.user)
+        commentFooterViewModel.illust.set(illust)
+    }
 
     fun load() {
         val disposable = IllustRepository.instance
                 .loadRelatedIllust(illust.id.toString())
+                .doOnSubscribe { relatedCaptionFooterViewModel.loading.set(true) }
                 .subscribeBy(onNext = {
+                    relatedCaptionFooterViewModel.loading.set(false)
                     data.addAll(it.illusts)
                 }, onError = {
-
+                    relatedCaptionFooterViewModel.loading.set(false)
                 })
         addDisposable(disposable)
     }

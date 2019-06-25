@@ -30,7 +30,7 @@
                 android:layout_height="64dp"
                 android:scaleType="centerCrop"
                 app:url="@{user.profile_image_urls.px_170x170}"
-                app:placeHolder="@{@drawable/ic_profile_premium}"
+                app:placeHolder="@{@drawable/no_profile}"
                 app:circle="@{true}"
                 />
             <LinearLayout
