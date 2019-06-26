@@ -22,6 +22,7 @@
         <include layout="@layout/layout_detail_caption"
             android:id="@+id/caption"
             app:data="@{vm.illust}"
+            app:show="@{vm.captionVisibility}"
             />
         <!--<RelativeLayout-->
             <!--android:id="@+id/container"-->
@@ -104,7 +105,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
-            android:src="@drawable/ic_fab_like"
+            android:src="@{vm.illust._bookmarked?@drawable/ic_fab_liked:@drawable/ic_fab_like}"
             app:layout_anchor="@id/caption"
             app:layout_anchorGravity="center|end"
             app:backgroundTint="@color/fab_background_tint"

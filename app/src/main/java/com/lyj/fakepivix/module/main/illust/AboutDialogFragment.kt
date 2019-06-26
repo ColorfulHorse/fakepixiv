@@ -1,6 +1,5 @@
 package com.lyj.fakepivix.module.main.illust
 
-import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
@@ -10,28 +9,25 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
-import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
 import com.lyj.fakepivix.app.utils.screenHeight
 import com.lyj.fakepivix.databinding.DialogDetailBottomBinding
-import kotlinx.android.synthetic.main.dialog_detail_bottom.*
 
 /**
  * @author greensun
  *
  * @date 2019/6/20
  *
- * @desc
+ * @desc 作品相关信息dialog
  */
-class BottomDialogFragment : BottomSheetDialogFragment() {
+class AboutDialogFragment : BottomSheetDialogFragment() {
 
     var detailViewModel: IllustDetailViewModel? = null
     var bottomSheetBehavior: BottomSheetBehavior<View>? = null
 
     companion object {
-        fun newInstance(): BottomDialogFragment {
-            return BottomDialogFragment().apply {
+        fun newInstance(): AboutDialogFragment {
+            return AboutDialogFragment().apply {
                 arguments = Bundle()
             }
         }

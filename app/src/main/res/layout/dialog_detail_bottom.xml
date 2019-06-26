@@ -15,6 +15,7 @@
         <include layout="@layout/layout_detail_caption"
             android:id="@+id/caption"
             app:data="@{vm.illust}"
+            app:show="@{true}"
             />
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"

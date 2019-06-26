@@ -33,7 +33,7 @@ class UserFooterViewModel(val parent: IllustDetailViewModel) : BaseViewModel<IMo
     }
 
     fun reLoad() {
-        val p = parent.illust.get()?.user
+        val p = parent.illust.user
         if (p != null) {
             val disposable = IllustRepository.instance
                     .loadUserIllust(p.id)

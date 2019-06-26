@@ -56,7 +56,8 @@ class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, B
         with(mBinding) {
             viewPager.adapter = adapter
             viewPager.offscreenPageLimit = 2
-            viewPager.currentItem = position
+            viewPager.setCurrentItem(position, false)
+            //viewPager.currentItem = position
             viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
                 override fun onPageScrollStateChanged(p0: Int) {
 
@@ -73,8 +74,14 @@ class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, B
                 }
 
             })
-            adapter.getFragment(position) {
-                vm = it.mViewModel
+            val fragment = adapter.getFragment(position)
+            if (fragment != null) {
+                vm = fragment.mViewModel
+            }else {
+                // 未初始化则没办法马上拿到
+                adapter.getFragment(position) {
+                    vm = it.mViewModel
+                }
             }
         }
     }

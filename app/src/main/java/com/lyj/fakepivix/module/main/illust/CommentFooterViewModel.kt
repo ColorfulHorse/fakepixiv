@@ -40,8 +40,8 @@ class CommentFooterViewModel(val parent: IllustDetailViewModel) : BaseViewModel<
     }
 
     fun reLoad() {
-        val illust = parent.illust.get()
-        illust?.let { res ->
+        val illust = parent.illust
+        illust.let { res ->
             IllustRepository.instance
                     .loadIllustComment(res.id.toString())
                     .doOnSubscribe { loadState.set(LoadState.Loading) }

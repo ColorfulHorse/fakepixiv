@@ -139,6 +139,21 @@ class IllustRepository private constructor() {
     }
 
     /**
+     * 收藏/取消收藏
+     */
+    fun star(illustId: String, star: Boolean): Observable<Any> {
+        return if (star)
+            RetrofitManager.instance.apiService
+                .starIllust(illustId)
+                .schedulerTransform()
+        else
+            RetrofitManager.instance.apiService
+                    .unStarIllust(illustId)
+                    .schedulerTransform()
+
+    }
+
+    /**
      * 加载更多
      */
     fun loadMore(nextUrl: String, category: String = ILLUST): Observable<IllustListResp> {

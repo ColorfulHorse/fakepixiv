@@ -27,7 +27,7 @@ import com.lyj.fakepivix.widget.FlowLayoutManager
  *
  * @desc 作品介绍
  */
-class DescFooter(val context: Context, val data: ObservableField<Illust>, var mBinding: LayoutFooterDescBinding? = null) {
+class DescFooter(val context: Context, val data: Illust, var mBinding: LayoutFooterDescBinding? = null) {
 
     val rootView: View by lazy { LayoutInflater.from(context).inflate(R.layout.layout_footer_desc, null) }
 
@@ -38,33 +38,31 @@ class DescFooter(val context: Context, val data: ObservableField<Illust>, var mB
         }
 
         mBinding?.let {
-            val illust = data.get()
-            data.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
-                val data = data.get()
-                initData(data, it)
-            })
-            initData(illust, it)
+//            val illust = data.get()
+//            data.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
+//                val data = data.get()
+//                initData(data, it)
+//            })
+            initData(it)
         }
     }
 
-    private fun initData(illust: Illust?, binding: LayoutFooterDescBinding) {
-        if (illust != null) {
-            binding.data = data.get()
-            binding.desc.text = Html.fromHtml(illust.caption)
-            // 转换标签+#+翻译
-            val tags = illust.tags.flatMap { tag ->
-                val list = mutableListOf<Tag>()
-                if (!TextUtils.isEmpty(tag.name)) {
-                    list.add(tag.copy(name = "#${tag.name}"))
-                    if (!TextUtils.isEmpty(tag.translated_name)) {
-                        list.add(tag.copy(isTranslated = true))
-                    }
+    private fun initData(binding: LayoutFooterDescBinding) {
+        binding.data = data
+        binding.desc.text = Html.fromHtml(data.caption)
+        // 转换标签+#+翻译
+        val tags = data.tags.flatMap { tag ->
+            val list = mutableListOf<Tag>()
+            if (!TextUtils.isEmpty(tag.name)) {
+                list.add(tag.copy(name = "#${tag.name}"))
+                if (!TextUtils.isEmpty(tag.translated_name)) {
+                    list.add(tag.copy(isTranslated = true))
                 }
-                list
             }
-            val adapter = BaseBindingAdapter<Tag, ItemTagBinding>(R.layout.item_tag, tags, BR.data)
-            adapter.bindToRecyclerView(binding.recyclerView)
-            binding.recyclerView.layoutManager = FlowLayoutManager()
+            list
         }
+        val adapter = BaseBindingAdapter<Tag, ItemTagBinding>(R.layout.item_tag, tags, BR.data)
+        adapter.bindToRecyclerView(binding.recyclerView)
+        binding.recyclerView.layoutManager = FlowLayoutManager()
     }
 }
