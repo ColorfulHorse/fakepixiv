@@ -101,7 +101,7 @@ class IllustDetailAdapter(val viewModel: IllustDetailViewModel) : PreloadMultiBi
             }
             LAYOUT_COMMENT -> {
                 commentFooter?.let {
-                    //it.viewModel.load()
+                    it.viewModel.load()
                     return BaseBindingViewHolder(it.rootView)
                 }
             }

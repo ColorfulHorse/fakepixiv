@@ -1,7 +1,10 @@
 package com.lyj.fakepivix.app.data.model.response
 
 
+import android.databinding.BaseObservable
+import android.databinding.Bindable
 import com.chad.library.adapter.base.entity.MultiItemEntity
+import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.app.constant.IllustCategory.*
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.JsonQualifier
@@ -24,14 +27,14 @@ data class IllustListResp(
 )
 
 
-@JsonClass(generateAdapter = true)
-data class Illust (
+//@JsonClass(generateAdapter = true)
+class Illust (
         val caption: String = "",
         val create_date: String = "",
         val height: Int = 0,
         val id: Long = 0,
         val image_urls: ImageUrls = ImageUrls(),
-        val is_bookmarked: Boolean = false,
+        //var is_bookmarked: Boolean = false,
         val is_muted: Boolean = false,
         val meta_pages: List<MetaPage> = listOf(),
         val meta_single_page: MetaSinglePage = MetaSinglePage(),
@@ -50,7 +53,15 @@ data class Illust (
         val visible: Boolean = false,
         val width: Int = 0,
         val x_restrict: Int = 0
-): MultiItemEntity {
+): MultiItemEntity, BaseObservable() {
+    // 收藏
+    @get:Bindable
+    var is_bookmarked: Boolean = false
+    set(value) {
+        field = value
+        notifyPropertyChanged(BR._bookmarked)
+    }
+
     companion object {
         const val TYPE_ILLUST = 1
         const val TYPE_COMIC = 2

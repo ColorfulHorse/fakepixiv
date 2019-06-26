@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <import type="com.lyj.fakepivix.module.main.illust.RelatedCaptionViewModel"/>
+        <import type="com.lyj.fakepivix.app.network.LoadState"/>
         <variable
             name="vm"
             type="RelatedCaptionViewModel"/>
@@ -30,20 +31,27 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="@{vm.loading}"
             >
 
-            <ProgressBar
-                android:id="@+id/loading"
-                style="?android:progressBarStyle"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{vm.parent.loadState instanceof LoadState.Loading}"
                 android:layout_centerInParent="true"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:gravity="center" />
+                android:minHeight="150dp"
+                >
 
-            <!--<TextView-->
+                <ProgressBar
+                    android:id="@+id/loading"
+                    style="?android:progressBarStyle"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center" />
+
+                <!--<TextView-->
                 <!--android:id="@+id/no_data"-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="80dp"-->
@@ -51,6 +59,12 @@
                 <!--android:text="@string/no_related_work"-->
                 <!--android:textColor="@color/font_color_gray"-->
                 <!--android:visibility="gone" />-->
+            </RelativeLayout>
+
+            <include layout="@layout/layout_error_small"
+                android:id="@+id/errorView"
+                android:visibility="@{vm.parent.loadState instanceof LoadState.Failed}"
+                />
         </RelativeLayout>
     </LinearLayout>
 </layout>

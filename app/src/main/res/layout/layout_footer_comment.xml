@@ -37,7 +37,7 @@
                 android:id="@+id/avatar"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                app:url="@{vm.illust.user.profile_image_urls.medium}"
+                app:url="@{vm.parent.illust.user.profile_image_urls.medium}"
                 app:placeHolder="@{@drawable/no_profile}"
                 app:circle="@{true}"
                 />
@@ -58,6 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="false"
+            android:visibility="@{!vm.noneData}"
             />
 
         <TextView
@@ -70,25 +71,24 @@
             android:paddingBottom="16dp"
             android:text="@string/no_comment"
             android:textColor="@color/font_color_gray"
-            android:visibility="gone" />
+            android:visibility="@{vm.noneData}" />
 
         <View
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:background="@color/bg_item"
-            android:visibility="gone" />
+            android:visibility="@{vm.showMore}" />
 
         <LinearLayout
             android:id="@+id/more"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:visibility="gone">
+            android:visibility="@{vm.showMore}">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/icon_next"
-                android:drawableRight="@drawable/icon_next"
                 android:drawablePadding="8dp"
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"

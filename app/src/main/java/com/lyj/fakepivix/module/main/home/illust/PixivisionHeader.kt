@@ -51,7 +51,7 @@ class PixivisionHeader(val context: Context?, val viewModel: PixivisionViewModel
                 recyclerView.layoutManager = layoutManager
                 recyclerView.addItemDecoration(CommonItemDecoration.Builder()
                         .draw(false)
-                        .edge(16.dp2px(), 5.dp2px())
+                        //.edge(16.dp2px(), 5.dp2px())
                         .dividerWidth(10.dp2px(), 0)
                         .build())
                 PagerSnapHelper().attachToRecyclerView(recyclerView)

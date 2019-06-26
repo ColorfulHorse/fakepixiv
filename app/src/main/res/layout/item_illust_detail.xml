@@ -22,7 +22,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:minHeight="200dp"
+            android:minHeight="350dp"
             app:url="@{data.image_urls.large}"
             app:fade="@{true}"
             app:placeHolder="@{@drawable/common_placeholder}"

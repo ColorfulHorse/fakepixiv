@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="com.lyj.fakepivix.module.main.illust.IllustDetailViewModel"/>
+        <variable
+            name="vm"
+            type="IllustDetailViewModel"/>
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <include layout="@layout/layout_detail_caption"
+            android:id="@+id/caption"
+            app:data="@{vm.illust}"
+            app:show="@{true}"
+            />
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/bottom_sheet_behavior"
+            app:behavior_hideable="true"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white"
+                >
+                <include layout="@layout/layout_footer_desc"
+                    android:id="@+id/desc_container"
+                    app:data="@{vm.illust}"
+                    />
+                <include layout="@layout/layout_footer_user"
+                    android:id="@+id/user_container"
+                    app:vm="@{vm.userFooterViewModel}"
+                    />
+                <include layout="@layout/layout_footer_comment"
+                    app:vm="@{vm.commentFooterViewModel}"
+                    android:id="@+id/comment_container"
+                    />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
+</layout>

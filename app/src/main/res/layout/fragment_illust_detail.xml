@@ -1,19 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data>
 
+    <data>
+        <import type="com.lyj.fakepivix.module.main.illust.IllustDetailViewModel"/>
+        <variable
+            name="vm"
+            type="IllustDetailViewModel"/>
     </data>
 
-    <RelativeLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
-            android:descendantFocusability="blocksDescendants"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
+            android:descendantFocusability="blocksDescendants" />
+        <include layout="@layout/layout_detail_caption"
+            android:id="@+id/caption"
+            app:data="@{vm.illust}"
+            app:show="@{vm.captionVisibility}"
             />
-    </RelativeLayout>
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/container"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:background="@color/white">-->
+
+            <!--<ImageButton-->
+                <!--android:id="@+id/show"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:background="@android:color/transparent"-->
+                <!--android:paddingStart="16dp"-->
+                <!--android:paddingLeft="16dp"-->
+                <!--android:paddingTop="4dp"-->
+                <!--android:paddingEnd="16dp"-->
+                <!--android:paddingRight="16dp"-->
+                <!--android:paddingBottom="4dp"-->
+                <!--android:src="@drawable/action_detail" />-->
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/title_container"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="4dp"-->
+                <!--android:layout_marginBottom="4dp"-->
+                <!--android:paddingStart="16dp"-->
+                <!--android:clickable="true"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:orientation="horizontal">-->
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/avatar"-->
+                    <!--android:layout_width="32dp"-->
+                    <!--android:layout_height="32dp"-->
+                    <!--android:layout_gravity="center" />-->
+
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:layout_marginStart="16dp"-->
+                    <!--&gt;-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/title"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:ellipsize="end"-->
+                        <!--android:maxLines="1"-->
+                        <!--android:paddingRight="72dp"-->
+                        <!--android:textColor="@color/renewal_font_black"-->
+                        <!--android:textSize="14.0sp"-->
+                        <!--android:textStyle="bold" />-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/nickName"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="4dp"-->
+                        <!--android:textColor="@color/renewal_font_gray"-->
+                        <!--android:textSize="10sp" />-->
+                <!--</LinearLayout>-->
+            <!--</LinearLayout>-->
+        <!--</RelativeLayout>-->
+
+        <!--<include layout="@layout/dialog_detail_bottom"-->
+            <!--android:id="@+id/bottom_sheet"-->
+            <!--app:vm="@{vm}"-->
+            <!--/>-->
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@{vm.illust._bookmarked?@drawable/ic_fab_liked:@drawable/ic_fab_like}"
+            app:layout_anchor="@id/caption"
+            app:layout_anchorGravity="center|end"
+            app:backgroundTint="@color/fab_background_tint"
+            />
+    </android.support.design.widget.CoordinatorLayout>
 </layout>

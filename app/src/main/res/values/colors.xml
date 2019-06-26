@@ -249,4 +249,5 @@
     <color name="detail_title_black">#ff333333</color>
     <color name="inout_hint_color">#ffb3b3b3</color>
     <color name="detail_read_more">#ffaaaaaa</color>
+    <color name="tag_green">#66009688</color>
 </resources>

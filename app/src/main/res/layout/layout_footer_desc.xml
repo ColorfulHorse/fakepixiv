@@ -18,6 +18,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/container_caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -140,6 +141,19 @@
         <!--android:textColor="@color/illust_detail_text_color"-->
         <!--android:textSize="12sp"-->
         <!--android:textStyle="bold" />-->
+        <TextView
+            android:id="@+id/tags_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="6dp"
+            android:text="@string/tags"
+            android:textColor="@color/illust_detail_text_color"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -147,7 +161,23 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/detail_padding_h"
             android:layout_marginEnd="@dimen/detail_padding_h"
+            android:layout_marginBottom="8dp"
             android:focusableInTouchMode="false"
+            />
+
+        <TextView
+            android:id="@+id/desc_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/desc_label"
+            android:textColor="@color/illust_detail_text_color"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:visibility="gone"
             />
 
         <!--<TextView-->
@@ -167,7 +197,6 @@
             android:id="@id/desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="@dimen/detail_padding_h"
             android:layout_marginEnd="@dimen/detail_padding_h"
             android:layout_marginBottom="32dp"
