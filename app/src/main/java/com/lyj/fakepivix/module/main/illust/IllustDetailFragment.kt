@@ -10,6 +10,8 @@ import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.FragmentationFragment
+import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
+import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.FragmentIllustDetailBinding
 import com.lyj.fakepivix.widget.DetailItemDecoration
@@ -174,8 +176,10 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
             recyclerView.layoutManager = layoutManager
             mAdapter.bindToRecyclerView(recyclerView)
             initFooter()
+            initListener()
         }
     }
+
 
 
     /**
@@ -188,10 +192,27 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
         val relatedCaptionFooter = RelatedCaptionFooter(mActivity, mViewModel.relatedCaptionFooterViewModel)
         lifecycle.addObserver(mViewModel.userFooterViewModel)
         lifecycle.addObserver(mViewModel.commentFooterViewModel)
+        lifecycle.addObserver(mViewModel.relatedDialogViewModel)
         mAdapter.descFooter = descFooter
         mAdapter.userFooter = userFooter
         mAdapter.commentFooter = commentFooter
         mAdapter.relatedCaptionFooter = relatedCaptionFooter
+    }
+
+    private fun initListener() {
+        mViewModel.starState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
+            val state = mViewModel.starState.get()
+            if (state is LoadState.Succeed) {
+                val star = mViewModel.illust.is_bookmarked
+                if (star) {
+                    // 收藏成功弹出dialog
+                    // }
+                val dialogFragment = RelatedDialogFragment.newInstance()
+                dialogFragment.mViewModel = mViewModel.relatedDialogViewModel
+                dialogFragment.show(childFragmentManager, "RelatedDialogFragment")
+                }
+            }
+        })
     }
 
     override fun immersionBarEnabled(): Boolean {

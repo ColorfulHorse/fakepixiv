@@ -101,6 +101,33 @@ interface ApiService {
     fun getUserRecommend(): Observable<UserPreviewListResp>
 
     /**
+     * 获取用户作品列表
+     * [userId] 用户id
+     */
+    @GET("/v1/user/illusts")
+    fun getUserIllustData(@Query("user_id")userId: String, @IllustCategory @Query("type")category: String = ILLUST): Observable<IllustListResp>
+
+    /**
+     * 获取相关用户
+     */
+    @GET("/v1/user/related")
+    fun getUserRelatedIllust(@Query("seed_user_id")userId: String): Observable<UserPreviewListResp>
+
+    /**
+     * 关注
+     */
+    @POST("/v1/user/follow/add")
+    @FormUrlEncoded
+    fun followUser(@Query("user_id")userId: String, @Restrict restrict: String = Restrict.PUBLIC): Observable<Any>
+
+    @POST("/v1/user/follow/delete")
+    @FormUrlEncoded
+    fun unFollowUser(@Query("user_id")userId: String): Observable<Any>
+
+    // https://app-api.pixiv.net/v1/user/follow/delete  user_id=6996493
+    // https://app-api.pixiv.net/v1/user/follow/add  user_id=6996493&restrict=public
+    // https://app-api.pixiv.net/v1/user/related?filter=for_android&seed_user_id=6996493
+    /**
      * 最新-关注者
      * [category] 插画/漫画
      * [filter] 筛选条件 全部/公开/私密
@@ -154,13 +181,6 @@ interface ApiService {
     fun getIllustSearchTag(@IllustCategory @Path("category")category: String): Observable<SearchTagListResp>
 
 
-    /**
-     * 获取用户作品列表
-     * [userId] 用户id
-     */
-    @GET("/v1/user/illusts")
-    fun getUserIllustData(@Query("user_id")userId: String, @IllustCategory @Query("type")category: String = ILLUST): Observable<IllustListResp>
-
 
     /**
      * 获取相关作品
@@ -187,7 +207,7 @@ interface ApiService {
     /**
      * 取消收藏
      */
-    @POST("/v2/illust/bookmark/delete")
+    @POST("/v1/illust/bookmark/delete")
     @FormUrlEncoded
     fun unStarIllust(@Field("illust_id")illustId: String): Observable<Any>
 

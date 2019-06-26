@@ -100,8 +100,8 @@ class IllustDetailViewModel : BaseViewModel<IModel?>() {
                 .star(illust.id.toString(), !star)
                 .doOnSubscribe { starState.set(LoadState.Loading) }
                 .subscribeBy(onNext = {
-                    starState.set(LoadState.Succeed)
                     illust.is_bookmarked = !star
+                    starState.set(LoadState.Succeed)
                 }, onError = {
                     starState.set(LoadState.Failed(it))
                 })

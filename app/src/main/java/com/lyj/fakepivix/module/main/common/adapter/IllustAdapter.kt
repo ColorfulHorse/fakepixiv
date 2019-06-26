@@ -6,6 +6,7 @@ import android.databinding.ViewDataBinding
 import android.graphics.drawable.Drawable
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
+import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.bumptech.glide.RequestBuilder
 import com.lyj.fakepivix.BR
@@ -28,14 +29,18 @@ import me.yokeyword.fragmentation.SupportHelper
  * @desc
  */
 open class IllustAdapter(data: ObservableList<Illust>) : PreloadMultiBindingAdapter<Illust>(data) {
-    init {
-        addItemType(Illust.TYPE_ILLUST, R.layout.item_home_illust, BR.illust)
 
+    init {
+        initItemType()
         setOnItemClickListener { _, _, position ->
             IllustRepository.instance.illustList = data
             val top = SupportHelper.getTopFragment((mContext as FragmentActivity).supportFragmentManager) as FragmentationFragment<*, *>
             top.start(IllustDetailRootFragment.newInstance(position))
         }
+    }
+
+    open fun initItemType() {
+        addItemType(Illust.TYPE_ILLUST, R.layout.item_home_illust, BR.illust)
     }
 
 

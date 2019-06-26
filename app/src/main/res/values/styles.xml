@@ -83,4 +83,9 @@
         <!--<item name="tl_indicator_anim_enable">false</item>-->
         <!--<item name="tl_tab_space_equal">false</item>-->
     </style>
+
+    <style name="bottom_sheet_anim">
+        <item name="android:windowEnterAnimation">@anim/bottom_sheet_enter</item>
+        <item name="android:windowExitAnimation">@anim/bottom_sheet_exit</item>
+    </style>
 </resources>
