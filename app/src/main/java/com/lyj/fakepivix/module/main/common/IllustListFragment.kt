@@ -55,7 +55,7 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
     }
 
     private lateinit var layoutManager: LinearLayoutManager
-    private lateinit var mAdapter: PreloadMultiBindingAdapter<Illust>
+    private lateinit var mAdapter: IllustAdapter
     private val loadingView: View by lazy { layoutInflater.inflate(R.layout.layout_common_loading, null) }
     private val errorView: View by lazy { layoutInflater.inflate(R.layout.layout_error, null) }
 
@@ -84,14 +84,17 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
         with(mBinding) {
             mViewModel?.let {
                 vm ->
+                mAdapter = IllustAdapter(vm.data)
                 when(category) {
                     ILLUST, ILLUSTANDCOMIC, COMIC -> {
                         layoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
                         if (category == COMIC) {
-                            mAdapter = ComicAdapter(vm.data)
+                            mAdapter.addItemType(Illust.TYPE_COMIC, R.layout.item_home_comic, BR.data)
                         }else {
-                            mAdapter = IllustAdapter(vm.data)
-                            mAdapter.addItemType(Illust.TYPE_COMIC, R.layout.item_home_illust, BR.illust)
+                            mAdapter.apply {
+                                addItemType(Illust.TYPE_ILLUST, R.layout.item_home_illust, BR.illust)
+                                addItemType(Illust.TYPE_COMIC, R.layout.item_home_illust, BR.illust)
+                            }
                         }
                         recyclerView.addItemDecoration(CommonItemDecoration.Builder()
                                 .dividerWidth(3.5f.dp2px(), 3.5f.dp2px())
@@ -99,7 +102,10 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
                     }
                     NOVEL -> {
                         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                        mAdapter = NovelAdapter(vm.data)
+                        mAdapter.apply {
+                            addItemType(Illust.TYPE_NOVEL, R.layout.item_home_novel, BR.data)
+                            addItemType(Illust.TYPE_ILLUST, R.layout.item_home_novel, BR.data)
+                        }
                         recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
                     }
                 }
@@ -117,10 +123,6 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
                         }
                     }
                 }*/
-
-                mAdapter.setOnItemClickListener { _, _, position ->
-                    ToastUtil.showToast("$position")
-                }
 
                 refreshLayout.setOnRefreshListener {
                     vm.load()

@@ -24,7 +24,6 @@ class UserFooterViewModel(val parent: IllustDetailViewModel) : BaseViewModel<IMo
 
     var loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
-    val illust = parent.illust
 
     fun load() {
         if (loadState.get() is LoadState.Idle) {

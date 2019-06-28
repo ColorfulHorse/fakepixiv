@@ -36,30 +36,30 @@
             android:text="@{String.valueOf(illust.page_count)}"
             android:visibility="@{illust.page_count>1}"
             />
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="@{illust.series != null}"
-            >
+        <!--<RelativeLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:visibility="@{illust.series != null}"-->
+            <!--&gt;-->
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/yellow_mark_left_top" />
-            <TextView
-                android:id="@+id/tag_series"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp"
-                android:layout_marginTop="6dp"
-                android:rotation="315.0"
-                android:text="@string/series"
-                android:textColor="@android:color/white"
-                android:textSize="10.0sp"
-                android:textStyle="bold"
-                />
-        </RelativeLayout>
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@drawable/yellow_mark_left_top" />-->
+            <!--<TextView-->
+                <!--android:id="@+id/tag_series"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginStart="6dp"-->
+                <!--android:layout_marginEnd="6dp"-->
+                <!--android:layout_marginTop="6dp"-->
+                <!--android:rotation="315.0"-->
+                <!--android:text="@string/series"-->
+                <!--android:textColor="@android:color/white"-->
+                <!--android:textSize="10.0sp"-->
+                <!--android:textStyle="bold"-->
+                <!--/>-->
+        <!--</RelativeLayout>-->
     </RelativeLayout>
 </layout>

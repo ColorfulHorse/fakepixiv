@@ -18,7 +18,7 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc 详情页用户item
  */
-class RelatedDialogViewModel(val parent: IllustDetailViewModel) : BaseViewModel<IModel?>() {
+class RelatedIllustDialogViewModel(val parent: IllustDetailViewModel) : BaseViewModel<IModel?>() {
     override val mModel: IModel? = null
 
     var data = ObservableArrayList<Illust>()
@@ -33,8 +33,8 @@ class RelatedDialogViewModel(val parent: IllustDetailViewModel) : BaseViewModel<
                 .loadRelatedIllust(parent.illust.id.toString())
                 .doOnSubscribe { loadState.set(LoadState.Loading) }
                 .subscribeBy(onNext = {
-                    loadState.set(LoadState.Succeed)
                     data.addAll(it.illusts)
+                    loadState.set(LoadState.Succeed)
                 }, onError = {
                     loadState.set(LoadState.Failed(it))
                 })

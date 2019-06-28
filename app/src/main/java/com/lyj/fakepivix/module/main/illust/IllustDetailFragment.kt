@@ -10,6 +10,7 @@ import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.FragmentationFragment
+import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.dp2px
@@ -29,17 +30,12 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
 
     companion object {
 
-        private const val EXTRA_POSITION = "EXTRA_POSITION"
-        fun newInstance(position: Int): IllustDetailFragment {
+        fun newInstance(data: Illust): IllustDetailFragment {
             return IllustDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(EXTRA_POSITION, position)
-                }
+                mViewModel.illust = data
             }
         }
     }
-
-    private var position = -1
 
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var mAdapter: IllustDetailAdapter
@@ -48,8 +44,6 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
 
     override fun init(savedInstanceState: Bundle?) {
         arguments?.let {
-            position = it.getInt(EXTRA_POSITION, -1)
-            mViewModel.position = position
             val show = mViewModel.captionVisibility.get()
             if (show != null) {
                 showCaption = show
@@ -88,7 +82,7 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
                                 }
                             }else {
                                 if (userItem.bottom >= recyclerView.bottom - recyclerView.paddingBottom) {
-
+                                    mBinding.fab.show()
                                 }
                             }
                         }
@@ -115,9 +109,6 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
                     .dividerWidth(3.5f.dp2px(), 3.5f.dp2px())
                     .build())
 
-            fab.setOnClickListener {
-                mViewModel.star()
-            }
             caption.show.setOnClickListener {
                 val dialog = AboutDialogFragment.newInstance().apply {
                     detailViewModel = mViewModel
@@ -192,25 +183,35 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
         val relatedCaptionFooter = RelatedCaptionFooter(mActivity, mViewModel.relatedCaptionFooterViewModel)
         lifecycle.addObserver(mViewModel.userFooterViewModel)
         lifecycle.addObserver(mViewModel.commentFooterViewModel)
-        lifecycle.addObserver(mViewModel.relatedDialogViewModel)
+        lifecycle.addObserver(mViewModel.relatedIllustViewModel)
+        lifecycle.addObserver(mViewModel.relatedUserViewModel)
         mAdapter.descFooter = descFooter
         mAdapter.userFooter = userFooter
         mAdapter.commentFooter = commentFooter
         mAdapter.relatedCaptionFooter = relatedCaptionFooter
     }
 
+    /**
+     * 关注/收藏dialog
+     */
     private fun initListener() {
-        mViewModel.starState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
-            val state = mViewModel.starState.get()
+        mViewModel.relatedIllustViewModel.loadState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
+            val state = mViewModel.relatedIllustViewModel.loadState.get()
             if (state is LoadState.Succeed) {
-                val star = mViewModel.illust.is_bookmarked
-                if (star) {
-                    // 收藏成功弹出dialog
-                    // }
-                val dialogFragment = RelatedDialogFragment.newInstance()
-                dialogFragment.mViewModel = mViewModel.relatedDialogViewModel
-                dialogFragment.show(childFragmentManager, "RelatedDialogFragment")
-                }
+                // 数据加载完成弹出dialog
+                val dialogFragment = RelatedIllustDialogFragment.newInstance()
+                dialogFragment.mViewModel = mViewModel.relatedIllustViewModel
+                dialogFragment.show(childFragmentManager, "RelatedIllustDialogFragment")
+            }
+        })
+
+        mViewModel.relatedUserViewModel.loadState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
+            val state = mViewModel.relatedUserViewModel.loadState.get()
+            if (state is LoadState.Succeed) {
+                // 数据加载完成弹出dialog
+                val dialogFragment = RelatedUserDialogFragment.newInstance()
+                dialogFragment.mViewModel = mViewModel.relatedUserViewModel
+                dialogFragment.show(childFragmentManager, "RelatedUserDialogFragment")
             }
         })
     }

@@ -2,6 +2,7 @@ package com.lyj.fakepivix.module.main.illust
 
 import android.content.Context
 import android.databinding.DataBindingUtil
+import android.databinding.ViewDataBinding
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -13,8 +14,8 @@ import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.dp2px
-import com.lyj.fakepivix.databinding.ItemIllustBinding
 import com.lyj.fakepivix.databinding.LayoutFooterUserBinding
+import com.lyj.fakepivix.module.main.common.adapter.IllustAdapter
 import com.lyj.fakepivix.widget.CommonItemDecoration
 import kotlinx.android.synthetic.main.layout_error_small.view.*
 
@@ -34,7 +35,11 @@ class UserFooter(val context: Context, val viewModel: UserFooterViewModel, var m
     private val errorView: View by lazy { LayoutInflater.from(context).inflate(R.layout.layout_error_small, null) }
 
 
-    var mAdapter = BaseBindingAdapter<Illust, ItemIllustBinding>(R.layout.item_illust, viewModel.data, BR.illust)
+    var mAdapter = IllustAdapter(viewModel.data).apply {
+        addItemType(Illust.TYPE_ILLUST, R.layout.item_illust_user, BR.illust)
+        addItemType(Illust.TYPE_COMIC, R.layout.item_illust_user, BR.illust)
+        addItemType(Illust.TYPE_NOVEL, R.layout.item_illust_user, BR.illust)
+    }
 
     init {
         if (mBinding == null) {

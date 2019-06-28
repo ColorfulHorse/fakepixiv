@@ -4,11 +4,15 @@ import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.ImageView
+import com.chad.library.adapter.base.BaseViewHolder
+import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.constant.IllustCategory.NOVEL
+import com.lyj.fakepivix.app.data.model.response.Illust
 
 import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
 import com.lyj.fakepivix.app.network.LoadState
@@ -16,6 +20,8 @@ import com.lyj.fakepivix.app.utils.ToastUtil
 import com.lyj.fakepivix.app.utils.attachLoadMore
 import com.lyj.fakepivix.databinding.CommonRefreshList
 import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
+import com.lyj.fakepivix.databinding.ItemHomeNovelBinding
+import com.lyj.fakepivix.module.main.common.adapter.IllustAdapter
 import com.lyj.fakepivix.module.main.common.adapter.NovelAdapter
 import com.lyj.fakepivix.module.main.home.illust.RankHeader
 import kotlinx.android.synthetic.main.layout_error.view.*
@@ -38,7 +44,7 @@ class HomeNovelFragment : FragmentationFragment<CommonRefreshList, HomeNovelView
 
 
     private lateinit var layoutManager: LinearLayoutManager
-    private lateinit var mAdapter: NovelAdapter
+    private lateinit var mAdapter: IllustAdapter
     // 排行榜
     private lateinit var rankHeader: RankHeader
 
@@ -55,7 +61,10 @@ class HomeNovelFragment : FragmentationFragment<CommonRefreshList, HomeNovelView
      */
     private fun initList() {
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        mAdapter = NovelAdapter(mViewModel.data)
+        mAdapter = IllustAdapter(mViewModel.data).apply {
+            addItemType(Illust.TYPE_NOVEL, R.layout.item_home_novel, BR.data)
+            addItemType(Illust.TYPE_ILLUST, R.layout.item_home_novel, BR.data)
+        }
 
         with(mBinding) {
             initHeader()
@@ -66,11 +75,10 @@ class HomeNovelFragment : FragmentationFragment<CommonRefreshList, HomeNovelView
             recyclerView.attachLoadMore { mViewModel.loadMore() }
 
             recyclerView.setRecyclerListener {
-                if (it is BaseBindingViewHolder<*>) {
-                    it.binding?.let { binding ->
-                        if (binding is ItemHomeIllustBinding) {
-                            GlideApp.with(this@HomeNovelFragment).clear(binding.image)
-                        }
+                if (it is BaseViewHolder) {
+                    val image = it.getView<ImageView>(R.id.image)
+                    image?.let {
+                        GlideApp.with(this@HomeNovelFragment).clear(image)
                     }
                 }
             }

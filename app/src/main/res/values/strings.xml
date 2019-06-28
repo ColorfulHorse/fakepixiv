@@ -73,4 +73,5 @@
     <string name="tags">标签</string>
     <string name="desc_label">简介</string>
     <string name="user_followed_notification">你可能也喜欢这些作品</string>
+    <string name="title_related_user">已关注。去关注更多人吧。</string>
 </resources>

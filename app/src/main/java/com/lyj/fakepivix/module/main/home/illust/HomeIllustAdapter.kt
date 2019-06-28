@@ -6,11 +6,14 @@ import android.graphics.drawable.Drawable
 import android.support.v4.app.FragmentActivity
 import android.view.ViewGroup
 import com.bumptech.glide.RequestBuilder
+import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.GlideApp
+import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
+import com.lyj.fakepivix.app.utils.Router
 import com.lyj.fakepivix.app.utils.mapUrl
 import com.lyj.fakepivix.module.main.common.adapter.IllustAdapter
 import com.lyj.fakepivix.module.main.illust.IllustDetailRootFragment
@@ -30,14 +33,13 @@ class HomeIllustAdapter(data: ObservableList<Illust>, val header: PixivisionHead
     }
 
     init {
+        addItemType(Illust.TYPE_ILLUST, R.layout.item_home_illust, BR.illust)
         setOnItemClickListener { _, _, position ->
             var pos = position
             if (position > 10) {
                 pos = position - 1
             }
-            IllustRepository.instance.illustList = data
-            val top = SupportHelper.getTopFragment((mContext as FragmentActivity).supportFragmentManager) as FragmentationFragment<*, *>
-            top.start(IllustDetailRootFragment.newInstance(pos))
+            Router.goDetail(pos, data)
         }
     }
 

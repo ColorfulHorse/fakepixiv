@@ -35,8 +35,6 @@
                 app:tl_indicator_anim_enable="false"
                 app:tl_tab_space_equal="false"
                 android:layout_centerInParent="true"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
                 />
         </RelativeLayout>
         <FrameLayout

@@ -3,6 +3,7 @@ package com.lyj.fakepivix.module.main.search.illust
 import android.databinding.ObservableList
 import android.databinding.ViewDataBinding
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.bumptech.glide.RequestBuilder
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.GlideApp
@@ -28,11 +29,9 @@ class SearchTagAdapter(val data: ObservableList<TrendTag>) : PreloadMultiBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseBindingViewHolder<ViewDataBinding> {
         val vh = super.onCreateViewHolder(parent, viewType)
-        vh.binding?.let {
-            binding ->
-            if (binding is SearchTagItem) {
-                sizeProvider.setView(binding.cover)
-            }
+        val image = vh.getView<ImageView>(R.id.image)
+        image?.let {
+            sizeProvider.setView(it)
         }
         return vh
     }

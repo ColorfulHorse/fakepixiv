@@ -37,7 +37,12 @@ open class BaseBindingAdapter<T, VB : ViewDataBinding>(@LayoutRes layoutId: Int,
                 }
 
                 override fun onItemRangeInserted(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
-                    notifyItemRangeInserted(positionStart, itemCount)
+                    var start = positionStart
+                    if (positionStart > 0) {
+                        val count = getItemCount() - data.size
+                        start += count
+                    }
+                    notifyItemRangeInserted(start, itemCount)
                     compatibilityDataSizeChanged(itemCount)
                 }
 

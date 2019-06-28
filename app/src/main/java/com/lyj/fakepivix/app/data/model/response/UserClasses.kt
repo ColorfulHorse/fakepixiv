@@ -1,5 +1,8 @@
 package com.lyj.fakepivix.app.data.model.response
 
+import android.databinding.BaseObservable
+import android.databinding.Bindable
+import com.lyj.fakepivix.BR
 import com.squareup.moshi.JsonClass
 
 /**
@@ -10,7 +13,7 @@ import com.squareup.moshi.JsonClass
  * @desc  用户类
  */
 
-@JsonClass(generateAdapter = true)
+//@JsonClass(generateAdapter = true)
 data class User(
         val account: String = "",
         val id: String = "",
@@ -18,11 +21,19 @@ data class User(
         val is_premium: Boolean = false,
         val mail_address: String = "",
         val name: String = "",
-        val is_followed: Boolean = false,
+        //var is_followed: Boolean = false,
         val profile_image_urls: ProfileImageUrls = ProfileImageUrls(),
         val require_policy_agreement: Boolean = false,
         val x_restrict: Int = 0
-)
+) : BaseObservable() {
+    // 收藏
+    @get:Bindable
+    var is_followed: Boolean = false
+    set(value) {
+        field = value
+        notifyPropertyChanged(BR._followed)
+    }
+}
 
 @JsonClass(generateAdapter = true)
 data class ProfileImageUrls(
@@ -44,8 +55,12 @@ data class UserPreviewListResp(
 
 @JsonClass(generateAdapter = true)
 data class UserPreview(
-        val illusts: List<Illust> = listOf(),
+        val illusts: MutableList<Illust> = mutableListOf(),
         val is_muted: Boolean = false,
         val novels: List<Illust> = listOf(),
         val user: User = User()
-)
+) {
+    init {
+        illusts.addAll(novels)
+    }
+}

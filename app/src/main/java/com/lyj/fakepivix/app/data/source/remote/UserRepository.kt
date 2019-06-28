@@ -1,6 +1,7 @@
 package com.lyj.fakepivix.app.data.source.remote
 
 import com.lyj.fakepivix.app.constant.Constant
+import com.lyj.fakepivix.app.constant.Restrict
 import com.lyj.fakepivix.app.data.model.response.LoginData
 import com.lyj.fakepivix.app.data.model.response.UserPreviewListResp
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
@@ -61,6 +62,27 @@ class UserRepository private constructor(){
         return RetrofitManager.instance
                 .apiService
                 .getUserRecommend()
+                .schedulerTransform()
+    }
+
+    /**
+     * 获取相关用户
+     */
+    fun getRelatedUsers(userId: String): Observable<UserPreviewListResp> {
+        return RetrofitManager.instance
+                .apiService
+                .getRelatedUsers(userId)
+                .schedulerTransform()
+    }
+
+    fun follow(userId: String, follow: Boolean, @Restrict restrict: String = Restrict.PUBLIC): Observable<Any> {
+        return if (follow) RetrofitManager.instance
+                .apiService
+                .followUser(userId, restrict)
+                .schedulerTransform()
+        else RetrofitManager.instance
+                .apiService
+                .unFollowUser(userId)
                 .schedulerTransform()
     }
 }

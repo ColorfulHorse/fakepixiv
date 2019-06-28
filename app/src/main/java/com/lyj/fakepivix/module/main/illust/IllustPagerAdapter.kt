@@ -25,7 +25,7 @@ class IllustPagerAdapter(val data: List<Illust>, fm: FragmentManager) : Fragment
 
     override fun getItem(position: Int): Fragment {
         Log.e("xxx", "getItem: $position")
-        val fragment = IllustDetailFragment.newInstance(position)
+        val fragment = IllustDetailFragment.newInstance(data[position])
         fragments.put(position, fragment)
         feature?.let {
             if (position == this.position) {

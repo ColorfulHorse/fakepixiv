@@ -2,14 +2,10 @@ package com.lyj.fakepivix.widget;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.support.annotation.NonNull;
-import android.support.annotation.Size;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.lyj.fakepivix.app.data.model.response.Illust;
 
 /**
@@ -48,7 +44,7 @@ public class DetailItemDecoration extends CommonItemDecoration {
             Object object = adapter.getData().get(position);
             if (object instanceof Illust) {
                 int type = ((Illust) object).getItemType();
-                if (type != Illust.TYPE_LARGE) {
+                if (type != Illust.TYPE_META) {
                     super.getItemOffsets(outRect, view, parent, state);
                 }
             }

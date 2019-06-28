@@ -41,7 +41,7 @@ class HomeComicFragment : FragmentationFragment<CommonRefreshList, HomeComicView
 
 
     private lateinit var layoutManager: GridLayoutManager
-    private lateinit var mAdapter: ComicAdapter
+    private lateinit var mAdapter: HomeComicAdapter
     // 排行榜，直播，pixivision头部
     private lateinit var rankHeader: RankHeader
     private lateinit var pixivisionHeader: PixivisionHeader

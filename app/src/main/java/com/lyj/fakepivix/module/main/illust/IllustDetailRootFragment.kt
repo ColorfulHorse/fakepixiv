@@ -9,6 +9,7 @@ import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.BackFragment
 import com.lyj.fakepivix.app.base.BaseViewModel
+import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.databinding.FragmentIllustDetailRootBinding
 
@@ -25,10 +26,13 @@ class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, B
 
     var position = -1
 
+    var data : List<Illust> = listOf()
+
     companion object {
         private const val EXTRA_POSITION = "EXTRA_POSITION"
-        fun newInstance(position: Int): IllustDetailRootFragment {
+        fun newInstance(position: Int, data: List<Illust>): IllustDetailRootFragment {
             return IllustDetailRootFragment().apply {
+                this.data = data
                 arguments = Bundle().apply {
                     putInt(EXTRA_POSITION, position)
                 }
@@ -52,7 +56,7 @@ class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, B
                 true
             }
         }
-        val adapter = IllustPagerAdapter(IllustRepository.instance.illustList, childFragmentManager)
+        val adapter = IllustPagerAdapter(data, childFragmentManager)
         with(mBinding) {
             viewPager.adapter = adapter
             viewPager.offscreenPageLimit = 2

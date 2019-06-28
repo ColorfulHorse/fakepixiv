@@ -3,15 +3,23 @@ package com.lyj.fakepivix.module.main.home.comic
 import android.databinding.ObservableList
 import android.databinding.ViewDataBinding
 import android.graphics.drawable.Drawable
+import android.support.v4.app.FragmentActivity
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.RequestBuilder
+import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.GlideApp
+import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
+import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.data.model.response.Illust
+import com.lyj.fakepivix.app.utils.Router
 import com.lyj.fakepivix.app.utils.mapUrl
 import com.lyj.fakepivix.module.main.common.adapter.ComicAdapter
+import com.lyj.fakepivix.module.main.common.adapter.IllustAdapter
 import com.lyj.fakepivix.module.main.home.illust.PixivisionHeader
+import com.lyj.fakepivix.module.main.illust.IllustDetailRootFragment
+import me.yokeyword.fragmentation.SupportHelper
 
 /**
  * @author greensun
@@ -20,10 +28,25 @@ import com.lyj.fakepivix.module.main.home.illust.PixivisionHeader
  *
  * @desc
  */
-class HomeComicAdapter(data: ObservableList<Illust>, val header: PixivisionHeader) : ComicAdapter(data) {
+class HomeComicAdapter(data: ObservableList<Illust>, val header: PixivisionHeader) : IllustAdapter(data) {
 
     companion object {
         const val TYPE_ARTICLE_VIEW = 200
+    }
+
+    init {
+        setOnItemClickListener { _, _, position ->
+            var pos = position
+            if (position > 2) {
+                pos = position - 1
+            }
+            Router.goDetail(pos, data)
+        }
+    }
+
+    init {
+        addItemType(Illust.TYPE_ILLUST, R.layout.item_home_comic, BR.data)
+        addItemType(Illust.TYPE_COMIC, R.layout.item_home_comic, BR.data)
     }
 
 

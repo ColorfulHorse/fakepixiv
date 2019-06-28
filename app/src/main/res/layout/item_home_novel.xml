@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:foreground="?selectableItemBackground"
+        android:foreground="?selectableItemBackgroundBorderless"
         android:orientation="horizontal"
         android:tag="layout/view_novel_item_0">
 
@@ -31,7 +31,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/cover"
+                android:id="@+id/image"
                 android:layout_width="52dp"
                 android:layout_height="64dp"
                 android:layout_marginLeft="16dp"

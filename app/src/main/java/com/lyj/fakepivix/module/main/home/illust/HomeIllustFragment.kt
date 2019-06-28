@@ -35,7 +35,7 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
     }
 
     private lateinit var layoutManager: GridLayoutManager
-    private lateinit var mAdapter: IllustAdapter
+    private lateinit var mAdapter: HomeIllustAdapter
     // 排行榜，直播，pixivision头部
     private lateinit var rankHeader: RankHeader
     private lateinit var liveHeader: LiveHeader

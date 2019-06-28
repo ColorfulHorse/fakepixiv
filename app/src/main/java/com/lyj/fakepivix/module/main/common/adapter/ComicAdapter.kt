@@ -5,14 +5,13 @@ import android.databinding.ViewDataBinding
 import android.graphics.drawable.Drawable
 import android.view.ViewGroup
 import com.bumptech.glide.RequestBuilder
-import com.bumptech.glide.load.Key
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.adapter.PreloadMultiBindingAdapter
 import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.utils.mapUrl
+import com.lyj.fakepivix.app.utils.Router
 import com.lyj.fakepivix.databinding.ItemHomeComicBinding
 
 /**
@@ -22,16 +21,19 @@ import com.lyj.fakepivix.databinding.ItemHomeComicBinding
  *
  * @desc
  */
+@Deprecated("合并为IllustAdapter")
 open class ComicAdapter(data: ObservableList<Illust>) : PreloadMultiBindingAdapter<Illust>(data) {
 
     init {
         addItemType(Illust.TYPE_COMIC, R.layout.item_home_comic, BR.data)
+        setOnItemClickListener { _, _, position ->
+            Router.goDetail(position, data)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseBindingViewHolder<ViewDataBinding> {
         val vh = super.onCreateViewHolder(parent, viewType)
-        vh.binding?.let {
-            binding ->
+        vh.binding?.let { binding ->
             if (binding is ItemHomeComicBinding) {
                 sizeProvider.setView(binding.image)
             }

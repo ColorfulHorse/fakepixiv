@@ -2,10 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <import type="com.lyj.fakepivix.module.main.illust.RelatedDialogViewModel"/>
+        <import type="com.lyj.fakepivix.module.main.illust.RelatedIllustDialogViewModel"/>
         <variable
             name="vm"
-            type="RelatedDialogViewModel"/>
+            type="RelatedIllustDialogViewModel"/>
     </data>
 
     <LinearLayout
@@ -19,13 +19,14 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_margin="16dp"
                 android:text="@string/user_followed_notification"
                 android:textColor="@android:color/white"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <ImageView
                 android:id="@+id/close"
@@ -42,7 +43,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/detail_padding_h"
             android:clipToPadding="false"
             android:paddingStart="@dimen/detail_padding_h"

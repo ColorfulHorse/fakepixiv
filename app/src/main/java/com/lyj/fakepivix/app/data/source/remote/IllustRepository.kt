@@ -11,6 +11,7 @@ import com.lyj.fakepivix.app.network.ApiException
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
 import com.lyj.fakepivix.app.reactivex.schedulerTransform
 import io.reactivex.Observable
+import retrofit2.http.Field
 
 /**
  * @author greensun
@@ -141,7 +142,7 @@ class IllustRepository private constructor() {
     /**
      * 收藏/取消收藏
      */
-    fun star(illustId: String, star: Boolean): Observable<Any> {
+    fun star(illustId: String, star: Boolean, @Restrict restrict: String = Restrict.PUBLIC): Observable<Any> {
         return if (star)
             RetrofitManager.instance.apiService
                 .starIllust(illustId)

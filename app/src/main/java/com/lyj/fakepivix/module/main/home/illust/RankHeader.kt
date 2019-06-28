@@ -17,6 +17,7 @@ import com.lyj.fakepivix.app.constant.IllustCategory.NOVEL
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.HeaderRankBinding
+import com.lyj.fakepivix.module.main.common.adapter.IllustAdapter
 import com.lyj.fakepivix.widget.CommonItemDecoration
 
 /**
@@ -24,7 +25,7 @@ import com.lyj.fakepivix.widget.CommonItemDecoration
  *
  * @date 2019/4/15
  *
- * @desc 插画排行榜list
+ * @desc 排行榜list
  */
 class RankHeader(val context: Context?, viewModel: RankViewModel, @IllustCategory val category: String = ILLUST) {
 
@@ -32,15 +33,26 @@ class RankHeader(val context: Context?, viewModel: RankViewModel, @IllustCategor
 
     val mBinding: HeaderRankBinding? = DataBindingUtil.bind(rootView)
 
-    val adapter: BaseBindingAdapter<Illust, ViewDataBinding>
+    val adapter: IllustAdapter
 
     init {
-        val layoutId = when(category) {
-            ILLUST -> R.layout.item_home_rank_illust
-            NOVEL -> R.layout.item_home_rank_novel
-            else -> R.layout.item_home_rank_illust
+        adapter = IllustAdapter(viewModel.data)
+        when(category) {
+            ILLUST -> {
+                adapter.addItemType(Illust.TYPE_ILLUST, R.layout.item_home_rank_illust, BR.data)
+                adapter.addItemType(Illust.TYPE_COMIC, R.layout.item_home_rank_illust, BR.data)
+            }
+            NOVEL -> {
+                adapter.addItemType(Illust.TYPE_NOVEL, R.layout.item_home_rank_novel, BR.data)
+                adapter.addItemType(Illust.TYPE_ILLUST, R.layout.item_home_rank_novel, BR.data)
+                adapter.setOnItemClickListener { adapter, view, position ->
+
+                }
+            }
+            else -> {
+                adapter.addItemType(Illust.TYPE_ILLUST, R.layout.item_home_rank_illust, BR.data)
+            }
         }
-        adapter = BaseBindingAdapter(layoutId, viewModel.data, BR.data)
         if (mBinding != null) {
             with(mBinding) {
                 val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

@@ -38,7 +38,7 @@ class CommentFooter(val context: Context, val viewModel: CommentFooterViewModel,
 
     private val errorView: View by lazy { LayoutInflater.from(context).inflate(R.layout.layout_error_small, null) }
 
-    var mAdapter = BaseBindingAdapter<Comment, ItemIllustBinding>(R.layout.item_comment, viewModel.data, BR.data)
+    var mAdapter = BaseBindingAdapter<Comment, ItemCommentBinding>(R.layout.item_comment, viewModel.data, BR.data)
 
     init {
         if (mBinding == null) {

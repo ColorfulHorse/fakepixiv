@@ -16,6 +16,9 @@ class App : Application() {
     companion object {
         lateinit var context: Context
     }
+
+    val appDelegate = AppDelegate()
+
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
@@ -23,5 +26,6 @@ class App : Application() {
                 .stackViewMode(Fragmentation.BUBBLE)
                 .debug(BuildConfig.DEBUG)
                 .install()
+        appDelegate.onCreate(this)
     }
 }

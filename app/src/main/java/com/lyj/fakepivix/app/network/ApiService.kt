@@ -111,18 +111,18 @@ interface ApiService {
      * 获取相关用户
      */
     @GET("/v1/user/related")
-    fun getUserRelatedIllust(@Query("seed_user_id")userId: String): Observable<UserPreviewListResp>
+    fun getRelatedUsers(@Query("seed_user_id")userId: String): Observable<UserPreviewListResp>
 
     /**
      * 关注
      */
     @POST("/v1/user/follow/add")
     @FormUrlEncoded
-    fun followUser(@Query("user_id")userId: String, @Restrict restrict: String = Restrict.PUBLIC): Observable<Any>
+    fun followUser(@Field("user_id")userId: String, @Restrict @Field("restrict") restrict: String = Restrict.PUBLIC): Observable<Any>
 
     @POST("/v1/user/follow/delete")
     @FormUrlEncoded
-    fun unFollowUser(@Query("user_id")userId: String): Observable<Any>
+    fun unFollowUser(@Field("user_id")userId: String): Observable<Any>
 
     // https://app-api.pixiv.net/v1/user/follow/delete  user_id=6996493
     // https://app-api.pixiv.net/v1/user/follow/add  user_id=6996493&restrict=public

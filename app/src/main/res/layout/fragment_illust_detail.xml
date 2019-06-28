@@ -96,19 +96,22 @@
             <!--app:vm="@{vm}"-->
             <!--/>-->
 
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            android:src="@{vm.illust._bookmarked?@drawable/ic_fab_liked:@drawable/ic_fab_like}"
-            app:layout_anchor="@id/caption"
-            app:layout_anchorGravity="center|end"
-            app:backgroundTint="@color/fab_background_tint"
-            />
+            android:layout_gravity="bottom"
+            >
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:onClick="@{() -> vm.star()}"
+                android:src="@{vm.illust._bookmarked?@drawable/ic_fab_liked:@drawable/ic_fab_like}"
+                app:backgroundTint="@color/fab_background_tint"
+                />
+        </RelativeLayout>
     </android.support.design.widget.CoordinatorLayout>
 </layout>

@@ -7,7 +7,6 @@ import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.app.constant.IllustCategory.*
 import com.squareup.moshi.JsonClass
-import com.squareup.moshi.JsonQualifier
 
 /**
  * @author greensun
@@ -49,7 +48,7 @@ class Illust (
         val total_bookmarks: Int = 0,
         val total_view: Int = 0,
         var type: String = "",
-        val user: User? = null,
+        val user: User = User(),
         val visible: Boolean = false,
         val width: Int = 0,
         val x_restrict: Int = 0
@@ -67,14 +66,17 @@ class Illust (
         const val TYPE_COMIC = 2
         const val TYPE_NOVEL = 3
         // 详情大图
-        const val TYPE_LARGE = 4
+        const val TYPE_META = 4
+
+        const val META = "meta"
     }
 
     override fun getItemType(): Int = when(type) {
         ILLUST -> TYPE_ILLUST
         COMIC -> TYPE_COMIC
         NOVEL -> TYPE_NOVEL
-        else -> TYPE_LARGE
+        META -> TYPE_META
+        else -> TYPE_ILLUST
     }
 
     fun getTagsText(): String {
