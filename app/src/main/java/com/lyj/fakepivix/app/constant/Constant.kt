@@ -22,6 +22,18 @@ interface Constant {
         const val HEADER_TOKEN = "Authorization"
     }
 
+    object Request {
+        const val KEY_DATE_DESC = "date_desc"
+        const val KEY_DATE_ASC = "date_asc"
+
+        // 模糊搜索
+        const val KEY_SEARCH_PARTIAL = "partial_match_for_tags"
+        // 精确搜索
+        const val KEY_SEARCH_EXCAT = "exact_match_for_tags"
+        // 按标题搜索
+        const val KEY_SEARCH_TITLE_CAPTION = "title_and_caption"
+    }
+
     object SP {
         const val KEY_LOGIN_CACHE = "KEY_LOGIN_CACHE"
 

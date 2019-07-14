@@ -17,6 +17,7 @@ import com.squareup.moshi.JsonClass
 data class User(
         val account: String = "",
         val id: String = "",
+        val comment: String = "",
         val is_mail_authorized: Boolean = false,
         val is_premium: Boolean = false,
         val mail_address: String = "",
@@ -64,3 +65,67 @@ data class UserPreview(
         illusts.addAll(novels)
     }
 }
+
+/**
+ * 用户详情
+ */
+data class UserInfo(
+    val profile: Profile = Profile(),
+    val profile_publicity: ProfilePublicity = ProfilePublicity(),
+    val user: User = User(),
+    val workspace: Workspace = Workspace()
+)
+
+data class ProfilePublicity(
+    val birth_day: String = "",
+    val birth_year: String = "",
+    val gender: String = "",
+    val job: String = "",
+    val pawoo: Boolean = false,
+    val region: String = ""
+)
+
+data class Profile(
+    val address_id: Int = 0,
+    val background_image_url: String = "",
+    val birth: String = "",
+    val birth_day: String = "",
+    val birth_year: Int = 0,
+    val country_code: String = "",
+    val gender: String = "",
+    val is_premium: Boolean = false,
+    val is_using_custom_profile_image: Boolean = false,
+    val job: String = "",
+    val job_id: Int = 0,
+    val pawoo_url: String = "",
+    val region: String = "",
+    val total_follow_users: Int = 0,
+    val total_illust_bookmarks_public: Int = 0,
+    val total_illust_series: Int = 0,
+    val total_illusts: Int = 0,
+    val total_manga: Int = 0,
+    val total_mypixiv_users: Int = 0,
+    val total_novel_series: Int = 0,
+    val total_novels: Int = 0,
+    val twitter_account: String = "",
+    val twitter_url: String = "",
+    val webpage: String = ""
+)
+
+
+data class Workspace(
+    val chair: String = "",
+    val comment: String = "",
+    val desk: String = "",
+    val desktop: String = "",
+    val monitor: String = "",
+    val mouse: String = "",
+    val music: String = "",
+    val pc: String = "",
+    val printer: String = "",
+    val scanner: String = "",
+    val tablet: String = "",
+    val tool: String = "",
+    val workspace_image_url: String = ""
+)
+

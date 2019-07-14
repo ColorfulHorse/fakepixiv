@@ -19,11 +19,17 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class IllustListResp(
         val contest_exists: Boolean = false,
-        val illusts: List<Illust> = listOf(),
+        var illusts: List<Illust> = listOf(),
         val next_url: String = "",
         val privacy_policy: PrivacyPolicy = PrivacyPolicy(),
         val ranking_illusts: List<Illust> = listOf()
-)
+) {
+    var novels: List<Illust> = listOf()
+    set(value) {
+        field = value
+        illusts = field
+    }
+}
 
 
 //@JsonClass(generateAdapter = true)

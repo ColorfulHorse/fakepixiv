@@ -28,3 +28,6 @@ data class TrendTag(
     }
     override fun getItemType(): Int = type
 }
+
+@JsonClass(generateAdapter = true)
+data class TagListResp(val tags: List<Tag>)

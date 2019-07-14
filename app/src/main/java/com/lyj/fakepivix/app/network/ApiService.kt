@@ -7,6 +7,7 @@ import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.Restrict
 import com.lyj.fakepivix.app.data.model.response.*
 import com.lyj.fakepivix.app.network.retrofit.interceptors.SwitchBaseUrlInterceptor
+import io.reactivex.CompletableOnSubscribe
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -101,11 +102,21 @@ interface ApiService {
     fun getUserRecommend(): Observable<UserPreviewListResp>
 
     /**
-     * 获取用户作品列表
-     * [userId] 用户id
+     * 获取用户详情
      */
-    @GET("/v1/user/illusts")
-    fun getUserIllustData(@Query("user_id")userId: String, @IllustCategory @Query("type")category: String = ILLUST): Observable<IllustListResp>
+    @GET("/v1/user/detail")
+    fun getUserDetail(@Query("user_id")userId: String): Observable<UserInfo>
+
+    /**
+     * 获取用户收藏
+     * [userId] 用户id
+     * [category] 插画漫画/小说
+     */
+    @GET("/v1/user/bookmarks/{category}")
+    fun getUserBookmarks(@IllustCategory @Path("category")category: String,
+                         @Query("user_id")userId: String,
+                         @Restrict @Query("restrict")restrict: String = Restrict.PUBLIC): Observable<IllustListResp>
+
 
     /**
      * 获取相关用户
@@ -124,9 +135,9 @@ interface ApiService {
     @FormUrlEncoded
     fun unFollowUser(@Field("user_id")userId: String): Observable<Any>
 
-    // https://app-api.pixiv.net/v1/user/follow/delete  user_id=6996493
-    // https://app-api.pixiv.net/v1/user/follow/add  user_id=6996493&restrict=public
-    // https://app-api.pixiv.net/v1/user/related?filter=for_android&seed_user_id=6996493
+
+
+
     /**
      * 最新-关注者
      * [category] 插画/漫画
@@ -211,7 +222,56 @@ interface ApiService {
     @FormUrlEncoded
     fun unStarIllust(@Field("illust_id")illustId: String): Observable<Any>
 
-    // https://app-api.pixiv.net/v1/user/follow/delete  user_id=6996493
-    // https://app-api.pixiv.net/v1/user/follow/add  user_id=6996493&restrict=public
-    // https://app-api.pixiv.net/v1/user/related?filter=for_android&seed_user_id=6996493
+    /**
+     * 自动完成搜索关键字
+     */
+    @GET("/v2/search/autocomplete")
+    fun searchAutoCompelete(@Query("word")keyword: String): Observable<TagListResp>
+
+    /**
+     * 按热度搜索
+     */
+    @GET("/v1/search/popular-preview/illust")
+    fun searchPopularIllust(@Query("include_translated_tag_results")translate: Boolean = true,
+                            @Query("word")keyword: String,
+                            @Query("search_target")mode: String = Constant.Request.KEY_SEARCH_PARTIAL,
+                            @Query("start_date")start_date: String = "",
+                            @Query("end_date")end_date: String = ""): Observable<IllustListResp>
+    /**
+     * 按热度搜索
+     */
+    @GET("/v1/search/popular-preview/novel")
+    fun searchPopularNovel(@Query("include_translated_tag_results")translate: Boolean = true,
+                           @Query("word")keyword: String,
+                           @Query("search_target")mode: String = Constant.Request.KEY_SEARCH_PARTIAL,
+                           @Query("start_date")start_date: String = "",
+                           @Query("end_date")end_date: String = ""): Observable<IllustListResp>
+
+    /**
+     * 按顺序搜索
+     */
+    @GET("/v1/search/illust")
+    fun searchIllust(@Query("include_translated_tag_results")translate: Boolean = true,
+                     @Query("word")keyword: String,
+                     @Query("sort")sort: String,
+                     @Query("search_target")mode: String = Constant.Request.KEY_SEARCH_PARTIAL,
+                     @Query("start_date")start_date: String = "",
+                     @Query("end_date")end_date: String = ""): Observable<IllustListResp>
+
+    /**
+     * 按顺序搜索
+     */
+    @GET("/v1/search/novel")
+    fun searchNovel(@Query("include_translated_tag_results")translate: Boolean = true,
+                    @Query("word")keyword: String,
+                    @Query("sort")sort: String,
+                    @Query("search_target")mode: String = Constant.Request.KEY_SEARCH_PARTIAL,
+                    @Query("start_date")start_date: String = "",
+                    @Query("end_date")end_date: String = ""): Observable<NovelListResp>
+
+    /**
+     * 按顺序搜索
+     */
+    @GET("/v1/search/user")
+    fun searchUser(@Query("word")keyword: String): Observable<UserPreviewListResp>
 }
