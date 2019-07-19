@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.support.annotation.ColorRes
+import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.ContextCompat.startActivity
 import android.util.Half.toFloat
@@ -47,6 +48,10 @@ fun Activity.statusBarColor(color: Int) {
 
 fun <T> Context.startActivity(cls: Class<T>) {
     startActivity(Intent(this, cls))
+}
+
+fun Fragment.finish() {
+    this.activity?.finish()
 }
 
 fun Context.hideKeyboard() {

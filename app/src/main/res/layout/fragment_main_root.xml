@@ -35,27 +35,58 @@
                     app:titleTextAppearance="@style/toolbar_textAppearance_white"
                     app:title="@string/title_main"
                     app:titleTextColor="@color/white"
-                    app:layout_scrollFlags="scroll|enterAlways|snap"
+                    app:layout_scrollFlags="scroll|enterAlways"
                     >
-                    <com.flyco.tablayout.CommonTabLayout
-                        android:id="@+id/tabLayout"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:orientation="horizontal"
                         android:layout_gravity="end"
-                        android:background="@color/colorPrimary"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintWidth_percent="0.4"
-                        app:tl_tab_padding="12dp"
-                        app:tl_divider_width="0dp"
-                        app:tl_iconGravity="TOP"
-                        app:tl_indicator_height="0dp"
-                        app:tl_iconMargin="4dp"
-                        app:tl_textsize="10sp"
-                        app:tl_textUnselectColor="#C4FFFFFF"
-                        app:tl_textSelectColor="@color/white"
-                        />
+                        >
+                        <RelativeLayout
+                            android:id="@+id/search"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:visibility="gone"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:paddingStart="5dp"
+                                android:paddingEnd="5dp"
+                                android:textSize="14sp"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/white"
+                                android:text="@string/hint_search"
+                                />
+                            <View
+                                android:layout_width="match_parent"
+                                android:background="@color/white"
+                                android:layout_height="2dp"
+                                android:layout_alignParentBottom="true"
+                                />
+                        </RelativeLayout>
+
+                        <com.flyco.tablayout.CommonTabLayout
+                            android:id="@+id/tabLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="@color/colorPrimary"
+                            app:tl_tab_padding="12dp"
+                            app:tl_divider_width="0dp"
+                            app:tl_iconGravity="TOP"
+                            app:tl_indicator_height="0dp"
+                            app:tl_iconMargin="4dp"
+                            app:tl_textsize="10sp"
+                            app:tl_textUnselectColor="#C4FFFFFF"
+                            app:tl_textSelectColor="@color/white"
+                            />
+                    </LinearLayout>
                 </android.support.v7.widget.Toolbar>
             </android.support.design.widget.AppBarLayout>
 

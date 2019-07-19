@@ -10,7 +10,7 @@ import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
 import com.lyj.fakepivix.app.data.model.response.Live
-import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
+import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.HeaderLiveBinding
@@ -53,7 +53,7 @@ class LiveHeader(val context: Context?, val viewModel: LiveViewModel) {
                 recyclerView.adapter = adapter
 
                 with(viewModel) {
-                    loadState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
+                    loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
                         loadFailed = when (loadState.get()) {
                             is LoadState.Failed -> {
                                 true

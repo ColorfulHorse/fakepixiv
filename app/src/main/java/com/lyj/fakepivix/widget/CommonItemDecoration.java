@@ -8,6 +8,7 @@ import android.support.annotation.ColorInt;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 /**
@@ -31,6 +32,8 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
     // 边缘宽度
     private int mainEdge;
     private int crossEdge;
+    private int realDividerWidth;
+    private int spanCount = -1;
 
     protected CommonItemDecoration() {
         init();
@@ -89,10 +92,53 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
         this.paint.setColor(color);
     }
 
+    public int getSpanCount() {
+        return spanCount;
+    }
+
+    public void setSpanCount(int spanCount) {
+        this.spanCount = spanCount;
+    }
+
+    public int getRealDividerWidth() {
+        return realDividerWidth;
+    }
+
     private void init() {
         paint = new Paint(Paint.ANTI_ALIAS_FLAG| Paint.DITHER_FLAG);
         paint.setColor(Color.parseColor("#f1f1f1"));
         paint.setStyle(Paint.Style.FILL);
+    }
+
+    private void calculateDivider() {
+        if (spanCount == -1)
+            return;
+        mainWidth = mainWidth > 0 ? mainWidth : crossWidth;
+        crossWidth = crossWidth > 0 ? crossWidth : mainWidth;
+
+        if (crossEdge != 0) {
+            // 去除小数
+            int minEdge = Math.round(crossEdge * 1f / spanCount);
+            if (minEdge < 1) {
+                minEdge = 1;
+            }
+            int realEdge = minEdge * spanCount;
+            if (mainEdge == crossEdge) {
+                mainEdge = realEdge;
+            }
+            crossEdge = realEdge;
+        }
+        // 去除小数
+        int minWidth = Math.round(crossWidth*1f/spanCount);
+        if (minWidth < 1) {
+            minWidth = 1;
+        }
+        realDividerWidth = minWidth*spanCount;
+        // 每个item平分的边缘和分割线的宽度和
+        if (mainWidth == crossWidth) {
+            mainWidth = realDividerWidth;
+        }
+        crossWidth = realDividerWidth;
     }
 
 
@@ -126,7 +172,13 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
             return this;
         }
 
+        public Builder spanCount(int spanCount) {
+            itemDecoration.setSpanCount(spanCount);
+            return this;
+        }
+
         public CommonItemDecoration build() {
+            itemDecoration.calculateDivider();
             return itemDecoration;
         }
     }
@@ -149,7 +201,10 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
             if (manager instanceof GridLayoutManager) {
                 GridLayoutManager glManager = (GridLayoutManager) manager;
                 // 列数
-                int spanCount = glManager.getSpanCount();
+                if (spanCount == -1) {
+                    spanCount = glManager.getSpanCount();
+                    calculateDivider();
+                }
                 // 该item占了几列
                 int spanSize = glManager.getSpanSizeLookup().getSpanSize(position);
                 // 该item在第几列/行
@@ -158,29 +213,7 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
                 int groupIndex = glManager.getSpanSizeLookup().getSpanGroupIndex(position, spanCount);
                 int lastGroupIndex = glManager.getSpanSizeLookup().getSpanGroupIndex(size - 1, spanCount);
 
-                if (crossEdge != 0) {
-                    // 去除小数
-                    int minEdge = Math.round(crossEdge * 1f / spanCount);
-                    if (minEdge < 1) {
-                        minEdge = 1;
-                    }
-                    int realEdge = minEdge * spanCount;
-                    if (mainEdge == crossEdge) {
-                        mainEdge = realEdge;
-                    }
-                    crossEdge = realEdge;
-                }
-                // 去除小数
-                int minWidth = Math.round(crossWidth*1f/spanCount);
-                if (minWidth < 1) {
-                    minWidth = 1;
-                }
-                int realDividerWidth = minWidth*spanCount;
-                // 每个item平分的边缘和分割线的宽度和
-                if (mainWidth == crossWidth) {
-                    mainWidth = realDividerWidth;
-                }
-                crossWidth = realDividerWidth;
+
                 int itemUseWidth = (crossEdge*2+crossWidth*(spanCount-1))/spanCount;
                 int lt, rb;
                 lt = crossWidth*spanIndex - itemUseWidth*spanIndex + crossEdge;
@@ -194,7 +227,6 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
                     outRect.top = lt;
                     outRect.bottom = rb;
                 }
-
 
                 if (groupIndex == 0) {
                     // 是第一一行/列
@@ -219,7 +251,7 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
                         outRect.right = mainEdge;
                     }
                 }
-                //Log.e(TAG, "position:"+position+"===left:"+outRect.left+"===right:"+outRect.right+"===top:"+outRect.top+"===bottom:"+outRect.bottom);
+                Log.e(TAG, "position:"+position+"===left:"+outRect.left+"===right:"+outRect.right+"===top:"+outRect.top+"===bottom:"+outRect.bottom);
                 return;
             }
             // linear
@@ -259,7 +291,10 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
                 boolean isVertical = llManager.getOrientation() == LinearLayoutManager.VERTICAL;
                 if (manager instanceof GridLayoutManager) {
                     GridLayoutManager glManager = (GridLayoutManager) manager;
-                    int spanCount = glManager.getSpanCount();
+                    if (spanCount == -1) {
+                        spanCount = glManager.getSpanCount();
+                        calculateDivider();
+                    }
                     int lastGroupIndex = glManager.getSpanSizeLookup().getSpanGroupIndex(size - 1, spanCount);
 
                     for (int i = 0; i < parent.getChildCount() ; i++) {
@@ -270,9 +305,9 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
                         // 该item在第几列/行
                         int spanIndex = glManager.getSpanSizeLookup().getSpanIndex(position, spanCount);
                         int groupIndex = glManager.getSpanSizeLookup().getSpanGroupIndex(position, spanCount);
-                        int realIndex = spanIndex;
+                        int itemLastSpan = spanIndex;
                         if (spanSize > 0) {
-                            realIndex = spanIndex + (spanSize - 1);
+                            itemLastSpan = spanIndex + (spanSize - 1);
                         }
                         int left, top , bottom, right;
                         left = view.getLeft();
@@ -290,7 +325,7 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
                             }
 
                             int r = right + crossWidth;
-                            if (realIndex == spanCount - 1) {
+                            if (itemLastSpan == spanCount - 1) {
                                 r = right + crossEdge;
                             }
 
@@ -308,7 +343,7 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
                             // 每一个item画下边分割线
                             c.drawRect(new Rect(left, bottom, right, b), paint);
 
-                            if (realIndex < spanCount - 1) {
+                            if (itemLastSpan < spanCount - 1) {
                                 boolean full = true;
                                 if (position < size - 1) {
                                     // 不是最后一个
@@ -340,7 +375,7 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
                             }
 
                             int b = bottom + crossWidth;
-                            if (realIndex == spanCount - 1) {
+                            if (itemLastSpan == spanCount - 1) {
                                 b = bottom + crossEdge;
                             }
 
@@ -360,7 +395,7 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
                             // 每一个item画右边分割线
                             c.drawRect(new Rect(right, top, r, bottom), paint);
 
-                            if (realIndex < spanCount - 1) {
+                            if (itemLastSpan < spanCount - 1) {
                                 boolean full = true;
                                 if (position < size - 1) {
                                     // 不是最后一个

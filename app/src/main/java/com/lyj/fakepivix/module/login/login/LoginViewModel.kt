@@ -5,9 +5,8 @@ import android.databinding.ObservableField
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
-import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
+import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
-import com.lyj.fakepivix.app.reactivex.schedulerTransform
 import io.reactivex.rxkotlin.subscribeBy
 
 /**
@@ -46,7 +45,7 @@ class LoginViewModel : BaseViewModel<ILoginModel>() {
     override var mModel: ILoginModel = LoginModel()
 
     init {
-        addOnPropertyChangedCallback(OnPropertyChangedCallbackImp {
+        addOnPropertyChangedCallback(onPropertyChangedCallback {
             _, id ->
             when(id) {
                 BR.userName, BR.password -> {

@@ -8,13 +8,12 @@ import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.base.FragmentationFragment
-import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
+import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.attachLoadMore
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.CommonRefreshList
 import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
-import com.lyj.fakepivix.module.main.common.adapter.IllustAdapter
 import com.lyj.fakepivix.widget.CommonItemDecoration
 import kotlinx.android.synthetic.main.layout_error.view.*
 
@@ -101,7 +100,7 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
     private fun listenState() {
         with(mBinding) {
             with(mViewModel) {
-                loadState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
+                loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
                     when (loadState.get()) {
                         is LoadState.Loading -> {
                             refreshLayout.isRefreshing = false

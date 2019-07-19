@@ -55,7 +55,7 @@
     <string name="all">全部</string>
     <string name="pub">公开</string>
     <string name="pri">私密</string>
-    <string name="pageNum">%d/%d</string>
+    <string name="pageNum">%1$d/%1$d</string>
     <string name="share">分享</string>
     <string name="filter_setting">屏蔽设定</string>
     <string name="follow">关注</string>
@@ -74,4 +74,6 @@
     <string name="desc_label">简介</string>
     <string name="user_followed_notification">你可能也喜欢这些作品</string>
     <string name="title_related_user">已关注。去关注更多人吧。</string>
+    <string name="recommended_user">推荐用户</string>
+    <string name="hint_search">输入关键词</string>
 </resources>

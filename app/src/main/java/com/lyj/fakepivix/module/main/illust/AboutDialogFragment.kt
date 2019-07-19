@@ -49,7 +49,7 @@ class AboutDialogFragment : BottomSheetDialogFragment() {
                         val userFooter =  UserFooter(it, vm.userFooterViewModel, userContainer)
                         val commentFooter = CommentFooter(it, vm.commentFooterViewModel, commentContainer)
                     }
-//                    vm.illust.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
+//                    vm.illust.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
 //                        caption.setVariable(BR.data, vm.illust.get())
 //                    })
                 }

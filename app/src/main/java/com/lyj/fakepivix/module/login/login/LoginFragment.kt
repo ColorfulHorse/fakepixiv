@@ -1,20 +1,18 @@
 package com.lyj.fakepivix.module.login.login
 
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.FragmentationFragment
-import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
+import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.ApiException
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.ToastUtil
+import com.lyj.fakepivix.app.utils.finish
 import com.lyj.fakepivix.app.utils.startActivity
 import com.lyj.fakepivix.databinding.FragmentLoginBinding
 import com.lyj.fakepivix.module.login.register.RegisterFragment
 import com.lyj.fakepivix.module.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.runBlocking
 
 /**
  * @author greensun
@@ -42,13 +40,14 @@ class LoginFragment : FragmentationFragment<FragmentLoginBinding, LoginViewModel
         }
 
         with(mViewModel) {
-            loginState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp {
+            loginState.addOnPropertyChangedCallback(onPropertyChangedCallback {
                 _, _ ->
                 when (loginState.get()) {
                     is LoadState.Loading -> showLoadingDialog()
                     is LoadState.Succeed -> {
                         hideLoadingDialog()
                         context?.startActivity(MainActivity::class.java)
+                        finish()
                     }
                     is LoadState.Failed -> {
                         hideLoadingDialog()

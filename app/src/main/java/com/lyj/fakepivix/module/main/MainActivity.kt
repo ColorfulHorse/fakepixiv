@@ -6,6 +6,7 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ImageSpan
 import android.view.Gravity
+import android.view.KeyEvent
 import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.BaseViewModel
@@ -98,4 +99,12 @@ class MainActivity : FragmentationActivity<ActivityMainBinding, MainViewModel>()
 
     override fun bindLayout(): Int = R.layout.activity_main
 
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_DOWN) {
+            moveTaskToBack(true)
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
+    }
 }

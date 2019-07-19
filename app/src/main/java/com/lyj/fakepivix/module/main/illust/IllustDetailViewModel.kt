@@ -11,7 +11,7 @@ import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.ImageUrls
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
-import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
+import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
 import io.reactivex.rxkotlin.subscribeBy
 
@@ -56,7 +56,7 @@ class IllustDetailViewModel : BaseViewModel<IModel?>() {
     val relatedUserViewModel = RelatedUserDialogViewModel(this)
 
     init {
-        starState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
+        starState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
             val state = starState.get()
             if (state is LoadState.Succeed) {
                 val star = illust.is_bookmarked
@@ -66,7 +66,7 @@ class IllustDetailViewModel : BaseViewModel<IModel?>() {
                 }
             }
         })
-        followState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
+        followState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
             val state = followState.get()
             if (state is LoadState.Succeed) {
                 illust.user?.let {

@@ -13,7 +13,7 @@ import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.IllustCategory.ILLUST
 
 import com.lyj.fakepivix.app.data.model.response.SpotlightArticle
-import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
+import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.HeaderPixivisionBinding
@@ -59,7 +59,7 @@ class PixivisionHeader(val context: Context?, val viewModel: PixivisionViewModel
 
 
                 with(viewModel) {
-                    viewModel.loadState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
+                    viewModel.loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
                         loadFailed = when (loadState.get()) {
                             is LoadState.Failed -> {
                                 true

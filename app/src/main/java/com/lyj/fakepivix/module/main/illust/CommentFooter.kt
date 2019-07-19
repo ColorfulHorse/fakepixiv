@@ -2,25 +2,16 @@ package com.lyj.fakepivix.module.main.illust
 
 import android.content.Context
 import android.databinding.DataBindingUtil
-import android.databinding.ObservableArrayList
-import android.databinding.ObservableList
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
 import com.lyj.fakepivix.app.data.model.response.Comment
-import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.data.model.response.Tag
-import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
+import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.databinding.*
-import com.lyj.fakepivix.module.main.common.adapter.IllustAdapter
-import com.lyj.fakepivix.widget.FlowLayoutManager
 import kotlinx.android.synthetic.main.layout_error_small.view.*
 
 /**
@@ -55,7 +46,7 @@ class CommentFooter(val context: Context, val viewModel: CommentFooterViewModel,
         errorView.reload.setOnClickListener {
             viewModel.reLoad()
         }
-        viewModel.loadState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
+        viewModel.loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
             when(viewModel.loadState.get()) {
                 is LoadState.Loading -> {
                     mAdapter.emptyView = loadingView

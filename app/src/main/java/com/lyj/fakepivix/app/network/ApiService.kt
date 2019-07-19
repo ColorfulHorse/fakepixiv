@@ -64,16 +64,11 @@ interface ApiService {
      * [category] 插画/漫画
      */
     @GET("/v1/{category}/recommended")
-    fun getRecommendIllust(@IllustCategory @Path("category")category: String = ILLUST, @Query("include_ranking_illusts") ranking: Boolean = true,
+    fun getRecommendIllust(@IllustCategory @Path("category")category: String = ILLUST,
+                           @Query("include_ranking_illusts") ranking: Boolean = true,
+                           @Query("include_ranking_novels") ranking2: Boolean = true,
                            @Query("include_privacy_policy") privacy: Boolean = true): Observable<IllustListResp>
 
-    /**
-     * 主页推荐列表
-     * [category] 小说  神坑接口
-     */
-    @GET("/v1/{category}/recommended")
-    fun getHomeNovelRecommendData(@IllustCategory @Path("category")category: String = NOVEL, @Query("include_ranking_novels") ranking: Boolean = true,
-                                  @Query("include_privacy_policy") privacy: Boolean = true): Observable<NovelListResp>
 
     /**
      * 主页特辑
@@ -87,12 +82,6 @@ interface ApiService {
     @GET
     fun getMoreIllust(@Url nextUrl: String): Observable<IllustListResp>
 
-    /**
-     * 加载更多小说
-     */
-    @GET
-    fun getMoreNovel(@Url nextUrl: String): Observable<NovelListResp>
-
 
 
     /**·······
@@ -100,6 +89,14 @@ interface ApiService {
      */
     @GET("/v1/user/recommended")
     fun getUserRecommend(): Observable<UserPreviewListResp>
+
+    /**
+     * 获取用户作品列表
+     * [userId] 用户id
+     */
+    @GET("/v1/user/illusts")
+    fun getUserIllustData(@Query("user_id")userId: String, @IllustCategory @Query("type")category: String = ILLUST): Observable<IllustListResp>
+
 
     /**
      * 获取用户详情
@@ -144,14 +141,16 @@ interface ApiService {
      * [filter] 筛选条件 全部/公开/私密
      */
     @GET("/v2/{category}/follow")
-    fun getFollowIllustData(@IllustCategory @Path("category")category: String = ILLUST, @Restrict @Query("restrict") restrict: String = Restrict.ALL): Observable<IllustListResp>
+    fun getFollowIllustData(@IllustCategory @Path("category")category: String = ILLUST,
+                            @Restrict @Query("restrict") restrict: String = Restrict.ALL): Observable<IllustListResp>
 
     /**
      * 最新-关注者
      * [category] 小说
      */
     @GET("/v1/{category}/follow")
-    fun getFollowNovelData(@IllustCategory @Path("category")category: String = NOVEL, @Restrict @Query("restrict") restrict: String = Restrict.ALL): Observable<NovelListResp>
+    fun getFollowNovelData(@IllustCategory @Path("category")category: String = NOVEL,
+                           @Restrict @Query("restrict") restrict: String = Restrict.ALL): Observable<IllustListResp>
 
 
 
@@ -167,7 +166,7 @@ interface ApiService {
      * [category] 小说
      */
     @GET("/v1/novel/new")
-    fun getNewNovelData(): Observable<NovelListResp>
+    fun getNewNovelData(): Observable<IllustListResp>
 
     /**
      * 最新-好P友
@@ -181,7 +180,7 @@ interface ApiService {
      * 小说
      */
     @GET("/v1/illust/mypixiv")
-    fun getFriendNovelData(): Observable<NovelListResp>
+    fun getFriendNovelData(): Observable<IllustListResp>
 
 
     /**
@@ -222,26 +221,20 @@ interface ApiService {
     @FormUrlEncoded
     fun unStarIllust(@Field("illust_id")illustId: String): Observable<Any>
 
+
     /**
      * 自动完成搜索关键字
      */
     @GET("/v2/search/autocomplete")
     fun searchAutoCompelete(@Query("word")keyword: String): Observable<TagListResp>
 
+
     /**
      * 按热度搜索
      */
-    @GET("/v1/search/popular-preview/illust")
-    fun searchPopularIllust(@Query("include_translated_tag_results")translate: Boolean = true,
-                            @Query("word")keyword: String,
-                            @Query("search_target")mode: String = Constant.Request.KEY_SEARCH_PARTIAL,
-                            @Query("start_date")start_date: String = "",
-                            @Query("end_date")end_date: String = ""): Observable<IllustListResp>
-    /**
-     * 按热度搜索
-     */
-    @GET("/v1/search/popular-preview/novel")
-    fun searchPopularNovel(@Query("include_translated_tag_results")translate: Boolean = true,
+    @GET("/v1/search/popular-preview/{category}")
+    fun searchPopularIllust(@IllustCategory @Path("category")category: String,
+                           @Query("include_translated_tag_results")translate: Boolean = true,
                            @Query("word")keyword: String,
                            @Query("search_target")mode: String = Constant.Request.KEY_SEARCH_PARTIAL,
                            @Query("start_date")start_date: String = "",
@@ -250,8 +243,9 @@ interface ApiService {
     /**
      * 按顺序搜索
      */
-    @GET("/v1/search/illust")
-    fun searchIllust(@Query("include_translated_tag_results")translate: Boolean = true,
+    @GET("/v1/search/{category}")
+    fun searchIllust(@IllustCategory @Path("category")category: String,
+                     @Query("include_translated_tag_results")translate: Boolean = true,
                      @Query("word")keyword: String,
                      @Query("sort")sort: String,
                      @Query("search_target")mode: String = Constant.Request.KEY_SEARCH_PARTIAL,
@@ -259,18 +253,7 @@ interface ApiService {
                      @Query("end_date")end_date: String = ""): Observable<IllustListResp>
 
     /**
-     * 按顺序搜索
-     */
-    @GET("/v1/search/novel")
-    fun searchNovel(@Query("include_translated_tag_results")translate: Boolean = true,
-                    @Query("word")keyword: String,
-                    @Query("sort")sort: String,
-                    @Query("search_target")mode: String = Constant.Request.KEY_SEARCH_PARTIAL,
-                    @Query("start_date")start_date: String = "",
-                    @Query("end_date")end_date: String = ""): Observable<NovelListResp>
-
-    /**
-     * 按顺序搜索
+     * 搜索用户
      */
     @GET("/v1/search/user")
     fun searchUser(@Query("word")keyword: String): Observable<UserPreviewListResp>

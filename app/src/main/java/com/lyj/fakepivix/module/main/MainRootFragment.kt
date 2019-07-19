@@ -3,6 +3,7 @@ package com.lyj.fakepivix.module.main
 import android.os.Bundle
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
+import android.view.View
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.gyf.barlibrary.ImmersionBar
@@ -104,6 +105,9 @@ class MainRootFragment : FragmentationFragment<MainRoot, BaseViewModel<*>?>() {
             }
 
         })
+        mBinding.search.setOnClickListener {
+
+        }
     }
 
     override fun onNewBundle(args: Bundle) {
@@ -119,11 +123,13 @@ class MainRootFragment : FragmentationFragment<MainRoot, BaseViewModel<*>?>() {
         mBinding.tabLayout.getIconView(prePosition).alpha = 0.7f
         mBinding.tabLayout.getIconView(position).alpha = 1f
         showHideFragment(fragments[position], fragments[prePosition])
+        mBinding.search.visibility = View.GONE
         when (position) {
             0 -> mToolbar?.setTitle(R.string.tab_home)
             1 -> mToolbar?.setTitle(R.string.tab_news)
             2 -> {
-                mToolbar?.setTitle(R.string.tab_search)
+                mBinding.search.visibility = View.VISIBLE
+                mToolbar?.title = ""
             }
         }
         prePosition = position

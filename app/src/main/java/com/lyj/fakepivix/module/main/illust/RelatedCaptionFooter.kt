@@ -32,7 +32,7 @@ class RelatedCaptionFooter(val context: Context, val viewModel: RelatedCaptionVi
             }
         }
 
-//        viewModel.parent.loadState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
+//        viewModel.parent.loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
 //            when(viewModel.parent.loadState.get()) {
 //                is LoadState.Loading -> {
 //                    mAdapter.emptyView = loadingView

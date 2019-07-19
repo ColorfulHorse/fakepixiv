@@ -25,7 +25,7 @@
             android:minHeight="350dp"
             app:url="@{data.image_urls.large}"
             app:fade="@{true}"
-            app:placeHolder="@{@drawable/common_placeholder}"
+            app:placeHolder="@{@drawable/linear_placeholder}"
             />
     </android.support.constraint.ConstraintLayout>
 </layout>

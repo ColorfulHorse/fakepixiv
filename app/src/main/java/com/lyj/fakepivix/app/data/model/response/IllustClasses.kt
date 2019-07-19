@@ -22,13 +22,23 @@ data class IllustListResp(
         var illusts: List<Illust> = listOf(),
         val next_url: String = "",
         val privacy_policy: PrivacyPolicy = PrivacyPolicy(),
-        val ranking_illusts: List<Illust> = listOf()
+        var ranking_illusts: List<Illust> = listOf()
 ) {
     var novels: List<Illust> = listOf()
-    set(value) {
-        field = value
-        illusts = field
-    }
+        set(value) {
+            field = value
+            if (illusts.isEmpty()) {
+                illusts = field
+            }
+        }
+
+    var ranking_novels: List<Illust> = listOf()
+        set(value) {
+            field = value
+            if (ranking_illusts.isEmpty()) {
+                ranking_illusts = field
+            }
+        }
 }
 
 

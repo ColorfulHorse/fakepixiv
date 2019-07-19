@@ -2,20 +2,15 @@ package com.lyj.fakepivix.module.main.illust
 
 import android.content.Context
 import android.databinding.DataBindingUtil
-import android.databinding.ObservableArrayList
-import android.databinding.ObservableField
-import android.databinding.ObservableList
 import android.text.Html
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.Tag
-import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
 import com.lyj.fakepivix.databinding.ItemTagBinding
 import com.lyj.fakepivix.databinding.LayoutFooterDescBinding
 import com.lyj.fakepivix.widget.FlowLayoutManager
@@ -39,7 +34,7 @@ class DescFooter(val context: Context, val data: Illust, var mBinding: LayoutFoo
 
         mBinding?.let {
 //            val illust = data.get()
-//            data.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
+//            data.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
 //                val data = data.get()
 //                initData(data, it)
 //            })

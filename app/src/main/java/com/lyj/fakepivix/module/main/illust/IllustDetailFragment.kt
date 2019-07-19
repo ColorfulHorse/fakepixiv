@@ -11,7 +11,7 @@ import android.view.animation.TranslateAnimation
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
+import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.FragmentIllustDetailBinding
@@ -195,7 +195,7 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
      * 关注/收藏dialog
      */
     private fun initListener() {
-        mViewModel.relatedIllustViewModel.loadState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
+        mViewModel.relatedIllustViewModel.loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
             val state = mViewModel.relatedIllustViewModel.loadState.get()
             if (state is LoadState.Succeed) {
                 // 数据加载完成弹出dialog
@@ -205,7 +205,7 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
             }
         })
 
-        mViewModel.relatedUserViewModel.loadState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
+        mViewModel.relatedUserViewModel.loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
             val state = mViewModel.relatedUserViewModel.loadState.get()
             if (state is LoadState.Succeed) {
                 // 数据加载完成弹出dialog

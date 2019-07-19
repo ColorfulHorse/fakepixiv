@@ -1,6 +1,5 @@
 package com.lyj.fakepivix.app.data.source.remote
 
-import android.util.ArrayMap
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.IllustCategory.*
 import com.lyj.fakepivix.app.constant.Restrict
@@ -11,7 +10,6 @@ import com.lyj.fakepivix.app.network.ApiException
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
 import com.lyj.fakepivix.app.reactivex.schedulerTransform
 import io.reactivex.Observable
-import retrofit2.http.Field
 
 /**
  * @author greensun
@@ -33,12 +31,12 @@ class IllustRepository private constructor() {
      */
     fun loadRecommendIllust(@IllustCategory category: String): Observable<IllustListResp> {
         val service = RetrofitManager.instance.apiService
-        val ob = when(category) {
-            ILLUST, COMIC -> service.getRecommendIllust(category)
-            else -> service.getHomeNovelRecommendData()
-                    .map { IllustListResp(it.contest_exists, it.novels, it.next_url, it.privacy_policy, it.ranking_novels) }
-        }
-        return ob.doOnNext {
+//        val ob = when(category) {
+//            ILLUST, COMIC -> service.getRecommendIllust(category)
+//            else -> service.getHomeNovelRecommendData()
+//                    .map { IllustListResp(it.contest_exists, it.novels, it.next_url, it.privacy_policy, it.ranking_novels) }
+//        }
+        return service.getRecommendIllust(category).doOnNext {
 //                    with(it) {
 //                        nextUrl = next_url
 //                        illusts.forEach {
@@ -63,15 +61,9 @@ class IllustRepository private constructor() {
         var ob = when(category) {
             ILLUST, COMIC -> service.getFollowIllustData(restrict = filter)
             else -> service.getFollowNovelData(restrict = filter)
-                    .map { IllustListResp(it.contest_exists, it.novels, it.next_url, it.privacy_policy, it.ranking_novels) }
         }
-        ob = ob.map {
-            if (it.illusts.isEmpty()) {
-                throw ApiException(ApiException.CODE_EMPTY_DATA)
-            }
-            it
-        }
-        return ob.schedulerTransform()
+        return ob.checkEmpty()
+                .schedulerTransform()
     }
 
     /**
@@ -82,9 +74,9 @@ class IllustRepository private constructor() {
         val ob = when(category) {
             ILLUST, COMIC -> service.getNewIllustData(category = category)
             else -> service.getNewNovelData()
-                    .map { IllustListResp(it.contest_exists, it.novels, it.next_url, it.privacy_policy, it.ranking_novels) }
         }
-        return ob.schedulerTransform()
+        return ob.checkEmpty()
+                .schedulerTransform()
     }
 
     /**
@@ -95,15 +87,9 @@ class IllustRepository private constructor() {
         var ob = when(category) {
             ILLUSTANDCOMIC -> service.getFriendIllustData()
             else -> service.getFriendNovelData()
-                    .map { IllustListResp(it.contest_exists, it.novels, it.next_url, it.privacy_policy, it.ranking_novels) }
         }
-        ob = ob.map {
-            if (it.illusts.isEmpty()) {
-                throw ApiException(ApiException.CODE_EMPTY_DATA)
-            }
-            it
-        }
-        return ob.schedulerTransform()
+        return ob.checkEmpty()
+                .schedulerTransform()
     }
 
     /**
@@ -159,12 +145,7 @@ class IllustRepository private constructor() {
      */
     fun loadMore(nextUrl: String, category: String = ILLUST): Observable<IllustListResp> {
         val service = RetrofitManager.instance.apiService
-        val ob = when(category) {
-            ILLUST, COMIC, ILLUSTANDCOMIC -> service.getMoreIllust(nextUrl)
-            else -> service.getMoreNovel(nextUrl)
-                    .map { IllustListResp(it.contest_exists, it.novels, it.next_url, it.privacy_policy, it.ranking_novels) }
-        }
-        return ob.doOnNext {
+        return service.getMoreIllust(nextUrl).doOnNext {
 //                    with(it) {
 //                        illusts.forEach {
 //                            illust ->
@@ -173,6 +154,13 @@ class IllustRepository private constructor() {
 //                    }
                 }
                 .schedulerTransform()
+    }
+
+    fun Observable<IllustListResp>.checkEmpty(): Observable<IllustListResp> = this.map {
+        if (it.illusts.isEmpty()) {
+            throw ApiException(ApiException.CODE_EMPTY_DATA)
+        }
+        it
     }
 
 }

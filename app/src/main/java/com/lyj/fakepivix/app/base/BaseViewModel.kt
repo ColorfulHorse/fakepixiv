@@ -7,6 +7,10 @@ import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.coroutineScope
 import org.jetbrains.annotations.NotNull
 
 
@@ -17,7 +21,7 @@ import org.jetbrains.annotations.NotNull
  *
  * @desc
  */
-abstract class BaseViewModel<M : IModel?> : BaseObservable(), LifecycleObserver {
+abstract class BaseViewModel<M : IModel?> : BaseObservable(), LifecycleObserver, CoroutineScope by CoroutineScope(Dispatchers.Main) {
 
     private val mDisposable: CompositeDisposable by lazy { CompositeDisposable() }
 
@@ -34,6 +38,7 @@ abstract class BaseViewModel<M : IModel?> : BaseObservable(), LifecycleObserver 
     open fun onDestroy(@NotNull owner: LifecycleOwner) {
         mModel?.destroy()
         mDisposable.dispose()
+        cancel()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_ANY)

@@ -7,22 +7,18 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
-import com.lyj.fakepivix.app.adapter.PreloadMultiBindingAdapter
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.IllustCategory.*
 
 
 import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
+import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
-import com.lyj.fakepivix.app.utils.ToastUtil
 import com.lyj.fakepivix.app.utils.attachLoadMore
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.CommonRefreshList
-import com.lyj.fakepivix.module.main.common.adapter.ComicAdapter
 import com.lyj.fakepivix.module.main.common.adapter.IllustAdapter
-import com.lyj.fakepivix.module.main.common.adapter.NovelAdapter
 import com.lyj.fakepivix.widget.CommonItemDecoration
 import kotlinx.android.synthetic.main.layout_common_refresh_recycler.*
 import kotlinx.android.synthetic.main.layout_error.view.*
@@ -142,7 +138,7 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
     private fun listenState() {
         mViewModel?.let {
             with(it) {
-                loadState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
+                loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
                     when (loadState.get()) {
                         is LoadState.Loading -> {
                             mAdapter.emptyView = loadingView

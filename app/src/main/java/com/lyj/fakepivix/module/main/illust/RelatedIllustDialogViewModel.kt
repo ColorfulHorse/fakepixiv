@@ -5,9 +5,7 @@ import android.databinding.ObservableField
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.data.model.response.User
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
-import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
 import com.lyj.fakepivix.app.network.LoadState
 import io.reactivex.rxkotlin.subscribeBy
 

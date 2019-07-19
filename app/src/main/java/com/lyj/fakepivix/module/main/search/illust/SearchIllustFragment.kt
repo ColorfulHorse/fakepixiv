@@ -9,7 +9,7 @@ import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.IllustCategory.ILLUST
-import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
+import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.ToastUtil
 import com.lyj.fakepivix.app.utils.dp2px
@@ -90,7 +90,7 @@ class SearchIllustFragment : FragmentationFragment<CommonList, SearchIllustViewM
      */
     private fun listenState() {
         with(mViewModel) {
-            loadState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
+            loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
                 when (loadState.get()) {
                     is LoadState.Loading -> {
                         mAdapter.emptyView = loadingView

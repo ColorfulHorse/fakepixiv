@@ -10,14 +10,12 @@ import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.constant.IllustCategory.COMIC
 
-import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
+import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
-import com.lyj.fakepivix.app.utils.ToastUtil
 import com.lyj.fakepivix.app.utils.attachLoadMore
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.CommonRefreshList
 import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
-import com.lyj.fakepivix.module.main.common.adapter.ComicAdapter
 import com.lyj.fakepivix.module.main.home.illust.PixivisionHeader
 import com.lyj.fakepivix.module.main.home.illust.RankHeader
 import com.lyj.fakepivix.widget.CommonItemDecoration
@@ -90,9 +88,9 @@ class HomeComicFragment : FragmentationFragment<CommonRefreshList, HomeComicView
                 mViewModel.lazyLoad()
             }
 
-            mAdapter.setOnItemClickListener { _, _, position ->
-                ToastUtil.showToast("$position")
-            }
+//            mAdapter.setOnItemClickListener { _, _, position ->
+//                ToastUtil.showToast("$position")
+//            }
             // 错误刷新
             errorView.reload.setOnClickListener {
                 mViewModel.load()
@@ -107,7 +105,7 @@ class HomeComicFragment : FragmentationFragment<CommonRefreshList, HomeComicView
     private fun listenState() {
         with(mBinding) {
             with(mViewModel) {
-                loadState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
+                loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
                     when (loadState.get()) {
                         is LoadState.Loading -> {
                             refreshLayout.isRefreshing = false

@@ -79,7 +79,7 @@ class NewsFollowFragment : FragmentationFragment<FragmentNewsFollowBinding, News
                 }
                 dialog.show(fragmentManager, "RestrictDialog")
             }
-
+            userHeader.vm = mViewModel.userViewModel
         }
     }
 
@@ -101,6 +101,11 @@ class NewsFollowFragment : FragmentationFragment<FragmentNewsFollowBinding, News
         fragments.add(followIllustFragment)
         fragments.add(followNovelFragment)
         loadMultipleRootFragment(R.id.fragment_container, 0, fragments[0], fragments[1])
+    }
+
+    override fun onLazyInitView(savedInstanceState: Bundle?) {
+        super.onLazyInitView(savedInstanceState)
+        mViewModel.userViewModel.load()
     }
 
     override fun immersionBarEnabled(): Boolean = false

@@ -16,7 +16,6 @@
     <color name="bg_general">#fffafafa</color>
     <color name="bg_general_new">#ffffffff</color>
     <color name="bg_illust_edit_action">#ff313131</color>
-    <color name="bg_image">#ffeeeeee</color>
     <color name="bg_ppoint_purchase_button_gradation_end">#ff33bbff</color>
     <color name="bg_ppoint_purchase_button_gradation_start">#ffbbff33</color>
     <color name="bg_premium">#ff57c2ff</color>
@@ -216,7 +215,6 @@
     <color name="tutorial_balloon">#cc000000</color>
     <color name="under_line">#ff9b9b9b</color>
     <color name="upload_required_item">#ffff6347</color>
-    <color name="user_recommended_item_border_color">#19000000</color>
     <color name="work_tag">#ff666666</color>
 
 
@@ -246,8 +244,12 @@
     <color name="detail_divider">#ffe2e5e5</color>
     <color name="text_detail_desc">#ff665d6a</color>
     <color name="bg_item">#ffeeeeee</color>
+    <color name="bg_image">#ffeeeeee</color>
+    <color name="user_recommended_item_border_color">#19000000</color>
     <color name="detail_title_black">#ff333333</color>
     <color name="inout_hint_color">#ffb3b3b3</color>
     <color name="detail_read_more">#ffaaaaaa</color>
-    <color name="tag_green">#66009688</color>
+    <color name="tag_normal">#adadad</color>
+    <color name="tag_blue">#3d7699</color>
+    <color name="divider">#d4d4d4</color>
 </resources>

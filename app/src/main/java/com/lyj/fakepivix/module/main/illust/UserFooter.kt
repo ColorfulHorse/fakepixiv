@@ -2,16 +2,14 @@ package com.lyj.fakepivix.module.main.illust
 
 import android.content.Context
 import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
-import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
 import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
+import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.LayoutFooterUserBinding
@@ -54,7 +52,7 @@ class UserFooter(val context: Context, val viewModel: UserFooterViewModel, var m
         errorView.reload.setOnClickListener {
             viewModel.reLoad()
         }
-        viewModel.loadState.addOnPropertyChangedCallback(OnPropertyChangedCallbackImp { _, _ ->
+        viewModel.loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
             when(viewModel.loadState.get()) {
                 is LoadState.Loading -> {
                     mAdapter.emptyView = loadingView

@@ -13,4 +13,6 @@ import com.lyj.fakepivix.app.base.IModel
 class NewsFollowViewModel : BaseViewModel<IModel?>() {
 
     override var mModel: IModel? = null
+
+    val userViewModel = UserHeaderViewModel()
 }

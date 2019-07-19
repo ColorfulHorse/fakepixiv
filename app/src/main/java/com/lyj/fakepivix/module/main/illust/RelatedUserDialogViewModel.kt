@@ -2,20 +2,13 @@ package com.lyj.fakepivix.module.main.illust
 
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
-import android.util.ArrayMap
-import android.util.SparseArray
 import android.util.SparseBooleanArray
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
-import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.data.model.response.User
 import com.lyj.fakepivix.app.data.model.response.UserPreview
-import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
-import com.lyj.fakepivix.app.databinding.OnPropertyChangedCallbackImp
 import com.lyj.fakepivix.app.network.LoadState
 import io.reactivex.rxkotlin.subscribeBy
-import java.text.FieldPosition
 
 /**
  * @author greensun
