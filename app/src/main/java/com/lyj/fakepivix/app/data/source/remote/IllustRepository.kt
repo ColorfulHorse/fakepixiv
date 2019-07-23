@@ -1,5 +1,6 @@
 package com.lyj.fakepivix.app.data.source.remote
 
+import com.lyj.fakepivix.app.constant.Constant
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.IllustCategory.*
 import com.lyj.fakepivix.app.constant.Restrict
@@ -85,7 +86,7 @@ class IllustRepository private constructor() {
     fun loadFriendIllust(@IllustCategory category: String): Observable<IllustListResp> {
         val service = RetrofitManager.instance.apiService
         var ob = when(category) {
-            ILLUSTANDCOMIC -> service.getFriendIllustData()
+            OTHER -> service.getFriendIllustData()
             else -> service.getFriendNovelData()
         }
         return ob.checkEmpty()
@@ -107,6 +108,37 @@ class IllustRepository private constructor() {
     fun loadRelatedIllust(illustId: String): Observable<IllustListResp> {
         return RetrofitManager.instance.apiService
                 .getRelatedIllustData(illustId)
+                .schedulerTransform()
+    }
+
+    /**
+     * 按顺序搜索
+     */
+    fun searchIllust(@IllustCategory category: String,
+                     keyword: String,
+                     asc: Boolean,
+                     start: String = "",
+                     end: String = "" ,
+                     strategy: String = Constant.Request.KEY_SEARCH_PARTIAL
+    ): Observable<IllustListResp> {
+        return RetrofitManager.instance.apiService
+                .searchIllust(category, keyword, if (asc) "asc" else "desc", strategy, start, end)
+                .checkEmpty()
+                .schedulerTransform()
+    }
+
+    /**
+     * 按热门搜索
+     */
+    fun searchPopularIllust(@IllustCategory category: String,
+                     keyword: String,
+                     start: String = "",
+                     end: String = "" ,
+                     strategy: String = Constant.Request.KEY_SEARCH_PARTIAL
+    ): Observable<IllustListResp> {
+        return RetrofitManager.instance.apiService
+                .searchPopularIllust(category, keyword, strategy, start, end)
+                .checkEmpty()
                 .schedulerTransform()
     }
 

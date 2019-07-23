@@ -234,23 +234,23 @@ interface ApiService {
      */
     @GET("/v1/search/popular-preview/{category}")
     fun searchPopularIllust(@IllustCategory @Path("category")category: String,
-                           @Query("include_translated_tag_results")translate: Boolean = true,
-                           @Query("word")keyword: String,
-                           @Query("search_target")mode: String = Constant.Request.KEY_SEARCH_PARTIAL,
-                           @Query("start_date")start_date: String = "",
-                           @Query("end_date")end_date: String = ""): Observable<IllustListResp>
+                            @Query("word")keyword: String,
+                            @Query("search_target")mode: String = Constant.Request.KEY_SEARCH_PARTIAL,
+                            @Query("start_date")start_date: String = "",
+                            @Query("end_date")end_date: String = "",
+                            @Query("include_translated_tag_results")translate: Boolean = true): Observable<IllustListResp>
 
     /**
      * 按顺序搜索
      */
     @GET("/v1/search/{category}")
     fun searchIllust(@IllustCategory @Path("category")category: String,
-                     @Query("include_translated_tag_results")translate: Boolean = true,
                      @Query("word")keyword: String,
                      @Query("sort")sort: String,
-                     @Query("search_target")mode: String = Constant.Request.KEY_SEARCH_PARTIAL,
+                     @Query("search_target")strategy: String = Constant.Request.KEY_SEARCH_PARTIAL,
                      @Query("start_date")start_date: String = "",
-                     @Query("end_date")end_date: String = ""): Observable<IllustListResp>
+                     @Query("end_date")end_date: String = "",
+                     @Query("include_translated_tag_results")translate: Boolean = true): Observable<IllustListResp>
 
     /**
      * 搜索用户

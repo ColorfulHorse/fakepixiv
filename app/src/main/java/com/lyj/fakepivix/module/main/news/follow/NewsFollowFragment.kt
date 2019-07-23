@@ -1,14 +1,11 @@
 package com.lyj.fakepivix.module.main.news.follow
 
 import android.os.Bundle
-import android.widget.TextView
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.lyj.fakepivix.R
-import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.constant.Constant
-import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.IllustCategory.*
 import com.lyj.fakepivix.app.constant.Restrict
 
@@ -19,7 +16,6 @@ import com.lyj.fakepivix.app.utils.SPUtil
 import com.lyj.fakepivix.databinding.FragmentNewsFollowBinding
 import com.lyj.fakepivix.module.main.common.IllustListFragment
 import com.lyj.fakepivix.module.main.common.IllustListViewModel
-import me.yokeyword.fragmentation.ISupportFragment
 
 
 /**
@@ -64,7 +60,7 @@ class NewsFollowFragment : FragmentationFragment<FragmentNewsFollowBinding, News
             })
             restrict.setOnClickListener {
                 val category = when(tabLayout.currentTab) {
-                    0 -> ILLUSTANDCOMIC
+                    0 -> OTHER
                     else -> NOVEL
                 }
                 val dialog = RestrictDialog()
@@ -84,13 +80,13 @@ class NewsFollowFragment : FragmentationFragment<FragmentNewsFollowBinding, News
     }
 
     private fun initSubFragment() {
-        val followIllustFragment = IllustListFragment.newInstance(ILLUSTANDCOMIC)
+        val followIllustFragment = IllustListFragment.newInstance(OTHER)
         val followNovelFragment = IllustListFragment.newInstance(NOVEL)
 
         val illustRestrict = SPUtil.get(Constant.SP.KEY_RESTRICT_ILLUST, Restrict.PUBLIC)
         val novelRestrict = SPUtil.get(Constant.SP.KEY_RESTRICT_NOVEL, Restrict.PUBLIC)
 
-        illustViewModel = IllustListViewModel(ILLUSTANDCOMIC) {
+        illustViewModel = IllustListViewModel(OTHER) {
             IllustRepository.instance.loadFollowedIllust(ILLUST, illustRestrict)
         }
         novelViewModel = IllustListViewModel(NOVEL) {

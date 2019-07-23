@@ -5,6 +5,7 @@ import android.arch.lifecycle.LifecycleObserver
 import android.databinding.BaseObservable
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
+import com.lyj.fakepivix.app.utils.Router
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.CoroutineScope
@@ -31,7 +32,10 @@ abstract class BaseViewModel<M : IModel?> : BaseObservable(), LifecycleObserver,
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     open fun onCreate(@NotNull owner: LifecycleOwner) {
-
+        val fragment = Router.getActiveFragment()
+        fragment?.let {
+            ViewModelProvider[it.hashCode()] = this
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)

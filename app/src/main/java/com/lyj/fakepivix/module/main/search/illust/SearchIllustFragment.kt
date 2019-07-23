@@ -50,7 +50,6 @@ class SearchIllustFragment : FragmentationFragment<CommonList, SearchIllustViewM
             category = it.getString(EXTRA_CATEGORY, ILLUST)
             mViewModel.category = category
         }
-        lifecycle.addObserver(mViewModel)
         initList()
         listenState()
     }

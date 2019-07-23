@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.dialog_restrict.*
 class RestrictDialog : DialogFragment() {
 
     var onRestrict: ((restrict: String) -> Unit)? = null
-    var category: String = IllustCategory.ILLUSTANDCOMIC
+    var category: String = IllustCategory.OTHER
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = View.inflate(context, R.layout.dialog_restrict, null)

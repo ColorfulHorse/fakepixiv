@@ -76,4 +76,10 @@
     <string name="title_related_user">已关注。去关注更多人吧。</string>
     <string name="recommended_user">推荐用户</string>
     <string name="hint_search">输入关键词</string>
+    <string name="search_prompt">请输入关键字</string>
+    <string name="search_history">搜索历史</string>
+    <string name="search_history_clear">删除搜索历史</string>
+    <string name="tab_new_works">最新作品</string>
+    <string name="tab_popular">人气顺度</string>
+    <string name="tab_desc">由旧到新</string>
 </resources>

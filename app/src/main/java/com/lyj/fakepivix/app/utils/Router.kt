@@ -21,4 +21,11 @@ object Router {
             top.start(IllustDetailRootFragment.newInstance(position, data))
         }
     }
+
+    fun getActiveFragment(): FragmentationFragment<*, *>? {
+        AppManager.instance.top?.let {
+            return SupportHelper.getActiveFragment((it as FragmentActivity).supportFragmentManager) as FragmentationFragment<*, *>
+        }
+        return null
+    }
 }

@@ -2,6 +2,7 @@ package com.lyj.fakepivix.module.main
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ImageSpan
@@ -100,11 +101,12 @@ class MainActivity : FragmentationActivity<ActivityMainBinding, MainViewModel>()
     override fun bindLayout(): Int = R.layout.activity_main
 
 
-    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_DOWN) {
+    override fun onBackPressedSupport() {
+        if (supportFragmentManager.backStackEntryCount > 1) {
+            pop()
+        } else {
             moveTaskToBack(true)
-            return true
         }
-        return super.onKeyDown(keyCode, event)
     }
+
 }

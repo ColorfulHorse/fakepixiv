@@ -11,7 +11,7 @@ import android.support.annotation.StringDef
  * @desc illust分类
  */
 
-//@StringDef(value = [ILLUST, COMIC, NOVEL, ILLUSTANDCOMIC])
+//@StringDef(value = [ILLUST, COMIC, NOVEL, OTHER])
 //@Target(AnnotationTarget.VALUE_PARAMETER)
 //@Retention(AnnotationRetention.SOURCE)
 //annotation class IllustCategory {
@@ -20,7 +20,7 @@ import android.support.annotation.StringDef
 //        const val COMIC = "manga"
 //        const val NOVEL = "novel"
 //        // 插画·漫画
-//        const val ILLUSTANDCOMIC = "ILLUSTANDCOMIC"
+//        const val OTHER = "OTHER"
 //    }
 //}
 

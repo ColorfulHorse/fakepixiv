@@ -39,7 +39,13 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
         field = value
     }
 
-    private var category = ILLUST
+    var category = ILLUST
+        set(value) {
+            field = value
+            mViewModel?.category = field
+            mViewModel?.clear()
+            initList()
+        }
 
     companion object {
         private const val EXTRA_CATEGORY = "EXTRA_CATEGORY"
@@ -64,7 +70,7 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
         mViewModel?.let {
             lifecycle.addObserver(it)
         }
-        initList()
+        //initList()
         listenState()
     }
 
@@ -82,7 +88,7 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
                 vm ->
                 mAdapter = IllustAdapter(vm.data)
                 when(category) {
-                    ILLUST, ILLUSTANDCOMIC, COMIC -> {
+                    ILLUST, OTHER, COMIC -> {
                         layoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
                         if (category == COMIC) {
                             mAdapter.addItemType(Illust.TYPE_COMIC, R.layout.item_home_comic, BR.data)
@@ -105,8 +111,8 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
                         recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
                     }
                 }
-                mAdapter.emptyView = loadingView
                 recyclerView.layoutManager = layoutManager
+                mAdapter.emptyView = loadingView
                 mAdapter.bindToRecyclerView(recyclerView)
                 // 加载更多
                 recyclerView.attachLoadMore { vm.loadMore() }

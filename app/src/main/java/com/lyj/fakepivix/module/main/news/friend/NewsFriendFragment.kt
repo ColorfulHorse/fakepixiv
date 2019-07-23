@@ -7,11 +7,10 @@ import com.flyco.tablayout.listener.OnTabSelectListener
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationFragment
-import com.lyj.fakepivix.app.constant.IllustCategory.ILLUSTANDCOMIC
+import com.lyj.fakepivix.app.constant.IllustCategory.OTHER
 import com.lyj.fakepivix.app.constant.IllustCategory.NOVEL
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.entity.TabBean
-import com.lyj.fakepivix.databinding.FragmentNewsFollowBinding
 import com.lyj.fakepivix.databinding.FragmentNewsNewsBinding
 import com.lyj.fakepivix.module.main.common.IllustListFragment
 import com.lyj.fakepivix.module.main.common.IllustListViewModel
@@ -60,11 +59,11 @@ class NewsFriendFragment : FragmentationFragment<FragmentNewsNewsBinding, BaseVi
     }
 
     private fun initSubFragment() {
-        val followIllustFragment = IllustListFragment.newInstance(ILLUSTANDCOMIC)
+        val followIllustFragment = IllustListFragment.newInstance(OTHER)
         val followNovelFragment = IllustListFragment.newInstance(NOVEL)
 
-        illustViewModel = IllustListViewModel(ILLUSTANDCOMIC) {
-            IllustRepository.instance.loadFriendIllust(ILLUSTANDCOMIC)
+        illustViewModel = IllustListViewModel(OTHER) {
+            IllustRepository.instance.loadFriendIllust(OTHER)
         }
         novelViewModel = IllustListViewModel(NOVEL) {
             IllustRepository.instance.loadFriendIllust(NOVEL)

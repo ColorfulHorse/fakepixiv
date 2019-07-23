@@ -66,4 +66,9 @@ class IllustListViewModel(@IllustCategory var category: String = ILLUST, var act
                 })
         addDisposable(disposable)
     }
+
+    fun clear() {
+        data.clear()
+        nextUrl = ""
+    }
 }
