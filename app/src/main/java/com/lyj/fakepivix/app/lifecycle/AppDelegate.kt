@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.app
+package com.lyj.fakepivix.app.lifecycle
 
 import android.app.Application
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager

@@ -1,5 +1,6 @@
 package com.lyj.fakepivix.module.main.illust
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
@@ -93,8 +94,13 @@ class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, B
     override fun initImmersionBar() {
         ImmersionBar.with(this)
                 .titleBar(mBinding.toolbarWrapper)
+                .statusBarDarkFont(true)
                 .transparentStatusBar()
                 .init()
+//        ImmersionBar.with(this)
+//                .titleBarMarginTop(mBinding.toolbarWrapper)
+//                .statusBarColor(R.color.live_video_switcher_background)
+//                .init()
     }
 
     override fun bindLayout(): Int = R.layout.fragment_illust_detail_root

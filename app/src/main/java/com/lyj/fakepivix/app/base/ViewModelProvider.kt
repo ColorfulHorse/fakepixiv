@@ -10,8 +10,8 @@ package com.lyj.fakepivix.app.base
 object ViewModelProvider {
     val data = hashMapOf<Int, BaseViewModel<*>>()
 
-    operator fun <T: BaseViewModel<*>> get(hash: Int): T {
-        return data[hash] as T
+    operator fun <T: BaseViewModel<*>> get(key: Any): T {
+        return data[key.hashCode()] as T
     }
 
     operator fun <T : BaseViewModel<*>> set(hash: Int, vm: T) {

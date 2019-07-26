@@ -24,7 +24,10 @@ object Router {
 
     fun getActiveFragment(): FragmentationFragment<*, *>? {
         AppManager.instance.top?.let {
-            return SupportHelper.getActiveFragment((it as FragmentActivity).supportFragmentManager) as FragmentationFragment<*, *>
+            val f = SupportHelper.getActiveFragment((it as FragmentActivity).supportFragmentManager)
+            if (f is FragmentationFragment<*, *>) {
+                return f
+            }
         }
         return null
     }

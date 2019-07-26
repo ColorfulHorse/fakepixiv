@@ -3,6 +3,7 @@ package com.lyj.fakepivix.app
 import android.app.Application
 import android.content.Context
 import com.lyj.fakepivix.BuildConfig
+import com.lyj.fakepivix.app.lifecycle.AppDelegate
 import me.yokeyword.fragmentation.Fragmentation
 
 /**

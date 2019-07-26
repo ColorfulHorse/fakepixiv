@@ -3,6 +3,10 @@ package com.lyj.fakepivix.app.utils
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import android.support.v4.app.FragmentActivity
+import com.lyj.fakepivix.app.base.BaseFragment
+import com.lyj.fakepivix.app.base.ViewModelProvider
+import com.lyj.fakepivix.app.lifecycle.FragmentLifecycle
 
 /**
  * @author greensun
@@ -47,6 +51,11 @@ class AppManager : Application.ActivityLifecycleCallbacks {
 
     override fun onActivityDestroyed(activity: Activity) {
         activityList.remove(activity)
+        if (activity is BaseFragment<*, *>) {
+            activity.mViewModel?.let {
+                ViewModelProvider - it.hashCode()
+            }
+        }
     }
 
     override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle?) {
@@ -58,6 +67,14 @@ class AppManager : Application.ActivityLifecycleCallbacks {
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
         activityList.add(activity)
+        if (activity is FragmentActivity) {
+            if (activity is BaseFragment<*, *>) {
+                activity.mViewModel?.let {
+                    ViewModelProvider[activity.hashCode()] = it
+                }
+            }
+            activity.supportFragmentManager.registerFragmentLifecycleCallbacks(FragmentLifecycle, true)
+        }
     }
 
 }

@@ -51,7 +51,7 @@ class IllustDetailAdapter(val viewModel: IllustDetailViewModel) : IllustAdapter(
             if (type == Illust.TYPE_META) {
 
             }else {
-                Router.goDetail(position, data)
+                Router.goDetail(position - 4, data)
             }
         }
     }

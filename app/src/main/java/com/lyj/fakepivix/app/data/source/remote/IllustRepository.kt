@@ -108,6 +108,7 @@ class IllustRepository private constructor() {
     fun loadRelatedIllust(illustId: String): Observable<IllustListResp> {
         return RetrofitManager.instance.apiService
                 .getRelatedIllustData(illustId)
+                .checkEmpty()
                 .schedulerTransform()
     }
 

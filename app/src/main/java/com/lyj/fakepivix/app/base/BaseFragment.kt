@@ -1,7 +1,6 @@
 package com.lyj.fakepivix.app.base
 
 import android.arch.lifecycle.LifecycleObserver
-import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
@@ -15,10 +14,6 @@ import com.gyf.barlibrary.ImmersionBar
 import com.gyf.barlibrary.ImmersionFragment
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
-import com.lyj.fakepivix.R.id.toolbar
-import android.support.v7.app.AppCompatActivity
-
-
 
 
 /**

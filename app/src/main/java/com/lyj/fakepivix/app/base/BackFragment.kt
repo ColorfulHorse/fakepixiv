@@ -1,7 +1,11 @@
 package com.lyj.fakepivix.app.base
 
 import android.databinding.ViewDataBinding
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.support.annotation.DrawableRes
+import android.support.v4.content.ContextCompat
+import android.support.v7.graphics.drawable.DrawerArrowDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,5 +33,10 @@ abstract class BackFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
             }
         }
         return view
+    }
+
+
+    open fun bindBackIcon(): Drawable {
+        return resources.getDrawable(R.drawable.ic_arrow_back_white)
     }
 }

@@ -28,7 +28,10 @@ class SearchIllustFragment : FragmentationFragment<CommonList, SearchIllustViewM
 
     override var mViewModel: SearchIllustViewModel = SearchIllustViewModel()
 
-    private var category = ILLUST
+    var category = ILLUST
+    private set(value) {
+        field = value
+    }
 
     companion object {
         private const val EXTRA_CATEGORY = "EXTRA_CATEGORY"

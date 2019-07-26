@@ -2,7 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-
+        <import type="com.lyj.fakepivix.module.main.search.main.SearchMainViewModel"/>
+        <variable
+            name="vm"
+            type="SearchMainViewModel"/>
     </data>
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -47,7 +50,10 @@
                             android:paddingEnd="8dp"
                             android:textColor="@color/renewal_font_gray"
                             android:textColorHint="@color/renewal_font_gray"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:visibility="@{!vm.showSearch}"
+                            android:text="@={vm.keyword}"
+                            />
 
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/rv_words"
@@ -55,7 +61,11 @@
                             android:layout_height="match_parent"
                             android:clipToPadding="false"
                             android:paddingStart="8dp"
-                            android:paddingEnd="8dp" />
+                            android:paddingEnd="8dp"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:visibility="@{vm.showSearch}"
+                            />
                     </RelativeLayout>
 
                     <ImageView
@@ -88,7 +98,9 @@
                     app:tl_textBold="SELECT"
                     app:tl_textSelectColor="@color/white"
                     app:tl_textUnselectColor="@color/tab_textColor_n"
-                    app:tl_textsize="@dimen/tab_textSize" />
+                    app:tl_textsize="@dimen/tab_textSize"
+                    android:visibility="@{!vm.showSearch}"
+                    />
                 <android.support.design.widget.TabLayout
                     android:id="@+id/tabLayout"
                     android:layout_width="match_parent"
@@ -101,7 +113,7 @@
                     app:tabTextColor="@color/tab_textColor_n"
                     app:tabSelectedTextColor="@color/normal_text_dark"
                     app:tabTextAppearance="@style/tab_textAppearance"
-                    android:visibility="gone"
+                    android:visibility="@{vm.showSearch}"
                     />
             </FrameLayout>
         </android.support.design.widget.AppBarLayout>
@@ -115,7 +127,9 @@
                 android:id="@+id/container_history"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="@{!(vm.showSearch || vm.showComplete)}"
+                >
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -146,8 +160,8 @@
                 android:id="@+id/container_complete"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
+                android:orientation="vertical"
+                >
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content">
@@ -156,7 +170,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="12dp"
-                        android:text="@string/search_history" />
+                        android:text="@string/search_tag_hint" />
                 </RelativeLayout>
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_complete"
@@ -166,11 +180,15 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_user"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                />
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:visibility="@{vm.showSearch}"
+                />
         </FrameLayout>
     </android.support.design.widget.CoordinatorLayout>
 </layout>

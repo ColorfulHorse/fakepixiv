@@ -17,6 +17,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
  */
 object SPUtil {
     private const val DEFAULT_SP = "DEFAULT_SP"
+    private const val KEY_SEARCH = "KEY_SEARCH"
     private val moshi: Moshi by lazy { Moshi.Builder().add(KotlinJsonAdapterFactory()).build() }
     private val sp: SharedPreferences by lazy { App.context.getSharedPreferences(DEFAULT_SP, Context.MODE_PRIVATE) }
 
@@ -38,6 +39,14 @@ object SPUtil {
         }
         return null
     }
+
+    fun saveSearchHistory(value: String) {
+        val mutableSet = sp.getStringSet(KEY_SEARCH, mutableSetOf())
+        mutableSet.add(value)
+        sp.edit().putStringSet(KEY_SEARCH, mutableSet).apply()
+    }
+
+    fun getSearchHistory() = sp.getStringSet(KEY_SEARCH, mutableSetOf())
 
     fun save(key: String, value: String) {
         sp.edit().putString(key, value)

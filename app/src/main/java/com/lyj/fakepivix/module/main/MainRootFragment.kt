@@ -10,11 +10,15 @@ import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationFragment
+import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.entity.TabBean
+import com.lyj.fakepivix.app.utils.Router
 import com.lyj.fakepivix.databinding.MainRoot
 import com.lyj.fakepivix.module.main.home.HomeFragment
 import com.lyj.fakepivix.module.main.news.NewsFragment
 import com.lyj.fakepivix.module.main.search.SearchFragment
+import com.lyj.fakepivix.module.main.search.illust.SearchIllustFragment
+import com.lyj.fakepivix.module.main.search.main.SearchMainFragment
 
 /**
  * @author greensun
@@ -106,7 +110,12 @@ class MainRootFragment : FragmentationFragment<MainRoot, BaseViewModel<*>?>() {
 
         })
         mBinding.search.setOnClickListener {
-
+            var category = IllustCategory.ILLUST
+            val active = Router.getActiveFragment()
+            if (active is SearchIllustFragment) {
+                category = active.category
+                start(SearchMainFragment.newInstance(category))
+            }
         }
     }
 

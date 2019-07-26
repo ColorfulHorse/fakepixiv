@@ -32,10 +32,7 @@ abstract class BaseViewModel<M : IModel?> : BaseObservable(), LifecycleObserver,
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     open fun onCreate(@NotNull owner: LifecycleOwner) {
-        val fragment = Router.getActiveFragment()
-        fragment?.let {
-            ViewModelProvider[it.hashCode()] = this
-        }
+
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
