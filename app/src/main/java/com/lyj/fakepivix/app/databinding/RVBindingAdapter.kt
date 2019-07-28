@@ -2,7 +2,6 @@ package com.lyj.fakepivix.app.databinding
 
 import android.databinding.BindingAdapter
 import android.support.v7.widget.RecyclerView
-import com.lyj.fakepivix.app.utils.attachLoadMore
 
 /**
  * @author greensun

@@ -14,6 +14,7 @@ import com.gyf.barlibrary.ImmersionBar
 import com.gyf.barlibrary.ImmersionFragment
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
+import me.yokeyword.fragmentation.ISupportFragment
 
 
 /**
@@ -34,6 +35,9 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
 
     var initializer: (() -> Unit)? = null
 
+    protected var onCreated = false
+    protected var lazyCreated = false
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, bindLayout(), container, false)
         mViewModel?.let {
@@ -42,6 +46,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
         }
         mToolbar = mBinding.root.findViewById(bindToolbar())
         mBinding.root.isClickable = true
+        onCreated = true
         return mBinding.root
     }
 
@@ -49,6 +54,11 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
         super.onActivityCreated(savedInstanceState)
         init(savedInstanceState)
         initializer?.invoke()
+    }
+
+    protected fun lazyInit() {
+        lazyCreated = true
+        mViewModel?.lazyCreated = true
     }
 
     abstract fun init(savedInstanceState: Bundle?)

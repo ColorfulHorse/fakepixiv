@@ -123,7 +123,7 @@ class IllustRepository private constructor() {
                      strategy: String = Constant.Request.KEY_SEARCH_PARTIAL
     ): Observable<IllustListResp> {
         return RetrofitManager.instance.apiService
-                .searchIllust(category, keyword, if (asc) "asc" else "desc", strategy, start, end)
+                .searchIllust(category, keyword, if (asc) "date_asc" else "date_desc", strategy, start, end)
                 .checkEmpty()
                 .schedulerTransform()
     }

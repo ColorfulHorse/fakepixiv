@@ -35,6 +35,7 @@ abstract class FragmentationFragment<V : ViewDataBinding, VM : BaseViewModel<out
         return mDelegate.extraTransaction()
     }
 
+
     override fun onAttach(activity: Activity) {
         super.onAttach(activity)
         mDelegate.onAttach(activity)
@@ -135,6 +136,7 @@ abstract class FragmentationFragment<V : ViewDataBinding, VM : BaseViewModel<out
      */
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         mDelegate.onLazyInitView(savedInstanceState)
+        lazyInit()
     }
 
     /**

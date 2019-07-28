@@ -1,7 +1,6 @@
 package com.lyj.fakepivix.app.data.source.remote
 
 import com.lyj.fakepivix.app.constant.IllustCategory
-import com.lyj.fakepivix.app.data.model.response.LiveListResp
 import com.lyj.fakepivix.app.data.model.response.SearchTagListResp
 import com.lyj.fakepivix.app.data.model.response.Tag
 import com.lyj.fakepivix.app.data.model.response.TrendTag
@@ -36,7 +35,7 @@ class SearchRepository {
     fun searchAutoComplete(keyword: String): Observable<List<Tag>> {
         return RetrofitManager.instance
                 .apiService
-                .searchAutoCompelete(keyword)
+                .searchAutoComplete(keyword)
                 .map {
                     it.tags
                 }

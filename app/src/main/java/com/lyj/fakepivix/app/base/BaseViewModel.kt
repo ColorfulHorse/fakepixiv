@@ -29,10 +29,12 @@ abstract class BaseViewModel<M : IModel?> : BaseObservable(), LifecycleObserver,
 
     protected abstract val mModel: M
 
+    var onCreated = false
+    var lazyCreated = false
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     open fun onCreate(@NotNull owner: LifecycleOwner) {
-
+        onCreated = true
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)

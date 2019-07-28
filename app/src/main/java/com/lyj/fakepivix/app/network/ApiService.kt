@@ -114,6 +114,9 @@ interface ApiService {
                          @Query("user_id")userId: String,
                          @Restrict @Query("restrict")restrict: String = Restrict.PUBLIC): Observable<IllustListResp>
 
+    @GET("/v1/user/bookmarks/illust")
+    fun getUserIllustData(@Query("user_id")userId: String): Observable<IllustListResp>
+
 
     /**
      * 获取相关用户
@@ -226,7 +229,7 @@ interface ApiService {
      * 自动完成搜索关键字
      */
     @GET("/v2/search/autocomplete")
-    fun searchAutoCompelete(@Query("word")keyword: String): Observable<TagListResp>
+    fun searchAutoComplete(@Query("word")keyword: String): Observable<TagListResp>
 
 
     /**

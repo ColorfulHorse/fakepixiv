@@ -69,5 +69,10 @@ fun LikeButton.liked(liked: Boolean = false) {
 @BindingConversion
 fun boolToVisibility(visibility: Boolean) = if (visibility) View.VISIBLE else View.GONE
 
+@BindingAdapter(value = ["show"])
+fun View.show(show: Boolean = true) {
+    this.visibility = if (show) View.VISIBLE else View.INVISIBLE
+}
+
 @BindingConversion
 fun stateToVisibility(loadState: LoadState) = if (loadState is LoadState.Loading) View.VISIBLE else View.GONE

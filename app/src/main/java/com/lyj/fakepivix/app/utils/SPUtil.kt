@@ -42,8 +42,21 @@ object SPUtil {
 
     fun saveSearchHistory(value: String) {
         val mutableSet = sp.getStringSet(KEY_SEARCH, mutableSetOf())
+        if (mutableSet.size >= 50) {
+            mutableSet.remove(mutableSet.first())
+        }
         mutableSet.add(value)
         sp.edit().putStringSet(KEY_SEARCH, mutableSet).apply()
+    }
+
+    fun removeSearchHistory(value: String) {
+        val mutableSet = sp.getStringSet(KEY_SEARCH, mutableSetOf())
+        mutableSet.remove(value)
+        sp.edit().putStringSet(KEY_SEARCH, mutableSet).apply()
+    }
+
+    fun removeAllSearchHistory() {
+        sp.edit().putStringSet(KEY_SEARCH, null).apply()
     }
 
     fun getSearchHistory() = sp.getStringSet(KEY_SEARCH, mutableSetOf())
@@ -56,4 +69,6 @@ object SPUtil {
     fun get(key: String, defValue: String): String {
         return sp.getString(key, defValue)
     }
+
+
 }

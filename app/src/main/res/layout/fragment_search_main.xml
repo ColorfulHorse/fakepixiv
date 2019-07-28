@@ -29,11 +29,13 @@
                     android:orientation="horizontal">
 
                     <RelativeLayout
+                        android:id="@+id/search_container"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_margin="8dp"
                         android:layout_weight="1"
-                        android:background="@drawable/bg_edit_text">
+                        android:background="@drawable/bg_edit_text"
+                        >
 
                         <EditText
                             android:id="@+id/input"
@@ -51,9 +53,10 @@
                             android:textColor="@color/renewal_font_gray"
                             android:textColorHint="@color/renewal_font_gray"
                             android:textSize="16sp"
+                            android:text="@={vm.inputText}"
                             android:visibility="@{!vm.showSearch}"
-                            android:text="@={vm.keyword}"
                             />
+                        <!--android:visibility="@{!vm.showSearch}"-->
 
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/rv_words"
@@ -62,10 +65,11 @@
                             android:clipToPadding="false"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
-                            android:paddingTop="8dp"
-                            android:paddingBottom="8dp"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"
                             android:visibility="@{vm.showSearch}"
                             />
+                        <!--android:visibility="@{vm.showSearch}"-->
                     </RelativeLayout>
 
                     <ImageView
@@ -148,7 +152,9 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:padding="12dp"
-                        android:text="@string/search_history_clear" />
+                        android:text="@string/search_history_clear"
+                        android:onClick="@{() -> vm.clearHistory()}"
+                        />
                 </RelativeLayout>
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_history"
@@ -161,6 +167,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
+                android:visibility="@{vm.showComplete}"
                 >
                 <RelativeLayout
                     android:layout_width="fill_parent"

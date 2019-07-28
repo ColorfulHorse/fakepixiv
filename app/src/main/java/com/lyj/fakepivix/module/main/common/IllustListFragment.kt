@@ -15,7 +15,7 @@ import com.lyj.fakepivix.app.constant.IllustCategory.*
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
-import com.lyj.fakepivix.app.utils.attachLoadMore
+import com.lyj.fakepivix.app.databinding.attachLoadMore
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.CommonRefreshList
 import com.lyj.fakepivix.module.main.common.adapter.IllustAdapter
@@ -44,7 +44,9 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
             field = value
             mViewModel?.category = field
             mViewModel?.clear()
-            initList()
+            if (onCreated) {
+                initList()
+            }
         }
 
     companion object {

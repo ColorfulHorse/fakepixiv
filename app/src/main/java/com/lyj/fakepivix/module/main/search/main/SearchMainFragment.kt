@@ -5,12 +5,12 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.graphics.drawable.DrawerArrowDrawable
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ImageSpan
-import android.view.KeyEvent
+import android.view.MotionEvent
 import android.view.inputmethod.EditorInfo
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
@@ -21,13 +21,15 @@ import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.adapter.CommonFragmentAdapter
 import com.lyj.fakepivix.app.base.BackFragment
-import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.constant.IllustCategory
+import com.lyj.fakepivix.app.data.model.response.Tag
 import com.lyj.fakepivix.app.entity.TabBean
+import com.lyj.fakepivix.app.utils.SPUtil
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.FragmentSearchMainBinding
 import com.lyj.fakepivix.module.main.common.IllustListFragment
 import com.lyj.fakepivix.widget.CommonItemDecoration
+import java.util.regex.Pattern
 
 
 /**
@@ -35,7 +37,7 @@ import com.lyj.fakepivix.widget.CommonItemDecoration
  *
  * @date 2019/4/3
  *
- * @desc
+ * @desc 搜索列表页
  */
 class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainViewModel>() {
 
@@ -58,6 +60,7 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
     
     private lateinit var historyAdapter: BaseBindingAdapter<String, ViewDataBinding>
     private lateinit var wordAdapter: BaseBindingAdapter<String, ViewDataBinding>
+    private lateinit var completeAdapter: BaseBindingAdapter<Tag, ViewDataBinding>
 
     override fun init(savedInstanceState: Bundle?) {
         arguments?.let {
@@ -94,11 +97,30 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
                 }
 
             })
+            input.requestFocus()
+            rvWords.setOnTouchListener { v, event ->
+                if (event.action == MotionEvent.ACTION_DOWN) {
+                    mViewModel.showSearch.set(false)
+                    val text = "${mViewModel.keyword} "
+                    input.setText(text)
+                    input.setSelection(text.length)
+                    input.postDelayed({
+                        showSoftInput(input)
+                    }, 50)
+                    true
+                }
+                false
+            }
+
         }
         initHistory()
         initSearchList()
+        initCompleteList()
     }
 
+    /**
+     * 历史记录列表
+     */
     private fun initHistory() {
         with(mBinding) {
             historyAdapter = object : BaseBindingAdapter<String, ViewDataBinding>(R.layout.item_search_history, mViewModel.historyList, BR.data) {
@@ -108,11 +130,16 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
                 }
             }
             historyAdapter.setOnItemChildClickListener { _, _, position ->
-                mViewModel.historyList.removeAt(position)
+                val text = mViewModel.historyList.removeAt(position)
+                SPUtil.removeSearchHistory(text)
             }
 
             historyAdapter.setOnItemClickListener { adapter, _, position ->
-                mViewModel.keyword = adapter.data[position] as String
+                // 选择历史搜索记录
+                var text = adapter.data[position] as String
+                mViewModel.words.clear()
+                mViewModel.words.addAll(text.split(Pattern.compile("\\s+")))
+                hideSoftInput()
                 mViewModel.search()
             }
             input.setOnEditorActionListener { v, actionId, event ->
@@ -128,6 +155,9 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
         }
     }
 
+    /**
+     * 搜索关键字列表
+     */
     private fun initSearchList() {
         with(mBinding) {
             wordAdapter = object : BaseBindingAdapter<String, ViewDataBinding>(R.layout.item_word, mViewModel.words, BR.data) {
@@ -138,11 +168,41 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
             }
             wordAdapter.setOnItemChildClickListener { _, _, position ->
                 mViewModel.words.removeAt(position)
+                if (mViewModel.words.isEmpty()) {
+                    mViewModel.showSearch.set(false)
+                    mViewModel.inputText = ""
+                }else {
+                    hideSoftInput()
+                    mViewModel.search()
+                }
             }
 
             rvWords.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             wordAdapter.bindToRecyclerView(rvWords)
             rvWords.addItemDecoration(CommonItemDecoration.Builder().dividerWidth(5.dp2px(), 0).build())
+        }
+    }
+
+    /**
+     * 自动补全
+     */
+    private fun initCompleteList() {
+        with(mBinding) {
+            completeAdapter = BaseBindingAdapter(R.layout.item_search_complete, mViewModel.tags, BR.data)
+            completeAdapter.setOnItemClickListener { adapter, _, position ->
+                // 添加关键词
+                val data  = adapter.data[position]
+                var text = (data as Tag).name
+                //mViewModel.showSearch.set(true)
+                // 补全最后一个关键字
+                mViewModel.words[mViewModel.words.size - 1] = text
+                hideSoftInput()
+                mViewModel.search()
+            }
+
+            rvComplete.layoutManager = LinearLayoutManager(context)
+            completeAdapter.bindToRecyclerView(rvComplete)
+            rvComplete.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         }
     }
 
@@ -177,10 +237,12 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
     }
 
     override fun initImmersionBar() {
-        ImmersionBar.with(this)
+        ImmersionBar
+                .with(this)
                 .statusBarDarkFont(true)
                 .titleBarMarginTop(mBinding.toolbar)
                 .statusBarColor(R.color.white)
+                //.keyboardEnable(true, WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE or WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
                 .init()
     }
 
@@ -190,6 +252,7 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
 
     override fun bindBackIcon(): Drawable {
         val drawable = DrawerArrowDrawable(mActivity)
+        drawable.progress = 1F
         drawable.color = ContextCompat.getColor(mActivity, R.color.black)
         return drawable
     }

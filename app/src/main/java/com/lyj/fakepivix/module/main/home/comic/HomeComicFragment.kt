@@ -12,7 +12,7 @@ import com.lyj.fakepivix.app.constant.IllustCategory.COMIC
 
 import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
-import com.lyj.fakepivix.app.utils.attachLoadMore
+import com.lyj.fakepivix.app.databinding.attachLoadMore
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.CommonRefreshList
 import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
