@@ -4,18 +4,14 @@ import android.databinding.ViewDataBinding
 import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.ViewGroup
-import android.widget.ImageView
 import com.bumptech.glide.RequestBuilder
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
-import com.lyj.fakepivix.app.adapter.PreloadMultiBindingAdapter
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.utils.Router
-import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
-import com.lyj.fakepivix.databinding.ItemIllustDetailBinding
-import com.lyj.fakepivix.module.main.common.adapter.IllustAdapter
+import com.lyj.fakepivix.module.common.adapter.IllustAdapter
 
 /**
  * @author greensun

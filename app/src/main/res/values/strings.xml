@@ -80,7 +80,7 @@
     <string name="search_history">搜索历史</string>
     <string name="search_history_clear">删除搜索历史</string>
     <string name="tab_new_works">最新作品</string>
-    <string name="tab_popular">    人气顺度</string>
+    <string name="tab_popular">人气顺度</string>
     <string name="tab_desc">由旧到新</string>
     <string name="search_tag_hint">你是不是要找？</string>
 </resources>

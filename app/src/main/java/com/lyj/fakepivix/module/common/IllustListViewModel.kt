@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.module.main.common
+package com.lyj.fakepivix.module.common
 
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
@@ -6,7 +6,6 @@ import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.IllustCategory.ILLUST
-import com.lyj.fakepivix.app.constant.Restrict
 
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.IllustListResp
@@ -55,7 +54,7 @@ class IllustListViewModel(@IllustCategory var category: String = ILLUST, var act
         if (nextUrl.isBlank())
             return
         val disposable = IllustRepository.instance
-                .loadMore(nextUrl, category)
+                .loadMore(nextUrl)
                 .doOnSubscribe { loadMoreState.set(LoadState.Loading) }
                 .subscribeBy(onNext = {
                     loadMoreState.set(LoadState.Succeed)

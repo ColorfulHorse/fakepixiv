@@ -57,16 +57,24 @@
                             android:visibility="@{!vm.showSearch}"
                             />
                         <!--android:visibility="@{!vm.showSearch}"-->
-
+                        <!--<View-->
+                            <!--android:id="@+id/dummy"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:visibility="@{vm.showSearch}"-->
+                            <!--android:clickable="true"-->
+                            <!--android:focusable="true"-->
+                            <!--/>-->
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/rv_words"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:clipToPadding="false"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
                             android:paddingTop="4dp"
                             android:paddingBottom="4dp"
+                            android:clickable="false"
                             android:visibility="@{vm.showSearch}"
                             />
                         <!--android:visibility="@{vm.showSearch}"-->
@@ -79,16 +87,16 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="16dp"
                         android:src="@drawable/ic_search_filter"
-                        android:visibility="gone" />
+                        android:visibility="@{vm.showSearch &amp;&amp; !vm.showUser}" />
                 </LinearLayout>
             </android.support.v7.widget.Toolbar>
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="@dimen/tab_height">
                 <com.flyco.tablayout.CommonTabLayout
                     android:id="@+id/segmentLayout"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/tab_height"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:background="@color/white"
                     app:tl_iconVisible="false"
@@ -108,7 +116,7 @@
                 <android.support.design.widget.TabLayout
                     android:id="@+id/tabLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/tab_height"
+                    android:layout_height="match_parent"
                     android:minHeight="48dp"
                     app:tabMode="fixed"
                     app:tabIndicatorColor="@color/colorPrimary"
@@ -188,13 +196,13 @@
                 android:id="@+id/rv_user"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone"
+                android:visibility="@{vm.showSearch &amp;&amp; vm.showUser}"
                 />
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="@{vm.showSearch}"
+                android:visibility="@{vm.showSearch &amp;&amp; !vm.showUser}"
                 />
         </FrameLayout>
     </android.support.design.widget.CoordinatorLayout>

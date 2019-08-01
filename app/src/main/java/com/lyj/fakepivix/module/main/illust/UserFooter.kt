@@ -13,7 +13,7 @@ import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.LayoutFooterUserBinding
-import com.lyj.fakepivix.module.main.common.adapter.IllustAdapter
+import com.lyj.fakepivix.module.common.adapter.IllustAdapter
 import com.lyj.fakepivix.widget.CommonItemDecoration
 import kotlinx.android.synthetic.main.layout_error_small.view.*
 

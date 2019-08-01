@@ -18,7 +18,7 @@ import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.ToastUtil
 import com.lyj.fakepivix.app.databinding.attachLoadMore
 import com.lyj.fakepivix.databinding.CommonRefreshList
-import com.lyj.fakepivix.module.main.common.adapter.IllustAdapter
+import com.lyj.fakepivix.module.common.adapter.IllustAdapter
 import com.lyj.fakepivix.module.main.home.illust.RankHeader
 import kotlinx.android.synthetic.main.layout_error.view.*
 

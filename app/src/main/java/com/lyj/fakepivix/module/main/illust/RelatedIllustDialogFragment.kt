@@ -11,7 +11,7 @@ import com.lyj.fakepivix.app.base.BottomDialogFragment
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.DialogRelatedBinding
-import com.lyj.fakepivix.module.main.common.adapter.IllustAdapter
+import com.lyj.fakepivix.module.common.adapter.IllustAdapter
 import com.lyj.fakepivix.widget.CommonItemDecoration
 
 /**

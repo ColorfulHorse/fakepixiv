@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.module.main.common
+package com.lyj.fakepivix.module.common
 
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
@@ -18,7 +18,7 @@ import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.databinding.attachLoadMore
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.CommonRefreshList
-import com.lyj.fakepivix.module.main.common.adapter.IllustAdapter
+import com.lyj.fakepivix.module.common.adapter.IllustAdapter
 import com.lyj.fakepivix.widget.CommonItemDecoration
 import kotlinx.android.synthetic.main.layout_common_refresh_recycler.*
 import kotlinx.android.synthetic.main.layout_error.view.*
@@ -45,7 +45,7 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
             mViewModel?.category = field
             mViewModel?.clear()
             if (onCreated) {
-                initList()
+                transformAdapter()
             }
         }
 
@@ -60,8 +60,11 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
 
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var mAdapter: IllustAdapter
-    private val loadingView: View by lazy { layoutInflater.inflate(R.layout.layout_common_loading, null) }
-    private val errorView: View by lazy { layoutInflater.inflate(R.layout.layout_error, null) }
+//    private val loadingView: View by lazy { layoutInflater.inflate(R.layout.layout_common_loading, null) }
+//    private val errorView: View by lazy { layoutInflater.inflate(R.layout.layout_error, null) }
+
+    private lateinit var loadingView: View
+    private lateinit var errorView: View
 
 
     override fun init(savedInstanceState: Bundle?) {
@@ -85,6 +88,34 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
      * 初始化列表
      */
     private fun initList() {
+        with(mBinding) {
+            mViewModel?.let {
+                vm ->
+                transformAdapter()
+                // 加载更多
+                recyclerView.attachLoadMore { vm.loadMore() }
+                /*recyclerView.setRecyclerListener {
+                    if (it is BaseBindingViewHolder<*>) {
+                        it.binding?.let { binding ->
+                            if (binding is ItemHomeIllustBinding) {
+                                GlideApp.with(this@IllustListFragment).clear(binding.image)
+                            }
+                        }
+                    }
+                }*/
+                refreshLayout.setOnRefreshListener {
+                    vm.load()
+                }
+
+                // 错误刷新
+                errorView.reload.setOnClickListener {
+                    vm.load()
+                }
+            }
+        }
+    }
+
+    private fun transformAdapter() {
         with(mBinding) {
             mViewModel?.let {
                 vm ->
@@ -114,28 +145,12 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
                     }
                 }
                 recyclerView.layoutManager = layoutManager
+
+                loadingView = layoutInflater.inflate(R.layout.layout_common_loading, null)
+                errorView = layoutInflater.inflate(R.layout.layout_error, null)
+
                 mAdapter.emptyView = loadingView
                 mAdapter.bindToRecyclerView(recyclerView)
-                // 加载更多
-                recyclerView.attachLoadMore { vm.loadMore() }
-                /*recyclerView.setRecyclerListener {
-                    if (it is BaseBindingViewHolder<*>) {
-                        it.binding?.let { binding ->
-                            if (binding is ItemHomeIllustBinding) {
-                                GlideApp.with(this@IllustListFragment).clear(binding.image)
-                            }
-                        }
-                    }
-                }*/
-
-                refreshLayout.setOnRefreshListener {
-                    vm.load()
-                }
-
-                // 错误刷新
-                errorView.reload.setOnClickListener {
-                    vm.load()
-                }
             }
         }
     }

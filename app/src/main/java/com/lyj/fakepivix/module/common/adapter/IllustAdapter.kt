@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.module.main.common.adapter
+package com.lyj.fakepivix.module.common.adapter
 
 import android.databinding.ObservableList
 import android.databinding.ViewDataBinding
@@ -6,15 +6,12 @@ import android.graphics.drawable.Drawable
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.RequestBuilder
-import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.adapter.PreloadMultiBindingAdapter
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.utils.Router
-import com.lyj.fakepivix.app.utils.mapUrl
-import com.lyj.fakepivix.databinding.ItemHomeNovelBinding
 
 /**
  * @author greensun
@@ -23,12 +20,9 @@ import com.lyj.fakepivix.databinding.ItemHomeNovelBinding
  *
  * @desc
  */
-@Deprecated("合并为IllustAdapter")
-class NovelAdapter(data: ObservableList<Illust>) : PreloadMultiBindingAdapter<Illust>(data) {
+open class IllustAdapter(data: ObservableList<Illust>) : PreloadMultiBindingAdapter<Illust>(data) {
 
     init {
-        addItemType(Illust.TYPE_NOVEL, R.layout.item_home_novel, BR.data)
-        addItemType(Illust.TYPE_ILLUST, R.layout.item_home_novel, BR.data)
         setOnItemClickListener { _, _, position ->
             Router.goDetail(position, data)
         }
@@ -37,11 +31,18 @@ class NovelAdapter(data: ObservableList<Illust>) : PreloadMultiBindingAdapter<Il
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseBindingViewHolder<ViewDataBinding> {
         val vh = super.onCreateViewHolder(parent, viewType)
         val image = vh.getView<ImageView>(R.id.image)
-        sizeProvider.setView(image)
+        image?.let {
+            sizeProvider.setView(it)
+        }
         return vh
     }
 
-    override fun getPreloadRequestBuilder(item: Illust): RequestBuilder<Drawable>? = GlideApp.with(recyclerView)
-            .load(item.image_urls.medium)
+    override fun isFixedViewType(type: Int): Boolean {
+        return super.isFixedViewType(type) or (type == Illust.TYPE_META)
+    }
 
+
+    override fun getPreloadRequestBuilder(item: Illust): RequestBuilder<Drawable>? =
+            GlideApp.with(mContext)
+            .load(item.image_urls.medium)
 }

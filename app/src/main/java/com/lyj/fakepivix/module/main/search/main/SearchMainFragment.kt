@@ -10,7 +10,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ImageSpan
-import android.view.MotionEvent
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
@@ -27,7 +27,7 @@ import com.lyj.fakepivix.app.entity.TabBean
 import com.lyj.fakepivix.app.utils.SPUtil
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.FragmentSearchMainBinding
-import com.lyj.fakepivix.module.main.common.IllustListFragment
+import com.lyj.fakepivix.module.common.IllustListFragment
 import com.lyj.fakepivix.widget.CommonItemDecoration
 import java.util.regex.Pattern
 
@@ -61,6 +61,8 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
     private lateinit var historyAdapter: BaseBindingAdapter<String, ViewDataBinding>
     private lateinit var wordAdapter: BaseBindingAdapter<String, ViewDataBinding>
     private lateinit var completeAdapter: BaseBindingAdapter<Tag, ViewDataBinding>
+    private val loadingView: View by lazy { layoutInflater.inflate(R.layout.layout_common_loading, null) }
+    private val errorView: View by lazy { layoutInflater.inflate(R.layout.layout_error, null) }
 
     override fun init(savedInstanceState: Bundle?) {
         arguments?.let {
@@ -98,19 +100,28 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
 
             })
             input.requestFocus()
-            rvWords.setOnTouchListener { v, event ->
-                if (event.action == MotionEvent.ACTION_DOWN) {
-                    mViewModel.showSearch.set(false)
-                    val text = "${mViewModel.keyword} "
-                    input.setText(text)
-                    input.setSelection(text.length)
-                    input.postDelayed({
-                        showSoftInput(input)
-                    }, 50)
-                    true
-                }
-                false
+            searchContainer.setOnClickListener {
+                mViewModel.showSearch.set(false)
+                val text = "${mViewModel.keyword} "
+                input.setText(text)
+                input.setSelection(text.length)
+                input.postDelayed({
+                    showSoftInput(input)
+                }, 50)
             }
+//            rvWords.setOnTouchListener { v, event ->
+//                if (event.action == MotionEvent.ACTION_DOWN) {
+//                    mViewModel.showSearch.set(false)
+//                    val text = "${mViewModel.keyword} "
+//                    input.setText(text)
+//                    input.setSelection(text.length)
+//                    input.postDelayed({
+//                        showSoftInput(input)
+//                    }, 50)
+//                    true
+//                }
+//                false
+//            }
 
         }
         initHistory()
@@ -177,6 +188,16 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
                 }
             }
 
+            wordAdapter.setOnItemClickListener { adapter, view, position ->
+                mViewModel.showSearch.set(false)
+                val text = "${mViewModel.keyword} "
+                input.setText(text)
+                input.setSelection(text.length)
+                input.postDelayed({
+                    showSoftInput(input)
+                }, 50)
+            }
+
             rvWords.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             wordAdapter.bindToRecyclerView(rvWords)
             rvWords.addItemDecoration(CommonItemDecoration.Builder().dividerWidth(5.dp2px(), 0).build())
@@ -206,6 +227,15 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
         }
     }
 
+    /**
+     * 用户列表
+     */
+    private fun initUserList() {
+        with(mBinding) {
+            rvUser.layoutManager = LinearLayoutManager(context)
+        }
+    }
+
     private fun initSubFragment() {
         val newFragment = IllustListFragment.newInstance(category)
         val popularFragment = IllustListFragment.newInstance(category)
@@ -223,7 +253,7 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
         }
 
         val span = ImageSpan(context, R.drawable.ic_profile_premium)
-        val sstr = SpannableString(getString(R.string.tab_popular))
+        val sstr = SpannableString("    ${getString(R.string.tab_popular)}")
         sstr.setSpan(span, 0, 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
         val titles = arrayOf(
                 getString(R.string.tab_new_works),
@@ -237,6 +267,7 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
     }
 
     override fun initImmersionBar() {
+        super.initImmersionBar()
         ImmersionBar
                 .with(this)
                 .statusBarDarkFont(true)

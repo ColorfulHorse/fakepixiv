@@ -2,13 +2,11 @@ package com.lyj.fakepivix.module.main.home.illust
 
 import android.content.Context
 import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PagerSnapHelper
 import android.view.LayoutInflater
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
-import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.IllustCategory.ILLUST
 import com.lyj.fakepivix.app.constant.IllustCategory.NOVEL
@@ -17,7 +15,7 @@ import com.lyj.fakepivix.app.constant.IllustCategory.NOVEL
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.HeaderRankBinding
-import com.lyj.fakepivix.module.main.common.adapter.IllustAdapter
+import com.lyj.fakepivix.module.common.adapter.IllustAdapter
 import com.lyj.fakepivix.widget.CommonItemDecoration
 
 /**

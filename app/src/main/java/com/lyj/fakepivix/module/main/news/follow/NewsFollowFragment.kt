@@ -14,8 +14,8 @@ import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.entity.TabBean
 import com.lyj.fakepivix.app.utils.SPUtil
 import com.lyj.fakepivix.databinding.FragmentNewsFollowBinding
-import com.lyj.fakepivix.module.main.common.IllustListFragment
-import com.lyj.fakepivix.module.main.common.IllustListViewModel
+import com.lyj.fakepivix.module.common.IllustListFragment
+import com.lyj.fakepivix.module.common.IllustListViewModel
 
 
 /**

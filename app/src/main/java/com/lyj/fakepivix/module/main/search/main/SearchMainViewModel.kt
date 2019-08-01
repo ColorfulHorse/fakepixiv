@@ -12,7 +12,7 @@ import com.lyj.fakepivix.app.data.model.response.Tag
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.data.source.remote.SearchRepository
 import com.lyj.fakepivix.app.utils.SPUtil
-import com.lyj.fakepivix.module.main.common.IllustListViewModel
+import com.lyj.fakepivix.module.common.IllustListViewModel
 import io.reactivex.Emitter
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
@@ -27,9 +27,20 @@ import java.util.regex.Pattern
  *
  * @desc 登录
  */
-class SearchMainViewModel(@IllustCategory var category: String = IllustCategory.ILLUST) : BaseViewModel<ISearchMainModel>() {
+class SearchMainViewModel constructor(@IllustCategory c: String = IllustCategory.ILLUST) : BaseViewModel<ISearchMainModel>() {
+
+    var category: String = IllustCategory.ILLUST
+    set(value) {
+        field = value
+        if (value == IllustCategory.OTHER) {
+            showUser.set(true)
+        }else {
+            showUser.set(false)
+        }
+    }
 
     override var mModel: ISearchMainModel = SearchMainModel()
+
     var newVm: IllustListViewModel
     var polularVm: IllustListViewModel
     var descVm: IllustListViewModel
@@ -39,6 +50,8 @@ class SearchMainViewModel(@IllustCategory var category: String = IllustCategory.
     var showSearch = ObservableField(false)
     // 是否显示补全列表
     var showComplete = ObservableField(false)
+    // 是否显示用户列表
+    var showUser = ObservableField(false)
     lateinit var action: Emitter<String>
     private var lastCompleteTask: Disposable? = null
 
@@ -84,17 +97,18 @@ class SearchMainViewModel(@IllustCategory var category: String = IllustCategory.
 
 
     init {
+        this.category = c
         newVm = IllustListViewModel(category) {
             IllustRepository.instance
-                    .searchIllust(category, inputText, false, start, end, strategy)
+                    .searchIllust(category, keyword, false, start, end, strategy)
         }
         polularVm = IllustListViewModel(category) {
             IllustRepository.instance
-                    .searchPopularIllust(category, inputText, start, end, strategy)
+                    .searchPopularIllust(category, keyword, start, end, strategy)
         }
         descVm = IllustListViewModel(category) {
             IllustRepository.instance
-                    .searchIllust(category, inputText, true, start, end, strategy)
+                    .searchIllust(category, keyword, true, start, end, strategy)
         }
         subVmList = listOf(newVm, polularVm, descVm)
 
@@ -130,7 +144,7 @@ class SearchMainViewModel(@IllustCategory var category: String = IllustCategory.
     }
 
     /**
-     * 搜索
+     * 拼接关键词列表搜索
      */
     fun search() {
         keyword = words.reduce { s1, s2 -> "$s1 $s2" }

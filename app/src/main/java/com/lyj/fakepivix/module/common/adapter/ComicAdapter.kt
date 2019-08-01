@@ -1,10 +1,9 @@
-package com.lyj.fakepivix.module.main.common.adapter
+package com.lyj.fakepivix.module.common.adapter
 
 import android.databinding.ObservableList
 import android.databinding.ViewDataBinding
 import android.graphics.drawable.Drawable
 import android.view.ViewGroup
-import android.widget.ImageView
 import com.bumptech.glide.RequestBuilder
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.GlideApp
@@ -13,7 +12,7 @@ import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.adapter.PreloadMultiBindingAdapter
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.utils.Router
-import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
+import com.lyj.fakepivix.databinding.ItemHomeComicBinding
 
 /**
  * @author greensun
@@ -22,9 +21,11 @@ import com.lyj.fakepivix.databinding.ItemHomeIllustBinding
  *
  * @desc
  */
-open class IllustAdapter(data: ObservableList<Illust>) : PreloadMultiBindingAdapter<Illust>(data) {
+@Deprecated("合并为IllustAdapter")
+open class ComicAdapter(data: ObservableList<Illust>) : PreloadMultiBindingAdapter<Illust>(data) {
 
     init {
+        addItemType(Illust.TYPE_COMIC, R.layout.item_home_comic, BR.data)
         setOnItemClickListener { _, _, position ->
             Router.goDetail(position, data)
         }
@@ -32,19 +33,15 @@ open class IllustAdapter(data: ObservableList<Illust>) : PreloadMultiBindingAdap
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseBindingViewHolder<ViewDataBinding> {
         val vh = super.onCreateViewHolder(parent, viewType)
-        val image = vh.getView<ImageView>(R.id.image)
-        image?.let {
-            sizeProvider.setView(it)
+        vh.binding?.let { binding ->
+            if (binding is ItemHomeComicBinding) {
+                sizeProvider.setView(binding.image)
+            }
         }
         return vh
     }
 
-    override fun isFixedViewType(type: Int): Boolean {
-        return super.isFixedViewType(type) or (type == Illust.TYPE_META)
-    }
-
-
-    override fun getPreloadRequestBuilder(item: Illust): RequestBuilder<Drawable>? =
-            GlideApp.with(mContext)
+    override fun getPreloadRequestBuilder(item: Illust): RequestBuilder<Drawable>? = GlideApp.with(recyclerView)
             .load(item.image_urls.medium)
+
 }

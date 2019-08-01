@@ -176,7 +176,7 @@ class IllustRepository private constructor() {
     /**
      * 加载更多
      */
-    fun loadMore(nextUrl: String, category: String = ILLUST): Observable<IllustListResp> {
+    fun loadMore(nextUrl: String): Observable<IllustListResp> {
         val service = RetrofitManager.instance.apiService
         return service.getMoreIllust(nextUrl).doOnNext {
 //                    with(it) {
