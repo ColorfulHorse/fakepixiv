@@ -2,6 +2,7 @@ package com.lyj.fakepivix.app.data.model.response
 
 import android.databinding.BaseObservable
 import android.databinding.Bindable
+import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.lyj.fakepivix.BR
 import com.squareup.moshi.JsonClass
 
@@ -61,6 +62,7 @@ data class UserPreview(
         val novels: List<Illust> = listOf(),
         val user: User = User()
 ) {
+
     init {
         illusts.addAll(novels)
     }

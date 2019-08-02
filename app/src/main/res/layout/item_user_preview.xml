@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="com.lyj.fakepivix.app.data.model.response.UserPreview"/>
+        <variable
+            name="data"
+            type="UserPreview"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/white">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/recyclerView"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="-16dp"
+            app:url="@{data.user.profile_image_urls.medium}"
+            app:placeHolder="@{@drawable/no_profile}"
+            app:circle="@{true}"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/recyclerView"
+            android:layout_toRightOf="@id/avatar">
+
+            <TextView
+                android:id="@id/nickName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:textColor="@color/renewal_font_black"
+                android:textSize="12.0sp"
+                android:text="@{data.user.name}"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/follow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:textColor="@{data.user._followed?@color/white:@color/colorPrimary}"
+                android:textSize="12sp"
+                android:padding="5dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@{data.user._followed?@string/followed:@string/follow}"
+                android:background="@{data.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_primary}"
+                style="?attr/borderlessButtonStyle"
+                android:textStyle="normal"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>
