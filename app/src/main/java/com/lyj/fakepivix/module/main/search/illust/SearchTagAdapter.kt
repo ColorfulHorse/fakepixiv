@@ -29,9 +29,11 @@ class SearchTagAdapter(val data: ObservableList<TrendTag>) : PreloadMultiBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseBindingViewHolder<ViewDataBinding> {
         val vh = super.onCreateViewHolder(parent, viewType)
-        val image = vh.getView<ImageView>(R.id.image)
-        image?.let {
-            sizeProvider.setView(it)
+        if (viewType == TrendTag.TYPE_NORMAL) {
+            val image = vh.getView<ImageView>(R.id.image)
+            image?.let {
+                sizeProvider.setView(it)
+            }
         }
         return vh
     }
