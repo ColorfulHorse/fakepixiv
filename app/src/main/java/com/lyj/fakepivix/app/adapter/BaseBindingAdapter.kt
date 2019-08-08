@@ -14,7 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
  *
  * @desc
  */
-open class BaseBindingAdapter<T, VB : ViewDataBinding>(@LayoutRes layoutId: Int, data: List<T>, val itemBindId: Int) : BaseQuickAdapter<T, BaseBindingViewHolder<VB>>(layoutId, data) {
+open class BaseBindingAdapter<T, VB : ViewDataBinding>(@LayoutRes layoutId: Int, data: MutableList<T>, val itemBindId: Int) : BaseQuickAdapter<T, BaseBindingViewHolder<VB>>(layoutId, data) {
 
     init {
         if(data is ObservableList<T>) {

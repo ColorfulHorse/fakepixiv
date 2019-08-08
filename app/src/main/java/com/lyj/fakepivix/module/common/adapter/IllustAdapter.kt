@@ -20,11 +20,11 @@ import com.lyj.fakepivix.app.utils.Router
  *
  * @desc
  */
-open class IllustAdapter(data: ObservableList<Illust>) : PreloadMultiBindingAdapter<Illust>(data) {
+open class IllustAdapter(data: MutableList<Illust>) : PreloadMultiBindingAdapter<Illust>(data) {
 
     init {
         setOnItemClickListener { _, _, position ->
-            Router.goDetail(position, data)
+            Router.goDetail(getRealPosition(position), mData)
         }
     }
 
@@ -36,6 +36,7 @@ open class IllustAdapter(data: ObservableList<Illust>) : PreloadMultiBindingAdap
         }
         return vh
     }
+
 
     override fun isFixedViewType(type: Int): Boolean {
         return super.isFixedViewType(type) or (type == Illust.TYPE_META)

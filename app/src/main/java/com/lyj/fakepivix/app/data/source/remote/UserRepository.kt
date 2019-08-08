@@ -58,12 +58,20 @@ class UserRepository private constructor(){
         }
     }
 
-    fun getRecommendUsers(): Observable<UserPreviewListResp> {
+    suspend fun getRecommendUsers(): UserPreviewListResp {
         return RetrofitManager.instance
                 .apiService
                 .getUserRecommend()
-                .schedulerTransform()
     }
+
+    /**
+     * 搜索用户
+     */
+    suspend fun searchUser(keyword: String): UserPreviewListResp = RetrofitManager.instance
+            .apiService
+            .searchUser(keyword)
+
+
 
     /**
      * 获取相关用户
@@ -85,4 +93,12 @@ class UserRepository private constructor(){
                 .unFollowUser(userId)
                 .schedulerTransform()
     }
+
+    /**
+     * 获取更多用户
+     */
+    suspend fun loadMore(url: String): UserPreviewListResp = RetrofitManager.instance
+            .apiService
+            .getMoreUser(url)
+
 }

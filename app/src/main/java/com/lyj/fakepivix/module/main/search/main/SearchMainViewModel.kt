@@ -4,15 +4,19 @@ import android.arch.lifecycle.LifecycleOwner
 import android.databinding.Bindable
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
+import android.databinding.ObservableList
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.constant.Constant
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.data.model.response.Tag
+import com.lyj.fakepivix.app.data.model.response.UserPreview
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.data.source.remote.SearchRepository
+import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import com.lyj.fakepivix.app.utils.SPUtil
 import com.lyj.fakepivix.module.common.IllustListViewModel
+import com.lyj.fakepivix.module.common.UserListViewModel
 import io.reactivex.Emitter
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
@@ -44,7 +48,8 @@ class SearchMainViewModel constructor(@IllustCategory c: String = IllustCategory
     var newVm: IllustListViewModel
     var polularVm: IllustListViewModel
     var descVm: IllustListViewModel
-    var subVmList:List<IllustListViewModel>
+    var subVmList: List<IllustListViewModel>
+    var userViewModel: UserListViewModel
 
     // 是否显示搜索列表
     var showSearch = ObservableField(false)
@@ -112,6 +117,11 @@ class SearchMainViewModel constructor(@IllustCategory c: String = IllustCategory
         }
         subVmList = listOf(newVm, polularVm, descVm)
 
+        userViewModel = UserListViewModel {
+            UserRepository.instance
+                    .searchUser(keyword)
+        }
+
         // 自动补全
         val disposable = Observable.create<String> {
                action = it
@@ -151,9 +161,14 @@ class SearchMainViewModel constructor(@IllustCategory c: String = IllustCategory
         historyList.add(keyword)
         SPUtil.saveSearchHistory(keyword)
         showSearch.set(true)
-        subVmList.forEach {
-            if (it.lazyCreated) {
-                it.load()
+        if (category == IllustCategory.OTHER) {
+            showUser.set(true)
+            userViewModel.load()
+        }else {
+            subVmList.forEach {
+                if (it.lazyCreated) {
+                    it.load()
+                }
             }
         }
     }

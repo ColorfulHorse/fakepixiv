@@ -24,7 +24,7 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc
  */
-class SearchIllustViewModel(@IllustCategory var category: String = ILLUST) : BaseViewModel<IModel?>() {
+class SearchTagViewModel(@IllustCategory var category: String = ILLUST) : BaseViewModel<IModel?>() {
 
     override var mModel: IModel? = null
 

@@ -4,14 +4,12 @@ package com.lyj.fakepivix.module.main.search.illust
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.IllustCategory.ILLUST
-import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
-import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.ToastUtil
+import com.lyj.fakepivix.app.utils.bindState
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.CommonList
 import com.lyj.fakepivix.widget.CommonItemDecoration
@@ -22,11 +20,11 @@ import com.lyj.fakepivix.widget.CommonItemDecoration
  *
  * @date 2019/4/3
  *
- * @desc 搜索tag页面
+ * @desc 搜索 - 关键字列表页
  */
-class SearchIllustFragment : FragmentationFragment<CommonList, SearchIllustViewModel>() {
+class SearchTagFragment : FragmentationFragment<CommonList, SearchTagViewModel>() {
 
-    override var mViewModel: SearchIllustViewModel = SearchIllustViewModel()
+    override var mViewModel: SearchTagViewModel = SearchTagViewModel()
 
     var category = ILLUST
     private set(value) {
@@ -35,7 +33,7 @@ class SearchIllustFragment : FragmentationFragment<CommonList, SearchIllustViewM
 
     companion object {
         private const val EXTRA_CATEGORY = "EXTRA_CATEGORY"
-        fun newInstance(@IllustCategory category: String) = SearchIllustFragment().apply {
+        fun newInstance(@IllustCategory category: String) = SearchTagFragment().apply {
             arguments = Bundle().apply {
                 putString(EXTRA_CATEGORY, category)
             }
@@ -44,8 +42,6 @@ class SearchIllustFragment : FragmentationFragment<CommonList, SearchIllustViewM
 
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var mAdapter: SearchTagAdapter
-    private val loadingView: View by lazy { layoutInflater.inflate(R.layout.layout_common_loading, null) }
-    private val errorView: View by lazy { layoutInflater.inflate(R.layout.layout_error, null) }
 
 
     override fun init(savedInstanceState: Bundle?) {
@@ -54,7 +50,6 @@ class SearchIllustFragment : FragmentationFragment<CommonList, SearchIllustViewM
             mViewModel.category = category
         }
         initList()
-        listenState()
     }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
@@ -74,7 +69,6 @@ class SearchIllustFragment : FragmentationFragment<CommonList, SearchIllustViewM
                         .draw(false)
                         .dividerWidth(1f.dp2px(), 1f.dp2px())
                         .build())
-                mAdapter.emptyView = loadingView
                 recyclerView.layoutManager = layoutManager
                 mAdapter.bindToRecyclerView(recyclerView)
                 // 加载更多
@@ -83,34 +77,13 @@ class SearchIllustFragment : FragmentationFragment<CommonList, SearchIllustViewM
                 mAdapter.setOnItemClickListener { _, _, position ->
                     ToastUtil.showToast("$position")
                 }
+                mAdapter.bindState(loadState) {
+                    load()
+                }
             }
         }
     }
 
-    /**
-     * 观察viewModel数据变化
-     */
-    private fun listenState() {
-        with(mViewModel) {
-            loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
-                when (loadState.get()) {
-                    is LoadState.Loading -> {
-                        mAdapter.emptyView = loadingView
-                        //mBinding.refreshLayout.isEnabled = false
-                        mAdapter.notifyDataSetChanged()
-                    }
-                    is LoadState.Failed -> {
-                        mAdapter.emptyView = errorView
-                        //mBinding.refreshLayout.isEnabled = true
-                        mAdapter.notifyDataSetChanged()
-                    }
-                    else -> {
-                        //mBinding.refreshLayout.isEnabled = true
-                    }
-                }
-            })
-        }
-    }
 
     override fun immersionBarEnabled(): Boolean = false
 

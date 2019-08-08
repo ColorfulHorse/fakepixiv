@@ -3,15 +3,25 @@ package com.lyj.fakepivix.app.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.databinding.ObservableField
 import android.support.annotation.ColorRes
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.ContextCompat.startActivity
+import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Half.toFloat
+import android.view.LayoutInflater
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.bumptech.glide.load.model.GlideUrl
 import android.view.WindowManager
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.App
+import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
+import com.lyj.fakepivix.app.network.LoadState
+import kotlinx.android.synthetic.main.layout_common_refresh_recycler.*
+import kotlinx.android.synthetic.main.layout_error.view.*
 
 
 /**
@@ -59,5 +69,37 @@ fun Context.hideKeyboard() {
     if (imm.isActive) {
         imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS)
     }
+}
+
+
+/**
+ * 监听列表数据加载状态
+ */
+fun BaseQuickAdapter<*, *>.bindState(loadState: ObservableField<LoadState>, onSucceed: (() -> Unit)? = null, onFailed: ((err: Throwable) -> Unit)? = null,
+                                     onLoading: (() -> Unit)? = null, refreshLayout: SwipeRefreshLayout? = null, reload: (() -> Unit)? = null) {
+    val loadingView: View = LayoutInflater.from(AppManager.instance.top).inflate(R.layout.layout_common_loading, null)
+    val errorView: View = LayoutInflater.from(AppManager.instance.top).inflate(R.layout.layout_error, null)
+    errorView.reload.setOnClickListener {
+        reload?.invoke()
+    }
+    loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { observable, i ->
+        when (loadState.get()) {
+            is LoadState.Loading -> {
+                emptyView = loadingView
+                refreshLayout?.isRefreshing = false
+                refreshLayout?.isEnabled = false
+                onLoading?.invoke()
+            }
+            is LoadState.Failed -> {
+                emptyView = errorView
+                refreshLayout?.isEnabled = true
+                onFailed?.invoke((loadState.get() as LoadState.Failed).error)
+            }
+            else -> {
+                refreshLayout?.isEnabled = true
+                onSucceed?.invoke()
+            }
+        }
+    })
 }
 

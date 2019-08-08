@@ -88,7 +88,13 @@ interface ApiService {
      * 最新-推荐用户
      */
     @GET("/v1/user/recommended")
-    fun getUserRecommend(): Observable<UserPreviewListResp>
+    suspend fun getUserRecommend(): UserPreviewListResp
+
+    /**
+     * 更多用户
+     */
+    @GET
+    suspend fun getMoreUser(@Url nextUrl: String): UserPreviewListResp
 
     /**
      * 获取用户作品列表
@@ -113,10 +119,6 @@ interface ApiService {
     fun getUserBookmarks(@IllustCategory @Path("category")category: String,
                          @Query("user_id")userId: String,
                          @Restrict @Query("restrict")restrict: String = Restrict.PUBLIC): Observable<IllustListResp>
-
-    @GET("/v1/user/bookmarks/illust")
-    fun getUserIllustData(@Query("user_id")userId: String): Observable<IllustListResp>
-
 
     /**
      * 获取相关用户
@@ -259,5 +261,5 @@ interface ApiService {
      * 搜索用户
      */
     @GET("/v1/search/user")
-    fun searchUser(@Query("word")keyword: String): Observable<UserPreviewListResp>
+    suspend fun searchUser(@Query("word")keyword: String): UserPreviewListResp
 }

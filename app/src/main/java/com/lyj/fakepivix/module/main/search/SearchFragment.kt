@@ -1,16 +1,18 @@
 package com.lyj.fakepivix.module.main.search
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.constant.IllustCategory
+import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import com.lyj.fakepivix.app.entity.TabBean
 import com.lyj.fakepivix.databinding.FragmentSearchBinding
-import com.lyj.fakepivix.module.main.search.illust.SearchIllustFragment
+import com.lyj.fakepivix.module.common.UserListFragment
+import com.lyj.fakepivix.module.common.UserListViewModel
+import com.lyj.fakepivix.module.main.search.illust.SearchTagFragment
 import me.yokeyword.fragmentation.ISupportFragment
 
 
@@ -31,10 +33,16 @@ class SearchFragment : FragmentationFragment<FragmentSearchBinding, BaseViewMode
 
 
     override fun init(savedInstanceState: Bundle?) {
+        val userListFragment = UserListFragment.newInstance()
+        val userViewModel = UserListViewModel {
+            UserRepository.instance
+                    .getRecommendUsers()
+        }
+        userListFragment.mViewModel = userViewModel
         val fragments = listOf<ISupportFragment>(
-                SearchIllustFragment.newInstance(IllustCategory.ILLUST),
-                SearchIllustFragment.newInstance(IllustCategory.NOVEL),
-                SearchIllustFragment.newInstance(IllustCategory.ILLUST)
+                SearchTagFragment.newInstance(IllustCategory.ILLUST),
+                SearchTagFragment.newInstance(IllustCategory.NOVEL),
+                userListFragment
         )
         loadMultipleRootFragment(R.id.fl_container, 0, fragments[0], fragments[1], fragments[2])
         val tabs = arrayListOf<CustomTabEntity>(

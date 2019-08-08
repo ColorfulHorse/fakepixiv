@@ -52,6 +52,7 @@ class IllustDetailAdapter(val viewModel: IllustDetailViewModel) : IllustAdapter(
         }
     }
 
+
     override fun getItemViewType(position: Int): Int {
         when {
             position == start -> {

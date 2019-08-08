@@ -4,6 +4,8 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.lyj.fakepivix.BR
+import com.lyj.fakepivix.app.adapter.PreloadModel
+import com.lyj.fakepivix.app.constant.IllustCategory
 import com.squareup.moshi.JsonClass
 
 /**
@@ -61,11 +63,27 @@ data class UserPreview(
         val is_muted: Boolean = false,
         val novels: List<Illust> = listOf(),
         val user: User = User()
-) {
+) : PreloadModel {
+//    var novels: List<Illust> = listOf()
+//        set(value) {
+//            value.forEach { it.type = IllustCategory.NOVEL }
+//            field = value
+//            if (illusts.isEmpty()) {
+//                illusts = field
+//            }
+//        }
 
-    init {
-        illusts.addAll(novels)
+    override fun getPreloadUrls(): List<String> {
+        val list = illusts.take(3).map { it.image_urls.medium }
+        val res = mutableListOf<String>()
+        res.add(user.profile_image_urls.medium)
+        res.addAll(list)
+        return res
     }
+
+//    init {
+//        illusts.addAll(novels)
+//    }
 }
 
 /**

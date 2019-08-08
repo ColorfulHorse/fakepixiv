@@ -5,6 +5,7 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.lyj.fakepivix.BR
+import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.IllustCategory.*
 import com.squareup.moshi.JsonClass
 
@@ -26,6 +27,7 @@ data class IllustListResp(
 ) {
     var novels: List<Illust> = listOf()
         set(value) {
+            value.forEach { it.type = NOVEL }
             field = value
             if (illusts.isEmpty()) {
                 illusts = field
@@ -34,6 +36,7 @@ data class IllustListResp(
 
     var ranking_novels: List<Illust> = listOf()
         set(value) {
+            value.forEach { it.type = NOVEL }
             field = value
             if (ranking_illusts.isEmpty()) {
                 ranking_illusts = field

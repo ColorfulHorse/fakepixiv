@@ -55,7 +55,7 @@ class DescFooter(val context: Context, val data: Illust, var mBinding: LayoutFoo
                 }
             }
             list
-        }
+        }.toMutableList()
         val adapter = BaseBindingAdapter<Tag, ItemTagBinding>(R.layout.item_tag, tags, BR.data)
         adapter.bindToRecyclerView(binding.recyclerView)
         binding.recyclerView.layoutManager = FlowLayoutManager()

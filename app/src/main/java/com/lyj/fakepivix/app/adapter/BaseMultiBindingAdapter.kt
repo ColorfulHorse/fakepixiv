@@ -15,44 +15,46 @@ import com.chad.library.adapter.base.entity.MultiItemEntity
  *
  * @desc
  */
-open class BaseMultiBindingAdapter<T : MultiItemEntity>(data: ObservableList<T>) : BaseMultiItemQuickAdapter<T, BaseBindingViewHolder<ViewDataBinding>>(data) {
+open class BaseMultiBindingAdapter<T : MultiItemEntity>(data: MutableList<T>) : BaseMultiItemQuickAdapter<T, BaseBindingViewHolder<ViewDataBinding>>(data) {
 
     private val variableIds = SparseIntArray()
 
     init {
-        data.addOnListChangedCallback(object : ObservableList.OnListChangedCallback<ObservableList<T>>(){
-            override fun onChanged(sender: ObservableList<T>?) {
-                notifyDataSetChanged()
-            }
-
-            override fun onItemRangeRemoved(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
-                notifyItemRangeRemoved(positionStart, itemCount)
-                compatibilityDataSizeChanged(0)
-            }
-
-            override fun onItemRangeMoved(sender: ObservableList<T>?, fromPosition: Int, toPosition: Int, itemCount: Int) {
-                if (itemCount == 1) {
-                    notifyItemMoved(fromPosition, toPosition)
-                }else {
+        if (data is ObservableList<T>) {
+            data.addOnListChangedCallback(object : ObservableList.OnListChangedCallback<ObservableList<T>>(){
+                override fun onChanged(sender: ObservableList<T>?) {
                     notifyDataSetChanged()
                 }
-            }
 
-            override fun onItemRangeInserted(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
-                var start = positionStart
-                if (positionStart > 0) {
-                    val count = getItemCount() - data.size
-                    start += count
+                override fun onItemRangeRemoved(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
+                    notifyItemRangeRemoved(positionStart, itemCount)
+                    compatibilityDataSizeChanged(0)
                 }
-                notifyItemRangeInserted(start, itemCount)
-                compatibilityDataSizeChanged(itemCount)
-            }
 
-            override fun onItemRangeChanged(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
-                notifyItemRangeChanged(positionStart, itemCount)
-            }
+                override fun onItemRangeMoved(sender: ObservableList<T>?, fromPosition: Int, toPosition: Int, itemCount: Int) {
+                    if (itemCount == 1) {
+                        notifyItemMoved(fromPosition, toPosition)
+                    }else {
+                        notifyDataSetChanged()
+                    }
+                }
 
-        })
+                override fun onItemRangeInserted(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
+                    var start = positionStart
+                    if (positionStart > 0) {
+                        val count = getItemCount() - data.size
+                        start += count
+                    }
+                    notifyItemRangeInserted(start, itemCount)
+                    compatibilityDataSizeChanged(itemCount)
+                }
+
+                override fun onItemRangeChanged(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
+                    notifyItemRangeChanged(positionStart, itemCount)
+                }
+
+            })
+        }
     }
 
     /**

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 主页排行榜item -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="com.lyj.fakepivix.app.data.model.response.Illust"/>
+        <variable
+            name="illust"
+            type="Illust"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient_novel_small"
+        >
+        <!--
+        app:url="@{illust.image_urls.medium}"
+            app:fade="@{true}"
+            app:placeHolder="@{@drawable/common_border_placeholder}"
+        -->
+        <com.lyj.fakepivix.widget.RecImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:foreground="@drawable/gradient_novel_small"
+            app:url="@{illust.image_urls.medium}"
+            app:fade="@{true}"
+            app:placeHolder="@{@drawable/common_border_placeholder}"
+            />
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            android:textColor="@color/white"
+            android:text="@{illust.title}"
+            />
+        <!--<RelativeLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:visibility="@{illust.series != null}"-->
+            <!--&gt;-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@drawable/yellow_mark_left_top" />-->
+            <!--<TextView-->
+                <!--android:id="@+id/tag_series"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginStart="6dp"-->
+                <!--android:layout_marginEnd="6dp"-->
+                <!--android:layout_marginTop="6dp"-->
+                <!--android:rotation="315.0"-->
+                <!--android:text="@string/series"-->
+                <!--android:textColor="@android:color/white"-->
+                <!--android:textSize="10.0sp"-->
+                <!--android:textStyle="bold"-->
+                <!--/>-->
+        <!--</RelativeLayout>-->
+    </RelativeLayout>
+</layout>

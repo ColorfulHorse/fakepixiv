@@ -24,19 +24,17 @@ class HomeComicAdapter(data: ObservableList<Illust>, val header: PixivisionHeade
         const val TYPE_ARTICLE_VIEW = 200
     }
 
-    init {
-        setOnItemClickListener { _, _, position ->
-            var pos = position
-            if (position > 2) {
-                pos = position - 1
-            }
-            Router.goDetail(pos, data)
-        }
-    }
 
     init {
         addItemType(Illust.TYPE_ILLUST, R.layout.item_home_comic, BR.data)
         addItemType(Illust.TYPE_COMIC, R.layout.item_home_comic, BR.data)
+    }
+
+    override fun getRealPosition(position: Int): Int {
+        if (position > 2) {
+            return position - 1
+        }
+        return super.getRealPosition(position)
     }
 
 
@@ -52,7 +50,7 @@ class HomeComicAdapter(data: ObservableList<Illust>, val header: PixivisionHeade
     }
 
     override fun getItemCount(): Int {
-        if (!data.isNullOrEmpty()) {
+        if (!mData.isNullOrEmpty()) {
             return super.getItemCount() + 1
         }
         return super.getItemCount()

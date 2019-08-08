@@ -23,11 +23,14 @@ import com.lyj.fakepivix.app.adapter.CommonFragmentAdapter
 import com.lyj.fakepivix.app.base.BackFragment
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.data.model.response.Tag
+import com.lyj.fakepivix.app.databinding.attachLoadMore
 import com.lyj.fakepivix.app.entity.TabBean
 import com.lyj.fakepivix.app.utils.SPUtil
+import com.lyj.fakepivix.app.utils.bindState
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.FragmentSearchMainBinding
 import com.lyj.fakepivix.module.common.IllustListFragment
+import com.lyj.fakepivix.module.common.adapter.UserPreviewAdapter
 import com.lyj.fakepivix.widget.CommonItemDecoration
 import java.util.regex.Pattern
 
@@ -61,6 +64,7 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
     private lateinit var historyAdapter: BaseBindingAdapter<String, ViewDataBinding>
     private lateinit var wordAdapter: BaseBindingAdapter<String, ViewDataBinding>
     private lateinit var completeAdapter: BaseBindingAdapter<Tag, ViewDataBinding>
+    private lateinit var userAdapter: UserPreviewAdapter
     private val loadingView: View by lazy { layoutInflater.inflate(R.layout.layout_common_loading, null) }
     private val errorView: View by lazy { layoutInflater.inflate(R.layout.layout_error, null) }
 
@@ -101,32 +105,23 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
             })
             input.requestFocus()
             searchContainer.setOnClickListener {
-                mViewModel.showSearch.set(false)
-                val text = "${mViewModel.keyword} "
-                input.setText(text)
-                input.setSelection(text.length)
-                input.postDelayed({
-                    showSoftInput(input)
-                }, 50)
+                reSearch()
             }
-//            rvWords.setOnTouchListener { v, event ->
-//                if (event.action == MotionEvent.ACTION_DOWN) {
-//                    mViewModel.showSearch.set(false)
-//                    val text = "${mViewModel.keyword} "
-//                    input.setText(text)
-//                    input.setSelection(text.length)
-//                    input.postDelayed({
-//                        showSoftInput(input)
-//                    }, 50)
-//                    true
-//                }
-//                false
-//            }
-
         }
         initHistory()
         initSearchList()
         initCompleteList()
+        initUserList()
+    }
+
+    private fun FragmentSearchMainBinding.reSearch() {
+        mViewModel.showSearch.set(false)
+        val text = "${mViewModel.keyword} "
+        input.setText(text)
+        input.setSelection(text.length)
+        input.postDelayed({
+            showSoftInput(input)
+        }, 50)
     }
 
     /**
@@ -189,13 +184,7 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
             }
 
             wordAdapter.setOnItemClickListener { adapter, view, position ->
-                mViewModel.showSearch.set(false)
-                val text = "${mViewModel.keyword} "
-                input.setText(text)
-                input.setSelection(text.length)
-                input.postDelayed({
-                    showSoftInput(input)
-                }, 50)
+                reSearch()
             }
 
             rvWords.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -232,7 +221,16 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
      */
     private fun initUserList() {
         with(mBinding) {
+            userAdapter = UserPreviewAdapter(mViewModel.userViewModel.data)
             rvUser.layoutManager = LinearLayoutManager(context)
+            userAdapter.bindToRecyclerView(rvUser)
+            userAdapter.bindState(mViewModel.userViewModel.loadState) {
+                mViewModel.userViewModel.load()
+            }
+            rvUser.attachLoadMore { mViewModel.userViewModel.loadMore() }
+            rvUser.addItemDecoration(CommonItemDecoration.Builder()
+                    .dividerWidth(12.dp2px(), 0)
+                    .build())
         }
     }
 
@@ -246,6 +244,7 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
         lifecycle.addObserver(mViewModel.newVm)
         lifecycle.addObserver(mViewModel.polularVm)
         lifecycle.addObserver(mViewModel.descVm)
+        lifecycle.addObserver(mViewModel.userViewModel)
         fragments.apply {
             add(newFragment)
             add(popularFragment)

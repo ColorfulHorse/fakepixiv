@@ -1,7 +1,6 @@
 package com.lyj.fakepivix.module.main.illust
 
 import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -12,15 +11,14 @@ import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.base.BottomDialogFragment
+import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.UserPreview
-import com.lyj.fakepivix.app.data.source.remote.UserRepository
-import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.DialogRelatedBinding
 import com.lyj.fakepivix.databinding.ItemUserRelatedBinding
+import com.lyj.fakepivix.module.common.adapter.IllustAdapter
 import com.lyj.fakepivix.widget.CommonItemDecoration
-import io.reactivex.rxkotlin.subscribeBy
 
 /**
  * @author greensun
@@ -33,15 +31,30 @@ class RelatedUserDialogFragment : BottomDialogFragment() {
 
     var mBinding: DialogRelatedBinding? = null
     var mViewModel: RelatedUserDialogViewModel? = null
-    var mAdapter = object : BaseBindingAdapter<UserPreview, ItemUserRelatedBinding>(R.layout.item_user_related, listOf(), BR.data) {
+    var mAdapter = object : BaseBindingAdapter<UserPreview, ItemUserRelatedBinding>(R.layout.item_user_related, mutableListOf(), BR.data) {
         override fun convert(helper: BaseBindingViewHolder<ItemUserRelatedBinding>, item: UserPreview) {
             super.convert(helper, item)
             helper.addOnClickListener(R.id.follow)
             helper.binding?.let {
                 it.recyclerView.layoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
-                val adapter = BaseBindingAdapter<Illust, ViewDataBinding>(R.layout.item_illust_user, item.illusts, BR.illust)
-                adapter.bindToRecyclerView(it.recyclerView)
-                it.recyclerView.addItemDecoration(CommonItemDecoration.Builder().dividerWidth(1.dp2px(), 0).draw(false).build())
+                var list = item.illusts
+                if (list.size < 3) {
+                    val novels = item.novels.take(3 - list.size)
+                    novels.forEach { value -> value.type = IllustCategory.NOVEL }
+                    list.addAll(novels)
+                }
+                var adapter = it.recyclerView.adapter
+                if (adapter == null) {
+                    adapter = IllustAdapter(list).apply {
+                        addItemType(Illust.TYPE_ILLUST, R.layout.item_illust_small, BR.illust)
+                        addItemType(Illust.TYPE_COMIC, R.layout.item_illust_small, BR.illust)
+                        addItemType(Illust.TYPE_NOVEL, R.layout.item_illust_small, BR.illust)
+                    }
+                    adapter.bindToRecyclerView(it.recyclerView)
+                    it.recyclerView.addItemDecoration(CommonItemDecoration.Builder().dividerWidth(1.dp2px(), 0).draw(false).build())
+                }else {
+                    (adapter as IllustAdapter).setNewData(item.illusts)
+                }
             }
         }
     }

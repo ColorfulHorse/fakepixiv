@@ -75,7 +75,7 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
         mViewModel?.let {
             lifecycle.addObserver(it)
         }
-        //initList()
+        initList()
         listenState()
     }
 
@@ -94,15 +94,6 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
                 transformAdapter()
                 // 加载更多
                 recyclerView.attachLoadMore { vm.loadMore() }
-                /*recyclerView.setRecyclerListener {
-                    if (it is BaseBindingViewHolder<*>) {
-                        it.binding?.let { binding ->
-                            if (binding is ItemHomeIllustBinding) {
-                                GlideApp.with(this@IllustListFragment).clear(binding.image)
-                            }
-                        }
-                    }
-                }*/
                 refreshLayout.setOnRefreshListener {
                     vm.load()
                 }

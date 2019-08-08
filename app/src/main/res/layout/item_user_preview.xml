@@ -8,68 +8,95 @@
             name="data"
             type="UserPreview"/>
     </data>
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:background="@android:color/white">
-
-        <androidx.recyclerview.widget.RecyclerView
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:clipChildren="false"
+        >
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-        <ImageView
-            android:id="@+id/avatar"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_below="@id/recyclerView"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="-16dp"
-            app:url="@{data.user.profile_image_urls.medium}"
-            app:placeHolder="@{@drawable/no_profile}"
-            app:circle="@{true}"
-            />
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_below="@id/recyclerView"
-            android:layout_toRightOf="@id/avatar">
-
-            <TextView
-                android:id="@id/nickName"
+            android:orientation="horizontal"
+            android:clipChildren="false"
+            >
+            <RelativeLayout
+                android:id="@+id/container"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:gravity="center_vertical"
-                android:maxLines="1"
-                android:padding="8dp"
-                android:textColor="@color/renewal_font_black"
-                android:textSize="12.0sp"
-                android:text="@{data.user.name}"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_gravity="bottom"
+                >
+                <ImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="-16dp"
+                    android:visibility="@{data.illusts.size > 0}"
+                    app:url="@{data.user.profile_image_urls.medium}"
+                    app:placeHolder="@{@drawable/no_profile}"
+                    app:circle="@{true}"
+                    />
 
-            <Button
-                android:id="@+id/follow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
-                android:textColor="@{data.user._followed?@color/white:@color/colorPrimary}"
-                android:textSize="12sp"
-                android:padding="5dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:text="@{data.user._followed?@string/followed:@string/follow}"
-                android:background="@{data.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_primary}"
-                style="?attr/borderlessButtonStyle"
-                android:textStyle="normal"
-                />
-        </RelativeLayout>
-    </RelativeLayout>
+                <ImageView
+                    android:id="@+id/avatar_small"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:visibility="@{data.illusts.size() == 0}"
+                    app:url="@{data.user.profile_image_urls.medium}"
+                    app:placeHolder="@{@drawable/no_profile}"
+                    app:circle="@{true}"
+                    />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingEnd="16dp"
+                >
+
+                <TextView
+                    android:id="@id/nickName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textColor="@color/renewal_font_black"
+                    android:textSize="12.0sp"
+                    android:text="@{data.user.name}"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/follow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:textColor="@{data.user._followed?@color/white:@color/colorPrimary}"
+                    android:textSize="12sp"
+                    android:padding="5dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="@{data.user._followed?@string/followed:@string/follow}"
+                    android:background="@{data.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_primary}"
+                    style="?attr/borderlessButtonStyle"
+                    android:textStyle="normal"
+                    />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </LinearLayout>
 </layout>

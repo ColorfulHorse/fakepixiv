@@ -17,7 +17,7 @@ import com.lyj.fakepivix.databinding.MainRoot
 import com.lyj.fakepivix.module.main.home.HomeFragment
 import com.lyj.fakepivix.module.main.news.NewsFragment
 import com.lyj.fakepivix.module.main.search.SearchFragment
-import com.lyj.fakepivix.module.main.search.illust.SearchIllustFragment
+import com.lyj.fakepivix.module.main.search.illust.SearchTagFragment
 import com.lyj.fakepivix.module.main.search.main.SearchMainFragment
 
 /**
@@ -112,7 +112,7 @@ class MainRootFragment : FragmentationFragment<MainRoot, BaseViewModel<*>?>() {
         mBinding.search.setOnClickListener {
             var category = IllustCategory.ILLUST
             val active = Router.getActiveFragment()
-            if (active is SearchIllustFragment) {
+            if (active is SearchTagFragment) {
                 category = active.category
                 start(SearchMainFragment.newInstance(category))
             }

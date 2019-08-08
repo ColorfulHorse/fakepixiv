@@ -25,13 +25,13 @@ class HomeIllustAdapter(data: ObservableList<Illust>, val header: PixivisionHead
 
     init {
         addItemType(Illust.TYPE_ILLUST, R.layout.item_home_illust, BR.illust)
-        setOnItemClickListener { _, _, position ->
-            var pos = position
-            if (position > 10) {
-                pos = position - 1
-            }
-            Router.goDetail(pos, data)
+    }
+
+    override fun getRealPosition(position: Int): Int {
+        if (position > 10) {
+            return position - 1
         }
+        return super.getRealPosition(position)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -45,7 +45,7 @@ class HomeIllustAdapter(data: ObservableList<Illust>, val header: PixivisionHead
     }
 
     override fun getItemCount(): Int {
-        if (!data.isNullOrEmpty()) {
+        if (!mData.isNullOrEmpty()) {
             return super.getItemCount() + 1
         }
         return super.getItemCount()

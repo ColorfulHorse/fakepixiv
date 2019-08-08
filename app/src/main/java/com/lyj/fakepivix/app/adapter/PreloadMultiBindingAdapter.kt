@@ -19,7 +19,7 @@ import com.lyj.fakepivix.GlideApp
  *
  * @desc 预加载adapter
  */
-abstract class PreloadMultiBindingAdapter<T : MultiItemEntity>(data: ObservableList<T>) : BaseMultiBindingAdapter<T>(data), ListPreloader.PreloadModelProvider<T> {
+abstract class PreloadMultiBindingAdapter<T : MultiItemEntity>(data: MutableList<T>) : BaseMultiBindingAdapter<T>(data), ListPreloader.PreloadModelProvider<T> {
     protected val sizeProvider = ViewPreloadSizeProvider<T>()
     // 最大预加载数量
     open protected var maxPreLoad = 10
@@ -30,14 +30,22 @@ abstract class PreloadMultiBindingAdapter<T : MultiItemEntity>(data: ObservableL
         recyclerView.addOnScrollListener(preloader)
     }
 
+    /**
+     * 解决插入特定view引起问题
+     */
+    open fun getRealPosition(position: Int): Int {
+        return position
+    }
+
     override fun getPreloadItems(position: Int): MutableList<T> {
+        val realPos = getRealPosition(position);
         if (data.isNotEmpty()) {
-            var end = position + 1
+            var end = realPos + 1
             if (end >= data.size) {
                 end = data.size - 1
             }
             if (end > position) {
-                return data.subList(position, end)
+                return data.subList(realPos, end)
             }
         }
         return mutableListOf()
