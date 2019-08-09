@@ -95,9 +95,14 @@ class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, B
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        //IllustRepository.instance - key
+    override fun onBackPressedSupport(): Boolean {
+        IllustRepository.instance - key
+        return super.onBackPressedSupport()
+    }
+
+    override fun back() {
+        IllustRepository.instance - key
+        super.back()
     }
 
     override fun initImmersionBar() {

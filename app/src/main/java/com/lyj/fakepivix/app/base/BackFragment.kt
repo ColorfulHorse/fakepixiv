@@ -28,7 +28,7 @@ abstract class BackFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
                 if (keyboardOpen) {
                     hideSoftInput()
                 }else {
-                    pop()
+                    back()
                 }
             }
         }
@@ -38,5 +38,9 @@ abstract class BackFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
 
     open fun bindBackIcon(): Drawable {
         return resources.getDrawable(R.drawable.ic_arrow_back_white)
+    }
+
+    open fun back() {
+        pop()
     }
 }
