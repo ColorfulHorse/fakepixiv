@@ -1,5 +1,6 @@
 package com.lyj.fakepivix.app.data.source.remote
 
+import android.util.SparseArray
 import com.lyj.fakepivix.app.constant.Constant
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.IllustCategory.*
@@ -10,6 +11,7 @@ import com.lyj.fakepivix.app.data.model.response.IllustListResp
 import com.lyj.fakepivix.app.network.ApiException
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
 import com.lyj.fakepivix.app.reactivex.schedulerTransform
+import com.lyj.fakepivix.app.utils.Router
 import io.reactivex.Observable
 
 /**
@@ -25,7 +27,19 @@ class IllustRepository private constructor() {
         val instance by lazy { IllustRepository() }
     }
 
-    var illustList: MutableList<Illust> = mutableListOf()
+    val illusts = SparseArray<List<Illust>>()
+
+    operator fun get(key: Int): List<Illust> {
+        return illusts[key]
+    }
+
+    operator fun set(key: Int, value: List<Illust>) {
+        illusts.put(key, value)
+    }
+
+    operator fun minus(key: Int) {
+        illusts.remove(key)
+    }
 
     /**
      * 获取推荐

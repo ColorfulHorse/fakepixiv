@@ -52,9 +52,10 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
     companion object {
         private const val EXTRA_CATEGORY = "EXTRA_CATEGORY"
         fun newInstance(@IllustCategory category: String) = IllustListFragment().apply {
-            arguments = Bundle().apply {
-                putString(EXTRA_CATEGORY, category)
-            }
+            this.category = category
+//            arguments = Bundle().apply {
+//                putString(EXTRA_CATEGORY, category)
+//            }
         }
     }
 
@@ -68,10 +69,11 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
 
 
     override fun init(savedInstanceState: Bundle?) {
-        arguments?.let {
-            category = it.getString(EXTRA_CATEGORY, ILLUST)
-            mViewModel?.category = category
-        }
+        mViewModel?.category = category
+//        arguments?.let {
+//            category = it.getString(EXTRA_CATEGORY, ILLUST)
+//            mViewModel?.category = category
+//        }
         mViewModel?.let {
             lifecycle.addObserver(it)
         }

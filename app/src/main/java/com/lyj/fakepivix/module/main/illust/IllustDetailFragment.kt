@@ -11,6 +11,7 @@ import android.view.animation.TranslateAnimation
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.data.model.response.Illust
+import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.dp2px
@@ -29,10 +30,14 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
     override var mViewModel: IllustDetailViewModel = IllustDetailViewModel()
 
     companion object {
-
-        fun newInstance(data: Illust): IllustDetailFragment {
+        private const val EXTRA_POSITION = "EXTRA_POSITION"
+        private const val EXTRA_KEY = "EXTRA_KEY"
+        fun newInstance(position: Int, key: Int): IllustDetailFragment {
             return IllustDetailFragment().apply {
-                mViewModel.illust = data
+                arguments = Bundle().apply {
+                    putInt(EXTRA_POSITION, position)
+                    putInt(EXTRA_KEY, key)
+                }
             }
         }
     }
@@ -44,6 +49,9 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
 
     override fun init(savedInstanceState: Bundle?) {
         arguments?.let {
+            val position = it.getInt(EXTRA_POSITION, -1)
+            val key = it.getInt(EXTRA_KEY, -1)
+            mViewModel.illust = IllustRepository.instance[key][position]
             val show = mViewModel.captionVisibility.get()
             if (show != null) {
                 showCaption = show

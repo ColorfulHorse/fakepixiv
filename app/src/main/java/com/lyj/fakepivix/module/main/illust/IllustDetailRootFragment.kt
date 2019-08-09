@@ -10,6 +10,7 @@ import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.BackFragment
 import com.lyj.fakepivix.app.base.BaseViewModel
+import com.lyj.fakepivix.app.base.ViewModelProvider
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.databinding.FragmentIllustDetailRootBinding
@@ -26,16 +27,18 @@ class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, B
     override var mViewModel: BaseViewModel<*>? = null
 
     var position = -1
+    var key = -1
 
     var data : List<Illust> = listOf()
 
     companion object {
         private const val EXTRA_POSITION = "EXTRA_POSITION"
-        fun newInstance(position: Int, data: List<Illust>): IllustDetailRootFragment {
+        private const val EXTRA_KEY = "EXTRA_KEY"
+        fun newInstance(position: Int, key: Int): IllustDetailRootFragment {
             return IllustDetailRootFragment().apply {
-                this.data = data
                 arguments = Bundle().apply {
                     putInt(EXTRA_POSITION, position)
+                    putInt(EXTRA_KEY, key)
                 }
             }
         }
@@ -43,7 +46,9 @@ class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, B
 
     override fun init(savedInstanceState: Bundle?) {
         arguments?.let {
+            key = it.getInt(EXTRA_KEY, -1)
             position = it.getInt(EXTRA_POSITION, -1)
+            data = IllustRepository.instance[key]
         }
         mToolbar?.let {
             it.overflowIcon = ContextCompat.getDrawable(mActivity, R.drawable.ic_more)
@@ -57,7 +62,7 @@ class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, B
                 true
             }
         }
-        val adapter = IllustPagerAdapter(data, childFragmentManager)
+        val adapter = IllustPagerAdapter(data, childFragmentManager, key)
         with(mBinding) {
             viewPager.adapter = adapter
             viewPager.offscreenPageLimit = 2
@@ -75,7 +80,6 @@ class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, B
                 override fun onPageSelected(position: Int) {
                     val fragment = adapter.getFragment(position)
                     vm = fragment?.mViewModel
-                    Log.e("xxx", "onPageSelected+: $position fragment${fragment == null}")
                 }
 
             })
@@ -89,6 +93,11 @@ class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, B
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        //IllustRepository.instance - key
     }
 
     override fun initImmersionBar() {

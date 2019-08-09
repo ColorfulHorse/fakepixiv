@@ -24,9 +24,10 @@
         </activity>
      <activity android:name=".module.login.LoginActivity"
          android:screenOrientation="portrait"
+         android:configChanges="orientation|screenSize"
          />
-        <activity android:name=".module.main.MainActivity"
-            android:screenOrientation="portrait"
+        <activity
+            android:name=".module.main.MainActivity"
             />
     </application>
 

@@ -17,7 +17,7 @@ import timber.log.Timber
  *
  * @desc
  */
-class IllustPagerAdapter(val data: List<Illust>, fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+class IllustPagerAdapter(val data: List<Illust>, fm: FragmentManager, val key: Int) : FragmentStatePagerAdapter(fm) {
     val fragments: SparseArray<IllustDetailFragment> = SparseArray()
 
     var feature: ((IllustDetailFragment) -> Unit)? = null
@@ -25,7 +25,7 @@ class IllustPagerAdapter(val data: List<Illust>, fm: FragmentManager) : Fragment
 
     override fun getItem(position: Int): Fragment {
         Log.e("xxx", "getItem: $position")
-        val fragment = IllustDetailFragment.newInstance(data[position])
+        val fragment = IllustDetailFragment.newInstance(position, key)
         fragments.put(position, fragment)
         feature?.let {
             if (position == this.position) {

@@ -46,16 +46,7 @@ class DescFooter(val context: Context, val data: Illust, var mBinding: LayoutFoo
         binding.data = data
         binding.desc.text = Html.fromHtml(data.caption)
         // 转换标签+#+翻译
-        val tags = data.tags.flatMap { tag ->
-            val list = mutableListOf<Tag>()
-            if (!TextUtils.isEmpty(tag.name)) {
-                list.add(tag.copy(name = "#${tag.name}"))
-                if (!TextUtils.isEmpty(tag.translated_name)) {
-                    list.add(tag.copy(isTranslated = true))
-                }
-            }
-            list
-        }.toMutableList()
+        val tags = data.getTranslateTags()
         val adapter = BaseBindingAdapter<Tag, ItemTagBinding>(R.layout.item_tag, tags, BR.data)
         adapter.bindToRecyclerView(binding.recyclerView)
         binding.recyclerView.layoutManager = FlowLayoutManager()

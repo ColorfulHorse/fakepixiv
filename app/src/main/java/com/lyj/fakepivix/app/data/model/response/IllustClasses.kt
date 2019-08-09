@@ -3,6 +3,7 @@ package com.lyj.fakepivix.app.data.model.response
 
 import android.databinding.BaseObservable
 import android.databinding.Bindable
+import android.text.TextUtils
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.app.constant.IllustCategory
@@ -107,6 +108,17 @@ class Illust (
         }
         return sb.toString()
     }
+
+    fun getTranslateTags() = tags.flatMap { tag ->
+        val list = mutableListOf<Tag>()
+        if (!TextUtils.isEmpty(tag.name)) {
+            list.add(tag.copy(name = "#${tag.name}"))
+            if (!TextUtils.isEmpty(tag.translated_name)) {
+                list.add(tag.copy(isTranslated = true))
+            }
+        }
+        list
+    }.toMutableList()
 }
 
 @JsonClass(generateAdapter = true)

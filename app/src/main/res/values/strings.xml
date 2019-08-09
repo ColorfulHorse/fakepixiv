@@ -83,4 +83,7 @@
     <string name="tab_popular">人气顺度</string>
     <string name="tab_desc">由旧到新</string>
     <string name="search_tag_hint">你是不是要找？</string>
+    <string name="close">关闭</string>
+    <string name="novel_read">阅读小说</string>
+    <string name="series_list">系列作品一览</string>
 </resources>

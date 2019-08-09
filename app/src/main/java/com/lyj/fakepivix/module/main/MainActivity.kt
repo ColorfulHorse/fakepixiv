@@ -34,6 +34,7 @@ class MainActivity : FragmentationActivity<ActivityMainBinding, MainViewModel>()
         var rootFragment = findFragment(MainRootFragment::class.java)
         if(rootFragment == null) {
             rootFragment = MainRootFragment.newInstance()
+            loadRootFragment(R.id.fl_container, rootFragment)
         }
         rootFragment.navSelectAction = {
             val id = when(it) {
@@ -44,7 +45,6 @@ class MainActivity : FragmentationActivity<ActivityMainBinding, MainViewModel>()
             }
             mBinding.nav.nav.setCheckedItem(id)
         }
-        loadRootFragment(R.id.fl_container, rootFragment)
         initNavigationView()
     }
 
