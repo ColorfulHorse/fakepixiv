@@ -21,7 +21,7 @@ import kotlinx.coroutines.*
 class UserListViewModel(var action: (suspend () -> UserPreviewListResp)) : BaseViewModel<IModel?>() {
     override val mModel: IModel? = null
 
-    val data: ObservableList<UserPreview> = ObservableArrayList()
+    val data: ObservableList<UserItemViewModel> = ObservableArrayList()
 
     var loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
@@ -38,7 +38,7 @@ class UserListViewModel(var action: (suspend () -> UserPreviewListResp)) : BaseV
             val resp = async(Dispatchers.IO) {
                 action.invoke()
             }.await()
-            data.addAll(resp.user_previews)
+            data.addAll(resp.user_previews.map { UserItemViewModel(this@UserListViewModel, it) })
             nextUrl = resp.next_url
             loadState.set(LoadState.Succeed)
         }
@@ -55,7 +55,7 @@ class UserListViewModel(var action: (suspend () -> UserPreviewListResp)) : BaseV
                 UserRepository.instance
                         .loadMore(nextUrl)
             }
-            data.addAll(resp.user_previews)
+            data.addAll(resp.user_previews.map { UserItemViewModel(this@UserListViewModel, it) })
             nextUrl = resp.next_url
             loadMoreState.set(LoadState.Succeed)
         }

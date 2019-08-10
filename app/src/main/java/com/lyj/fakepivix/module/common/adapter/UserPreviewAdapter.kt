@@ -14,20 +14,21 @@ import com.lyj.fakepivix.app.adapter.PreloadBindingAdapter
 import com.lyj.fakepivix.app.adapter.UserSizeProvider
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.data.model.response.UserPreview
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.ItemUserPreviewBinding
+import com.lyj.fakepivix.module.common.UserItemViewModel
 import com.lyj.fakepivix.widget.CommonItemDecoration
 
 /**
  * @author greensun
+ *
  * @date 2019/8/2
+ *
  * @desc
  */
-class UserPreviewAdapter(data: MutableList<UserPreview>) : PreloadBindingAdapter<UserPreview, ItemUserPreviewBinding>(R.layout.item_user_preview, data, BR.data) {
+class UserPreviewAdapter(data: MutableList<UserItemViewModel>) : PreloadBindingAdapter<UserItemViewModel, ItemUserPreviewBinding>(R.layout.item_user_preview, data, BR.vm) {
 
     override var sizeProvider: ListPreloader.PreloadSizeProvider<String> = UserSizeProvider()
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseBindingViewHolder<ItemUserPreviewBinding> {
         val vh = super.onCreateViewHolder(parent, viewType)
@@ -38,13 +39,13 @@ class UserPreviewAdapter(data: MutableList<UserPreview>) : PreloadBindingAdapter
         return vh
     }
 
-    override fun convert(helper: BaseBindingViewHolder<ItemUserPreviewBinding>, item: UserPreview) {
-        super.convert(helper, item)
+    override fun convert(helper: BaseBindingViewHolder<ItemUserPreviewBinding>, vm: UserItemViewModel) {
+        super.convert(helper, vm)
         helper.binding?.let {
             it.recyclerView.layoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
-            var list = item.illusts
+            var list = vm.data.illusts
             if (list.size < 3) {
-                val novels = item.novels.take(3 - list.size)
+                val novels = vm.data.novels.take(3 - list.size)
                 novels.forEach { value -> value.type = IllustCategory.NOVEL }
                 list.addAll(novels)
             }

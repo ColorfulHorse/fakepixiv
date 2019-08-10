@@ -84,9 +84,6 @@ class HomeNovelFragment : FragmentationFragment<CommonRefreshList, HomeNovelView
                 mViewModel.lazyLoad()
             }
 
-            mAdapter.setOnItemClickListener { _, _, position ->
-                ToastUtil.showToast("$position")
-            }
             // 错误刷新
             errorView.reload.setOnClickListener {
                 mViewModel.load()

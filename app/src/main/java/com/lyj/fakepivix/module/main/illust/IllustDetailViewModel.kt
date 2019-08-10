@@ -69,7 +69,7 @@ class IllustDetailViewModel : BaseViewModel<IModel?>() {
         followState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
             val state = followState.get()
             if (state is LoadState.Succeed) {
-                illust.user?.let {
+                illust.user.let {
                     if (it.is_followed) {
                         // 关注成功加载弹出窗数据
                         relatedUserViewModel.load()
@@ -133,12 +133,12 @@ class IllustDetailViewModel : BaseViewModel<IModel?>() {
 
 
     /**
-     * 收藏/取消收藏
+     * 关注/取消关注
      */
     fun follow() {
         if (followState.get() is LoadState.Loading)
             return
-        illust.user?.let { user ->
+        illust.user.let { user ->
             val followed = user.is_followed
             val disposable = UserRepository.instance
                     .follow(user.id, !followed)

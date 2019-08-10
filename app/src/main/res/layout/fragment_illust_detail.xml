@@ -4,6 +4,7 @@
 
     <data>
         <import type="com.lyj.fakepivix.module.main.illust.IllustDetailViewModel"/>
+        <import type="com.lyj.fakepivix.app.network.LoadState"/>
         <variable
             name="vm"
             type="IllustDetailViewModel"/>
@@ -110,6 +111,7 @@
                 android:layout_marginBottom="16dp"
                 android:onClick="@{() -> vm.star()}"
                 android:src="@{vm.illust._bookmarked?@drawable/ic_fab_liked:@drawable/ic_fab_like}"
+                android:enabled="@{!(vm.starState instanceof LoadState.Loading)}"
                 app:backgroundTint="@color/fab_background_tint"
                 />
         </RelativeLayout>

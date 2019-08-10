@@ -39,8 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_alignParentBottom="true"
-                >
+                android:layout_alignParentBottom="true">
                 <TextView
                     android:id="@+id/tag"
                     android:layout_width="wrap_content"

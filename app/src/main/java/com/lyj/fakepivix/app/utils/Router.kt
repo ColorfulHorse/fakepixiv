@@ -6,6 +6,7 @@ import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.module.main.illust.IllustDetailRootFragment
+import com.lyj.fakepivix.module.main.novel.NovelDialogFragment
 import me.yokeyword.fragmentation.SupportHelper
 
 /**
@@ -19,11 +20,17 @@ object Router {
 
     fun goDetail(position: Int, data: List<Illust>) {
         AppManager.instance.top?.let {
-            val top = SupportHelper.getTopFragment((it as FragmentActivity).supportFragmentManager) as FragmentationFragment<*, *>
+            val fm = (it as FragmentActivity).supportFragmentManager
+            val top = SupportHelper.getTopFragment(fm) as FragmentationFragment<*, *>
             val key = (System.currentTimeMillis()/1000).toInt()
-            val fragment = IllustDetailRootFragment.newInstance(position, key)
+            val illust = data[position]
             IllustRepository.instance[key] = data
-            top.start(fragment)
+            if (illust.itemType == Illust.TYPE_NOVEL) {
+                NovelDialogFragment.newInstance(position, key).show(fm, "NovelDialogFragment-$key")
+            }else {
+                val fragment = IllustDetailRootFragment.newInstance(position, key)
+                top.start(fragment)
+            }
         }
     }
 

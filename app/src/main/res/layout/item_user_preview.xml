@@ -3,10 +3,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.lyj.fakepivix.app.data.model.response.UserPreview"/>
+        <import type="com.lyj.fakepivix.module.common.UserItemViewModel"/>
+        <import type="com.lyj.fakepivix.app.network.LoadState"/>
         <variable
-            name="data"
-            type="UserPreview"/>
+            name="vm"
+            type="UserItemViewModel"/>
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,8 +38,8 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginTop="-16dp"
-                    android:visibility="@{data.illusts.size > 0}"
-                    app:url="@{data.user.profile_image_urls.medium}"
+                    android:visibility="@{vm.data.illusts.size > 0}"
+                    app:url="@{vm.data.user.profile_image_urls.medium}"
                     app:placeHolder="@{@drawable/no_profile}"
                     app:circle="@{true}"
                     />
@@ -48,8 +49,8 @@
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_centerVertical="true"
-                    android:visibility="@{data.illusts.size() == 0}"
-                    app:url="@{data.user.profile_image_urls.medium}"
+                    android:visibility="@{vm.data.illusts.size() == 0}"
+                    app:url="@{vm.data.user.profile_image_urls.medium}"
                     app:placeHolder="@{@drawable/no_profile}"
                     app:circle="@{true}"
                     />
@@ -74,7 +75,7 @@
                     android:padding="8dp"
                     android:textColor="@color/renewal_font_black"
                     android:textSize="12.0sp"
-                    android:text="@{data.user.name}"
+                    android:text="@{vm.data.user.name}"
                     android:textStyle="bold" />
 
                 <Button
@@ -85,13 +86,15 @@
                     android:layout_centerVertical="true"
                     android:minHeight="0dp"
                     android:minWidth="0dp"
-                    android:textColor="@{data.user._followed?@color/white:@color/colorPrimary}"
+                    android:textColor="@{vm.data.user._followed?@color/white:@color/colorPrimary}"
                     android:textSize="12sp"
                     android:padding="5dp"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
-                    android:text="@{data.user._followed?@string/followed:@string/follow}"
-                    android:background="@{data.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_primary}"
+                    android:onClick="@{() -> vm.follow()}"
+                    android:text="@{vm.data.user._followed?@string/followed:@string/follow}"
+                    android:background="@{vm.data.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_primary}"
+                    android:enabled="@{!(vm.followState instanceof LoadState.Loading)}"
                     style="?attr/borderlessButtonStyle"
                     android:textStyle="normal"
                     />

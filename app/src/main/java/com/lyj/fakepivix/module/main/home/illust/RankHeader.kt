@@ -31,10 +31,9 @@ class RankHeader(val context: Context?, viewModel: RankViewModel, @IllustCategor
 
     val mBinding: HeaderRankBinding? = DataBindingUtil.bind(rootView)
 
-    val adapter: IllustAdapter
+    val adapter: IllustAdapter = IllustAdapter(viewModel.data)
 
     init {
-        adapter = IllustAdapter(viewModel.data)
         when(category) {
             ILLUST -> {
                 adapter.addItemType(Illust.TYPE_ILLUST, R.layout.item_home_rank_illust, BR.data)
@@ -43,9 +42,6 @@ class RankHeader(val context: Context?, viewModel: RankViewModel, @IllustCategor
             NOVEL -> {
                 adapter.addItemType(Illust.TYPE_NOVEL, R.layout.item_home_rank_novel, BR.data)
                 adapter.addItemType(Illust.TYPE_ILLUST, R.layout.item_home_rank_novel, BR.data)
-                adapter.setOnItemClickListener { adapter, view, position ->
-
-                }
             }
             else -> {
                 adapter.addItemType(Illust.TYPE_ILLUST, R.layout.item_home_rank_illust, BR.data)

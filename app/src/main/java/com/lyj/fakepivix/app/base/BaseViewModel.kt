@@ -49,7 +49,7 @@ abstract class BaseViewModel<M : IModel?> : BaseObservable(), LifecycleObserver,
 
     }
 
-    protected fun addDisposable(disposable: Disposable) {
+    fun addDisposable(disposable: Disposable) {
         mDisposable.add(disposable)
     }
 }

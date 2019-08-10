@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.lyj.fakepivix.module.main.home.novel.NovelDialogViewModel"/>
+        <import type="com.lyj.fakepivix.module.main.novel.NovelDialogViewModel"/>
+        <import type="com.lyj.fakepivix.app.utils.DateUtil"/>
+        <import type="com.lyj.fakepivix.app.utils.StringUtil"/>
         <variable
             name="vm"
-            type="NovelDialogViewModel"/>
+            type="com.lyj.fakepivix.module.main.novel.NovelDialogViewModel"/>
     </data>
 
     <RelativeLayout
@@ -46,6 +49,7 @@
                         android:layout_gravity="start"
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
+                        android:text="@{DateUtil.format(vm.data.create_date)}"
                         android:textColor="@color/renewal_fg_sub"
                         android:textSize="12sp" />
 
@@ -67,7 +71,10 @@
                                 android:drawableLeft="@drawable/ic_total_views"
                                 android:drawablePadding="4dp"
                                 android:textColor="@color/renewal_fg_sub"
-                                android:textSize="12sp" />
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:text="@{StringUtil.formatCount(vm.data.total_view)}"
+                                />
 
                             <TextView
                                 android:id="@+id/likes"
@@ -77,8 +84,11 @@
                                 android:layout_marginLeft="20dp"
                                 android:drawableLeft="@drawable/ic_total_likes"
                                 android:drawablePadding="4dp"
-                                android:textColor="@color/renewal_fg_sub"
-                                android:textSize="12sp" />
+                                android:textColor="@color/primary"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:text="@{StringUtil.formatCount(vm.data.total_bookmarks)}"
+                                />
                         </LinearLayout>
                     </FrameLayout>
                 </LinearLayout>
@@ -228,7 +238,11 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginTop="14dp"
-                        android:layout_marginBottom="14dp" />
+                        android:layout_marginBottom="14dp"
+                        app:url="@{vm.data.user.profile_image_urls.medium}"
+                        app:placeHolder="@{@drawable/no_profile}"
+                        app:circle="@{true}"
+                        />
 
                     <TextView
                         android:id="@+id/nickName"
@@ -240,7 +254,9 @@
                         android:paddingEnd="32dp"
                         android:paddingRight="32dp"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:text="@{vm.data.user.name}"
+                        />
                 </LinearLayout>
 
                 <View
@@ -264,7 +280,7 @@
                         android:id="@+id/series_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone">
+                        android:visibility="@{vm.data.series != null}">
 
                         <TextView
                             android:id="@+id/series_label"
@@ -294,7 +310,9 @@
                             android:paddingBottom="8dp"
                             android:textColor="@color/novel_series"
                             android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:text="@{vm.data.series.title}"
+                            />
                     </RelativeLayout>
 
                     <TextView
@@ -305,7 +323,9 @@
                         android:lineSpacingExtra="6sp"
                         android:textColor="@color/renewal_font_black"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:text="@{vm.data.title}"
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -349,6 +369,7 @@
                             android:paddingBottom="24dp"
                             android:textIsSelectable="true"
                             android:textColor="@color/renewal_font_black"
+                            app:html="@{vm.data.caption}"
                             android:textSize="14sp" />
                     </LinearLayout>
                 </LinearLayout>
