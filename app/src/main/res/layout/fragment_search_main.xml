@@ -176,7 +176,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:visibility="@{vm.showComplete}"
+                android:visibility="@{vm.showComplete &amp;&amp; !vm.showSearch}"
                 >
                 <RelativeLayout
                     android:layout_width="fill_parent"

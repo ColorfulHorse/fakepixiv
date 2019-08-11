@@ -21,6 +21,9 @@ class UserItemViewModel(val parent: BaseViewModel<*>, val data: UserPreview) : B
 
     var followState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
+    init {
+        parent + this
+    }
 
     /**
      * 关注/取消关注
@@ -37,7 +40,7 @@ class UserItemViewModel(val parent: BaseViewModel<*>, val data: UserPreview) : B
                     }, onError = {
                         followState.set(LoadState.Failed(it))
                     })
-            parent.addDisposable(disposable)
+            addDisposable(disposable)
         }
     }
 }

@@ -25,6 +25,10 @@ import org.jetbrains.annotations.NotNull
 abstract class BaseViewModel<M : IModel?> : BaseObservable(), LifecycleObserver, CoroutineScope by CoroutineScope(Dispatchers.Main) {
 
     private val mDisposable: CompositeDisposable by lazy { CompositeDisposable() }
+    /**
+     * 子viewModel list
+     */
+    protected val mSubViewModelList by lazy { mutableListOf<BaseViewModel<*>>() }
 
 
     protected abstract val mModel: M
@@ -39,6 +43,7 @@ abstract class BaseViewModel<M : IModel?> : BaseObservable(), LifecycleObserver,
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     open fun onDestroy(@NotNull owner: LifecycleOwner) {
+        mSubViewModelList.forEach { it.onDestroy(owner) }
         mModel?.destroy()
         mDisposable.dispose()
         cancel()
@@ -49,7 +54,14 @@ abstract class BaseViewModel<M : IModel?> : BaseObservable(), LifecycleObserver,
 
     }
 
-    fun addDisposable(disposable: Disposable) {
+    operator fun plus(vm: BaseViewModel<*>) {
+        mSubViewModelList.add(vm)
+    }
+
+    /**
+     * 自动取消
+     */
+    protected fun addDisposable(disposable: Disposable) {
         mDisposable.add(disposable)
     }
 }
