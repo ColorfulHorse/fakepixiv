@@ -89,4 +89,10 @@
     <string name="novel_setting">小说设置</string>
     <string name="save_image">保存画像</string>
     <string name="novel_bookmark">小说书签</string>
+    <string name="illust_bookmark">插画·漫画收藏</string>
+    <string name="novel_works">小说作品</string>
+    <string name="comic_works">漫画作品</string>
+    <string name="illust_works">插画作品</string>
+    <string name="novel_bookmarks">小说收集</string>
+    <string name="works_count">%1$d件作品</string>
 </resources>

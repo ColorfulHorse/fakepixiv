@@ -103,17 +103,24 @@ interface ApiService {
     @GET("/v1/user/illusts")
     fun getUserIllustData(@Query("user_id")userId: String, @IllustCategory @Query("type")category: String = ILLUST): Observable<IllustListResp>
 
+    /**
+     * 获取用户小说作品列表
+     * [userId] 用户id
+     */
+    @GET("/v1/user/novels")
+    fun getUserNovels(@Query("user_id")userId: String): Observable<IllustListResp>
 
     /**
      * 获取用户详情
      */
     @GET("/v1/user/detail")
-    fun getUserDetail(@Query("user_id")userId: String): Observable<UserInfo>
+    suspend fun getUserDetail(@Query("user_id")userId: String): UserInfo
 
     /**
      * 获取用户收藏
      * [userId] 用户id
-     * [category] 插画漫画/小说
+     * [category] 插画漫画illust/小说novel
+     *
      */
     @GET("/v1/user/bookmarks/{category}")
     fun getUserBookmarks(@IllustCategory @Path("category")category: String,
@@ -262,4 +269,18 @@ interface ApiService {
      */
     @GET("/v1/search/user")
     suspend fun searchUser(@Query("word")keyword: String): UserPreviewListResp
+
+    /**
+     * 添加书签
+     */
+    @POST("/v1/novel/marker/add")
+    @FormUrlEncoded
+    suspend fun markNovel(@Field("novel_id")novelId: String, @Field("page")page: Int): Any
+
+    /**
+     * 删除书签
+     */
+    @POST("/v1/novel/marker/delete")
+    @FormUrlEncoded
+    suspend fun unMarkNovel(@Field("novel_id")novelId: String): Any
 }

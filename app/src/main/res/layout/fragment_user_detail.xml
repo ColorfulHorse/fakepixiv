@@ -60,6 +60,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="8dp"
                                 android:maxLines="2"
+                                android:text=""
                                 android:textColor="@color/font_color_white"
                                 android:textSize="18.0sp" />
                         </LinearLayout>
@@ -80,26 +81,47 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             >
-            <include
-                android:id="@+id/illust_works"
-                layout="@layout/item_works"
-                />
-            <include
-                android:id="@+id/comic_works"
-                layout="@layout/item_works"
-                />
-            <include
-                android:id="@+id/novel_works"
-                layout="@layout/item_works"
-                />
-            <include
-                android:id="@+id/illust_bookmarks"
-                layout="@layout/item_works"
-                />
-            <include
-                android:id="@+id/novel_bookmarks"
-                layout="@layout/item_works"
-                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+                <include
+                    android:id="@+id/illust_works"
+                    layout="@layout/item_works"
+                    app:type="@{@string/illust_works}"
+                    app:more_text="String.format(@string/works_count, 0)"
+                    android:visibility="@{}"
+                    />
+                <include
+                    android:id="@+id/comic_works"
+                    layout="@layout/item_works"
+                    app:type="@{@string/comic_works}"
+                    app:more_text="String.format(@string/works_count, 0)"
+                    android:visibility="@{}"
+                    />
+                <include
+                    android:id="@+id/novel_works"
+                    layout="@layout/item_works"
+                    app:type="@{@string/novel_works}"
+                    app:more_text="String.format(@string/works_count, 0)"
+                    android:visibility="@{}"
+                    />
+                <include
+                    android:id="@+id/illust_bookmarks"
+                    layout="@layout/item_works"
+                    app:type="@{@string/illust_bookmark}"
+                    app:more_text="@{@string/all}"
+                    android:visibility="@{}"
+                    />
+                <include
+                    android:id="@+id/novel_bookmarks"
+                    layout="@layout/item_works"
+                    app:type="@{@string/novel_bookmarks}"
+                    app:more_text="@{@string/all}"
+                    android:visibility="@{}"
+                    />
+            </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </android.support.design.widget.CoordinatorLayout>
 </layout>

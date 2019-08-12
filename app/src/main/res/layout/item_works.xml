@@ -8,8 +8,8 @@
             name="type"
             type="String"/>
         <variable
-            name="count"
-            type="Integer"/>
+            name="more_text"
+            type="String"/>
     </data>
 
     <LinearLayout
@@ -34,7 +34,9 @@
                 android:layout_toStartOf="@+id/read_more"
                 android:textColor="#ff4a4a4a"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:text="@{type}"
+                />
 
             <TextView
                 android:id="@id/read_more"
@@ -43,7 +45,7 @@
                 android:layout_marginStart="4dp"
                 android:drawableEnd="@drawable/icon_next"
                 android:drawablePadding="8dp"
-                android:text="@string/read_more"
+                android:text="@{moreText}"
                 android:textColor="@color/more_button_text"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -54,11 +56,10 @@
 
         </RelativeLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@id/recycler_view"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_grid_round_white"
             android:nestedScrollingEnabled="false" />
     </LinearLayout>
 </layout>
