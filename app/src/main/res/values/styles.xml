@@ -93,4 +93,16 @@
         <item name="android:windowEnterAnimation">@anim/bottom_sheet_enter</item>
         <item name="android:windowExitAnimation">@anim/bottom_sheet_exit</item>
     </style>
+
+    <style name="follow_button" parent="Base.Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
 </resources>

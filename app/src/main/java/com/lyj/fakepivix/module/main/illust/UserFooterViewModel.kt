@@ -33,21 +33,19 @@ class UserFooterViewModel(val parent: IllustDetailViewModel) : BaseViewModel<IMo
 
     fun reLoad() {
         val p = parent.illust.user
-        if (p != null) {
-            val disposable = IllustRepository.instance
-                    .loadUserIllust(p.id)
-                    .doOnSubscribe {
-                        data.clear()
-                        loadState.set(LoadState.Loading)
-                    }
-                    .subscribeBy(onNext = {
-                        loadState.set(LoadState.Succeed)
-                        data.clear()
-                        data.addAll(it.illusts.take(3))
-                    }, onError = {
-                        loadState.set(LoadState.Failed(it))
-                    })
-            addDisposable(disposable)
-        }
+        val disposable = IllustRepository.instance
+                .loadUserIllust(p.id)
+                .doOnSubscribe {
+                    data.clear()
+                    loadState.set(LoadState.Loading)
+                }
+                .subscribeBy(onNext = {
+                    loadState.set(LoadState.Succeed)
+                    data.clear()
+                    data.addAll(it.illusts.take(3))
+                }, onError = {
+                    loadState.set(LoadState.Failed(it))
+                })
+        addDisposable(disposable)
     }
 }

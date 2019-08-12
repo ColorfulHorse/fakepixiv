@@ -31,6 +31,12 @@ class RelatedUserDialogFragment : BottomDialogFragment() {
 
     var mBinding: DialogRelatedBinding? = null
     var mViewModel: RelatedUserDialogViewModel? = null
+        set(value) {
+            field = value
+            mViewModel?.let {
+                lifecycle.addObserver(it)
+            }
+        }
     var mAdapter = object : BaseBindingAdapter<UserPreview, ItemUserRelatedBinding>(R.layout.item_user_related, mutableListOf(), BR.data) {
         override fun convert(helper: BaseBindingViewHolder<ItemUserRelatedBinding>, item: UserPreview) {
             super.convert(helper, item)
@@ -48,7 +54,7 @@ class RelatedUserDialogFragment : BottomDialogFragment() {
                     adapter = IllustAdapter(list).apply {
                         addItemType(Illust.TYPE_ILLUST, R.layout.item_illust_small, BR.illust)
                         addItemType(Illust.TYPE_COMIC, R.layout.item_illust_small, BR.illust)
-                        addItemType(Illust.TYPE_NOVEL, R.layout.item_illust_small, BR.illust)
+                        addItemType(Illust.TYPE_NOVEL, R.layout.item_novel_small, BR.illust)
                     }
                     adapter.bindToRecyclerView(it.recyclerView)
                     it.recyclerView.addItemDecoration(CommonItemDecoration.Builder().dividerWidth(1.dp2px(), 0).draw(false).build())
@@ -91,4 +97,5 @@ class RelatedUserDialogFragment : BottomDialogFragment() {
         }
         return view
     }
+
 }

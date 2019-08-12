@@ -22,18 +22,12 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc
  */
-class IllustDetailViewModel : BaseViewModel<IModel?>() {
+class IllustDetailViewModel(val key: Int, val position: Int) : BaseViewModel<IModel?>() {
 
     override val mModel: IModel? = null
 
     @get:Bindable
-    var illust = Illust()
-    set(value) {
-        field = value
-        initData()
-        notifyPropertyChanged(BR.illust)
-    }
-
+    val illust = IllustRepository.instance[key][position]
 
     var data: ObservableList<Illust> = ObservableArrayList()
 
@@ -56,6 +50,8 @@ class IllustDetailViewModel : BaseViewModel<IModel?>() {
     val relatedUserViewModel = RelatedUserDialogViewModel(this)
 
     init {
+        this + userFooterViewModel + commentFooterViewModel + relatedCaptionFooterViewModel + relatedIllustViewModel + relatedIllustViewModel
+        initData()
         starState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
             val state = starState.get()
             if (state is LoadState.Succeed) {

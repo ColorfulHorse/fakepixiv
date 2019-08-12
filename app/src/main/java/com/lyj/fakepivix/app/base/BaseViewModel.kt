@@ -54,8 +54,9 @@ abstract class BaseViewModel<M : IModel?> : BaseObservable(), LifecycleObserver,
 
     }
 
-    operator fun plus(vm: BaseViewModel<*>) {
+    operator fun plus(vm: BaseViewModel<*>): BaseViewModel<*> {
         mSubViewModelList.add(vm)
+        return this
     }
 
     /**

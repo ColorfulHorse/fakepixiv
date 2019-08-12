@@ -1,16 +1,12 @@
 package com.lyj.fakepivix.module.main.illust
 
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
-import android.support.v7.widget.RecyclerView
-import android.util.Log
 import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.BackFragment
 import com.lyj.fakepivix.app.base.BaseViewModel
-import com.lyj.fakepivix.app.base.ViewModelProvider
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.databinding.FragmentIllustDetailRootBinding
@@ -51,8 +47,8 @@ class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, B
             data = IllustRepository.instance[key]
         }
         mToolbar?.let {
-            it.overflowIcon = ContextCompat.getDrawable(mActivity, R.drawable.ic_more)
-            it.inflateMenu(R.menu.menu_detail_toolbar)
+            //it.overflowIcon = ContextCompat.getDrawable(mActivity, R.drawable.ic_more)
+            it.inflateMenu(R.menu.menu_detail_illust)
             it.setOnMenuItemClickListener { menu ->
                 when (menu.itemId) {
                     R.id.share -> {}

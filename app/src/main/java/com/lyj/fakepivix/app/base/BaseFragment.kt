@@ -4,6 +4,7 @@ import android.arch.lifecycle.LifecycleObserver
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.gyf.barlibrary.ImmersionBar
 import com.gyf.barlibrary.ImmersionFragment
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
+import com.lyj.fakepivix.app.App
 import me.yokeyword.fragmentation.ISupportFragment
 
 
@@ -66,6 +68,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
     override fun initImmersionBar() {
         var immersionBar = ImmersionBar.with(this)
         mToolbar?.let {
+            it.overflowIcon = ContextCompat.getDrawable(App.context, R.drawable.ic_more)
             immersionBar = immersionBar.titleBar(mToolbar)
         }
         immersionBar.keyboardEnable(true, WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)

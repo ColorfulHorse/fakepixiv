@@ -1,11 +1,14 @@
 package com.lyj.fakepivix.module.main.illust
 
+import android.arch.lifecycle.LifecycleObserver
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
 import com.lyj.fakepivix.R
@@ -27,7 +30,7 @@ import com.lyj.fakepivix.widget.DetailItemDecoration
  */
 class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, IllustDetailViewModel>() {
 
-    override var mViewModel: IllustDetailViewModel = IllustDetailViewModel()
+    override lateinit var mViewModel: IllustDetailViewModel
 
     companion object {
         private const val EXTRA_POSITION = "EXTRA_POSITION"
@@ -47,11 +50,14 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
     private var captionHeight = 0
     private var showCaption = false
 
+
     override fun init(savedInstanceState: Bundle?) {
         arguments?.let {
             val position = it.getInt(EXTRA_POSITION, -1)
             val key = it.getInt(EXTRA_KEY, -1)
-            mViewModel.illust = IllustRepository.instance[key][position]
+            mViewModel = IllustDetailViewModel(key, position)
+            lifecycle.addObserver(mViewModel)
+            mBinding.setVariable(bindViewModel(), mViewModel)
             val show = mViewModel.captionVisibility.get()
             if (show != null) {
                 showCaption = show
@@ -66,51 +72,7 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
             recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
-                    val first = layoutManager.findFirstVisibleItemPosition()
-                    val last = layoutManager.findLastVisibleItemPosition()
-                    val total = mViewModel.total.get()
-                    val current = mViewModel.current.get()
-                    if (total != null) {
-                        val visibility = first < total
-                        mViewModel.toolbarVisibility.set(visibility)
-                        // 显示页数
-                        current?.let {
-                            if (current < total) {
-                                if (current != first + 1) {
-                                    mViewModel.current.set(first + 1)
-                                }
-                            }
-                        }
-                        // 滑动到评论时隐藏floatingActionButton
-                        val userItem = layoutManager.findViewByPosition(total + 1)
-                        if (userItem != null) {
-                            if (dy > 0) {
-                                if (userItem.bottom <= recyclerView.bottom - recyclerView.paddingBottom) {
-                                    mBinding.fab.hide()
-                                }
-                            }else {
-                                if (userItem.bottom >= recyclerView.bottom - recyclerView.paddingBottom) {
-                                    mBinding.fab.show()
-                                }
-                            }
-                        }
-                        // 控制caption显示
-                        if (total > 1) {
-                            val child = layoutManager.findViewByPosition(total - 1)
-                            if (child != null) {
-                                if (dy > 0) {
-                                    if (child.bottom + captionHeight + 4.dp2px() <= recyclerView.bottom - recyclerView.paddingBottom) {
-                                        captionAnim(false)
-                                    }
-                                }else {
-                                    layoutManager.findViewByPosition(total - 1)
-                                    if (child.bottom + captionHeight + 4.dp2px() >= recyclerView.bottom - recyclerView.paddingBottom) {
-                                        captionAnim(true)
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    calculateVisibility(dy, recyclerView)
                 }
             })
             recyclerView.addItemDecoration(DetailItemDecoration.Builder()
@@ -124,6 +86,56 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
                 dialog.show(childFragmentManager, "BottomDialogFragment")
             }
             //initBottomSheet()
+        }
+    }
+
+    /**
+     * 监听滑动是否显示页数，fab等
+     */
+    private fun calculateVisibility(dy: Int, recyclerView: RecyclerView) {
+        val first = layoutManager.findFirstVisibleItemPosition()
+        val total = mViewModel.total.get()
+        val current = mViewModel.current.get()
+        if (total != null) {
+            val visibility = first < total
+            mViewModel.toolbarVisibility.set(visibility)
+            // 显示页数
+            current?.let {
+                if (current < total) {
+                    if (current != first + 1) {
+                        mViewModel.current.set(first + 1)
+                    }
+                }
+            }
+            // 滑动到评论时隐藏floatingActionButton
+            val userItem = layoutManager.findViewByPosition(total + 1)
+            if (userItem != null) {
+                if (dy > 0) {
+                    if (userItem.bottom <= recyclerView.bottom - recyclerView.paddingBottom) {
+                        mBinding.fab.hide()
+                    }
+                } else {
+                    if (userItem.bottom >= recyclerView.bottom - recyclerView.paddingBottom) {
+                        mBinding.fab.show()
+                    }
+                }
+            }
+            // 控制caption显示
+            if (total > 1) {
+                val child = layoutManager.findViewByPosition(total - 1)
+                if (child != null) {
+                    if (dy > 0) {
+                        if (child.bottom + captionHeight + 4.dp2px() <= recyclerView.bottom - recyclerView.paddingBottom) {
+                            captionAnim(false)
+                        }
+                    } else {
+                        layoutManager.findViewByPosition(total - 1)
+                        if (child.bottom + captionHeight + 4.dp2px() >= recyclerView.bottom - recyclerView.paddingBottom) {
+                            captionAnim(true)
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -189,10 +201,7 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
         val userFooter = UserFooter(mActivity, mViewModel.userFooterViewModel)
         val commentFooter = CommentFooter(mActivity, mViewModel.commentFooterViewModel)
         val relatedCaptionFooter = RelatedCaptionFooter(mActivity, mViewModel.relatedCaptionFooterViewModel)
-        lifecycle.addObserver(mViewModel.userFooterViewModel)
-        lifecycle.addObserver(mViewModel.commentFooterViewModel)
-        lifecycle.addObserver(mViewModel.relatedIllustViewModel)
-        lifecycle.addObserver(mViewModel.relatedUserViewModel)
+
         mAdapter.descFooter = descFooter
         mAdapter.userFooter = userFooter
         mAdapter.commentFooter = commentFooter

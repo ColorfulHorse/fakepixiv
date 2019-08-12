@@ -86,4 +86,7 @@
     <string name="close">关闭</string>
     <string name="novel_read">阅读小说</string>
     <string name="series_list">系列作品一览</string>
+    <string name="novel_setting">小说设置</string>
+    <string name="save_image">保存画像</string>
+    <string name="novel_bookmark">小说书签</string>
 </resources>

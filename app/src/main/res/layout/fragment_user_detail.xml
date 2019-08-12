@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 用户详情 -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            >
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/wallpaper"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp" />
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    >
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+                        <Button
+                            android:id="@+id/follow"
+                            style="@style/follow_button"
+                            android:textColor="@{vm.parent.illust.user._followed?@color/white:@color/colorPrimary}"
+                            android:onClick="@{() -> vm.parent.follow()}"
+                            android:text="@{vm.parent.illust.user._followed?@string/followed:@string/follow}"
+                            android:background="@{vm.parent.illust.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_primary}"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:enabled="@{!(vm.parent.followState instanceof LoadState.Loading)}"
+                            android:layout_marginEnd="4dp"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@id/follow"
+                            android:visibility="invisible">
+
+                            <ImageView
+                                android:id="@+id/toolbar_avatar"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:id="@+id/nickName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="8dp"
+                                android:maxLines="2"
+                                android:textColor="@color/font_color_white"
+                                android:textSize="18.0sp" />
+                        </LinearLayout>
+                    </RelativeLayout>
+                </android.support.v7.widget.Toolbar>
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            app:layout_anchor="@id/appBar"
+            app:layout_anchorGravity="bottom|center" />
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            >
+            <include
+                android:id="@+id/illust_works"
+                layout="@layout/item_works"
+                />
+            <include
+                android:id="@+id/comic_works"
+                layout="@layout/item_works"
+                />
+            <include
+                android:id="@+id/novel_works"
+                layout="@layout/item_works"
+                />
+            <include
+                android:id="@+id/illust_bookmarks"
+                layout="@layout/item_works"
+                />
+            <include
+                android:id="@+id/novel_bookmarks"
+                layout="@layout/item_works"
+                />
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

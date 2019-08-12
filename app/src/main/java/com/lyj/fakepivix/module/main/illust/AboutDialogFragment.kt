@@ -37,7 +37,6 @@ class AboutDialogFragment : BottomSheetDialogFragment() {
         val rootView = inflater.inflate(R.layout.dialog_detail_bottom, container, false)
         val binding = DataBindingUtil.bind<DialogDetailBottomBinding>(rootView)
         detailViewModel?.let {
-            lifecycle.addObserver(it)
             binding?.vm = it
         }
 

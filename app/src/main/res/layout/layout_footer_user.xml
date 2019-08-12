@@ -46,21 +46,12 @@
                 />
             <Button
                 android:id="@+id/follow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
+                style="@style/follow_button"
                 android:textColor="@{vm.parent.illust.user._followed?@color/white:@color/colorPrimary}"
-                android:textSize="12sp"
-                android:padding="5dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
                 android:onClick="@{() -> vm.parent.follow()}"
                 android:text="@{vm.parent.illust.user._followed?@string/followed:@string/follow}"
                 android:background="@{vm.parent.illust.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_primary}"
                 android:layout_centerVertical="true"
-                style="?attr/borderlessButtonStyle"
-                android:textStyle="normal"
                 android:layout_alignParentEnd="true"
                 android:enabled="@{!(vm.parent.followState instanceof LoadState.Loading)}"
                 />
