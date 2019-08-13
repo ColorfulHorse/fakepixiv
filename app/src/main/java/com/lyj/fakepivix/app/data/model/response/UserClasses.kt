@@ -2,11 +2,15 @@ package com.lyj.fakepivix.app.data.model.response
 
 import android.databinding.BaseObservable
 import android.databinding.Bindable
+import android.text.TextUtils
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.app.adapter.PreloadModel
 import com.lyj.fakepivix.app.constant.IllustCategory
+import com.lyj.fakepivix.app.utils.DateUtil
 import com.squareup.moshi.JsonClass
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * @author greensun
@@ -130,7 +134,25 @@ data class Profile(
     val twitter_account: String = "",
     val twitter_url: String = "",
     val webpage: String = ""
-)
+) {
+    fun getProfileText(): String {
+        val list = mutableListOf<String>()
+        val gender = if (gender == "male") "男" else "女"
+        list.add(gender)
+        if (birth.isNotBlank()) {
+            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val c = Calendar.getInstance()
+            val y = c.get(Calendar.YEAR)
+            c.time = sdf.parse(birth)
+            val birthStr = "${y - c.get(Calendar.YEAR)}岁/${c.get(Calendar.MONTH)+1}月${c.get(Calendar.DAY_OF_MONTH)}日出生"
+            list.add(birthStr)
+        }
+        if (job.isNotBlank()) {
+            list.add(job)
+        }
+        return list.reduce { s1, s2 -> "$s1/$s2" }
+    }
+}
 
 
 data class Workspace(
@@ -147,5 +169,22 @@ data class Workspace(
     val tablet: String = "",
     val tool: String = "",
     val workspace_image_url: String = ""
-)
+) {
+    fun getTextList(): List<Pair<String, String>> {
+        return listOf(
+                "" to chair,
+                "" to chair,
+                "" to chair,
+                "" to chair,
+                "" to chair,
+                "" to chair,
+                "" to chair,
+                "电脑" to pc,
+                "" to chair,
+                "" to chair,
+                "" to chair,
+                "软件" to tool
+        ).filterNot { it.second.isNotBlank() }
+    }
+}
 

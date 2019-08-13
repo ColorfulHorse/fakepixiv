@@ -18,7 +18,6 @@ class EmptyViewModel : BaseViewModel<IRegisterModel>() {
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
-
     }
 
 }

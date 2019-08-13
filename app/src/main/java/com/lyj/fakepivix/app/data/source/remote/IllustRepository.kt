@@ -13,6 +13,8 @@ import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
 import com.lyj.fakepivix.app.reactivex.schedulerTransform
 import com.lyj.fakepivix.app.utils.Router
 import io.reactivex.Observable
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 /**
  * @author greensun
@@ -110,11 +112,29 @@ class IllustRepository private constructor() {
     /**
      * 获取用户作品
      */
-    fun loadUserIllust(userId: String): Observable<IllustListResp> {
+    fun loadUserIllust(userId: String, @IllustCategory category: String = ILLUST): Observable<IllustListResp> {
         return RetrofitManager.instance.apiService
                 .getUserIllustData(userId)
                 .schedulerTransform()
     }
+
+    /**
+     * 获取用户作品
+     */
+    suspend fun loadUserNovels(userId: String): IllustListResp {
+        return RetrofitManager.instance.apiService
+                .getUserNovels(userId)
+    }
+
+    /**
+     * 获取用户收藏
+     */
+    suspend fun loadUserBookmarks(@Query("user_id")userId: String, @IllustCategory category: String = IllustCategory.ILLUST,
+                               @Restrict restrict: String = Restrict.PUBLIC): IllustListResp {
+        return RetrofitManager.instance.apiService
+                .getUserBookmarks(userId, category, restrict)
+    }
+
 
     /**
      * 获取相关作品

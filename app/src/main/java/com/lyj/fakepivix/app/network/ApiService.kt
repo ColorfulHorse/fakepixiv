@@ -108,7 +108,7 @@ interface ApiService {
      * [userId] 用户id
      */
     @GET("/v1/user/novels")
-    fun getUserNovels(@Query("user_id")userId: String): Observable<IllustListResp>
+    suspend fun getUserNovels(@Query("user_id")userId: String): IllustListResp
 
     /**
      * 获取用户详情
@@ -123,9 +123,8 @@ interface ApiService {
      *
      */
     @GET("/v1/user/bookmarks/{category}")
-    fun getUserBookmarks(@IllustCategory @Path("category")category: String,
-                         @Query("user_id")userId: String,
-                         @Restrict @Query("restrict")restrict: String = Restrict.PUBLIC): Observable<IllustListResp>
+    suspend fun getUserBookmarks(@Query("user_id")userId: String, @IllustCategory @Path("category")category: String,
+                         @Restrict @Query("restrict")restrict: String = Restrict.PUBLIC): IllustListResp
 
     /**
      * 获取相关用户

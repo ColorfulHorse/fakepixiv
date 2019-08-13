@@ -41,7 +41,7 @@
         <include layout="@layout/layout_detail_caption"
             android:id="@+id/caption"
             app:data="@{vm.illust}"
-            app:show="@{vm.captionVisibility}"
+            app:showCaption="@{vm.captionVisibility}"
             />
 
         <RelativeLayout

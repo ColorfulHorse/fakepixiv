@@ -2,6 +2,14 @@
 <!-- 用户详情 -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="com.lyj.fakepivix.module.main.user.UserDetailViewModel"/>
+        <import type="com.lyj.fakepivix.app.network.LoadState"/>
+        <variable
+            name="vm"
+            type="UserDetailViewModel"/>
+    </data>
+    
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -17,7 +25,10 @@
                 <ImageView
                     android:id="@+id/wallpaper"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp" />
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    app:blur="@{true}"
+                    />
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
@@ -30,13 +41,13 @@
                         <Button
                             android:id="@+id/follow"
                             style="@style/follow_button"
-                            android:textColor="@{vm.parent.illust.user._followed?@color/white:@color/colorPrimary}"
-                            android:onClick="@{() -> vm.parent.follow()}"
-                            android:text="@{vm.parent.illust.user._followed?@string/followed:@string/follow}"
-                            android:background="@{vm.parent.illust.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_primary}"
+                            android:textColor="@{vm.userInfo.user._followed?@color/white:@color/colorPrimary}"
+                            android:onClick="@{() -> vm.follow()}"
+                            android:text="@{vm.userInfo.user._followed?@string/followed:@string/follow}"
+                            android:background="@{vm.userInfo.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_primary}"
                             android:layout_centerVertical="true"
                             android:layout_alignParentEnd="true"
-                            android:enabled="@{!(vm.parent.followState instanceof LoadState.Loading)}"
+                            android:enabled="@{!(vm.followState instanceof LoadState.Loading)}"
                             android:layout_marginEnd="4dp"
                             />
 
@@ -51,7 +62,11 @@
                                 android:id="@+id/toolbar_avatar"
                                 android:layout_width="36dp"
                                 android:layout_height="36dp"
-                                android:layout_gravity="center" />
+                                android:layout_gravity="center"
+                                app:url="@{vm.userInfo.user.profile_image_urls.medium}"
+                                app:placeHolder="@{@drawable/no_profile}"
+                                app:circle="@{true}"
+                                />
 
                             <TextView
                                 android:id="@+id/nickName"
@@ -60,7 +75,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="8dp"
                                 android:maxLines="2"
-                                android:text=""
+                                android:text="@{vm.userInfo.user.name}"
                                 android:textColor="@color/font_color_white"
                                 android:textSize="18.0sp" />
                         </LinearLayout>
@@ -74,7 +89,11 @@
             android:layout_width="96dp"
             android:layout_height="96dp"
             app:layout_anchor="@id/appBar"
-            app:layout_anchorGravity="bottom|center" />
+            app:layout_anchorGravity="bottom|center"
+            app:url="@{vm.userInfo.user.profile_image_urls.medium}"
+            app:placeHolder="@{@drawable/no_profile}"
+            app:circle="@{true}"
+            />
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -86,40 +105,43 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 >
+                <include layout="@layout/layout_user_info"
+                    app:vm="@{vm}"
+                    />
                 <include
                     android:id="@+id/illust_works"
                     layout="@layout/item_works"
                     app:type="@{@string/illust_works}"
-                    app:more_text="String.format(@string/works_count, 0)"
-                    android:visibility="@{}"
+                    app:moreText="@{String.format(@string/works_count, vm.userInfo.profile.total_illusts)}"
+                    android:visibility="@{(vm.illustWorksState instanceof LoadState.Idle) || (vm.userInfo.profile.total_illusts > 0)}"
                     />
                 <include
                     android:id="@+id/comic_works"
                     layout="@layout/item_works"
                     app:type="@{@string/comic_works}"
-                    app:more_text="String.format(@string/works_count, 0)"
-                    android:visibility="@{}"
+                    app:moreText="@{String.format(@string/works_count, vm.userInfo.profile.total_manga)}"
+                    android:visibility="@{(vm.comicWorksState instanceof LoadState.Idle) || (vm.userInfo.profile.total_manga > 0)}"
                     />
                 <include
                     android:id="@+id/novel_works"
                     layout="@layout/item_works"
                     app:type="@{@string/novel_works}"
-                    app:more_text="String.format(@string/works_count, 0)"
-                    android:visibility="@{}"
+                    app:moreText="@{String.format(@string/works_count, vm.userInfo.profile.total_novels)}"
+                    android:visibility="@{(vm.novelWorksState instanceof LoadState.Idle) || (vm.userInfo.profile.total_novels > 0)}"
                     />
                 <include
                     android:id="@+id/illust_bookmarks"
                     layout="@layout/item_works"
                     app:type="@{@string/illust_bookmark}"
-                    app:more_text="@{@string/all}"
-                    android:visibility="@{}"
+                    app:moreText="@{@string/all}"
+                    android:visibility="@{(vm.illustBookmarksState instanceof LoadState.Idle) || (vm.userInfo.profile.total_illust_bookmarks_public > 0)}"
                     />
                 <include
                     android:id="@+id/novel_bookmarks"
                     layout="@layout/item_works"
                     app:type="@{@string/novel_bookmarks}"
-                    app:more_text="@{@string/all}"
-                    android:visibility="@{}"
+                    app:moreText="@{@string/all}"
+                    android:visibility="@{(vm.novelBookmarksState instanceof LoadState.Idle) || (vm.novelBookmarks.get().size() > 0)}"
                     />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>

@@ -17,6 +17,7 @@ import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.App
 import me.yokeyword.fragmentation.ISupportFragment
+import kotlin.properties.Delegates
 
 
 /**

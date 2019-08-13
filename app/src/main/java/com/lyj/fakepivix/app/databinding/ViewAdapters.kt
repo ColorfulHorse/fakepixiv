@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
@@ -26,8 +27,8 @@ import com.lyj.fakepivix.widget.LikeButton
 
 val factory: DrawableCrossFadeFactory = DrawableCrossFadeFactory.Builder(400).setCrossFadeEnabled(true).build()
 
-@BindingAdapter(value = ["url", "placeHolder", "error", "circle", "fade"], requireAll = false)
-fun ImageView.url(url: String?, placeHolder: Drawable?, error: Drawable?, circle: Boolean = false, fade: Boolean = false) {
+@BindingAdapter(value = ["url", "placeHolder", "error", "circle", "fade", "blur"], requireAll = false)
+fun ImageView.url(url: String?, placeHolder: Drawable?, error: Drawable?, circle: Boolean = false, fade: Boolean = false, blur: Boolean) {
     url?.let {
         if (url.isNotEmpty()) {
             var req = GlideApp.with(this)
@@ -58,6 +59,9 @@ fun ImageView.url(url: String?, placeHolder: Drawable?, error: Drawable?, circle
                     options.error(error)
                 }
             }
+//            if (blur) {
+//                options.transform()
+//            }
             req.apply(options).into(this)
         }
     }

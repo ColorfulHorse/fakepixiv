@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="com.lyj.fakepivix.module.main.user.UserDetailViewModel"/>
+        <import type="android.text.TextUtils"/>
+        <variable
+            name="vm"
+            type="UserDetailViewModel"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/nickName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ff2c333c"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:text="@{vm.userInfo.user.name}"
+                    />
+
+                <ImageView
+                    android:id="@+id/vip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_profile_premium"
+                    android:visibility="@{vm.userInfo.profile._premium}" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/homepage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_profile_home"
+                    android:drawablePadding="6dp"
+                    android:maxWidth="140dp"
+                    android:singleLine="true"
+                    android:textColor="@color/more_button_text"
+                    android:text="@{vm.userInfo.profile.webpage}"
+                    android:visibility="@{!TextUtils.isEmpty(vm.userInfo.profile.webpage)}"
+                    />
+
+                <TextView
+                    android:id="@+id/twitter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:drawableStart="@drawable/ic_profile_twitter"
+                    android:drawablePadding="6dp"
+                    android:maxWidth="140dp"
+                    android:singleLine="true"
+                    android:textColor="@color/more_button_text"
+                    android:text="@{vm.userInfo.profile.twitter_account}"
+                    android:visibility="@{!TextUtils.isEmpty(vm.userInfo.profile.twitter_url)}"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/follow_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ff575c63"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="4dp"
+                        android:paddingLeft="4dp"
+                        android:text="@string/follow"
+                        android:textColor="@color/more_button_text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/friend_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:textColor="#ff575c63"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="4dp"
+                        android:paddingLeft="4dp"
+                        android:text="@string/friend"
+                        android:textColor="@color/more_button_text" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/introduce"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autoLink="web"
+                    android:gravity="center_horizontal"
+                    android:lineSpacingExtra="2sp"
+                    android:maxLines="@{vm.showMore?999:3}"
+                    android:padding="16dp"
+                    android:textColor="#ff1f2326"
+                    android:textIsSelectable="true"
+                    android:text="@{vm.userInfo.user.comment}"
+                    />
+
+                <TextView
+                    android:id="@+id/profile_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/renewal_fg_general"
+                    android:text="@{vm.userInfo.profile.getProfileText()}"
+                    android:visibility="@{vm.showMore}"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/workspace_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="vertical"
+                    android:visibility="@{vm.showMore}">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_workspace"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:divider="@null" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/read_more"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{!vm.showMore}"
+                    android:onClick="@{() -> vm.showMore.set(!vm.showMore)}"
+                    >
+
+                    <TextView
+                        android:id="@+id/read_more_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/read_more"
+                        android:textColor="@color/more_button_text" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_toRightOf="@+id/read_more_text_view"
+                        android:src="@drawable/action_detail_rev" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/pawoo"
+                    android:layout_width="match_parent"
+                    android:layout_height="28dp"
+                    android:layout_marginBottom="16dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/pawoo"
+                    android:visibility="@{!TextUtils.isEmpty(vm.userInfo.profile.pawoo_url)}" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

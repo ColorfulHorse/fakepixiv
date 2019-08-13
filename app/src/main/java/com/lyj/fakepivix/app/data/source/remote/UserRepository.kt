@@ -3,6 +3,7 @@ package com.lyj.fakepivix.app.data.source.remote
 import com.lyj.fakepivix.app.constant.Constant
 import com.lyj.fakepivix.app.constant.Restrict
 import com.lyj.fakepivix.app.data.model.response.LoginData
+import com.lyj.fakepivix.app.data.model.response.UserInfo
 import com.lyj.fakepivix.app.data.model.response.UserPreviewListResp
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
 import com.lyj.fakepivix.app.reactivex.schedulerTransform
@@ -71,6 +72,13 @@ class UserRepository private constructor(){
             .apiService
             .searchUser(keyword)
 
+
+    /**
+     * 用户详情
+     */
+    suspend fun getUserInfo(userId: String): UserInfo = RetrofitManager.instance
+            .apiService
+            .getUserDetail(userId)
 
 
     /**
