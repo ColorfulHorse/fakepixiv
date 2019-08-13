@@ -60,6 +60,9 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
         loadUserInfo()
     }
 
+    /**
+     * 获取用户信息
+     */
     fun loadUserInfo() {
         launch(Dispatchers.Main + CoroutineExceptionHandler { _, err ->
             loadState.set(LoadState.Failed(err))
@@ -92,6 +95,9 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
         }
     }
 
+    /**
+     * 用户插画作品
+     */
     fun loadIllustWorks() {
         launch(Dispatchers.Main + CoroutineExceptionHandler { _, err ->
             illustWorksState.set(LoadState.Failed(err))
@@ -135,6 +141,9 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
         }
     }
 
+    /**
+     * 用户收藏插画-漫画
+     */
     fun loadIllustBookmarks() {
         launch(Dispatchers.Main + CoroutineExceptionHandler { _, err ->
             illustBookmarksState.set(LoadState.Failed(err))
