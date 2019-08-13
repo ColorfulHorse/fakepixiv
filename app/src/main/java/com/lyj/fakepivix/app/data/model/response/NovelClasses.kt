@@ -21,7 +21,7 @@ data class NovelListResp(
 )
 
 /**
- * 小说内容
+ * 小说内容 [newpage] 分页
  */
 data class NovelText(
     val novel_marker: NovelMarker? = null,

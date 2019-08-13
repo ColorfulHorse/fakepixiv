@@ -155,35 +155,36 @@ data class Profile(
 }
 
 
+
 data class Workspace(
-    val chair: String = "",
-    val comment: String = "",
-    val desk: String = "",
-    val desktop: String = "",
-    val monitor: String = "",
-    val mouse: String = "",
-    val music: String = "",
     val pc: String = "",
-    val printer: String = "",
+    val monitor: String = "",
+    val tool: String = "",
     val scanner: String = "",
     val tablet: String = "",
-    val tool: String = "",
-    val workspace_image_url: String = ""
-) {
+    val mouse: String = "",
+    val printer: String = "",
+    val desktop: String = "",
+    val music: String = "",
+    val desk: String = "",
+    val chair: String = "",
+    val comment: String = "",
+    val workspace_image_url: Any? = Any()
+){
     fun getTextList(): List<Pair<String, String>> {
         return listOf(
-                "" to chair,
-                "" to chair,
-                "" to chair,
-                "" to chair,
-                "" to chair,
-                "" to chair,
-                "" to chair,
                 "电脑" to pc,
-                "" to chair,
-                "" to chair,
-                "" to chair,
-                "软件" to tool
+                "显示器" to monitor,
+                "软件" to tool,
+                "扫描仪" to scanner,
+                "数位板" to tablet,
+                "鼠标" to mouse,
+                "打印机" to printer,
+                "桌子上的东西" to desktop,
+                "绘画时听的音乐" to music,
+                "桌子" to desk,
+                "椅子" to chair,
+                "其他" to comment
         ).filterNot { it.second.isNotBlank() }
     }
 }
