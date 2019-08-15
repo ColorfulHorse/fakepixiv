@@ -41,6 +41,11 @@ abstract class BaseViewModel<M : IModel?> : BaseObservable(), LifecycleObserver,
         onCreated = true
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    open fun onStart(@NotNull owner: LifecycleOwner) {
+
+    }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     open fun onDestroy(@NotNull owner: LifecycleOwner) {
         mSubViewModelList.forEach { it.onDestroy(owner) }

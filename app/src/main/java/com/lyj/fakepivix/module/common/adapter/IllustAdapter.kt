@@ -1,6 +1,5 @@
 package com.lyj.fakepivix.module.common.adapter
 
-import android.databinding.ObservableList
 import android.databinding.ViewDataBinding
 import android.graphics.drawable.Drawable
 import android.view.ViewGroup

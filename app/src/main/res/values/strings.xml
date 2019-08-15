@@ -96,4 +96,7 @@
     <string name="novel_bookmarks">小说收集</string>
     <string name="works_count">%1$d件作品</string>
     <string name="friend">好P友</string>
+    <string name="novel_series_previous">上一话</string>
+    <string name="novel_series_next">下一话</string>
+    <string name="chapter">章节</string>
 </resources>

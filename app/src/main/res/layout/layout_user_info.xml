@@ -180,8 +180,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="@{!vm.showMore}"
-                    android:onClick="@{() -> vm.showMore.set(!vm.showMore)}"
                     >
+                    <!--android:onClick="@{() -> vm.showMore.set(!vm.showMore)}"-->
 
                     <TextView
                         android:id="@+id/read_more_text_view"

@@ -7,6 +7,9 @@
         <variable
             name="moreText"
             type="String"/>
+        <variable
+            name="show"
+            type="Boolean"/>
     </data>
 
     <LinearLayout

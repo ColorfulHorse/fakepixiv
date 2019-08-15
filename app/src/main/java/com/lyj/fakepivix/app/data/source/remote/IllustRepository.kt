@@ -1,5 +1,6 @@
 package com.lyj.fakepivix.app.data.source.remote
 
+import android.databinding.ObservableField
 import android.util.SparseArray
 import com.lyj.fakepivix.app.constant.Constant
 import com.lyj.fakepivix.app.constant.IllustCategory
@@ -8,11 +9,15 @@ import com.lyj.fakepivix.app.constant.Restrict
 import com.lyj.fakepivix.app.data.model.response.CommentListResp
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.IllustListResp
+import com.lyj.fakepivix.app.data.model.response.NovelText
 import com.lyj.fakepivix.app.network.ApiException
+import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
 import com.lyj.fakepivix.app.reactivex.schedulerTransform
 import com.lyj.fakepivix.app.utils.Router
 import io.reactivex.Observable
+import io.reactivex.disposables.Disposable
+import io.reactivex.rxkotlin.subscribeBy
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -110,6 +115,15 @@ class IllustRepository private constructor() {
     }
 
     /**
+     * 获取小说详情
+     */
+    suspend fun getNovelText(novelId: String): NovelText {
+        return RetrofitManager.instance
+                .apiService
+                .getNovelText(novelId)
+    }
+
+    /**
      * 获取用户作品
      */
     fun loadUserIllust(userId: String, @IllustCategory category: String = ILLUST): Observable<IllustListResp> {
@@ -117,6 +131,7 @@ class IllustRepository private constructor() {
                 .getUserIllustData(userId)
                 .schedulerTransform()
     }
+
 
     /**
      * 获取用户作品
@@ -205,6 +220,25 @@ class IllustRepository private constructor() {
                     .unStarIllust(illustId)
                     .schedulerTransform()
 
+    }
+
+    /**
+     * 收藏/取消收藏
+     */
+    fun star(illust: Illust, loadState: ObservableField<LoadState>, @Restrict restrict: String = Restrict.PUBLIC): Disposable? {
+        if (loadState.get() !is LoadState.Loading) {
+            val star = illust.is_bookmarked
+            return  instance
+                    .star(illust.id.toString(), !star, restrict)
+                    .doOnSubscribe { loadState.set(LoadState.Loading) }
+                    .subscribeBy(onNext = {
+                        illust.is_bookmarked = !star
+                        loadState.set(LoadState.Succeed)
+                    }, onError = {
+                        loadState.set(LoadState.Failed(it))
+                    })
+        }
+        return null
     }
 
     /**

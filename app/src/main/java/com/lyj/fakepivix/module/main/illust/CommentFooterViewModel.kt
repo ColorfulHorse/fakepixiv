@@ -5,9 +5,9 @@ import android.databinding.ObservableField
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.data.model.response.Comment
-import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.network.LoadState
+import com.lyj.fakepivix.module.common.DetailViewModel
 import io.reactivex.rxkotlin.subscribeBy
 
 /**
@@ -17,7 +17,7 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc 详情页用户评论
  */
-class CommentFooterViewModel(val parent: IllustDetailViewModel) : BaseViewModel<IModel?>() {
+class CommentFooterViewModel(val parent: DetailViewModel) : BaseViewModel<IModel?>() {
     override val mModel: IModel? = null
 
     //var illust = ObservableField<Illust>()
@@ -41,23 +41,22 @@ class CommentFooterViewModel(val parent: IllustDetailViewModel) : BaseViewModel<
 
     fun reLoad() {
         val illust = parent.illust
-        illust.let { res ->
-            IllustRepository.instance
-                    .loadIllustComment(res.id.toString())
-                    .doOnSubscribe { loadState.set(LoadState.Loading) }
-                    .subscribeBy(onNext = {
-                        loadState.set(LoadState.Succeed)
-                        nextUrl = it.next_url
-                        if (it.comments.isEmpty()) {
-                            noneData.set(true)
-                        }else{
-                            showMore.set(it.comments.size > 2)
-                            data.clear()
-                            data.addAll(it.comments.take(2))
-                        }
-                    }, onError = {
-                        loadState.set(LoadState.Failed(it))
-                    })
-        }
+        val disposable = IllustRepository.instance
+                .loadIllustComment(illust.id.toString())
+                .doOnSubscribe { loadState.set(LoadState.Loading) }
+                .subscribeBy(onNext = {
+                    loadState.set(LoadState.Succeed)
+                    nextUrl = it.next_url
+                    if (it.comments.isEmpty()) {
+                        noneData.set(true)
+                    }else{
+                        showMore.set(it.comments.size > 2)
+                        data.clear()
+                        data.addAll(it.comments.take(2))
+                    }
+                }, onError = {
+                    loadState.set(LoadState.Failed(it))
+                })
+        addDisposable(disposable)
     }
 }

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.utils.screenHeight
 import com.lyj.fakepivix.databinding.DialogDetailBottomBinding
+import com.lyj.fakepivix.module.common.DetailViewModel
 
 /**
  * @author greensun
@@ -22,7 +23,7 @@ import com.lyj.fakepivix.databinding.DialogDetailBottomBinding
  */
 class AboutDialogFragment : BottomSheetDialogFragment() {
 
-    var detailViewModel: IllustDetailViewModel? = null
+    var detailViewModel: DetailViewModel? = null
     var bottomSheetBehavior: BottomSheetBehavior<View>? = null
 
     companion object {

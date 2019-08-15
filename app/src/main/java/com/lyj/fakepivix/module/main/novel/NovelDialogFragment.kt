@@ -13,6 +13,7 @@ import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
 import com.lyj.fakepivix.app.data.model.response.Tag
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
+import com.lyj.fakepivix.app.utils.Router
 import com.lyj.fakepivix.app.utils.screenHeight
 import com.lyj.fakepivix.app.utils.screenWidth
 import com.lyj.fakepivix.databinding.DialogNovelBinding
@@ -30,6 +31,8 @@ import com.lyj.fakepivix.widget.FlowLayoutManager
 class NovelDialogFragment : DialogFragment() {
     private lateinit var mViewModel: NovelDialogViewModel
     private lateinit var mBinding: DialogNovelBinding
+    private var key = -1
+    private var position = -1
 
     companion object {
         private const val EXTRA_POSITION = "EXTRA_POSITION"
@@ -47,8 +50,8 @@ class NovelDialogFragment : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.dialog_novel, null, false)
         arguments?.let {
-            val position = it.getInt(EXTRA_POSITION, -1)
-            val key = it.getInt(EXTRA_KEY, -1)
+            position = it.getInt(EXTRA_POSITION, -1)
+            key = it.getInt(EXTRA_KEY, -1)
             mViewModel = NovelDialogViewModel(key, position)
             lifecycle.addObserver(mViewModel)
             mBinding.setVariable(BR.vm, mViewModel)
@@ -70,7 +73,8 @@ class NovelDialogFragment : DialogFragment() {
             }
 
             readContainer.setOnClickListener {
-
+                dismiss()
+                Router.goNovelDetail(key, position)
             }
 
             seriesContainer.setOnClickListener {

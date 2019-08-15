@@ -41,10 +41,10 @@
                         <Button
                             android:id="@+id/follow"
                             style="@style/follow_button"
-                            android:textColor="@{vm.userInfo.user._followed?@color/white:@color/colorPrimary}"
+                            android:textColor="@{vm.user._followed?@color/white:@color/colorPrimary}"
                             android:onClick="@{() -> vm.follow()}"
-                            android:text="@{vm.userInfo.user._followed?@string/followed:@string/follow}"
-                            android:background="@{vm.userInfo.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_primary}"
+                            android:text="@{vm.user._followed?@string/followed:@string/follow}"
+                            android:background="@{vm.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_primary}"
                             android:layout_centerVertical="true"
                             android:layout_alignParentEnd="true"
                             android:enabled="@{!(vm.followState instanceof LoadState.Loading)}"
@@ -75,7 +75,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="8dp"
                                 android:maxLines="2"
-                                android:text="@{vm.userInfo.user.name}"
+                                android:text="@{vm.user.name}"
                                 android:textColor="@color/font_color_white"
                                 android:textSize="18.0sp" />
                         </LinearLayout>
@@ -105,7 +105,9 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 >
-                <include layout="@layout/layout_user_info"
+                <include
+                    android:id="@+id/user_container"
+                    layout="@layout/layout_user_info"
                     app:vm="@{vm}"
                     />
                 <include
@@ -113,35 +115,35 @@
                     layout="@layout/item_works"
                     app:type="@{@string/illust_works}"
                     app:moreText="@{String.format(@string/works_count, vm.userInfo.profile.total_illusts)}"
-                    android:visibility="@{(vm.illustWorksState instanceof LoadState.Idle) || (vm.userInfo.profile.total_illusts > 0)}"
+                    app:show="@{(vm.illustWorksState instanceof LoadState.Idle) || (vm.userInfo.profile.total_illusts > 0)}"
                     />
                 <include
                     android:id="@+id/comic_works"
                     layout="@layout/item_works"
                     app:type="@{@string/comic_works}"
                     app:moreText="@{String.format(@string/works_count, vm.userInfo.profile.total_manga)}"
-                    android:visibility="@{(vm.comicWorksState instanceof LoadState.Idle) || (vm.userInfo.profile.total_manga > 0)}"
+                    app:show="@{(vm.comicWorksState instanceof LoadState.Idle) || (vm.userInfo.profile.total_manga > 0)}"
                     />
                 <include
                     android:id="@+id/novel_works"
                     layout="@layout/item_works"
                     app:type="@{@string/novel_works}"
                     app:moreText="@{String.format(@string/works_count, vm.userInfo.profile.total_novels)}"
-                    android:visibility="@{(vm.novelWorksState instanceof LoadState.Idle) || (vm.userInfo.profile.total_novels > 0)}"
+                    app:show="@{(vm.novelWorksState instanceof LoadState.Idle) || (vm.userInfo.profile.total_novels > 0)}"
                     />
                 <include
                     android:id="@+id/illust_bookmarks"
                     layout="@layout/item_works"
                     app:type="@{@string/illust_bookmark}"
                     app:moreText="@{@string/all}"
-                    android:visibility="@{(vm.illustBookmarksState instanceof LoadState.Idle) || (vm.userInfo.profile.total_illust_bookmarks_public > 0)}"
+                    app:show="@{(vm.illustBookmarksState instanceof LoadState.Idle) || (vm.userInfo.profile.total_illust_bookmarks_public > 0)}"
                     />
                 <include
                     android:id="@+id/novel_bookmarks"
                     layout="@layout/item_works"
                     app:type="@{@string/novel_bookmarks}"
                     app:moreText="@{@string/all}"
-                    android:visibility="@{(vm.novelBookmarksState instanceof LoadState.Idle) || (vm.novelBookmarks.get().size() > 0)}"
+                    app:show="@{(vm.novelBookmarksState instanceof LoadState.Idle) || (vm.novelBookmarks.size() > 0)}"
                     />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>

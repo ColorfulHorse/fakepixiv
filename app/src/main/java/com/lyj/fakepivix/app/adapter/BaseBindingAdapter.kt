@@ -6,6 +6,7 @@ import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.lyj.fakepivix.BR
 
 /**
  * @author greensun
@@ -56,6 +57,7 @@ open class BaseBindingAdapter<T, VB : ViewDataBinding>(@LayoutRes layoutId: Int,
 
     override fun convert(helper: BaseBindingViewHolder<VB>, item: T) {
         helper.binding?.setVariable(itemBindId, item)
+        helper.binding?.setVariable(BR.position, helper.adapterPosition - headerLayoutCount)
     }
 
     override fun createBaseViewHolder(view: View): BaseBindingViewHolder<VB> {

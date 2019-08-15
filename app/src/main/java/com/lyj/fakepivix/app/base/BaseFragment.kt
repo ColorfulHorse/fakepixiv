@@ -31,6 +31,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
 
     protected lateinit var mBinding: V
     abstract var mViewModel: VM
+    protected val bindingList: MutableList<ViewDataBinding> = mutableListOf()
     protected var mToolbar: Toolbar? = null
     private var mImmersionBar: ImmersionBar? = null
 
@@ -43,14 +44,26 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, bindLayout(), container, false)
+        mBinding.setLifecycleOwner(this)
+        if (mViewModel != null) {
+            lifecycle.addObserver(mViewModel as LifecycleObserver)
+            mBinding.setVariable(bindViewModel(), mViewModel)
+        }
         mViewModel?.let {
             lifecycle.addObserver(mViewModel as LifecycleObserver)
             mBinding.setVariable(bindViewModel(), mViewModel)
         }
         mToolbar = mBinding.root.findViewById(bindToolbar())
+        mToolbar?.overflowIcon = ContextCompat.getDrawable(App.context, R.drawable.ic_more)
         mBinding.root.isClickable = true
         onCreated = true
         return mBinding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        bindingList.forEach { it.unbind() }
+        mBinding.unbind()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -69,7 +82,6 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
     override fun initImmersionBar() {
         var immersionBar = ImmersionBar.with(this)
         mToolbar?.let {
-            it.overflowIcon = ContextCompat.getDrawable(App.context, R.drawable.ic_more)
             immersionBar = immersionBar.titleBar(mToolbar)
         }
         immersionBar.keyboardEnable(true, WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
@@ -78,6 +90,11 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
                         onKeyboardChanged(isOpen, height)
                     }
                     .init()
+    }
+
+    protected fun addSubBinding(binding: ViewDataBinding) {
+        binding.setLifecycleOwner(this)
+        bindingList.add(binding)
     }
 
 

@@ -270,6 +270,12 @@ interface ApiService {
     suspend fun searchUser(@Query("word")keyword: String): UserPreviewListResp
 
     /**
+     * 获取小说详情
+     */
+    @GET("/v1/novel/text")
+    suspend fun getNovelText(@Query("novel_id")novelId: String): NovelText
+
+    /**
      * 添加书签
      */
     @POST("/v1/novel/marker/add")

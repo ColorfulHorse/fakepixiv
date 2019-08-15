@@ -18,6 +18,8 @@ class UserDetailFragment : FragmentationFragment<ViewDataBinding, UserDetailView
 
     override var mViewModel: UserDetailViewModel = UserDetailViewModel()
 
+    private var userId: String = ""
+
     companion object {
         private const val EXTRA_USER_ID = "EXTRA_USER_ID"
         fun newInstance(userId: String): IllustDetailFragment {
@@ -31,7 +33,7 @@ class UserDetailFragment : FragmentationFragment<ViewDataBinding, UserDetailView
 
     override fun init(savedInstanceState: Bundle?) {
         arguments?.let {
-            val userId = it.getString(EXTRA_USER_ID, "")
+            userId = it.getString(EXTRA_USER_ID, "")
             mViewModel.userId = userId
         }
 

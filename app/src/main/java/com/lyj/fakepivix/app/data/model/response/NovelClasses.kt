@@ -13,11 +13,11 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class NovelListResp(
-        val contest_exists: Boolean = false,
-        val novels: List<Illust> = listOf(),
-        val next_url: String = "",
-        val privacy_policy: PrivacyPolicy = PrivacyPolicy(),
-        val ranking_novels: List<Illust> = listOf()
+    val contest_exists: Boolean = false,
+    val novels: List<Illust> = listOf(),
+    val next_url: String = "",
+    val privacy_policy: PrivacyPolicy = PrivacyPolicy(),
+    val ranking_novels: List<Illust> = listOf()
 )
 
 /**
@@ -25,12 +25,23 @@ data class NovelListResp(
  */
 data class NovelText(
     val novel_marker: NovelMarker? = null,
-    val novel_text: String = "",
-    val series_next: NovelSeries = NovelSeries(),
-    val series_prev: NovelSeries = NovelSeries()
-)
+    var novel_text: String = "",
+    val series_next: NovelPage? = null,
+    val series_prev: NovelPage? = null
+) {
 
-data class NovelSeries(
+    companion object {
+        const val SEPARATOR = "[newpage]"
+    }
+
+    fun getNovel(): List<String> {
+        val res = novel_text.split(SEPARATOR)
+        novel_text = ""
+        return res
+    }
+}
+
+data class NovelPage(
     val caption: String = "",
     val create_date: String = "",
     val id: Int = 0,
@@ -54,8 +65,6 @@ data class NovelSeries(
 )
 
 data class NovelMarker(
-    val page: NovelPage = NovelPage()
-)
-data class NovelPage(
     val page: Int = 0
 )
+

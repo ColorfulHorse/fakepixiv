@@ -86,12 +86,18 @@ fun BaseQuickAdapter<*, *>.bindState(loadState: ObservableField<LoadState>, onSu
         when (loadState.get()) {
             is LoadState.Loading -> {
                 emptyView = loadingView
+                if (headerLayoutCount + footerLayoutCount > 0) {
+                    notifyDataSetChanged()
+                }
                 refreshLayout?.isRefreshing = false
                 refreshLayout?.isEnabled = false
                 onLoading?.invoke()
             }
             is LoadState.Failed -> {
                 emptyView = errorView
+                if (headerLayoutCount + footerLayoutCount > 0) {
+                    notifyDataSetChanged()
+                }
                 refreshLayout?.isEnabled = true
                 onFailed?.invoke((loadState.get() as LoadState.Failed).error)
             }

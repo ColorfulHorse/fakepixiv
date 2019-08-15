@@ -7,7 +7,10 @@ import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.data.model.response.UserPreview
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
+import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
+import com.lyj.fakepivix.app.utils.Router
+import com.lyj.fakepivix.module.common.DetailViewModel
 import io.reactivex.rxkotlin.subscribeBy
 
 /**
@@ -15,9 +18,9 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @date 2019/6/3
  *
- * @desc 详情页用户item
+ * @desc 相关用户
  */
-class RelatedUserDialogViewModel(val parent: IllustDetailViewModel) : BaseViewModel<IModel?>() {
+class RelatedUserDialogViewModel(val parent: DetailViewModel) : BaseViewModel<IModel?>() {
     override val mModel: IModel? = null
 
     var data = ObservableArrayList<UserPreview>()
@@ -35,10 +38,20 @@ class RelatedUserDialogViewModel(val parent: IllustDetailViewModel) : BaseViewMo
                 .subscribeBy(onNext = {
                     data.addAll(it.user_previews)
                     loadState.set(LoadState.Succeed)
+                    showDialog()
                 }, onError = {
                     loadState.set(LoadState.Failed(it))
                 })
         addDisposable(disposable)
+    }
+
+    fun showDialog() {
+        // 数据加载完成弹出dialog
+        Router.getTopFragmentManager()?.let {
+            val dialogFragment = RelatedUserDialogFragment.newInstance()
+            dialogFragment.mViewModel = this
+            dialogFragment.show(it, "RelatedUserDialogFragment")
+        }
     }
 
     fun follow(position: Int) {

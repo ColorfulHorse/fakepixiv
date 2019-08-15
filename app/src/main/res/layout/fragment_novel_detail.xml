@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="com.lyj.fakepivix.module.main.novel.NovelDetailViewModel"/>
+        <import type="com.lyj.fakepivix.app.network.LoadState"/>
+        <variable
+            name="vm"
+            type="NovelDetailViewModel"/>
+    </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -9,34 +17,37 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="24dp"
             android:scrollbars="vertical" />
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        <FrameLayout
+            android:id="@+id/toolbar_wrapper"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/transparent"
-            app:contentInsetStart="0dp"
-            >
-            <RelativeLayout
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/pageNum"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="@{vm.total > 1}"
-                >
-                <TextView
-                    android:id="@+id/pageNum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:textColor="@color/white"
-                    android:layout_centerInParent="true"
-                    android:shadowRadius="6"
-                    android:shadowColor="@color/black"
-                    android:text='@{vm.current+"/"+vm.total}'
-                    />
-            </RelativeLayout>
-        </android.support.v7.widget.Toolbar>
+                android:layout_height="?attr/actionBarSize"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:shadowDy="1"
+                android:shadowRadius="4"
+                android:shadowColor="@color/black"
+                android:visibility="@{(vm.total > 1) &amp;&amp; vm.showPageNum}"
+                android:text='@{vm.current+"/"+vm.total}'
+                />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/transparent"
+                app:contentInsetStart="0dp"
+                app:contentInsetStartWithNavigation="0dp"
+                app:contentInsetEndWithActions="0dp"
+                />
+        </FrameLayout>
 
         <include layout="@layout/layout_detail_caption"
             android:id="@+id/caption"

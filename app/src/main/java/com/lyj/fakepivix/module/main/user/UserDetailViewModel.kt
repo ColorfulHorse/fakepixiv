@@ -9,6 +9,7 @@ import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.data.model.response.Illust
+import com.lyj.fakepivix.app.data.model.response.User
 import com.lyj.fakepivix.app.data.model.response.UserInfo
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
@@ -33,7 +34,14 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
     override var mModel: IModel? = null
 
     var userId: String = ""
+    set(value) {
+        field = value
+        user = UserRepository.instance[userId]
+    }
+    var user: User? = null
+
     val loadState = ObservableField<LoadState>(LoadState.Idle)
+
     @get:Bindable
     var userInfo = UserInfo()
     set(value) {
@@ -41,6 +49,8 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
         notifyPropertyChanged(BR.userInfo)
     }
     val showMore = ObservableField(false)
+
+    val followState = ObservableField<LoadState>(LoadState.Idle)
 
     val illustWorksState = ObservableField<LoadState>(LoadState.Idle)
     val comicWorksState = ObservableField<LoadState>(LoadState.Idle)
@@ -54,6 +64,7 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
     // 收藏
     val illustBookmarks = ObservableArrayList<Illust>()
     val novelBookmarks = ObservableArrayList<Illust>()
+    val workspace = ObservableArrayList<Pair<String, String>>()
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
@@ -73,6 +84,7 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
                         .instance.getUserInfo(userId)
             }
             userInfo = resp
+            workspace.addAll(resp.workspace.getTextList())
             loadState.set(LoadState.Succeed)
             if (resp.user.comment.isBlank()) {
                 showMore.set(true)
@@ -171,6 +183,16 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
             novelBookmarks.clear()
             novelBookmarks.addAll(resp.illusts)
             novelBookmarksState.set(LoadState.Succeed)
+        }
+    }
+
+    fun follow() {
+        user?.let {
+            val disposable = UserRepository.instance
+                    .follow(it, followState)
+            disposable?.let { d ->
+                addDisposable(d)
+            }
         }
     }
 

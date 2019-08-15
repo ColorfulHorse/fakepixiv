@@ -10,12 +10,12 @@ import javax.annotation.Nullable
  *
  * @date 2019/4/20
  *
- * @desc 把json中所有null替换成空Object
+ * @desc 把json中所有null替换成""
  */
 class ExcludeNullAdapter {
     @FromJson
     fun fromJson(@Nullable value: String?): String {
-        return value?: ""
+        return value?:""
     }
 
     @ToJson

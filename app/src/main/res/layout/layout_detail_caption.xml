@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:background="@color/bg_general_new"
         android:layout_gravity="bottom"
-        android:visibility="@{show}"
+        android:layout_alignParentBottom="true"
+        android:visibility="@{showCaption}"
         >
 
         <ImageButton

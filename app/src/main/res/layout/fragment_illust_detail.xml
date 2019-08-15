@@ -7,7 +7,7 @@
         <import type="com.lyj.fakepivix.app.network.LoadState"/>
         <variable
             name="vm"
-            type="IllustDetailViewModel"/>
+            type="com.lyj.fakepivix.module.main.illust.IllustDetailViewModel"/>
     </data>
 
     <android.support.design.widget.CoordinatorLayout

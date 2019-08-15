@@ -3,6 +3,7 @@ package com.lyj.fakepivix.module.main.illust
 import android.databinding.ObservableField
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
+import com.lyj.fakepivix.module.common.DetailViewModel
 
 /**
  * @author greensun

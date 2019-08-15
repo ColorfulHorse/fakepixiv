@@ -1,22 +1,18 @@
 package com.lyj.fakepivix.module.main.illust
 
-import android.arch.lifecycle.LifecycleObserver
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.FragmentationFragment
-import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
+import com.lyj.fakepivix.app.utils.Router
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.FragmentIllustDetailBinding
 import com.lyj.fakepivix.widget.DetailItemDecoration
@@ -28,9 +24,9 @@ import com.lyj.fakepivix.widget.DetailItemDecoration
  *
  * @desc 作品详情
  */
-class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, IllustDetailViewModel>() {
+class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, IllustDetailViewModel?>() {
 
-    override lateinit var mViewModel: IllustDetailViewModel
+    override var mViewModel: IllustDetailViewModel? = null
 
     companion object {
         private const val EXTRA_POSITION = "EXTRA_POSITION"
@@ -56,36 +52,40 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
             val position = it.getInt(EXTRA_POSITION, -1)
             val key = it.getInt(EXTRA_KEY, -1)
             mViewModel = IllustDetailViewModel(key, position)
-            lifecycle.addObserver(mViewModel)
-            mBinding.setVariable(bindViewModel(), mViewModel)
-            val show = mViewModel.captionVisibility.get()
-            if (show != null) {
-                showCaption = show
+            mViewModel?.let { vm ->
+                lifecycle.addObserver(vm)
+                mBinding.setVariable(bindViewModel(), mViewModel)
+                val show = vm.captionVisibility.get()
+                if (show != null) {
+                    showCaption = show
+                }
             }
         }
-        layoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
-        mAdapter = IllustDetailAdapter(mViewModel)
-        with(mBinding) {
-            caption.root.post {
-                captionHeight = caption.root.height
-            }
-            recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    calculateVisibility(dy, recyclerView)
+        mViewModel?.let {
+            layoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
+            mAdapter = IllustDetailAdapter(it)
+            with(mBinding) {
+                caption.root.post {
+                    captionHeight = caption.root.height
                 }
-            })
-            recyclerView.addItemDecoration(DetailItemDecoration.Builder()
-                    .dividerWidth(3.5f.dp2px(), 3.5f.dp2px())
-                    .build())
+                recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        super.onScrolled(recyclerView, dx, dy)
+                        calculateVisibility(dy, recyclerView)
+                    }
+                })
+                recyclerView.addItemDecoration(DetailItemDecoration.Builder()
+                        .dividerWidth(3.5f.dp2px(), 3.5f.dp2px())
+                        .build())
 
-            caption.show.setOnClickListener {
-                val dialog = AboutDialogFragment.newInstance().apply {
-                    detailViewModel = mViewModel
+                caption.show.setOnClickListener {
+                    val dialog = AboutDialogFragment.newInstance().apply {
+                        detailViewModel = mViewModel
+                    }
+                    dialog.show(childFragmentManager, "BottomDialogFragment")
                 }
-                dialog.show(childFragmentManager, "BottomDialogFragment")
+                //initBottomSheet()
             }
-            //initBottomSheet()
         }
     }
 
@@ -93,45 +93,47 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
      * 监听滑动是否显示页数，fab等
      */
     private fun calculateVisibility(dy: Int, recyclerView: RecyclerView) {
-        val first = layoutManager.findFirstVisibleItemPosition()
-        val total = mViewModel.total.get()
-        val current = mViewModel.current.get()
-        if (total != null) {
-            val visibility = first < total
-            mViewModel.toolbarVisibility.set(visibility)
-            // 显示页数
-            current?.let {
-                if (current < total) {
-                    if (current != first + 1) {
-                        mViewModel.current.set(first + 1)
+        mViewModel?.let {
+            val first = layoutManager.findFirstVisibleItemPosition()
+            val total = it.total.get()
+            val current = it.current.get()
+            if (total != null) {
+                val visibility = first < total
+                it.toolbarVisibility.set(visibility)
+                // 显示页数
+                current?.let { _ ->
+                    if (current < total) {
+                        if (current != first + 1) {
+                            it.current.set(first + 1)
+                        }
                     }
                 }
-            }
-            // 滑动到评论时隐藏floatingActionButton
-            val userItem = layoutManager.findViewByPosition(total + 1)
-            if (userItem != null) {
-                if (dy > 0) {
-                    if (userItem.bottom <= recyclerView.bottom - recyclerView.paddingBottom) {
-                        mBinding.fab.hide()
-                    }
-                } else {
-                    if (userItem.bottom >= recyclerView.bottom - recyclerView.paddingBottom) {
-                        mBinding.fab.show()
-                    }
-                }
-            }
-            // 控制caption显示
-            if (total > 1) {
-                val child = layoutManager.findViewByPosition(total - 1)
-                if (child != null) {
+                // 滑动到评论时隐藏floatingActionButton
+                val userItem = layoutManager.findViewByPosition(total + 1)
+                if (userItem != null) {
                     if (dy > 0) {
-                        if (child.bottom + captionHeight + 4.dp2px() <= recyclerView.bottom - recyclerView.paddingBottom) {
-                            captionAnim(false)
+                        if (userItem.bottom <= recyclerView.bottom - recyclerView.paddingBottom) {
+                            mBinding.fab.hide()
                         }
                     } else {
-                        layoutManager.findViewByPosition(total - 1)
-                        if (child.bottom + captionHeight + 4.dp2px() >= recyclerView.bottom - recyclerView.paddingBottom) {
-                            captionAnim(true)
+                        if (userItem.bottom >= recyclerView.bottom - recyclerView.paddingBottom) {
+                            mBinding.fab.show()
+                        }
+                    }
+                }
+                // 控制caption显示
+                if (total > 1) {
+                    val child = layoutManager.findViewByPosition(total - 1)
+                    if (child != null) {
+                        if (dy > 0) {
+                            if (child.bottom + captionHeight + 4.dp2px() <= recyclerView.bottom - recyclerView.paddingBottom) {
+                                captionAnim(false)
+                            }
+                        } else {
+                            layoutManager.findViewByPosition(total - 1)
+                            if (child.bottom + captionHeight + 4.dp2px() >= recyclerView.bottom - recyclerView.paddingBottom) {
+                                captionAnim(true)
+                            }
                         }
                     }
                 }
@@ -143,41 +145,43 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
      * 悬浮标题是否显示
      */
     private fun captionAnim(show: Boolean) {
-        if (show == showCaption)
-            return
-        showCaption = show
-        val w = mBinding.caption.show.width
-        if (show) {
-            val translateAnim = TranslateAnimation(-w.toFloat() + 16.dp2px().toFloat(), 0f, 0f, 0f)
-            translateAnim.duration = 200
-            mViewModel.captionVisibility.set(show)
-            mBinding.caption.titleContainer.startAnimation(translateAnim)
-        }else {
-            val child = mViewModel.total.get()?.let { layoutManager.findViewByPosition(it) }
-            if (child != null) {
-                val target = child.findViewById<View>(R.id.container_caption)
-                Log.e("xxx", "w:$w")
-                val translateAnim = TranslateAnimation(w.toFloat() - 16.dp2px().toFloat(), 0f, 0f, 0f)
+        mViewModel?.let {
+            if (show == showCaption)
+                return
+            showCaption = show
+            val w = mBinding.caption.show.width
+            if (show) {
+                val translateAnim = TranslateAnimation(-w.toFloat() + 16.dp2px().toFloat(), 0f, 0f, 0f)
                 translateAnim.duration = 200
-                translateAnim.setAnimationListener(object : Animation.AnimationListener {
-                    override fun onAnimationRepeat(animation: Animation?) {
+                it.captionVisibility.set(show)
+                mBinding.caption.titleContainer.startAnimation(translateAnim)
+            }else {
+                val child = it.total.get()?.let { layoutManager.findViewByPosition(it) }
+                if (child != null) {
+                    val target = child.findViewById<View>(R.id.container_caption)
+                    Log.e("xxx", "w:$w")
+                    val translateAnim = TranslateAnimation(w.toFloat() - 16.dp2px().toFloat(), 0f, 0f, 0f)
+                    translateAnim.duration = 200
+                    translateAnim.setAnimationListener(object : Animation.AnimationListener {
+                        override fun onAnimationRepeat(animation: Animation?) {
 
-                    }
+                        }
 
-                    override fun onAnimationEnd(animation: Animation?) {
-                        mBinding.caption.show.visibility = View.VISIBLE
-                    }
+                        override fun onAnimationEnd(animation: Animation?) {
+                            mBinding.caption.show.visibility = View.VISIBLE
+                        }
 
-                    override fun onAnimationStart(animation: Animation?) {
+                        override fun onAnimationStart(animation: Animation?) {
 
-                    }
+                        }
 
-                })
-                mViewModel.captionVisibility.set(show)
-                mBinding.caption.show.visibility = View.INVISIBLE
-                target.startAnimation(translateAnim)
+                    })
+                    it.captionVisibility.set(show)
+                    mBinding.caption.show.visibility = View.INVISIBLE
+                    target.startAnimation(translateAnim)
+                }
+
             }
-
         }
     }
 
@@ -197,40 +201,44 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
      * 实例化作品描述，用户作品，作品评论
      */
     private fun initFooter() {
-        val descFooter = DescFooter(mActivity, mViewModel.illust)
-        val userFooter = UserFooter(mActivity, mViewModel.userFooterViewModel)
-        val commentFooter = CommentFooter(mActivity, mViewModel.commentFooterViewModel)
-        val relatedCaptionFooter = RelatedCaptionFooter(mActivity, mViewModel.relatedCaptionFooterViewModel)
+        mViewModel?.let {
+            val descFooter = DescFooter(mActivity, it.illust)
+            val userFooter = UserFooter(mActivity, it.userFooterViewModel)
+            val commentFooter = CommentFooter(mActivity, it.commentFooterViewModel)
+            val relatedCaptionFooter = RelatedCaptionFooter(mActivity, it.relatedCaptionFooterViewModel)
 
-        mAdapter.descFooter = descFooter
-        mAdapter.userFooter = userFooter
-        mAdapter.commentFooter = commentFooter
-        mAdapter.relatedCaptionFooter = relatedCaptionFooter
+            mAdapter.descFooter = descFooter
+            mAdapter.userFooter = userFooter
+            mAdapter.commentFooter = commentFooter
+            mAdapter.relatedCaptionFooter = relatedCaptionFooter
+        }
     }
 
     /**
      * 关注/收藏dialog
      */
     private fun initListener() {
-        mViewModel.relatedIllustViewModel.loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
-            val state = mViewModel.relatedIllustViewModel.loadState.get()
-            if (state is LoadState.Succeed) {
-                // 数据加载完成弹出dialog
-                val dialogFragment = RelatedIllustDialogFragment.newInstance()
-                dialogFragment.mViewModel = mViewModel.relatedIllustViewModel
-                dialogFragment.show(childFragmentManager, "RelatedIllustDialogFragment")
-            }
-        })
+        mViewModel?.let {
+//            it.relatedIllustViewModel.loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
+//                val state = it.relatedIllustViewModel.loadState.get()
+//                if (state is LoadState.Succeed) {
+//                    // 数据加载完成弹出dialog
+//                    val dialogFragment = RelatedIllustDialogFragment.newInstance()
+//                    dialogFragment.mViewModel = it.relatedIllustViewModel
+//                    dialogFragment.show(childFragmentManager, "RelatedIllustDialogFragment")
+//                }
+//            })
 
-        mViewModel.relatedUserViewModel.loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
-            val state = mViewModel.relatedUserViewModel.loadState.get()
-            if (state is LoadState.Succeed) {
-                // 数据加载完成弹出dialog
-                val dialogFragment = RelatedUserDialogFragment.newInstance()
-                dialogFragment.mViewModel = mViewModel.relatedUserViewModel
-                dialogFragment.show(childFragmentManager, "RelatedUserDialogFragment")
-            }
-        })
+//            it.relatedUserViewModel.loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
+//                val state = it.relatedUserViewModel.loadState.get()
+//                if (state is LoadState.Succeed) {
+//                    // 数据加载完成弹出dialog
+//                    val dialogFragment = RelatedUserDialogFragment.newInstance()
+//                    dialogFragment.mViewModel = it.relatedUserViewModel
+//                    dialogFragment.show(childFragmentManager, "RelatedUserDialogFragment")
+//                }
+//            })
+        }
     }
 
     override fun immersionBarEnabled(): Boolean {

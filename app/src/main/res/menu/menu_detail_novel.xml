@@ -11,6 +11,10 @@
         app:showAsAction="always"
         android:icon="@drawable/ic_share_white_with_shadow"
         />
+    <item android:id="@+id/chapter"
+        android:title="@string/chapter"
+        app:showAsAction="never"
+        />
     <item android:id="@+id/setting"
         android:title="@string/novel_setting"
         app:showAsAction="never"

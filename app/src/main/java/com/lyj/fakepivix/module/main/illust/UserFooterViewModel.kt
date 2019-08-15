@@ -5,9 +5,9 @@ import android.databinding.ObservableField
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.data.model.response.User
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.network.LoadState
+import com.lyj.fakepivix.module.common.DetailViewModel
 import io.reactivex.rxkotlin.subscribeBy
 
 /**
@@ -17,7 +17,7 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc 详情页用户item
  */
-class UserFooterViewModel(val parent: IllustDetailViewModel) : BaseViewModel<IModel?>() {
+class UserFooterViewModel(val parent: DetailViewModel) : BaseViewModel<IModel?>() {
     override val mModel: IModel? = null
 
     var data = ObservableArrayList<Illust>()
