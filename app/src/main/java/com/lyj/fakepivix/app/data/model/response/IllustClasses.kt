@@ -47,12 +47,12 @@ data class IllustListResp(
 
 
 //@JsonClass(generateAdapter = true)
-class Illust (
-        val caption: String = "",
-        val create_date: String = "",
+data class Illust (
+        var caption: String = "",
+        var create_date: String = "",
         val height: Int = 0,
-        val id: Long = 0,
-        val image_urls: ImageUrls = ImageUrls(),
+        var id: Long = 0,
+        var image_urls: ImageUrls = ImageUrls(),
         //var is_bookmarked: Boolean = false,
         val is_muted: Boolean = false,
         val meta_pages: List<MetaPage> = listOf(),
@@ -61,12 +61,12 @@ class Illust (
         val text_length: Int = 0,
         val restrict: Int = 0,
         val sanity_level: Int = 0,
-        val series: Series? = null,
-        val tags: List<Tag> = listOf(),
-        val title: String = "",
+        var series: Series? = null,
+        var tags: List<Tag> = listOf(),
+        var title: String = "",
         val tools: List<Any> = listOf(),
-        val total_bookmarks: Int = 0,
-        val total_view: Int = 0,
+        var total_bookmarks: Int = 0,
+        var total_view: Int = 0,
         var type: String = "",
         val user: User = User(),
         val visible: Boolean = false,

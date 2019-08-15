@@ -5,15 +5,20 @@ import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.gyf.barlibrary.ImmersionBar
+import com.gyf.barlibrary.ImmersionFragment
+import com.gyf.barlibrary.ImmersionOwner
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
 import com.lyj.fakepivix.app.base.BackFragment
+import com.lyj.fakepivix.app.data.model.response.NovelChapter
 import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
+import com.lyj.fakepivix.app.utils.JsonUtil
 import com.lyj.fakepivix.app.utils.bindState
 import com.lyj.fakepivix.databinding.FragmentNovelDetailBinding
 import com.lyj.fakepivix.databinding.NovelChapterFooter
+import com.lyj.fakepivix.module.main.illust.AboutDialogFragment
 
 /**
  * @author greensun
@@ -30,17 +35,22 @@ class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetail
 
     private var position = -1
     private var key = -1
+    private var novelChapter: NovelChapter? = null
 
     private val footerBinding: NovelChapterFooter by lazy {
         val footerBinding: NovelChapterFooter = DataBindingUtil.inflate(mActivity.layoutInflater, R.layout.footer_novel_series, null, false)
         footerBinding.previous.setOnClickListener {
             // 上一章
-            start(newInstance(position, key))
+            mViewModel?.novelText?.series_prev?.let {
+                start(newInstance(position, key, it))
+            }
         }
 
         footerBinding.next.setOnClickListener {
             // 下一章
-            start(newInstance(position, key))
+            mViewModel?.novelText?.series_next?.let {
+                start(newInstance(position, key, it))
+            }
         }
         addSubBinding(footerBinding)
         footerBinding
@@ -55,11 +65,14 @@ class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetail
     companion object {
         private const val EXTRA_POSITION = "EXTRA_POSITION"
         private const val EXTRA_KEY = "EXTRA_KEY"
-        fun newInstance(position: Int, key: Int): NovelDetailFragment {
+        private const val EXTRA_NOVEL_ID = "EXTRA_NOVEL_ID"
+        private const val EXTRA_NOVEL_CHAPTER = "EXTRA_NOVEL_CHAPTER"
+        fun newInstance(position: Int, key: Int, novelChapter: NovelChapter? = null): NovelDetailFragment {
             return NovelDetailFragment().apply {
                 arguments = Bundle().apply {
                     putInt(EXTRA_POSITION, position)
                     putInt(EXTRA_KEY, key)
+                    putString(EXTRA_NOVEL_CHAPTER, JsonUtil.bean2Json(novelChapter))
                 }
             }
         }
@@ -69,7 +82,11 @@ class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetail
         arguments?.let {
             position = it.getInt(EXTRA_POSITION, -1)
             key = it.getInt(EXTRA_KEY, -1)
-            mViewModel = NovelDetailViewModel(key, position)
+            val source = it.getString(EXTRA_NOVEL_CHAPTER, "")
+            if (source.isNotBlank()) {
+                novelChapter = JsonUtil.json2Bean(source)
+            }
+            mViewModel = NovelDetailViewModel(key, position, novelChapter)
             mViewModel?.let { vm ->
                 lifecycle.addObserver(vm)
             }
@@ -113,6 +130,13 @@ class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetail
                 mAdapter.addHeaderView(headerBinding.root)
                 mAdapter.bindToRecyclerView(recyclerView)
                 mAdapter.bindState(vm.loadState)
+
+                caption.show.setOnClickListener {
+                    val dialog = AboutDialogFragment.newInstance().apply {
+                        detailViewModel = mViewModel
+                    }
+                    dialog.show(childFragmentManager, "BottomDialogFragment")
+                }
             }
         }
     }

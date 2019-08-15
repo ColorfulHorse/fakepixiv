@@ -47,10 +47,10 @@
             <Button
                 android:id="@+id/follow"
                 style="@style/follow_button"
-                android:textColor="@{vm.parent.illust.user._followed?@color/white:@color/colorPrimary}"
+                android:textColor="@{vm.parent.liveData.user._followed?@color/white:@color/colorPrimary}"
                 android:onClick="@{() -> vm.parent.follow()}"
-                android:text="@{vm.parent.illust.user._followed?@string/followed:@string/follow}"
-                android:background="@{vm.parent.illust.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_primary}"
+                android:text="@{vm.parent.liveData.user._followed?@string/followed:@string/follow}"
+                android:background="@{vm.parent.liveData.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_primary}"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:enabled="@{!(vm.parent.followState instanceof LoadState.Loading)}"

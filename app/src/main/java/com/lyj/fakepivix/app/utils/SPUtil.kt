@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import com.lyj.fakepivix.app.App
 import com.lyj.fakepivix.app.constant.Constant
 import com.lyj.fakepivix.app.data.model.response.LoginData
+import com.lyj.fakepivix.app.utils.JsonUtil.moshi
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
@@ -18,13 +19,11 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 object SPUtil {
     private const val DEFAULT_SP = "DEFAULT_SP"
     private const val KEY_SEARCH = "KEY_SEARCH"
-    private val moshi: Moshi by lazy { Moshi.Builder().add(KotlinJsonAdapterFactory()).build() }
     private val sp: SharedPreferences by lazy { App.context.getSharedPreferences(DEFAULT_SP, Context.MODE_PRIVATE) }
 
 
     fun saveLoginData(loginData: LoginData) {
-        val adapter = moshi.adapter(LoginData::class.java)
-        val str = adapter.toJson(loginData)
+        val str = JsonUtil.bean2Json(loginData)
         sp.edit().putString(Constant.SP.KEY_LOGIN_CACHE, str)
                 .apply()
     }
@@ -33,8 +32,7 @@ object SPUtil {
         val str = sp.getString(Constant.SP.KEY_LOGIN_CACHE, "")
         if (str != null) {
             if (str.isNotEmpty()) {
-                val adapter = moshi.adapter(LoginData::class.java)
-                return adapter.fromJson(str)
+                return JsonUtil.json2Bean(str)
             }
         }
         return null

@@ -185,7 +185,7 @@ data class Workspace(
                 "桌子" to desk,
                 "椅子" to chair,
                 "其他" to comment
-        ).filterNot { it.second.isNotBlank() }
+        ).filterNot { it.second.isBlank() }
     }
 }
 

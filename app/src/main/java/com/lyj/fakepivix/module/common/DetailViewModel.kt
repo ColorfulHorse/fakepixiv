@@ -27,7 +27,8 @@ open class DetailViewModel(val key: Int, val position: Int) : BaseViewModel<IMod
 
     override val mModel: IModel? = null
 
-    val illust = IllustRepository.instance[key][position]
+    var liveData = IllustRepository.instance[key][position]
+    var illust = liveData.copy()
 
     open var loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
     var starState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
@@ -61,7 +62,7 @@ open class DetailViewModel(val key: Int, val position: Int) : BaseViewModel<IMod
         followState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
             val state = followState.get()
             if (state is LoadState.Succeed) {
-                illust.user.let {
+                liveData.user.let {
                     if (it.is_followed) {
                         // 关注成功加载弹出窗数据
                         relatedUserViewModel.load()
@@ -87,7 +88,7 @@ open class DetailViewModel(val key: Int, val position: Int) : BaseViewModel<IMod
      */
     fun star() {
         val disposable = IllustRepository.instance
-                .star(illust, starState)
+                .star(liveData, starState)
         disposable?.let {
             addDisposable(it)
         }
@@ -99,7 +100,7 @@ open class DetailViewModel(val key: Int, val position: Int) : BaseViewModel<IMod
      */
     fun follow() {
         val disposable = UserRepository.instance
-                .follow(illust.user, followState)
+                .follow(liveData.user, followState)
         disposable?.let {
             addDisposable(it)
         }

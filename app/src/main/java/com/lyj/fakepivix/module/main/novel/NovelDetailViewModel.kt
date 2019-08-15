@@ -6,6 +6,7 @@ import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import android.databinding.ObservableList
 import com.lyj.fakepivix.BR
+import com.lyj.fakepivix.app.data.model.response.NovelChapter
 import com.lyj.fakepivix.app.data.model.response.NovelText
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.network.LoadState
@@ -22,7 +23,7 @@ import kotlinx.coroutines.withContext
  *
  * @desc 小说详情
  */
-class NovelDetailViewModel(key: Int, position: Int) : DetailViewModel(key, position) {
+class NovelDetailViewModel(key: Int, position: Int, val novelChapter: NovelChapter? = null) : DetailViewModel(key, position) {
 
     var data: ObservableList<String> = ObservableArrayList()
 
@@ -30,12 +31,17 @@ class NovelDetailViewModel(key: Int, position: Int) : DetailViewModel(key, posit
     var showPageNum = false
     set(value) {
         field = value
-        //notifyPropertyChanged(BR.showPageNum)
+        notifyPropertyChanged(BR.showPageNum)
     }
 
     var novelText: NovelText? = null
 
     init {
+        novelChapter?.let {
+            illust = illust.copy(caption = novelChapter.caption, id = novelChapter.id, tags = novelChapter.tags,
+                    image_urls = novelChapter.image_urls, create_date = novelChapter.create_date, total_bookmarks = novelChapter.total_bookmarks,
+                    total_view = novelChapter.total_view, title = novelChapter.title, series = novelChapter.series)
+        }
         captionVisibility.set(true)
     }
 

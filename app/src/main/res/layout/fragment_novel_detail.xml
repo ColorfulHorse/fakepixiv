@@ -68,7 +68,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:onClick="@{() -> vm.star()}"
-                android:src="@{vm.illust._bookmarked?@drawable/ic_fab_liked:@drawable/ic_fab_like}"
+                android:src="@{vm.liveData._bookmarked?@drawable/ic_fab_liked:@drawable/ic_fab_like}"
                 android:enabled="@{!(vm.starState instanceof LoadState.Loading)}"
                 app:backgroundTint="@color/fab_background_tint"
                 />

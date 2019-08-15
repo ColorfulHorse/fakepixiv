@@ -21,6 +21,8 @@
             android:orientation="horizontal"
             android:paddingTop="48dp"
             android:paddingBottom="48dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:visibility="@{position > 0}">
 
             <View

@@ -23,11 +23,12 @@ data class NovelListResp(
 /**
  * 小说内容 [newpage] 分页
  */
+@JsonClass(generateAdapter = true)
 data class NovelText(
-    val novel_marker: NovelMarker? = null,
-    var novel_text: String = "",
-    val series_next: NovelPage? = null,
-    val series_prev: NovelPage? = null
+        val novel_marker: NovelMarker? = null,
+        var novel_text: String = "",
+        val series_next: NovelChapter? = null,
+        val series_prev: NovelChapter? = null
 ) {
 
     companion object {
@@ -41,10 +42,11 @@ data class NovelText(
     }
 }
 
-data class NovelPage(
+@JsonClass(generateAdapter = true)
+data class NovelChapter(
     val caption: String = "",
     val create_date: String = "",
-    val id: Int = 0,
+    val id: Long = 0,
     val image_urls: ImageUrls = ImageUrls(),
     val is_bookmarked: Boolean = false,
     val is_muted: Boolean = false,

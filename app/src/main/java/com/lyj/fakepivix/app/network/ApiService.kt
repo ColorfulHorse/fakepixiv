@@ -226,6 +226,13 @@ interface ApiService {
     fun starIllust(@Field("illust_id")illustId: String, @Restrict @Field("restrict") restrict: String = Restrict.PUBLIC): Observable<Any>
 
     /**
+     * 收藏
+     */
+    @POST("/v2/novel/bookmark/add")
+    @FormUrlEncoded
+    fun starNovel(@Field("novel_id")illustId: String, @Restrict @Field("restrict") restrict: String = Restrict.PUBLIC): Observable<Any>
+
+    /**
      * 取消收藏
      */
     @POST("/v1/illust/bookmark/delete")

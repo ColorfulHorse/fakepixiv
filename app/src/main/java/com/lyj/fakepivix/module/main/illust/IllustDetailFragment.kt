@@ -191,7 +191,6 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
             recyclerView.layoutManager = layoutManager
             mAdapter.bindToRecyclerView(recyclerView)
             initFooter()
-            initListener()
         }
     }
 
@@ -214,32 +213,6 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
         }
     }
 
-    /**
-     * 关注/收藏dialog
-     */
-    private fun initListener() {
-        mViewModel?.let {
-//            it.relatedIllustViewModel.loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
-//                val state = it.relatedIllustViewModel.loadState.get()
-//                if (state is LoadState.Succeed) {
-//                    // 数据加载完成弹出dialog
-//                    val dialogFragment = RelatedIllustDialogFragment.newInstance()
-//                    dialogFragment.mViewModel = it.relatedIllustViewModel
-//                    dialogFragment.show(childFragmentManager, "RelatedIllustDialogFragment")
-//                }
-//            })
-
-//            it.relatedUserViewModel.loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
-//                val state = it.relatedUserViewModel.loadState.get()
-//                if (state is LoadState.Succeed) {
-//                    // 数据加载完成弹出dialog
-//                    val dialogFragment = RelatedUserDialogFragment.newInstance()
-//                    dialogFragment.mViewModel = it.relatedUserViewModel
-//                    dialogFragment.show(childFragmentManager, "RelatedUserDialogFragment")
-//                }
-//            })
-        }
-    }
 
     override fun immersionBarEnabled(): Boolean {
         return false
