@@ -12,6 +12,7 @@ import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
 import com.lyj.fakepivix.app.base.BackFragment
 import com.lyj.fakepivix.app.data.model.response.NovelChapter
+import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.JsonUtil
@@ -129,7 +130,9 @@ class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetail
                 headerBinding.setVariable(BR.data, vm.illust.image_urls.medium)
                 mAdapter.addHeaderView(headerBinding.root)
                 mAdapter.bindToRecyclerView(recyclerView)
-                mAdapter.bindState(vm.loadState)
+                mAdapter.bindState(vm.loadState) {
+                    mViewModel?.load()
+                }
 
                 caption.show.setOnClickListener {
                     val dialog = AboutDialogFragment.newInstance().apply {
@@ -143,10 +146,26 @@ class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetail
 
     override fun initImmersionBar() {
         ImmersionBar.with(this)
-                .fitsSystemWindows(true)
+                //.fitsSystemWindows(true)
+                .titleBar(mBinding.toolbarWrapper)
                 .statusBarDarkFont(true)
                 .transparentStatusBar()
                 .init()
+    }
+
+    override fun onBackPressedSupport(): Boolean {
+        // 小说详情页面根
+        if (novelChapter == null) {
+            IllustRepository.instance - key
+        }
+        return super.onBackPressedSupport()
+    }
+
+    override fun back() {
+        if (novelChapter == null) {
+            IllustRepository.instance - key
+        }
+        super.back()
     }
 
     override fun bindLayout(): Int = R.layout.fragment_novel_detail
