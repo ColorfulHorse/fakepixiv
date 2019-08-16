@@ -1,6 +1,7 @@
 package com.lyj.fakepivix.app.base
 
 import android.arch.lifecycle.LifecycleObserver
+import android.content.res.Configuration
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
@@ -36,6 +37,8 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
     private var mImmersionBar: ImmersionBar? = null
 
     protected var keyboardOpen = false
+    // 是否切换了横竖屏
+    protected var diffOrientation = false
 
     var initializer: (() -> Unit)? = null
 
@@ -95,6 +98,11 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
     protected fun addSubBinding(binding: ViewDataBinding) {
         binding.setLifecycleOwner(this)
         bindingList.add(binding)
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration?) {
+        super.onConfigurationChanged(newConfig)
+        diffOrientation = !diffOrientation
     }
 
 

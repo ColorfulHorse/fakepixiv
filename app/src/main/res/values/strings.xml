@@ -99,4 +99,6 @@
     <string name="novel_series_previous">上一话</string>
     <string name="novel_series_next">下一话</string>
     <string name="chapter">章节</string>
+    <string name="mark_page">已在第%1$d页添加书签</string>
+    <string name="unmark">已删除书签</string>
 </resources>

@@ -18,6 +18,7 @@ import com.lyj.fakepivix.app.utils.Router
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
+import retrofit2.http.Field
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -53,24 +54,7 @@ class IllustRepository private constructor() {
      */
     fun loadRecommendIllust(@IllustCategory category: String): Observable<IllustListResp> {
         val service = RetrofitManager.instance.apiService
-//        val ob = when(category) {
-//            ILLUST, COMIC -> service.getRecommendIllust(category)
-//            else -> service.getHomeNovelRecommendData()
-//                    .map { IllustListResp(it.contest_exists, it.novels, it.next_url, it.privacy_policy, it.ranking_novels) }
-//        }
-        return service.getRecommendIllust(category).doOnNext {
-//                    with(it) {
-//                        nextUrl = next_url
-//                        illusts.forEach {
-//                            illust ->
-//                            illustList[illust.id.toString()] = illust
-//                        }
-//                        ranking_illusts.forEach {
-//                            illust ->
-//                            illustList[illust.id.toString()] = illust
-//                        }
-//                    }
-                }
+        return service.getRecommendIllust(category)
                 .schedulerTransform()
     }
 
@@ -240,6 +224,17 @@ class IllustRepository private constructor() {
                     })
         }
         return null
+    }
+
+    /**
+     * 添加书签
+     */
+    suspend fun addNovelMarker(novelId: String, page: Int): Any {
+        return RetrofitManager.instance.apiService.markNovel(novelId, page)
+    }
+
+    suspend fun deleteNovelMarker(novelId: String): Any {
+        return RetrofitManager.instance.apiService.unMarkNovel(novelId)
     }
 
     /**

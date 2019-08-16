@@ -59,6 +59,7 @@
             android:textColor="@android:color/black"
             android:textSize="15sp"
             android:text="@{data}"
+            android:autoLink="web"
             android:lineSpacingExtra="8sp"
             />
     </LinearLayout>

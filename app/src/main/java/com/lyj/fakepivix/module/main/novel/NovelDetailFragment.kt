@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import com.gyf.barlibrary.ImmersionBar
 import com.gyf.barlibrary.ImmersionFragment
 import com.gyf.barlibrary.ImmersionOwner
@@ -20,6 +21,8 @@ import com.lyj.fakepivix.app.utils.bindState
 import com.lyj.fakepivix.databinding.FragmentNovelDetailBinding
 import com.lyj.fakepivix.databinding.NovelChapterFooter
 import com.lyj.fakepivix.module.main.illust.AboutDialogFragment
+import com.lyj.fakepivix.module.main.illust.RelatedIllustDialogFragment
+import com.lyj.fakepivix.module.main.illust.RelatedUserDialogFragment
 
 /**
  * @author greensun
@@ -98,7 +101,9 @@ class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetail
             it.inflateMenu(R.menu.menu_detail_novel)
             it.setOnMenuItemClickListener { menu ->
                 when (menu.itemId) {
-                    R.id.bookmark -> {}
+                    R.id.bookmark -> {
+                        mViewModel?.mark()
+                    }
                     R.id.share -> {}
                     R.id.chapter -> {}
                     R.id.setting -> {}
@@ -108,21 +113,12 @@ class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetail
                 true
             }
         }
-        mViewModel?.let { vm ->
-            // 是否有上一章或下一章
-            vm.loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
-                when(vm.loadState.get()) {
-                    is LoadState.Succeed -> {
-                        vm.novelText?.let {
-                            if (it.series_prev != null || it.series_next != null) {
-                                footerBinding.data = it
-                                mAdapter.addFooterView(footerBinding.root)
-                            }
-                        }
-                    }
-                }
-            })
+        initList()
+        initListener()
+    }
 
+    private fun initList() {
+        mViewModel?.let { vm ->
             with(mBinding) {
                 val layoutManager = LinearLayoutManager(mActivity)
                 recyclerView.layoutManager = layoutManager
@@ -133,6 +129,23 @@ class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetail
                 mAdapter.bindState(vm.loadState) {
                     mViewModel?.load()
                 }
+                mAdapter.setOnItemClickListener { _, _, _ ->
+                    vm.showOverlay = !vm.showOverlay
+                }
+
+                recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                        super.onScrollStateChanged(recyclerView, newState)
+                        when (newState) {
+                            RecyclerView.SCROLL_STATE_IDLE -> {
+                                vm.showPageNum = false
+                            }
+                            else -> {
+                                vm.showPageNum = true
+                            }
+                        }
+                    }
+                })
 
                 caption.show.setOnClickListener {
                     val dialog = AboutDialogFragment.newInstance().apply {
@@ -141,6 +154,55 @@ class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetail
                     dialog.show(childFragmentManager, "BottomDialogFragment")
                 }
             }
+        }
+    }
+
+    /**
+     * 关注/收藏dialog
+     */
+    private fun initListener() {
+        // 是否有上一章或下一章
+        mViewModel?.let { vm ->
+            vm.loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
+                when(vm.loadState.get()) {
+                    is LoadState.Succeed -> {
+                        vm.novelText?.let {
+                            if (it.series_prev != null || it.series_next != null) {
+                                footerBinding.data = it
+                                mAdapter.addFooterView(footerBinding.root)
+                            }
+
+                            // 有书签加载书签
+                            if (it.novel_marker != null) {
+                                mToolbar?.let { toolbar ->
+                                    val menu = toolbar.menu.findItem(R.id.bookmark)
+                                    menu.setIcon(R.drawable.ic_novel_marker_marked)
+                                }
+                                val position = vm.current - 1
+                                if (position > 0) {
+                                    mBinding.recyclerView.smoothScrollToPosition(position)
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+            vm.markState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
+                when(vm.loadState.get()) {
+                    is LoadState.Succeed -> {
+                        vm.novelText?.let {
+                            mToolbar?.let { toolbar ->
+                                val menu = toolbar.menu.findItem(R.id.bookmark)
+                                if (it.novel_marker == null) {
+                                    menu.setIcon(R.drawable.ic_novel_marker)
+                                }else {
+                                    menu.setIcon(R.drawable.ic_novel_marker_marked)
+                                }
+                            }
+                        }
+                    }
+                }
+            })
         }
     }
 
@@ -153,19 +215,14 @@ class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetail
                 .init()
     }
 
-    override fun onBackPressedSupport(): Boolean {
+    override fun onDestroyView() {
         // 小说详情页面根
         if (novelChapter == null) {
-            IllustRepository.instance - key
+            if (!diffOrientation) {
+                IllustRepository.instance - key
+            }
         }
-        return super.onBackPressedSupport()
-    }
-
-    override fun back() {
-        if (novelChapter == null) {
-            IllustRepository.instance - key
-        }
-        super.back()
+        super.onDestroyView()
     }
 
     override fun bindLayout(): Int = R.layout.fragment_novel_detail

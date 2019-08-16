@@ -4,6 +4,7 @@ import android.databinding.Bindable
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import android.databinding.ObservableList
+import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.data.model.response.Illust
@@ -35,7 +36,14 @@ open class DetailViewModel(val key: Int, val position: Int) : BaseViewModel<IMod
     var followState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
     var total = ObservableField(0)
-    var current = ObservableField(1)
+
+    @get:Bindable
+    var current = 1
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.current)
+        }
+
     var toolbarVisibility = ObservableField(true)
     // 悬浮标题是否显示
     var captionVisibility = ObservableField(false)

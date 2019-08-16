@@ -25,7 +25,7 @@ data class NovelListResp(
  */
 @JsonClass(generateAdapter = true)
 data class NovelText(
-        val novel_marker: NovelMarker? = null,
+        var novel_marker: NovelMarker? = null,
         var novel_text: String = "",
         val series_next: NovelChapter? = null,
         val series_prev: NovelChapter? = null

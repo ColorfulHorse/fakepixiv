@@ -96,16 +96,14 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
         mViewModel?.let {
             val first = layoutManager.findFirstVisibleItemPosition()
             val total = it.total.get()
-            val current = it.current.get()
+            val current = it.current
             if (total != null) {
                 val visibility = first < total
                 it.toolbarVisibility.set(visibility)
                 // 显示页数
-                current?.let { _ ->
-                    if (current < total) {
-                        if (current != first + 1) {
-                            it.current.set(first + 1)
-                        }
+                if (current < total) {
+                    if (current != first + 1) {
+                        it.current = first + 1
                     }
                 }
                 // 滑动到评论时隐藏floatingActionButton
