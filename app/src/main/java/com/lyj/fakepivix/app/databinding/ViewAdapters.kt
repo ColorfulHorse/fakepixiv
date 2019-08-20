@@ -3,6 +3,7 @@ package com.lyj.fakepivix.app.databinding
 import android.databinding.BindingAdapter
 import android.databinding.BindingConversion
 import android.graphics.drawable.Drawable
+import android.support.design.widget.FloatingActionButton
 import android.text.Html
 import android.transition.Fade
 import android.view.View
@@ -84,6 +85,22 @@ fun View.show(show: Boolean = true) {
 fun TextView.html(content: String) {
     this.text = Html.fromHtml(content)
 }
+
+@BindingAdapter(value = ["show"])
+fun FloatingActionButton.show(show: Boolean = true) {
+    if (show) this.show() else this.hide()
+}
+
+@BindingAdapter(value = ["fadeIn"])
+fun View.fadeIn(show: Boolean = true) {
+    var anim = this.animate().alpha(1f)
+    if (!show) {
+        anim = this.animate().alpha(0f)
+    }
+    anim.duration = 200
+    anim.start()
+}
+
 
 @BindingConversion
 fun stateToVisibility(loadState: LoadState) = if (loadState is LoadState.Loading) View.VISIBLE else View.GONE

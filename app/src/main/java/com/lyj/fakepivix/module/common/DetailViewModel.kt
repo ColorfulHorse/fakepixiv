@@ -24,12 +24,20 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc 小说插画详情
  */
-open class DetailViewModel(val key: Int, val position: Int) : BaseViewModel<IModel?>() {
+open class DetailViewModel : BaseViewModel<IModel?>() {
+    var key: Int = -1
+    var position: Int = -1
 
     override val mModel: IModel? = null
 
-    var liveData = IllustRepository.instance[key][position]
-    var illust = liveData.copy()
+    var liveData = Illust()
+
+    @get: Bindable
+    var illust = Illust()
+    set(value) {
+        field = value
+        notifyPropertyChanged(BR.illust)
+    }
 
     open var loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
     var starState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
@@ -55,6 +63,13 @@ open class DetailViewModel(val key: Int, val position: Int) : BaseViewModel<IMod
     val relatedIllustViewModel = RelatedIllustDialogViewModel(this)
     val relatedUserViewModel = RelatedUserDialogViewModel(this)
 
+    open fun setData(key: Int, position: Int) {
+        this.key = key
+        this.position = position
+        liveData = IllustRepository.instance[key][position]
+        illust = liveData.copy()
+    }
+
     init {
         this + userFooterViewModel + commentFooterViewModel + relatedIllustViewModel + relatedIllustViewModel
         starState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
@@ -79,16 +94,6 @@ open class DetailViewModel(val key: Int, val position: Int) : BaseViewModel<IMod
             }
         })
     }
-
-//    fun showAboutDialog() {
-//        val fm = Router.getTopFragmentManager()
-//        fm?.let {
-//            val dialog = AboutDialogFragment.newInstance().apply {
-//                detailViewModel = this@DetailViewModel
-//            }
-//            dialog.show(it, "BottomDialogFragment")
-//        }
-//    }
 
 
     /**

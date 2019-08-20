@@ -110,11 +110,9 @@ class IllustRepository private constructor() {
     /**
      * 获取用户作品
      */
-    fun loadUserIllust(userId: String, @IllustCategory category: String = ILLUST): Observable<IllustListResp> {
+    suspend fun loadUserIllust(userId: String, @IllustCategory category: String = ILLUST): IllustListResp {
         return RetrofitManager.instance.apiService
-                .getUserIllustData(userId)
-                .checkEmpty()
-                .schedulerTransform()
+                .getUserIllustData(userId, category)
     }
 
 
@@ -208,13 +206,33 @@ class IllustRepository private constructor() {
     }
 
     /**
+     * 收藏小说/取消收藏
+     */
+    fun starNovel(novelId: String, star: Boolean, @Restrict restrict: String = Restrict.PUBLIC): Observable<Any> {
+        return if (star)
+            RetrofitManager.instance.apiService
+                    .starNovel(novelId)
+                    .schedulerTransform()
+        else
+            RetrofitManager.instance.apiService
+                    .unStarNovel(novelId)
+                    .schedulerTransform()
+    }
+
+    /**
      * 收藏/取消收藏
      */
     fun star(illust: Illust, loadState: ObservableField<LoadState>, @Restrict restrict: String = Restrict.PUBLIC): Disposable? {
         if (loadState.get() !is LoadState.Loading) {
             val star = illust.is_bookmarked
-            return  instance
-                    .star(illust.id.toString(), !star, restrict)
+            val ob = if (illust.type == NOVEL) {
+                instance
+                        .starNovel(illust.id.toString(), !star, restrict)
+            }else {
+                instance
+                        .star(illust.id.toString(), !star, restrict)
+            }
+            return  ob
                     .doOnSubscribe { loadState.set(LoadState.Loading) }
                     .subscribeBy(onNext = {
                         illust.is_bookmarked = !star

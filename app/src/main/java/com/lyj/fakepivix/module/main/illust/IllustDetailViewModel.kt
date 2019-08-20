@@ -21,7 +21,7 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc 插画漫画详情
  */
-class IllustDetailViewModel(key: Int, position: Int) : DetailViewModel(key, position) {
+class IllustDetailViewModel() : DetailViewModel() {
 
     var data: ObservableList<Illust> = ObservableArrayList()
 
@@ -29,14 +29,11 @@ class IllustDetailViewModel(key: Int, position: Int) : DetailViewModel(key, posi
 
     init {
         this + relatedCaptionFooterViewModel
-        initData()
     }
 
 
-    /**
-     * 拿到对应页数的数据
-     */
-    private fun initData() {
+    override fun setData(key: Int, position: Int) {
+        super.setData(key, position)
         if (illust.meta_pages.isNotEmpty()) {
             val list = illust.meta_pages.map {
                 Illust(image_urls = it.image_urls, type = Illust.META)
@@ -50,6 +47,7 @@ class IllustDetailViewModel(key: Int, position: Int) : DetailViewModel(key, posi
         }
         total.set(data.size)
     }
+
 
     fun load() {
         val disposable = IllustRepository.instance

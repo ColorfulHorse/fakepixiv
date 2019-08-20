@@ -1,8 +1,6 @@
 package com.lyj.fakepivix.app.utils
 
-import android.content.Context
 import android.os.Handler
-import android.support.annotation.IdRes
 import android.support.annotation.StringRes
 import android.widget.Toast
 import com.lyj.fakepivix.app.App
@@ -29,7 +27,7 @@ object ToastUtil {
         }
     }
 
-    fun showToast(@StringRes resId: Int, vararg args: Any = emptyArray()) {
+     fun showToast(@StringRes resId: Int, vararg args:Any = emptyArray()) {
         if (args.isEmpty()) {
             showToast(App.context.getString(resId))
         }else {

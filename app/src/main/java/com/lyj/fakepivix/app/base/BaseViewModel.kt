@@ -8,11 +8,9 @@ import android.arch.lifecycle.OnLifecycleEvent
 import com.lyj.fakepivix.app.utils.Router
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.*
 import org.jetbrains.annotations.NotNull
+import timber.log.Timber
 
 
 /**
@@ -22,7 +20,8 @@ import org.jetbrains.annotations.NotNull
  *
  * @desc
  */
-abstract class BaseViewModel<M : IModel?> : BaseObservable(), LifecycleObserver, CoroutineScope by CoroutineScope(Dispatchers.Main) {
+abstract class BaseViewModel<M : IModel?> : BaseObservable(), LifecycleObserver,
+        CoroutineScope by CoroutineScope(Dispatchers.Main + SupervisorJob()) {
 
     private val mDisposable: CompositeDisposable by lazy { CompositeDisposable() }
     /**

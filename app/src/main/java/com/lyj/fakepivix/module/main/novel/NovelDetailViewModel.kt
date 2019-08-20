@@ -5,6 +5,7 @@ import android.databinding.Bindable
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import android.databinding.ObservableList
+import android.util.Log
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.data.model.response.NovelChapter
@@ -14,10 +15,9 @@ import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.ToastUtil
 import com.lyj.fakepivix.module.common.DetailViewModel
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import timber.log.Timber
+import java.lang.Exception
 
 /**
  * @author greensun
@@ -26,7 +26,17 @@ import kotlinx.coroutines.withContext
  *
  * @desc 小说详情
  */
-class NovelDetailViewModel(key: Int, position: Int, val novelChapter: NovelChapter? = null) : DetailViewModel(key, position) {
+class NovelDetailViewModel : DetailViewModel() {
+
+    var novelChapter: NovelChapter? = null
+    set(value) {
+        field = value
+        value?.let {
+            illust = illust.copy(caption = it.caption, id = it.id, tags = it.tags,
+                    image_urls = it.image_urls, create_date = it.create_date, total_bookmarks = it.total_bookmarks,
+                    total_view = it.total_view, title = it.title, series = it.series)
+        }
+    }
 
     var data: ObservableList<String> = ObservableArrayList()
 
@@ -49,32 +59,21 @@ class NovelDetailViewModel(key: Int, position: Int, val novelChapter: NovelChapt
     var novelText: NovelText? = null
     var markState = ObservableField<LoadState>(LoadState.Idle)
 
-    init {
-        novelChapter?.let {
-            illust = illust.copy(caption = novelChapter.caption, id = novelChapter.id, tags = novelChapter.tags,
-                    image_urls = novelChapter.image_urls, create_date = novelChapter.create_date, total_bookmarks = novelChapter.total_bookmarks,
-                    total_view = novelChapter.total_view, title = novelChapter.title, series = novelChapter.series)
-        }
-    }
-
-    override fun onStart(owner: LifecycleOwner) {
-        load()
-    }
-
-
     fun load() {
-        launch(Dispatchers.Main + CoroutineExceptionHandler { _, err ->
+        launch(CoroutineExceptionHandler { _, err ->
+            Timber.e(Thread.currentThread().name)
             loadState.set(LoadState.Failed(err))
         }) {
             loadState.set(LoadState.Loading)
             val resp = withContext(Dispatchers.IO) {
+                //throw Exception("xxx")
                 IllustRepository.instance
                         .getNovelText(illust.id.toString())
             }
             val content = resp.getNovel()
             total.set(content.size)
-            resp.novel_marker?.let {
-                current = it.page
+            resp.novel_marker.page?.let {
+                current = it
             }
             data.addAll(content)
             novelText = resp
@@ -88,13 +87,13 @@ class NovelDetailViewModel(key: Int, position: Int, val novelChapter: NovelChapt
     fun mark() {
         if (markState.get() is LoadState.Loading)
             return
-        launch(Dispatchers.Main + CoroutineExceptionHandler { _, err ->
+        launch(Dispatchers.Main + CoroutineExceptionHandler { context, err ->
             markState.set(LoadState.Failed(err))
         }) {
             markState.set(LoadState.Loading)
-            val marked = novelText?.novel_marker != null
+            val marked = novelText?.novel_marker?.page != null
             withContext(Dispatchers.IO) {
-                if (marked) {
+                if (!marked) {
                     IllustRepository
                             .instance
                             .addNovelMarker(illust.id.toString(), current)
@@ -105,10 +104,10 @@ class NovelDetailViewModel(key: Int, position: Int, val novelChapter: NovelChapt
                 }
             }
             if (marked) {
-                novelText?.novel_marker = null
+                novelText?.novel_marker?.page = null
                 ToastUtil.showToast(R.string.unmark)
             }else {
-                novelText?.novel_marker = NovelMarker(current)
+                novelText?.novel_marker?.page = current
                 ToastUtil.showToast(R.string.mark_page, current)
             }
             markState.set(LoadState.Succeed)

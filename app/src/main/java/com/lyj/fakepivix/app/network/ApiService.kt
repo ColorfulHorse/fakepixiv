@@ -101,7 +101,7 @@ interface ApiService {
      * [userId] 用户id
      */
     @GET("/v1/user/illusts")
-    fun getUserIllustData(@Query("user_id")userId: String, @IllustCategory @Query("type")category: String = ILLUST): Observable<IllustListResp>
+    suspend fun getUserIllustData(@Query("user_id")userId: String, @IllustCategory @Query("type")category: String = ILLUST): IllustListResp
 
     /**
      * 获取用户小说作品列表
@@ -226,6 +226,13 @@ interface ApiService {
     fun starIllust(@Field("illust_id")illustId: String, @Restrict @Field("restrict") restrict: String = Restrict.PUBLIC): Observable<Any>
 
     /**
+     * 取消收藏
+     */
+    @POST("/v1/illust/bookmark/delete")
+    @FormUrlEncoded
+    fun unStarIllust(@Field("illust_id")illustId: String): Observable<Any>
+
+    /**
      * 收藏
      */
     @POST("/v2/novel/bookmark/add")
@@ -233,11 +240,11 @@ interface ApiService {
     fun starNovel(@Field("novel_id")illustId: String, @Restrict @Field("restrict") restrict: String = Restrict.PUBLIC): Observable<Any>
 
     /**
-     * 取消收藏
+     * 收藏
      */
-    @POST("/v1/illust/bookmark/delete")
+    @POST("/v2/novel/bookmark/delete")
     @FormUrlEncoded
-    fun unStarIllust(@Field("illust_id")illustId: String): Observable<Any>
+    fun unStarNovel(@Field("novel_id")illustId: String): Observable<Any>
 
 
     /**

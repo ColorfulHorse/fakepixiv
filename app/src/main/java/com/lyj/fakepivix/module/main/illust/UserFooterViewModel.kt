@@ -4,11 +4,12 @@ import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
+import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.module.common.DetailViewModel
-import io.reactivex.rxkotlin.subscribeBy
+import kotlinx.coroutines.*
 
 /**
  * @author greensun
@@ -32,20 +33,23 @@ class UserFooterViewModel(val parent: DetailViewModel) : BaseViewModel<IModel?>(
     }
 
     fun reLoad() {
+        val type = parent.illust.type
         val p = parent.illust.user
-        val disposable = IllustRepository.instance
-                .loadUserIllust(p.id)
-                .doOnSubscribe {
-                    data.clear()
-                    loadState.set(LoadState.Loading)
+        launch(Dispatchers.Main + CoroutineExceptionHandler { _, err ->
+            loadState.set(LoadState.Failed(err))
+        }) {
+            loadState.set(LoadState.Loading)
+            val resp = withContext(Dispatchers.IO) {
+                when(type) {
+                    IllustCategory.ILLUST -> IllustRepository.instance.loadUserIllust(p.id)
+                    IllustCategory.COMIC -> IllustRepository.instance.loadUserIllust(p.id, IllustCategory.COMIC)
+                    IllustCategory.NOVEL -> IllustRepository.instance.loadUserNovels(p.id)
+                    else -> IllustRepository.instance.loadUserIllust(p.id)
                 }
-                .subscribeBy(onNext = {
-                    loadState.set(LoadState.Succeed)
-                    data.clear()
-                    data.addAll(it.illusts.take(3))
-                }, onError = {
-                    loadState.set(LoadState.Failed(it))
-                })
-        addDisposable(disposable)
+            }
+            loadState.set(LoadState.Succeed)
+            data.clear()
+            data.addAll(resp.illusts.take(3))
+        }
     }
 }

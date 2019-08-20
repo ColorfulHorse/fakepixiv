@@ -31,9 +31,9 @@ import com.lyj.fakepivix.module.main.illust.RelatedUserDialogFragment
  *
  * @desc 小说详情
  */
-class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetailViewModel?>() {
+class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetailViewModel>() {
 
-    override var mViewModel: NovelDetailViewModel? = null
+    override var mViewModel: NovelDetailViewModel = NovelDetailViewModel()
 
     private lateinit var mAdapter: BaseBindingAdapter<String, ViewDataBinding>
 
@@ -45,14 +45,14 @@ class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetail
         val footerBinding: NovelChapterFooter = DataBindingUtil.inflate(mActivity.layoutInflater, R.layout.footer_novel_series, null, false)
         footerBinding.previous.setOnClickListener {
             // 上一章
-            mViewModel?.novelText?.series_prev?.let {
+            mViewModel.novelText?.series_prev.let {
                 start(newInstance(position, key, it))
             }
         }
 
         footerBinding.next.setOnClickListener {
             // 下一章
-            mViewModel?.novelText?.series_next?.let {
+            mViewModel.novelText?.series_next?.let {
                 start(newInstance(position, key, it))
             }
         }
@@ -90,11 +90,8 @@ class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetail
             if (source.isNotBlank()) {
                 novelChapter = JsonUtil.json2Bean(source)
             }
-            mViewModel = NovelDetailViewModel(key, position, novelChapter)
-            mViewModel?.let { vm ->
-                lifecycle.addObserver(vm)
-            }
-            mBinding.setVariable(bindViewModel(), mViewModel)
+            mViewModel.setData(key, position)
+            mViewModel.novelChapter = novelChapter
         }
 
         mToolbar?.let {
@@ -102,7 +99,7 @@ class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetail
             it.setOnMenuItemClickListener { menu ->
                 when (menu.itemId) {
                     R.id.bookmark -> {
-                        mViewModel?.mark()
+                        mViewModel.mark()
                     }
                     R.id.share -> {}
                     R.id.chapter -> {}
@@ -115,10 +112,11 @@ class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetail
         }
         initList()
         initListener()
+        mViewModel.load()
     }
 
     private fun initList() {
-        mViewModel?.let { vm ->
+        mViewModel.let { vm ->
             with(mBinding) {
                 val layoutManager = LinearLayoutManager(mActivity)
                 recyclerView.layoutManager = layoutManager
@@ -127,7 +125,7 @@ class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetail
                 mAdapter.addHeaderView(headerBinding.root)
                 mAdapter.bindToRecyclerView(recyclerView)
                 mAdapter.bindState(vm.loadState) {
-                    mViewModel?.load()
+                    mViewModel.load()
                 }
                 mAdapter.setOnItemClickListener { _, _, _ ->
                     vm.showOverlay = !vm.showOverlay
@@ -162,7 +160,7 @@ class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetail
      */
     private fun initListener() {
         // 是否有上一章或下一章
-        mViewModel?.let { vm ->
+        mViewModel.let { vm ->
             vm.loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
                 when(vm.loadState.get()) {
                     is LoadState.Succeed -> {
@@ -173,7 +171,7 @@ class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetail
                             }
 
                             // 有书签加载书签
-                            if (it.novel_marker != null) {
+                            if (it.novel_marker.page != null) {
                                 mToolbar?.let { toolbar ->
                                     val menu = toolbar.menu.findItem(R.id.bookmark)
                                     menu.setIcon(R.drawable.ic_novel_marker_marked)
@@ -193,13 +191,16 @@ class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetail
                         vm.novelText?.let {
                             mToolbar?.let { toolbar ->
                                 val menu = toolbar.menu.findItem(R.id.bookmark)
-                                if (it.novel_marker == null) {
+                                if (it.novel_marker.page == null) {
                                     menu.setIcon(R.drawable.ic_novel_marker)
                                 }else {
                                     menu.setIcon(R.drawable.ic_novel_marker_marked)
                                 }
                             }
                         }
+                    }
+                    else -> {
+
                     }
                 }
             })

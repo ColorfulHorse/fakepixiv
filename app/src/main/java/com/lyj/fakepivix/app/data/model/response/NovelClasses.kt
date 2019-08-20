@@ -25,7 +25,7 @@ data class NovelListResp(
  */
 @JsonClass(generateAdapter = true)
 data class NovelText(
-        var novel_marker: NovelMarker? = null,
+        val novel_marker: NovelMarker,
         var novel_text: String = "",
         val series_next: NovelChapter? = null,
         val series_prev: NovelChapter? = null
@@ -46,7 +46,7 @@ data class NovelText(
 data class NovelChapter(
     val caption: String = "",
     val create_date: String = "",
-    val id: Long = 0,
+    val id: Long = -1,
     val image_urls: ImageUrls = ImageUrls(),
     val is_bookmarked: Boolean = false,
     val is_muted: Boolean = false,
@@ -67,6 +67,6 @@ data class NovelChapter(
 )
 
 data class NovelMarker(
-    val page: Int = 0
+    var page: Int?
 )
 

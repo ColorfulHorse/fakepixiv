@@ -79,6 +79,7 @@ fun BaseQuickAdapter<*, *>.bindState(loadState: ObservableField<LoadState>, onSu
                                      onLoading: (() -> Unit)? = null, refreshLayout: SwipeRefreshLayout? = null, reload: (() -> Unit)? = null) {
     val loadingView: View = LayoutInflater.from(AppManager.instance.top).inflate(R.layout.layout_common_loading, null)
     val errorView: View = LayoutInflater.from(AppManager.instance.top).inflate(R.layout.layout_error, null)
+    emptyView = loadingView
     errorView.reload.setOnClickListener {
         reload?.invoke()
     }

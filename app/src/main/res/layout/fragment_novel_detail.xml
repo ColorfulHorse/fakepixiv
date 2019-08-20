@@ -17,14 +17,14 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="24dp"
+            android:clipToPadding="false"
             android:scrollbars="vertical"
-            android:fitsSystemWindows="true"
             />
         <FrameLayout
             android:id="@+id/toolbar_wrapper"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
             <TextView
                 android:id="@+id/pageNum"
                 android:layout_width="match_parent"
@@ -35,7 +35,7 @@
                 android:shadowDy="1"
                 android:shadowRadius="4"
                 android:shadowColor="@color/black"
-                android:visibility="@{(vm.total > 1) &amp;&amp; vm.showPageNum}"
+                app:fadeIn="@{(vm.total > 1) &amp;&amp; vm.showPageNum}"
                 android:text='@{vm.current+"/"+vm.total}'
                 />
             <android.support.v7.widget.Toolbar
@@ -48,6 +48,7 @@
                 app:contentInsetStart="0dp"
                 app:contentInsetStartWithNavigation="0dp"
                 app:contentInsetEndWithActions="0dp"
+                app:show="@{(vm.loadState instanceof LoadState.Succeed) &amp;&amp; vm.showOverlay}"
                 />
         </FrameLayout>
 
@@ -56,6 +57,7 @@
             app:data="@{vm.illust}"
             app:showCaption="@{(vm.loadState instanceof LoadState.Succeed) &amp;&amp; vm.showOverlay}"
             />
+        <!--(vm.loadState instanceof LoadState.Succeed &amp;&amp; vm.showOverlay)-->
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -73,6 +75,7 @@
                 android:src="@{vm.liveData._bookmarked?@drawable/ic_fab_liked:@drawable/ic_fab_like}"
                 android:enabled="@{!(vm.starState instanceof LoadState.Loading)}"
                 app:backgroundTint="@color/fab_background_tint"
+                app:show="@{(vm.loadState instanceof LoadState.Succeed) &amp;&amp; vm.showOverlay}"
                 />
         </RelativeLayout>
     </RelativeLayout>

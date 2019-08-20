@@ -117,7 +117,7 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
             illustWorksState.set(LoadState.Loading)
             val resp = withContext(Dispatchers.IO) {
                 IllustRepository
-                        .instance.loadUserIllust(userId).awaitSingle()
+                        .instance.loadUserIllust(userId)
             }
             illustWorks.clear()
             illustWorks.addAll(resp.illusts)
@@ -131,7 +131,7 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
         }) {
             comicWorksState.set(LoadState.Loading)
             val resp = IllustRepository
-                        .instance.loadUserIllust(userId, IllustCategory.COMIC).awaitSingle()
+                        .instance.loadUserIllust(userId, IllustCategory.COMIC)
             comicWorks.clear()
             comicWorks.addAll(resp.illusts)
             comicWorksState.set(LoadState.Succeed)

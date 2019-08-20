@@ -7,6 +7,7 @@ import com.lyj.fakepivix.app.network.retrofit.interceptors.CommonParamsIntercept
 import com.lyj.fakepivix.app.network.retrofit.interceptors.LoggerInterceptor
 import com.lyj.fakepivix.app.network.retrofit.interceptors.SwitchBaseUrlInterceptor
 import com.lyj.fakepivix.app.utils.ExcludeNullAdapter
+import com.lyj.fakepivix.app.utils.ExcludeNullObjectAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient

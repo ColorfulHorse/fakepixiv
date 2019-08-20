@@ -12,17 +12,12 @@ import javax.annotation.Nullable
  *
  * @desc 把json中所有null替换成""
  */
-class ExcludeNullAdapter {
+class ExcludeNullObjectAdapter {
     @FromJson
-    fun fromJson(@Nullable value: String?): String? {
-        if (value == null) {
-            return ""
+    fun fromJson(@Nullable value: Any): Any? {
+        if (value.toString() == "{}") {
+            return null
         }
         return value
-    }
-
-    @ToJson
-    fun toJson(@Nullable value: String?): String {
-        return value?: ""
     }
 }

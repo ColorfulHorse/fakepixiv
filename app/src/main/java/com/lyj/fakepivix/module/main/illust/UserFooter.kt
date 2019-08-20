@@ -36,7 +36,7 @@ class UserFooter(val context: Context, val viewModel: UserFooterViewModel, var m
     var mAdapter = IllustAdapter(viewModel.data).apply {
         addItemType(Illust.TYPE_ILLUST, R.layout.item_illust_small, BR.illust)
         addItemType(Illust.TYPE_COMIC, R.layout.item_illust_small, BR.illust)
-        addItemType(Illust.TYPE_NOVEL, R.layout.item_illust_small, BR.illust)
+        addItemType(Illust.TYPE_NOVEL, R.layout.item_novel_small, BR.illust)
     }
 
     init {

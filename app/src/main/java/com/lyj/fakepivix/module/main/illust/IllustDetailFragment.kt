@@ -24,9 +24,9 @@ import com.lyj.fakepivix.widget.DetailItemDecoration
  *
  * @desc 作品详情
  */
-class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, IllustDetailViewModel?>() {
+class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, IllustDetailViewModel>() {
 
-    override var mViewModel: IllustDetailViewModel? = null
+    override var mViewModel: IllustDetailViewModel = IllustDetailViewModel()
 
     companion object {
         private const val EXTRA_POSITION = "EXTRA_POSITION"
@@ -51,17 +51,13 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
         arguments?.let {
             val position = it.getInt(EXTRA_POSITION, -1)
             val key = it.getInt(EXTRA_KEY, -1)
-            mViewModel = IllustDetailViewModel(key, position)
-            mViewModel?.let { vm ->
-                lifecycle.addObserver(vm)
-                mBinding.setVariable(bindViewModel(), mViewModel)
-                val show = vm.captionVisibility.get()
-                if (show != null) {
-                    showCaption = show
-                }
+            mViewModel.setData(key, position)
+            val show = mViewModel.captionVisibility.get()
+            if (show != null) {
+                showCaption = show
             }
         }
-        mViewModel?.let {
+        mViewModel.let {
             layoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
             mAdapter = IllustDetailAdapter(it)
             with(mBinding) {
@@ -198,17 +194,16 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
      * 实例化作品描述，用户作品，作品评论
      */
     private fun initFooter() {
-        mViewModel?.let {
-            val descFooter = DescFooter(mActivity, it.illust)
-            val userFooter = UserFooter(mActivity, it.userFooterViewModel)
-            val commentFooter = CommentFooter(mActivity, it.commentFooterViewModel)
-            val relatedCaptionFooter = RelatedCaptionFooter(mActivity, it.relatedCaptionFooterViewModel)
+        val descFooter = DescFooter(mActivity, mViewModel.illust)
+        val userFooter = UserFooter(mActivity, mViewModel.userFooterViewModel)
+        val commentFooter = CommentFooter(mActivity, mViewModel.commentFooterViewModel)
+        val relatedCaptionFooter = RelatedCaptionFooter(mActivity, mViewModel.relatedCaptionFooterViewModel)
 
-            mAdapter.descFooter = descFooter
-            mAdapter.userFooter = userFooter
-            mAdapter.commentFooter = commentFooter
-            mAdapter.relatedCaptionFooter = relatedCaptionFooter
-        }
+        mAdapter.descFooter = descFooter
+        mAdapter.userFooter = userFooter
+        mAdapter.commentFooter = commentFooter
+        mAdapter.relatedCaptionFooter = relatedCaptionFooter
+
     }
 
 
