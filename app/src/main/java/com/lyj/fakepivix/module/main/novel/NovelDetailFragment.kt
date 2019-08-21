@@ -45,15 +45,17 @@ class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetail
         val footerBinding: NovelChapterFooter = DataBindingUtil.inflate(mActivity.layoutInflater, R.layout.footer_novel_series, null, false)
         footerBinding.previous.setOnClickListener {
             // 上一章
-            mViewModel.novelText?.series_prev.let {
-                start(newInstance(position, key, it))
+            mViewModel.novelText?.series_prev?.id.let {
+                if (it != -1L) {
+                    start(newInstance(position, key, mViewModel.novelText?.series_prev))
+                }
             }
         }
 
         footerBinding.next.setOnClickListener {
             // 下一章
-            mViewModel.novelText?.series_next?.let {
-                start(newInstance(position, key, it))
+            mViewModel.novelText?.series_next?.id.let {
+                start(newInstance(position, key, mViewModel.novelText?.series_next))
             }
         }
         addSubBinding(footerBinding)
@@ -165,7 +167,7 @@ class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetail
                 when(vm.loadState.get()) {
                     is LoadState.Succeed -> {
                         vm.novelText?.let {
-                            if (it.series_prev != null || it.series_next != null) {
+                            if (it.series_prev.id != -1L || it.series_next.id != -1L) {
                                 footerBinding.data = it
                                 mAdapter.addFooterView(footerBinding.root)
                             }

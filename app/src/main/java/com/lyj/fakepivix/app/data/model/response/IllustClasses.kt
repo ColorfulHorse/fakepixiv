@@ -148,7 +148,8 @@ data class Series(
 data class ImageUrls(
         val large: String = "",
         val medium: String = "",
-        val square_medium: String = ""
+        val square_medium: String = "",
+        var original: String = ""
 )
 
 @JsonClass(generateAdapter = true)

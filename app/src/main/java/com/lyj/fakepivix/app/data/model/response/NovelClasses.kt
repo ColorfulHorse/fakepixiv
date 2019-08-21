@@ -27,8 +27,8 @@ data class NovelListResp(
 data class NovelText(
         val novel_marker: NovelMarker,
         var novel_text: String = "",
-        val series_next: NovelChapter? = null,
-        val series_prev: NovelChapter? = null
+        val series_next: NovelChapter = NovelChapter(),
+        val series_prev: NovelChapter = NovelChapter()
 ) {
 
     companion object {

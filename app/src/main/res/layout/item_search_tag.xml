@@ -21,7 +21,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintDimensionRatio="w,1:1"
             android:scaleType="centerCrop"
-            app:url="@{tag.illust.image_urls.medium}"
+            app:url="@{tag.illust.image_urls.large}"
             app:fade="@{true}"
             app:placeHolder="@{@drawable/common_placeholder}"
             />

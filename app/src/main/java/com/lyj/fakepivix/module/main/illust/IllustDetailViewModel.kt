@@ -21,7 +21,7 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc 插画漫画详情
  */
-class IllustDetailViewModel() : DetailViewModel() {
+class IllustDetailViewModel : DetailViewModel() {
 
     var data: ObservableList<Illust> = ObservableArrayList()
 
@@ -35,12 +35,17 @@ class IllustDetailViewModel() : DetailViewModel() {
     override fun setData(key: Int, position: Int) {
         super.setData(key, position)
         if (illust.meta_pages.isNotEmpty()) {
+            val first = illust.copy(type = Illust.META)
             val list = illust.meta_pages.map {
                 Illust(image_urls = it.image_urls, type = Illust.META)
-            }
+            }.toMutableList()
+            list[0] = first
             data.addAll(list)
         } else {
-            data.add(Illust(image_urls = ImageUrls(illust.meta_single_page.original_image_url), type = Illust.META))
+            //data.add(Illust(image_urls = ImageUrls(original = illust.meta_single_page.original_image_url), type = Illust.META))
+            data.add(illust.copy(type = Illust.META).apply {
+                image_urls.original = meta_single_page.original_image_url
+            })
         }
         if (data.size > 1) {
             captionVisibility.set(true)

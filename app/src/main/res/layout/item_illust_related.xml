@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         >
         <!--
-        app:url="@{illust.image_urls.medium}"
+        app:url="@{illust.image_urls.large}"
             app:fade="@{true}"
             app:placeHolder="@{@drawable/common_border_placeholder}"
         -->
@@ -23,7 +23,7 @@
             android:layout_height="150dp"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
-            app:url="@{illust.image_urls.medium}"
+            app:url="@{illust.image_urls.large}"
             app:fade="@{true}"
             app:placeHolder="@{@drawable/common_border_placeholder}"
             />

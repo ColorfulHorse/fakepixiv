@@ -38,7 +38,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="16dp"
                 app:fade="@{true}"
-                app:url="@{data.image_urls.medium}"
+                app:url="@{data.image_urls.large}"
                 />
 
             <TextView

@@ -12,5 +12,5 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         />
-    <!--app:url="@{illust.image_urls.medium}"-->
+    <!--app:url="@{illust.image_urls.large}"-->
 </layout>
