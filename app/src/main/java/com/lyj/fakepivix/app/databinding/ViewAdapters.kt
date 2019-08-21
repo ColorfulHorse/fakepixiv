@@ -1,19 +1,17 @@
 package com.lyj.fakepivix.app.databinding
 
+import android.annotation.SuppressLint
 import android.databinding.BindingAdapter
 import android.databinding.BindingConversion
-import android.databinding.BindingMethod
+import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.FloatingActionButton
 import android.text.Html
-import android.transition.Fade
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
@@ -21,6 +19,12 @@ import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.widget.LikeButton
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.Bitmap
+import android.graphics.drawable.LayerDrawable
+import android.util.Log
+import kotlinx.android.synthetic.main.item_novel_chapter.view.*
+
 
 /**
  * @author greensun
@@ -32,6 +36,7 @@ import com.lyj.fakepivix.widget.LikeButton
 
 val factory: DrawableCrossFadeFactory = DrawableCrossFadeFactory.Builder(400).setCrossFadeEnabled(true).build()
 
+@SuppressLint("LogNotTimber")
 @BindingAdapter(value = ["url", "placeHolder", "placeHolderRatio",  "error", "circle", "fade", "blur"], requireAll = false)
 fun ImageView.url(url: String?, placeHolder: Drawable?, placeHolderRatio: String?, error: Drawable?, circle: Boolean = false, fade: Boolean = false, blur: Boolean) {
     url?.let {
@@ -52,41 +57,41 @@ fun ImageView.url(url: String?, placeHolder: Drawable?, placeHolderRatio: String
                             .circleCrop()
                     req = req.thumbnail(thumbnail)
                 }else {
-                    if (placeHolderRatio == null) {
-                        options.placeholder(placeHolder)
-                    }else {
-                        var thumbnail = GlideApp.with(this)
-                                .asDrawable()
-                                .load(placeHolder)
-                                .override(width, 200.dp2px())
-//                        val base = placeHolderRatio.split(",")[0]
-//                        val ratio = placeHolderRatio.split(",")[1]
-//                        var baseW = false
-//                        if (base.equals("W", ignoreCase = true)) {
-//                            baseW = true
-//                        }
-//                        val res = ratio.trim().split(":")
-//                        val w = if (baseW) res[0].toInt() else res[1].toInt()
-//                        val h = if (baseW) res[1].toInt() else res[0].toInt()
-//                        if (w <=0 || h<=0) {
-//                            thumbnail = if (baseW) {
-//                                thumbnail.override(width, 200.dp2px())
-//                            }else {
-//                                thumbnail.override(200.dp2px(), height)
-//                            }
-//                        }else {
-//                            thumbnail = if (baseW) {
-//                                val newHeight = width*1f*h/w
-//                                thumbnail.override(width, newHeight.toInt())
-//                            }else {
-//                                val newWidth = height*1f*w/h
-//                                thumbnail.override(newWidth.toInt(), height)
-//                            }
-//                        }
-
-                        req = req.thumbnail(thumbnail)
+                    var drawable = placeHolder
+                    if (placeHolderRatio != null) {
+                        val base = placeHolderRatio.split(",")[0]
+                        val ratio = placeHolderRatio.split(",")[1]
+                        var baseW = false
+                        if (base.equals("W", ignoreCase = true)) {
+                            baseW = true
+                        }
+                        val res = ratio.trim().split(":")
+                        if (baseW) {
+                            val w = res[0].toInt()
+                            val h = res[1].toInt()
+                            var height = (measuredWidth*1f*h/w).toInt()
+                            Log.e("xxx", "width${measuredWidth}, w:$w, h:$h")
+                            if (h <= 0) {
+                                height = 200.dp2px()
+                            }
+                            val bitmap = Bitmap.createBitmap(measuredWidth, height, Bitmap.Config.ARGB_8888)
+                            val canvas = Canvas(bitmap)
+                            drawable.draw(canvas)
+                            drawable = BitmapDrawable(context.resources, bitmap)
+                        }else {
+                            val w = res[0].toInt()
+                            val h = res[1].toInt()
+                            var width = (measuredHeight*1f*w/h).toInt()
+                            if (w <= 0) {
+                                width = 200.dp2px()
+                            }
+                            val bitmap = Bitmap.createBitmap(width, measuredHeight, Bitmap.Config.ARGB_8888)
+                            val canvas = Canvas(bitmap)
+                            drawable.draw(canvas)
+                            drawable = BitmapDrawable(context.resources, bitmap)
+                        }
                     }
-                    //options.placeholder(placeHolder)
+                    options.placeholder(drawable)
                 }
             }
             error?.let {
