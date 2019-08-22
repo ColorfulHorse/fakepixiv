@@ -23,6 +23,13 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.Bitmap
 import android.graphics.drawable.LayerDrawable
 import android.util.Log
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
+import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.transition.BitmapTransitionFactory
+import com.lyj.fakepivix.R
+import com.lyj.fakepivix.app.utils.PaddingAnimationFactory
+import com.lyj.fakepivix.app.utils.screenHeight
+import com.lyj.fakepivix.app.utils.screenWidth
 import kotlinx.android.synthetic.main.item_novel_chapter.view.*
 
 
@@ -36,7 +43,6 @@ import kotlinx.android.synthetic.main.item_novel_chapter.view.*
 
 val factory: DrawableCrossFadeFactory = DrawableCrossFadeFactory.Builder(400).setCrossFadeEnabled(true).build()
 
-@SuppressLint("LogNotTimber")
 @BindingAdapter(value = ["url", "placeHolder", "placeHolderRatio",  "error", "circle", "fade", "blur"], requireAll = false)
 fun ImageView.url(url: String?, placeHolder: Drawable?, placeHolderRatio: String?, error: Drawable?, circle: Boolean = false, fade: Boolean = false, blur: Boolean) {
     url?.let {
@@ -44,6 +50,7 @@ fun ImageView.url(url: String?, placeHolder: Drawable?, placeHolderRatio: String
             var req = GlideApp.with(this)
                     .load(url)
             if (fade) {
+                //req = req.transition(DrawableTransitionOptions.with(PaddingAnimationFactory<Drawable>(factory)))
                 req = req.transition(DrawableTransitionOptions.withCrossFade(factory))
             }
             val options = RequestOptions()
@@ -57,7 +64,6 @@ fun ImageView.url(url: String?, placeHolder: Drawable?, placeHolderRatio: String
                             .circleCrop()
                     req = req.thumbnail(thumbnail)
                 }else {
-                    var drawable = placeHolder
                     if (placeHolderRatio != null) {
                         val base = placeHolderRatio.split(",")[0]
                         val ratio = placeHolderRatio.split(",")[1]
@@ -69,34 +75,50 @@ fun ImageView.url(url: String?, placeHolder: Drawable?, placeHolderRatio: String
                         if (baseW) {
                             val w = res[0].toInt()
                             val h = res[1].toInt()
-                            var height = (measuredWidth*1f*h/w).toInt()
-                            Log.e("xxx", "width${measuredWidth}, w:$w, h:$h")
+                            val width = if (measuredWidth == 0) screenWidth() else measuredWidth
+                            var height = (width*1f*h/w).toInt()
                             if (h <= 0) {
                                 height = 200.dp2px()
                             }
-                            val bitmap = Bitmap.createBitmap(measuredWidth, height, Bitmap.Config.ARGB_8888)
-                            val canvas = Canvas(bitmap)
-                            drawable.draw(canvas)
-                            drawable = BitmapDrawable(context.resources, bitmap)
+                            val thumb = GlideApp.with(this)
+                                    //.asBitmap()
+                                    .load(R.drawable.linear_placeholder)
+                                    .override(width, height)
+
+//                            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+//                            val canvas = Canvas(bitmap)
+//                            drawable.setBounds(0, 0, width, height)
+//                            drawable.draw(canvas)
+//                            drawable = BitmapDrawable(context.resources, bitmap)
+                            req = req.thumbnail(thumb)
                         }else {
                             val w = res[0].toInt()
                             val h = res[1].toInt()
-                            var width = (measuredHeight*1f*w/h).toInt()
+                            val height = if (measuredHeight == 0) screenHeight() else measuredHeight
+                            var width = (height*1f*w/h).toInt()
                             if (w <= 0) {
                                 width = 200.dp2px()
                             }
-                            val bitmap = Bitmap.createBitmap(width, measuredHeight, Bitmap.Config.ARGB_8888)
-                            val canvas = Canvas(bitmap)
-                            drawable.draw(canvas)
-                            drawable = BitmapDrawable(context.resources, bitmap)
+                            val thumb = GlideApp.with(this)
+                                    //.asBitmap()
+                                    .load(placeHolder)
+                                    .override(width, height)
+                            req = req.thumbnail(thumb)
+//                            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+//                            val canvas = Canvas(bitmap)
+//                            drawable.setBounds(0, 0, width, height)
+//                            drawable.draw(canvas)
+//                            drawable = BitmapDrawable(context.resources, bitmap)
                         }
+                    }else {
+                        options.placeholder(placeHolder)
                     }
-                    options.placeholder(drawable)
                 }
             }
             error?.let {
                 if (circle) {
                     req = req.error(GlideApp.with(this)
+                            //.asBitmap()
                             .load(error)
                             .circleCrop())
                 }else {

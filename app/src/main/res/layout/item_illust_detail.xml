@@ -23,11 +23,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/linear_placeholder"
             app:url="@{data.image_urls.large}"
-            app:fade="@{true}"
+            app:fade="@{false}"
             app:placeHolder="@{@drawable/linear_placeholder}"
             app:placeHolderRatio='@{"w," + String.valueOf(data.width) + ":" + String.valueOf(data.height)}'
             />
+        <!--app:url="@{data.image_urls.large}"-->
+        <!--app:fade="@{true}"-->
+        <!--app:placeHolder="@{@drawable/linear_placeholder}"-->
+        <!--app:placeHolderRatio='@{"w," + String.valueOf(data.width) + ":" + String.valueOf(data.height)}'-->
         <!--app:dimensionRatio='@{"w," + String.valueOf(data.width) + ":" + String.valueOf(data.height)}'-->
     </android.support.constraint.ConstraintLayout>
 </layout>
