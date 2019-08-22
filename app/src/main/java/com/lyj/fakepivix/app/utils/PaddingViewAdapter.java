@@ -2,6 +2,7 @@ package com.lyj.fakepivix.app.utils;
 
 import android.graphics.drawable.*;
 import android.os.Build.*;
+import android.util.Log;
 import android.view.View;
 
 import com.bumptech.glide.request.transition.Transition;
@@ -25,11 +26,15 @@ public class PaddingViewAdapter implements Transition.ViewAdapter {
 	@Override public Drawable getCurrentDrawable() {
 		Drawable drawable = realAdapter.getCurrentDrawable();
 		if (drawable != null) {
-			int padX = Math.max(0, targetWidth - drawable.getIntrinsicWidth()) / 2;
-			int padY = Math.max(0, targetHeight - drawable.getIntrinsicHeight()) / 2;
-			if (padX > 0 || padY > 0) {
-				drawable = new InsetDrawable(drawable, padX, padY, padX, padY);
-			}
+			int padX = (targetWidth - drawable.getIntrinsicWidth()) / 2;
+			int padY = (targetHeight - drawable.getIntrinsicHeight()) / 2;
+			drawable = new InsetDrawable(drawable, padX, padY, padX, padY);
+			Log.e("xxx", "padX:"+padX+"padY:"+padY);
+//			int padX = Math.max(0, targetWidth - drawable.getIntrinsicWidth()) / 2;
+//			int padY = Math.max(0, targetHeight - drawable.getIntrinsicHeight()) / 2;
+//			if (padX > 0 || padY > 0) {
+//				drawable = new InsetDrawable(drawable, padX, padY, padX, padY);
+//			}
 		}
 		return drawable;
 	}

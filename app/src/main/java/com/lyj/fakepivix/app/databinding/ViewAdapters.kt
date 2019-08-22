@@ -50,8 +50,8 @@ fun ImageView.url(url: String?, placeHolder: Drawable?, placeHolderRatio: String
             var req = GlideApp.with(this)
                     .load(url)
             if (fade) {
-                //req = req.transition(DrawableTransitionOptions.with(PaddingAnimationFactory<Drawable>(factory)))
-                req = req.transition(DrawableTransitionOptions.withCrossFade(factory))
+               req = req.transition(DrawableTransitionOptions.with(PaddingAnimationFactory<Drawable>(factory)))
+                //req = req.transition(DrawableTransitionOptions.withCrossFade(factory))
             }
             val options = RequestOptions()
             if (circle) {
@@ -72,44 +72,42 @@ fun ImageView.url(url: String?, placeHolder: Drawable?, placeHolderRatio: String
                             baseW = true
                         }
                         val res = ratio.trim().split(":")
+                        var width = 0
+                        var height = 0
                         if (baseW) {
                             val w = res[0].toInt()
                             val h = res[1].toInt()
-                            val width = if (measuredWidth == 0) screenWidth() else measuredWidth
-                            var height = (width*1f*h/w).toInt()
+                            width = if (measuredWidth == 0) screenWidth() else measuredWidth
+                            height = (width*1f*h/w).toInt()
                             if (h <= 0) {
                                 height = 200.dp2px()
                             }
-                            val thumb = GlideApp.with(this)
-                                    //.asBitmap()
-                                    .load(R.drawable.linear_placeholder)
-                                    .override(width, height)
-
-//                            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-//                            val canvas = Canvas(bitmap)
-//                            drawable.setBounds(0, 0, width, height)
-//                            drawable.draw(canvas)
-//                            drawable = BitmapDrawable(context.resources, bitmap)
-                            req = req.thumbnail(thumb)
+//                            val thumb = GlideApp.with(this)
+//                                    //.asBitmap()
+//                                    .load(R.drawable.linear_placeholder)
+//                                    .override(width, height)
+//                            req = req.thumbnail(thumb)
                         }else {
                             val w = res[0].toInt()
                             val h = res[1].toInt()
-                            val height = if (measuredHeight == 0) screenHeight() else measuredHeight
-                            var width = (height*1f*w/h).toInt()
+                            height = if (measuredHeight == 0) screenHeight() else measuredHeight
+                            width = (height*1f*w/h).toInt()
                             if (w <= 0) {
                                 width = 200.dp2px()
                             }
-                            val thumb = GlideApp.with(this)
-                                    //.asBitmap()
-                                    .load(placeHolder)
-                                    .override(width, height)
-                            req = req.thumbnail(thumb)
-//                            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-//                            val canvas = Canvas(bitmap)
-//                            drawable.setBounds(0, 0, width, height)
-//                            drawable.draw(canvas)
-//                            drawable = BitmapDrawable(context.resources, bitmap)
+//                            val thumb = GlideApp.with(this)
+//                                    //.asBitmap()
+//                                    .load(placeHolder)
+//                                    .override(width, height)
+//                            req = req.thumbnail(thumb)
                         }
+                        var drawable = placeHolder
+                        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+                        val canvas = Canvas(bitmap)
+                        drawable.setBounds(0, 0, width, height)
+                        drawable.draw(canvas)
+                        drawable = BitmapDrawable(context.resources, bitmap)
+                        req = req.placeholder(drawable)
                     }else {
                         options.placeholder(placeHolder)
                     }
