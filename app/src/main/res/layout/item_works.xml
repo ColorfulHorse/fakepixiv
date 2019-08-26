@@ -60,6 +60,8 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false" />
+            android:nestedScrollingEnabled="false"
+            android:minHeight="200dp"
+            />
     </LinearLayout>
 </layout>

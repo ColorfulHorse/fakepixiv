@@ -74,11 +74,15 @@ fun Context.hideKeyboard() {
 
 /**
  * 监听列表数据加载状态
+ * [small] 小尺寸错误布局
  */
 fun BaseQuickAdapter<*, *>.bindState(loadState: ObservableField<LoadState>, onSucceed: (() -> Unit)? = null, onFailed: ((err: Throwable) -> Unit)? = null,
-                                     onLoading: (() -> Unit)? = null, refreshLayout: SwipeRefreshLayout? = null, reload: (() -> Unit)? = null) {
+                                     onLoading: (() -> Unit)? = null, refreshLayout: SwipeRefreshLayout? = null, small: Boolean = false, reload: (() -> Unit)? = null) {
     val loadingView: View = LayoutInflater.from(AppManager.instance.top).inflate(R.layout.layout_common_loading, null)
-    val errorView: View = LayoutInflater.from(AppManager.instance.top).inflate(R.layout.layout_error, null)
+    val errorView: View =
+            if (small) LayoutInflater.from(AppManager.instance.top).inflate(R.layout.layout_error_small, null)
+            else LayoutInflater.from(AppManager.instance.top).inflate(R.layout.layout_error, null)
+
     emptyView = loadingView
     errorView.reload.setOnClickListener {
         reload?.invoke()

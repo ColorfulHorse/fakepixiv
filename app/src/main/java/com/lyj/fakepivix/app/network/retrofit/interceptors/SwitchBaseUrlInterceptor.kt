@@ -4,6 +4,7 @@ import com.lyj.fakepivix.app.constant.Constant
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.Response
+import java.io.IOException
 
 /**
  * @author greensun
@@ -13,6 +14,8 @@ import okhttp3.Response
  * @desc 用于切换baseUrl的拦截器
  */
 class SwitchBaseUrlInterceptor : Interceptor {
+
+    @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
             val oldReq = chain.request()
             val headers = oldReq.headers().toMultimap()

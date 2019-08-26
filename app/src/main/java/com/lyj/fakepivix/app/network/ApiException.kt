@@ -1,5 +1,7 @@
 package com.lyj.fakepivix.app.network
 
+import java.io.IOException
+
 /**
  * @author greensun
  *
@@ -7,7 +9,7 @@ package com.lyj.fakepivix.app.network
  *
  * @desc
  */
-class ApiException constructor(var code: Int) : Exception() {
+class ApiException constructor(var code: Int) : IOException() {
 
     constructor() : this(CODE_UNKNOWN)
 

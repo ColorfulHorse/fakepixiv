@@ -6,6 +6,7 @@ import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import okhttp3.FormBody
 import okhttp3.Interceptor
 import okhttp3.Response
+import java.io.IOException
 import java.nio.file.attribute.AclEntry.newBuilder
 
 /**
@@ -17,6 +18,7 @@ import java.nio.file.attribute.AclEntry.newBuilder
  */
 class CommonParamsInterceptor : Interceptor {
 
+    @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         var oldReq = chain.request()
         val url = oldReq.url().toString()

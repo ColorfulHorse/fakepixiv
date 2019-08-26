@@ -107,7 +107,9 @@ class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, B
                 .init()
 //        ImmersionBar.with(this)
 //                .titleBarMarginTop(mBinding.toolbarWrapper)
-//                .statusBarColor(R.color.live_video_switcher_background)
+//                .statusBarColor(R.color.transparent)
+//                .statusBarColorTransform(R.color.black)
+//                .statusBarAlpha(0.25f)
 //                .init()
     }
 

@@ -66,7 +66,9 @@ abstract class BaseViewModel<M : IModel?> : BaseObservable(), LifecycleObserver,
     /**
      * 自动取消
      */
-    protected fun addDisposable(disposable: Disposable) {
-        mDisposable.add(disposable)
+    protected fun addDisposable(disposable: Disposable?) {
+        disposable?.let {
+            mDisposable.add(it)
+        }
     }
 }

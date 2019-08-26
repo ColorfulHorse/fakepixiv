@@ -24,8 +24,10 @@ import android.graphics.Bitmap
 import android.graphics.drawable.LayerDrawable
 import android.util.Log
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
+import com.bumptech.glide.request.target.*
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.BitmapTransitionFactory
+import com.bumptech.glide.request.transition.Transition
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.utils.PaddingAnimationFactory
 import com.lyj.fakepivix.app.utils.screenHeight
@@ -88,8 +90,8 @@ fun ImageView.url(url: String?, placeHolder: Drawable?, placeHolderRatio: String
 //                                    .override(width, height)
 //                            req = req.thumbnail(thumb)
                         }else {
-                            val w = res[0].toInt()
-                            val h = res[1].toInt()
+                            val w = res[1].toInt()
+                            val h = res[0].toInt()
                             height = if (measuredHeight == 0) screenHeight() else measuredHeight
                             width = (height*1f*w/h).toInt()
                             if (w <= 0) {
@@ -107,7 +109,7 @@ fun ImageView.url(url: String?, placeHolder: Drawable?, placeHolderRatio: String
                         drawable.setBounds(0, 0, width, height)
                         drawable.draw(canvas)
                         drawable = BitmapDrawable(context.resources, bitmap)
-                        req = req.placeholder(drawable)
+                        options.placeholder(drawable)
                     }else {
                         options.placeholder(placeHolder)
                     }
@@ -126,6 +128,9 @@ fun ImageView.url(url: String?, placeHolder: Drawable?, placeHolderRatio: String
 //            if (blur) {
 //                options.transform()
 //            }
+            if (this is FloatingActionButton) {
+                req.apply(options).into()
+            }
             req.apply(options).into(this)
         }
     }

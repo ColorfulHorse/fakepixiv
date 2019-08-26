@@ -12,7 +12,7 @@ import com.bumptech.glide.request.transition.Transition
  *
  * @date 2019/8/6
  *
- * @desc
+ * @desc 用户列表预加载
  */
 class UserSizeProvider<T> : ListPreloader.PreloadSizeProvider<T> {
 

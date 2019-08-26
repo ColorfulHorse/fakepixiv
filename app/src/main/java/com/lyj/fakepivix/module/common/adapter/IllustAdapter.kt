@@ -2,6 +2,7 @@ package com.lyj.fakepivix.module.common.adapter
 
 import android.databinding.ViewDataBinding
 import android.graphics.drawable.Drawable
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.RequestBuilder
@@ -11,6 +12,7 @@ import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.adapter.PreloadMultiBindingAdapter
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.utils.Router
+import com.lyj.fakepivix.widget.LikeButton
 
 /**
  * @author greensun
@@ -19,7 +21,7 @@ import com.lyj.fakepivix.app.utils.Router
  *
  * @desc
  */
-open class IllustAdapter(data: MutableList<Illust>) : PreloadMultiBindingAdapter<Illust>(data) {
+open class IllustAdapter(data: MutableList<Illust>, val likeButton: Boolean = true) : PreloadMultiBindingAdapter<Illust>(data) {
 
     init {
         setOnItemClickListener { _, _, position ->
@@ -34,6 +36,14 @@ open class IllustAdapter(data: MutableList<Illust>) : PreloadMultiBindingAdapter
             sizeProvider.setView(it)
         }
         return vh
+    }
+
+    override fun convert(helper: BaseBindingViewHolder<ViewDataBinding>, item: Illust) {
+        super.convert(helper, item)
+        if (!likeButton) {
+            val likeButton = helper.getView<LikeButton>(R.id.like)
+            likeButton?.visibility = View.GONE
+        }
     }
 
 

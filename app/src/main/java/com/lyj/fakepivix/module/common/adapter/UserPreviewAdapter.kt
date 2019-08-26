@@ -39,15 +39,15 @@ class UserPreviewAdapter(data: MutableList<UserItemViewModel>) : PreloadBindingA
         return vh
     }
 
-    override fun convert(helper: BaseBindingViewHolder<ItemUserPreviewBinding>, vm: UserItemViewModel) {
-        super.convert(helper, vm)
+    override fun convert(helper: BaseBindingViewHolder<ItemUserPreviewBinding>, item: UserItemViewModel) {
+        super.convert(helper, item)
         helper.binding?.let {
-            it.recyclerView.layoutManager?.let { _ ->
+            it.recyclerView.layoutManager.let { _ ->
                 it.recyclerView.layoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
             }
-            var list = vm.data.illusts
+            var list = item.data.illusts
             if (list.size < 3) {
-                val novels = vm.data.novels.take(3 - list.size)
+                val novels = item.data.novels.take(3 - list.size)
                 novels.forEach { value -> value.type = IllustCategory.NOVEL }
                 list.addAll(novels)
             }

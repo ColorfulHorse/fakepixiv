@@ -68,7 +68,6 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
-        loadUserInfo()
     }
 
     /**

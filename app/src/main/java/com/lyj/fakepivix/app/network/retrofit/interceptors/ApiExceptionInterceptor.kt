@@ -10,6 +10,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import io.reactivex.rxkotlin.subscribeBy
 import okhttp3.Interceptor
 import okhttp3.Response
+import java.io.IOException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 
@@ -24,6 +25,7 @@ class ApiExceptionInterceptor : Interceptor {
 
 private val moshi: Moshi by lazy { Moshi.Builder().add(KotlinJsonAdapterFactory()).build() }
 
+    @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val req = chain.request()
         val response: Response

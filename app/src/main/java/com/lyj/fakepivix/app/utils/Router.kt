@@ -4,10 +4,12 @@ import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.data.model.response.Illust
+import com.lyj.fakepivix.app.data.model.response.User
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.module.main.illust.IllustDetailRootFragment
 import com.lyj.fakepivix.module.main.novel.NovelDetailFragment
 import com.lyj.fakepivix.module.main.novel.NovelDialogFragment
+import com.lyj.fakepivix.module.main.user.UserDetailFragment
 import me.yokeyword.fragmentation.SupportHelper
 
 /**
@@ -40,6 +42,11 @@ object Router {
         getTopFragment()?.start(fragment)
     }
 
+    fun goUserDetail(user: User) {
+        val fragment = UserDetailFragment.newInstance(user.id)
+        getTopFragment()?.start(fragment)
+    }
+
     fun getTopFragmentManager(): FragmentManager? {
         return AppManager.instance.top?.let {
             (it as FragmentActivity).supportFragmentManager
@@ -62,4 +69,5 @@ object Router {
         }
         return null
     }
+
 }

@@ -7,6 +7,7 @@ import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.data.model.response.UserPreview
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import com.lyj.fakepivix.app.network.LoadState
+import com.lyj.fakepivix.app.utils.Router
 import io.reactivex.rxkotlin.subscribeBy
 
 /**
@@ -29,18 +30,10 @@ class UserItemViewModel(val parent: BaseViewModel<*>, val data: UserPreview) : B
      * 关注/取消关注
      */
     fun follow() {
-        with(data) {
-            val followed = user.is_followed
-            val disposable = UserRepository.instance
-                    .follow(user.id, !followed)
-                    .doOnSubscribe { followState.set(LoadState.Loading) }
-                    .subscribeBy(onNext = {
-                        user.is_followed = !followed
-                        followState.set(LoadState.Succeed)
-                    }, onError = {
-                        followState.set(LoadState.Failed(it))
-                    })
-            addDisposable(disposable)
-        }
+        addDisposable(UserRepository.instance.follow(data.user, followState))
+    }
+
+    fun goDetail() {
+        Router.goUserDetail(data.user)
     }
 }
