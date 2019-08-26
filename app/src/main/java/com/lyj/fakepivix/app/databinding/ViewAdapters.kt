@@ -129,9 +129,18 @@ fun ImageView.url(url: String?, placeHolder: Drawable?, placeHolderRatio: String
 //                options.transform()
 //            }
             if (this is FloatingActionButton) {
-                req.apply(options).into()
+                req.apply(options).into(object : CustomTarget<Drawable>(this.width, this.height) {
+                    override fun onLoadCleared(placeholder: Drawable?) {
+
+                    }
+
+                    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                        this@url.setImageDrawable(resource)
+                    }
+                })
+            }else {
+                req.apply(options).into(this)
             }
-            req.apply(options).into(this)
         }
     }
 }
