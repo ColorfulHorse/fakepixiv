@@ -103,9 +103,9 @@
             app:url="@{vm.userInfo.user.profile_image_urls.medium}"
             app:placeHolder="@{@drawable/no_profile}"
             app:error="@{@drawable/no_profile}"
-            app:circle="@{true}"
             app:elevation="0dp"
             />
+        <!-- app:circle="@{true}"-->
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"

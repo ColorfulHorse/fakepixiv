@@ -32,6 +32,7 @@ import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.utils.PaddingAnimationFactory
 import com.lyj.fakepivix.app.utils.screenHeight
 import com.lyj.fakepivix.app.utils.screenWidth
+import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.item_novel_chapter.view.*
 
 
@@ -125,22 +126,10 @@ fun ImageView.url(url: String?, placeHolder: Drawable?, placeHolderRatio: String
                     options.error(error)
                 }
             }
-//            if (blur) {
-//                options.transform()
-//            }
-            if (this is FloatingActionButton) {
-                req.apply(options).into(object : CustomTarget<Drawable>(this.width, this.height) {
-                    override fun onLoadCleared(placeholder: Drawable?) {
-
-                    }
-
-                    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
-                        this@url.setImageDrawable(resource)
-                    }
-                })
-            }else {
-                req.apply(options).into(this)
+            if (blur) {
+                options.transform(BlurTransformation())
             }
+            req.apply(options).into(this)
         }
     }
 }
