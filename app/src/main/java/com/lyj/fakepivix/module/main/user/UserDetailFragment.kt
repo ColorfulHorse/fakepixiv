@@ -50,26 +50,14 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
         }
         mBinding.appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, offset ->
             val range = appBarLayout.totalScrollRange
-            mViewModel.collapsed.set(Math.abs(offset) >= range)
-            var last = -1
-            mBinding.appBar.getTag(R.id.tag_appBar_offset)?.let {
-                last = it as Int
-            }
-            var ratio = (range + offset)*1f/range
-            if (offset < last) {
-                if (ratio <= 0.5f) {
-                    mBinding.avatar.visibility = View.INVISIBLE
-                }
-            }else {
-                if (ratio >= 0.5f) {
-                    mBinding.avatar.visibility = View.VISIBLE
-                }
-            }
-            mBinding.avatar.scaleX = ratio
-            mBinding.avatar.scaleY = ratio
-            mBinding.avatar.alpha = ratio
-            mBinding.appBar.setTag(R.id.tag_appBar_offset, offset)
-            Log.e("xxx","height:$range===offset:$offset")
+            val distance = Math.abs(offset)
+            mViewModel.collapsed.set(distance >= range)
+            var scaleRatio = (range - distance)*1f/range
+            var alphaRatio = (range/2f - distance)/(range/2f)
+            if (alphaRatio < 0) alphaRatio = 0f
+            mBinding.avatar.scaleX = scaleRatio
+            mBinding.avatar.scaleY = scaleRatio
+            mBinding.avatar.alpha = alphaRatio
         })
 
         initIllust()

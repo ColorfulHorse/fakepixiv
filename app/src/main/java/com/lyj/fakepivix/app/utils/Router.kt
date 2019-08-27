@@ -6,6 +6,7 @@ import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.User
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
+import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import com.lyj.fakepivix.module.main.illust.IllustDetailRootFragment
 import com.lyj.fakepivix.module.main.novel.NovelDetailFragment
 import com.lyj.fakepivix.module.main.novel.NovelDialogFragment
@@ -43,6 +44,7 @@ object Router {
     }
 
     fun goUserDetail(user: User) {
+        UserRepository.instance[user.id] = user
         val fragment = UserDetailFragment.newInstance(user.id)
         getTopFragment()?.start(fragment)
     }

@@ -169,7 +169,7 @@ data class Workspace(
     val desk: String = "",
     val chair: String = "",
     val comment: String = "",
-    val workspace_image_url: Any? = Any()
+    val workspace_image_url: String? = null
 ){
     fun getTextList(): List<Pair<String, String>> {
         return listOf(

@@ -25,21 +25,31 @@
                 <android.support.design.widget.CollapsingToolbarLayout
                     android:id="@+id/collapse"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="150dp"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     android:elevation="0dp"
                     >
-                    <ImageView
-                        android:id="@+id/wallpaper"
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:scaleType="centerCrop"
-                        app:url="@{vm.userInfo.profile.background_image_url}"
-                        app:placeHolder="@{@drawable/no_profile}"
-                        app:error="@{@drawable/no_profile}"
-                        app:blur="@{true}"
-                        app:fade="@{true}"
-                        />
+                        android:layout_height="match_parent"
+                        android:visibility="@{vm.loadState instanceof LoadState.Succeed}"
+                        >
+                        <ImageView
+                            android:id="@+id/wallpaper"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            app:url="@{vm.userInfo.profile.background_image_url==null ? vm.userInfo.profile.background_image_url : vm.user.profile_image_urls.medium}"
+                            app:placeHolder="@{@drawable/no_profile}"
+                            app:blur="@{true}"
+                            app:fade="@{true}"
+                            />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/wallpaper_overlay"
+                            />
+                    </FrameLayout>
                     <android.support.v7.widget.Toolbar
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
@@ -61,7 +71,7 @@
                                 android:layout_alignParentEnd="true"
                                 android:enabled="@{!(vm.followState instanceof LoadState.Loading)}"
                                 android:layout_marginEnd="4dp"
-                                android:visibility="gone"
+                                android:visibility="@{vm.loadState instanceof LoadState.Succeed}"
                                 />
 
                             <LinearLayout
@@ -171,6 +181,7 @@
                 app:circle="@{true}"
                 app:elevation="0dp"
                 app:fade="@{true}"
+                android:visibility="@{vm.loadState instanceof LoadState.Succeed}"
                 />
         </android.support.design.widget.CoordinatorLayout>
 

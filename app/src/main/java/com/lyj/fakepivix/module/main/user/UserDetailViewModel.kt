@@ -38,7 +38,13 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
         field = value
         user = UserRepository.instance[userId]
     }
+
+    @get:Bindable
     var user: User? = null
+    set(value) {
+        field = value
+        notifyPropertyChanged(BR.user)
+    }
 
     val loadState = ObservableField<LoadState>(LoadState.Idle)
 
@@ -90,21 +96,21 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
             if (resp.user.comment.isBlank()) {
                 showMore.set(true)
             }
-            with(resp.profile) {
-                if (total_illusts > 0) {
-                    loadIllustWorks()
-                }
-                if (total_manga > 0) {
-                    loadComicWorks()
-                }
-                if (total_novels > 0) {
-                    loadNovelWorks()
-                }
-                if (total_illust_bookmarks_public > 0) {
-                    loadIllustBookmarks()
-                }
-                loadNovelBookmarks()
-            }
+//            with(resp.profile) {
+//                if (total_illusts > 0) {
+//                    loadIllustWorks()
+//                }
+//                if (total_manga > 0) {
+//                    loadComicWorks()
+//                }
+//                if (total_novels > 0) {
+//                    loadNovelWorks()
+//                }
+//                if (total_illust_bookmarks_public > 0) {
+//                    loadIllustBookmarks()
+//                }
+//                loadNovelBookmarks()
+//            }
         }
     }
 
