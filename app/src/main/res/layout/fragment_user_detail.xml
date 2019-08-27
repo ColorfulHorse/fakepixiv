@@ -9,156 +9,175 @@
             name="vm"
             type="UserDetailViewModel"/>
     </data>
-    
-    <android.support.design.widget.CoordinatorLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appBar"
+
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            >
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/collapse"
+            android:layout_height="match_parent">
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/appBar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                android:layout_height="wrap_content"
+                android:background="@{vm.loadState instanceof LoadState.Succeed ? @color/transparent : @color/colorPrimary}"
                 >
-                <ImageView
-                    android:id="@+id/wallpaper"
+                <android.support.design.widget.CollapsingToolbarLayout
+                    android:id="@+id/collapse"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:scaleType="centerCrop"
-                    app:url="@{vm.userInfo.profile.background_image_url}"
-                    app:placeHolder="@{@drawable/no_profile}"
-                    app:error="@{@drawable/no_profile}"
-                    app:blur="@{true}"
-                    />
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:layout_collapseMode="pin"
+                    android:layout_height="match_parent"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     android:elevation="0dp"
                     >
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-                        <Button
-                            android:id="@+id/follow"
-                            style="@style/follow_button"
-                            android:textColor="@{vm.user._followed?@color/white:@color/colorPrimary}"
-                            android:onClick="@{() -> vm.follow()}"
-                            android:text="@{vm.user._followed?@string/followed:@string/follow}"
-                            android:background="@{vm.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_primary}"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentEnd="true"
-                            android:enabled="@{!(vm.followState instanceof LoadState.Loading)}"
-                            android:layout_marginEnd="4dp"
-                            android:visibility="gone"
-                            />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_toStartOf="@id/follow"
-                            android:visibility="invisible">
-
-                            <ImageView
-                                android:id="@+id/toolbar_avatar"
-                                android:layout_width="36dp"
-                                android:layout_height="36dp"
-                                android:layout_gravity="center"
-                                app:url="@{vm.userInfo.user.profile_image_urls.medium}"
-                                app:placeHolder="@{@drawable/no_profile}"
-                                app:error="@{@drawable/no_profile}"
-                                app:circle="@{true}"
+                    <ImageView
+                        android:id="@+id/wallpaper"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:scaleType="centerCrop"
+                        app:url="@{vm.userInfo.profile.background_image_url}"
+                        app:placeHolder="@{@drawable/no_profile}"
+                        app:error="@{@drawable/no_profile}"
+                        app:blur="@{true}"
+                        app:fade="@{true}"
+                        />
+                    <android.support.v7.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        app:layout_collapseMode="pin"
+                        android:elevation="0dp"
+                        >
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+                            <Button
+                                android:id="@+id/follow"
+                                style="@style/follow_button"
+                                android:textColor="@{vm.user._followed?@color/white:@color/colorPrimary}"
+                                android:onClick="@{() -> vm.follow()}"
+                                android:text="@{vm.user._followed?@string/followed:@string/follow}"
+                                android:background="@{vm.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_primary}"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentEnd="true"
+                                android:enabled="@{!(vm.followState instanceof LoadState.Loading)}"
+                                android:layout_marginEnd="4dp"
+                                android:visibility="gone"
                                 />
 
-                            <TextView
-                                android:id="@+id/nickName"
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginStart="8dp"
-                                android:maxLines="2"
-                                android:text="@{vm.user.name}"
-                                android:textColor="@color/font_color_white"
-                                android:textSize="18.0sp" />
-                        </LinearLayout>
-                    </RelativeLayout>
-                </android.support.v7.widget.Toolbar>
-            </android.support.design.widget.CollapsingToolbarLayout>
-        </android.support.design.widget.AppBarLayout>
+                                android:layout_centerVertical="true"
+                                android:layout_toStartOf="@id/follow"
+                                app:fadeIn="@{vm.collapsed}">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/avatar"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            app:fabCustomSize="96dp"
-            app:layout_anchor="@id/appBar"
-            app:layout_anchorGravity="bottom|center"
-            app:url="@{vm.userInfo.user.profile_image_urls.medium}"
-            app:placeHolder="@{@drawable/no_profile}"
-            app:error="@{@drawable/no_profile}"
-            app:elevation="0dp"
-            />
-        <!-- app:circle="@{true}"-->
+                                <ImageView
+                                    android:id="@+id/toolbar_avatar"
+                                    android:layout_width="36dp"
+                                    android:layout_height="36dp"
+                                    android:layout_gravity="center"
+                                    app:url="@{vm.userInfo.user.profile_image_urls.medium}"
+                                    app:placeHolder="@{@drawable/no_profile}"
+                                    app:error="@{@drawable/no_profile}"
+                                    app:circle="@{true}"
+                                    app:fade="@{true}"
+                                    />
 
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            >
-            <LinearLayout
+                                <TextView
+                                    android:id="@+id/nickName"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="8dp"
+                                    android:maxLines="2"
+                                    android:text="@{vm.user.name}"
+                                    android:textColor="@color/font_color_white"
+                                    android:textSize="18.0sp"
+                                    />
+                            </LinearLayout>
+                        </RelativeLayout>
+                    </android.support.v7.widget.Toolbar>
+                </android.support.design.widget.CollapsingToolbarLayout>
+            </android.support.design.widget.AppBarLayout>
+
+            <!-- app:circle="@{true}"-->
+
+            <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@color/white"
+                app:show="@{vm.loadState instanceof LoadState.Succeed}"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 >
-                <include
-                    android:id="@+id/user_container"
-                    layout="@layout/layout_user_info"
-                    app:vm="@{vm}"
-                    />
-                <include
-                    android:id="@+id/illust_works"
-                    layout="@layout/item_works"
-                    app:type="@{@string/illust_works}"
-                    app:moreText="@{String.format(@string/works_count, vm.userInfo.profile.total_illusts)}"
-                    app:show="@{vm.userInfo.profile.total_illusts > 0}"
-                    />
-                <include
-                    android:id="@+id/comic_works"
-                    layout="@layout/item_works"
-                    app:type="@{@string/comic_works}"
-                    app:moreText="@{String.format(@string/works_count, vm.userInfo.profile.total_manga)}"
-                    app:show="@{vm.userInfo.profile.total_manga > 0}"
-                    />
-                <include
-                    android:id="@+id/novel_works"
-                    layout="@layout/item_works"
-                    app:type="@{@string/novel_works}"
-                    app:moreText="@{String.format(@string/works_count, vm.userInfo.profile.total_novels)}"
-                    app:show="@{vm.userInfo.profile.total_novels > 0}"
-                    />
-                <include
-                    android:id="@+id/illust_bookmarks"
-                    layout="@layout/item_works"
-                    app:type="@{@string/illust_bookmark}"
-                    app:moreText="@{@string/all}"
-                    app:show="@{vm.userInfo.profile.total_illust_bookmarks_public > 0}"
-                    />
-                <include
-                    android:id="@+id/novel_bookmarks"
-                    layout="@layout/item_works"
-                    app:type="@{@string/novel_bookmarks}"
-                    app:moreText="@{@string/all}"
-                    app:show="@{(vm.novelBookmarksState instanceof LoadState.Idle) || (vm.novelBookmarks.size() > 0)}"
-                    />
-            </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
-    </android.support.design.widget.CoordinatorLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/white"
+                    >
+                    <include
+                        android:id="@+id/user_container"
+                        layout="@layout/layout_user_info"
+                        app:vm="@{vm}"
+                        />
+                    <include
+                        android:id="@+id/illust_works"
+                        layout="@layout/item_works"
+                        app:type="@{@string/illust_works}"
+                        app:moreText="@{String.format(@string/works_count, vm.userInfo.profile.total_illusts)}"
+                        app:show="@{vm.userInfo.profile.total_illusts > 0}"
+                        />
+                    <include
+                        android:id="@+id/comic_works"
+                        layout="@layout/item_works"
+                        app:type="@{@string/comic_works}"
+                        app:moreText="@{String.format(@string/works_count, vm.userInfo.profile.total_manga)}"
+                        app:show="@{vm.userInfo.profile.total_manga > 0}"
+                        />
+                    <include
+                        android:id="@+id/novel_works"
+                        layout="@layout/item_works"
+                        app:type="@{@string/novel_works}"
+                        app:moreText="@{String.format(@string/works_count, vm.userInfo.profile.total_novels)}"
+                        app:show="@{vm.userInfo.profile.total_novels > 0}"
+                        />
+                    <include
+                        android:id="@+id/illust_bookmarks"
+                        layout="@layout/item_works"
+                        app:type="@{@string/illust_bookmark}"
+                        app:moreText="@{@string/all}"
+                        app:show="@{vm.userInfo.profile.total_illust_bookmarks_public > 0}"
+                        />
+                    <include
+                        android:id="@+id/novel_bookmarks"
+                        layout="@layout/item_works"
+                        app:type="@{@string/novel_bookmarks}"
+                        app:moreText="@{@string/all}"
+                        app:show="@{(vm.novelBookmarksState instanceof LoadState.Idle) || (vm.novelBookmarks.size() > 0)}"
+                        />
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+
+
+            <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:scaleType="centerCrop"
+                app:layout_anchor="@id/appBar"
+                app:layout_anchorGravity="bottom|center"
+                app:url="@{vm.userInfo.user.profile_image_urls.medium}"
+                app:placeHolder="@{@drawable/no_profile}"
+                app:error="@{@drawable/no_profile}"
+                app:circle="@{true}"
+                app:elevation="0dp"
+                app:fade="@{true}"
+                />
+        </android.support.design.widget.CoordinatorLayout>
+
+        <include
+            android:id="@+id/errorView"
+            layout="@layout/layout_error"
+            android:visibility="@{vm.loadState instanceof LoadState.Failed}"
+            />
+    </FrameLayout>
 </layout>

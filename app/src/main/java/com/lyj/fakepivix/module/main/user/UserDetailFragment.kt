@@ -1,23 +1,22 @@
 package com.lyj.fakepivix.module.main.user
 
-import android.databinding.ViewDataBinding
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
+import android.view.View
 import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.BackFragment
-import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import com.lyj.fakepivix.app.utils.bindState
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.FragmentUserDetailBinding
 import com.lyj.fakepivix.module.common.adapter.IllustAdapter
-import com.lyj.fakepivix.module.main.illust.IllustDetailFragment
 import com.lyj.fakepivix.widget.CommonItemDecoration
 
 /**
@@ -49,6 +48,30 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
             userId = it.getString(EXTRA_USER_ID, "")
             mViewModel.userId = userId
         }
+        mBinding.appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, offset ->
+            val range = appBarLayout.totalScrollRange
+            mViewModel.collapsed.set(Math.abs(offset) >= range)
+            var last = -1
+            mBinding.appBar.getTag(R.id.tag_appBar_offset)?.let {
+                last = it as Int
+            }
+            var ratio = (range + offset)*1f/range
+            if (offset < last) {
+                if (ratio <= 0.5f) {
+                    mBinding.avatar.visibility = View.INVISIBLE
+                }
+            }else {
+                if (ratio >= 0.5f) {
+                    mBinding.avatar.visibility = View.VISIBLE
+                }
+            }
+            mBinding.avatar.scaleX = ratio
+            mBinding.avatar.scaleY = ratio
+            mBinding.avatar.alpha = ratio
+            mBinding.appBar.setTag(R.id.tag_appBar_offset, offset)
+            Log.e("xxx","height:$range===offset:$offset")
+        })
+
         initIllust()
         initComic()
         initNovel()

@@ -50,6 +50,8 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
     }
     val showMore = ObservableField(false)
 
+    val collapsed = ObservableField(false)
+
     val followState = ObservableField<LoadState>(LoadState.Idle)
 
     val illustWorksState = ObservableField<LoadState>(LoadState.Idle)

@@ -126,9 +126,9 @@ fun ImageView.url(url: String?, placeHolder: Drawable?, placeHolderRatio: String
                     options.error(error)
                 }
             }
-            if (blur) {
-                options.transform(BlurTransformation())
-            }
+//            if (blur) {
+//                options.transform(BlurTransformation())
+//            }
             req.apply(options).into(this)
         }
     }
