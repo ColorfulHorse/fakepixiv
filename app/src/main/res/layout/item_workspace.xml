@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="kotlin.Pair"/>
+        <variable
+            name="data"
+            type="Pair"/>
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp">
+
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_weight="3"
+            android:gravity="right"
+            android:textColor="@color/renewal_fg_sub"
+            android:textSize="14.0sp"
+            android:textStyle="bold"
+            android:text="@{String.valueOf(data.first)}"
+            />
+
+        <TextView
+            android:id="@id/text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:textColor="@color/renewal_fg_general"
+            android:textSize="14sp"
+            android:text="@{String.valueOf(data.second)}"
+            />
+    </LinearLayout>
+</layout>

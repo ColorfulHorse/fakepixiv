@@ -54,8 +54,15 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
         field = value
         notifyPropertyChanged(BR.userInfo)
     }
-    val showMore = ObservableField(false)
 
+    @get:Bindable
+    var showMore = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.showMore)
+        }
+
+    // toolbar是否收缩
     val collapsed = ObservableField(false)
 
     val followState = ObservableField<LoadState>(LoadState.Idle)
@@ -94,23 +101,23 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
             workspace.addAll(resp.workspace.getTextList())
             loadState.set(LoadState.Succeed)
             if (resp.user.comment.isBlank()) {
-                showMore.set(true)
+                showMore = true
             }
-//            with(resp.profile) {
-//                if (total_illusts > 0) {
-//                    loadIllustWorks()
-//                }
-//                if (total_manga > 0) {
-//                    loadComicWorks()
-//                }
-//                if (total_novels > 0) {
-//                    loadNovelWorks()
-//                }
-//                if (total_illust_bookmarks_public > 0) {
-//                    loadIllustBookmarks()
-//                }
-//                loadNovelBookmarks()
-//            }
+            with(resp.profile) {
+                if (total_illusts > 0) {
+                    loadIllustWorks()
+                }
+                if (total_manga > 0) {
+                    loadComicWorks()
+                }
+                if (total_novels > 0) {
+                    loadNovelWorks()
+                }
+                if (total_illust_bookmarks_public > 0) {
+                    loadIllustBookmarks()
+                }
+                loadNovelBookmarks()
+            }
         }
     }
 
@@ -127,7 +134,7 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
                         .instance.loadUserIllust(userId)
             }
             illustWorks.clear()
-            illustWorks.addAll(resp.illusts)
+            illustWorks.addAll(resp.illusts.take(6).toMutableList())
             illustWorksState.set(LoadState.Succeed)
         }
     }
@@ -140,7 +147,7 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
             val resp = IllustRepository
                         .instance.loadUserIllust(userId, IllustCategory.COMIC)
             comicWorks.clear()
-            comicWorks.addAll(resp.illusts)
+            comicWorks.addAll(resp.illusts.take(2).toMutableList())
             comicWorksState.set(LoadState.Succeed)
         }
     }
@@ -155,7 +162,7 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
                         .instance.loadUserNovels(userId)
             }
             novelWorks.clear()
-            novelWorks.addAll(resp.illusts)
+            novelWorks.addAll(resp.illusts.take(3).toMutableList())
             novelWorksState.set(LoadState.Succeed)
         }
     }
@@ -173,7 +180,7 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
                         .instance.loadUserBookmarks(userId)
             }
             illustBookmarks.clear()
-            illustBookmarks.addAll(resp.illusts)
+            illustBookmarks.addAll(resp.illusts.take(6).toMutableList())
             illustBookmarksState.set(LoadState.Succeed)
         }
     }
@@ -188,7 +195,7 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
                         .instance.loadUserBookmarks(userId, IllustCategory.NOVEL)
             }
             novelBookmarks.clear()
-            novelBookmarks.addAll(resp.illusts)
+            novelBookmarks.addAll(resp.illusts.take(3).toMutableList())
             novelBookmarksState.set(LoadState.Succeed)
         }
     }
@@ -203,4 +210,7 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
         }
     }
 
+    fun showMore(){
+        showMore = !showMore
+    }
 }

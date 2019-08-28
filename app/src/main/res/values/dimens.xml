@@ -10,4 +10,5 @@
     <dimen name="sub_tab_textSize">12sp</dimen>
     <dimen name="detail_padding_h">16dp</dimen>
     <dimen name="corners_default">4dp</dimen>
+    <dimen name="corners_small">4dp</dimen>
 </resources>

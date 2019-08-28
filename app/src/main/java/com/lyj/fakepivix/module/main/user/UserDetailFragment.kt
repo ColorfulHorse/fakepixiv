@@ -1,5 +1,6 @@
 package com.lyj.fakepivix.module.main.user
 
+import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.DividerItemDecoration
@@ -10,6 +11,7 @@ import android.view.View
 import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
+import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
 import com.lyj.fakepivix.app.base.BackFragment
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
@@ -48,18 +50,8 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
             userId = it.getString(EXTRA_USER_ID, "")
             mViewModel.userId = userId
         }
-        mBinding.appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, offset ->
-            val range = appBarLayout.totalScrollRange
-            val distance = Math.abs(offset)
-            mViewModel.collapsed.set(distance >= range)
-            var scaleRatio = (range - distance)*1f/range
-            var alphaRatio = (range/2f - distance)/(range/2f)
-            if (alphaRatio < 0) alphaRatio = 0f
-            mBinding.avatar.scaleX = scaleRatio
-            mBinding.avatar.scaleY = scaleRatio
-            mBinding.avatar.alpha = alphaRatio
-        })
-
+        initBar()
+        initUser()
         initIllust()
         initComic()
         initNovel()
@@ -67,9 +59,33 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
         mViewModel.loadUserInfo()
     }
 
+    private fun initBar() {
+        mBinding.appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, offset ->
+            val range = appBarLayout.totalScrollRange
+            val distance = Math.abs(offset)
+            mViewModel.collapsed.set(distance >= range)
+            var scaleRatio = (range - distance) * 1f / range
+            var alphaRatio = (range / 2f - distance) / (range / 2f)
+            if (alphaRatio < 0) alphaRatio = 0f
+            mBinding.avatar.scaleX = scaleRatio
+            mBinding.avatar.scaleY = scaleRatio
+            mBinding.avatar.alpha = alphaRatio
+        })
+        mToolbar?.inflateMenu(R.menu.menu_detail_user)
+    }
+
+    private fun initUser() {
+        with(mBinding) {
+            val adapter = BaseBindingAdapter<Pair<String, String>, ViewDataBinding>(R.layout.item_workspace, mViewModel.workspace, BR.data)
+            val layoutManager = LinearLayoutManager(mActivity)
+            userContainer.rvWorkspace.layoutManager = layoutManager
+            adapter.bindToRecyclerView(illustWorks.recyclerView)
+        }
+    }
+
     private fun initIllust() {
         with(mBinding) {
-            val adapter = IllustAdapter(mViewModel.illustWorks.take(6).toMutableList()).apply {
+            val adapter = IllustAdapter(mViewModel.illustWorks).apply {
                 addItemType(Illust.TYPE_ILLUST, R.layout.item_illust_related, BR.illust)
             }
             val layoutManager = GridLayoutManager(mActivity, 3)
@@ -86,7 +102,7 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
 
     private fun initComic() {
         with(mBinding) {
-            val adapter = IllustAdapter(mViewModel.comicWorks.take(2).toMutableList(), false).apply {
+            val adapter = IllustAdapter(mViewModel.comicWorks, false).apply {
                 addItemType(Illust.TYPE_COMIC, R.layout.item_home_comic, BR.illust)
                 addItemType(Illust.TYPE_ILLUST, R.layout.item_home_comic, BR.illust)
             }
@@ -104,7 +120,7 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
 
     private fun initNovel() {
         with(mBinding) {
-            val adapter = IllustAdapter(mViewModel.novelWorks.take(3).toMutableList()).apply {
+            val adapter = IllustAdapter(mViewModel.novelWorks, false).apply {
                 addItemType(Illust.TYPE_NOVEL, R.layout.item_home_novel, BR.illust)
                 addItemType(Illust.TYPE_ILLUST, R.layout.item_home_novel, BR.illust)
             }
@@ -122,7 +138,7 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
 
     private fun initBookMark() {
         with(mBinding) {
-            val adapter = IllustAdapter(mViewModel.illustWorks.take(6).toMutableList()).apply {
+            val adapter = IllustAdapter(mViewModel.illustBookmarks).apply {
                 addItemType(Illust.TYPE_ILLUST, R.layout.item_illust_related, BR.illust)
                 addItemType(Illust.TYPE_COMIC, R.layout.item_illust_related, BR.illust)
             }
@@ -136,7 +152,7 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
             }
             illustBookmarks.recyclerView.addItemDecoration(CommonItemDecoration.Builder().dividerWidth(1.dp2px(), 1.dp2px()).draw(false).build())
 
-            val novelAdapter = IllustAdapter(mViewModel.novelBookmarks.take(3).toMutableList()).apply {
+            val novelAdapter = IllustAdapter(mViewModel.novelBookmarks).apply {
                 addItemType(Illust.TYPE_NOVEL, R.layout.item_home_novel, BR.illust)
                 addItemType(Illust.TYPE_ILLUST, R.layout.item_home_novel, BR.illust)
             }
@@ -154,7 +170,7 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
     override fun initImmersionBar() {
 //        ImmersionBar.with(this)
 //                .titleBar(mBinding.toolbar)
-////                .statusBarDarkFont(true)
+//                .statusBarDarkFont(true)
 //                .transparentStatusBar()
 //                .init()
 

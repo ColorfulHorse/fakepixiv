@@ -94,7 +94,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#ff575c63"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:text="@{String.valueOf(vm.userInfo.profile.total_follow_users)}"
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -117,7 +119,9 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
                         android:textColor="#ff575c63"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:text="@{String.valueOf(vm.userInfo.profile.total_mypixiv_users)}"
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -180,6 +184,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="@{!vm.showMore}"
+                    android:onClick="@{() -> vm.showMore()}"
                     >
                     <!--android:onClick="@{() -> vm.showMore.set(!vm.showMore)}"-->
 
@@ -194,7 +199,9 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
                         android:layout_toRightOf="@+id/read_more_text_view"
                         android:src="@drawable/action_detail_rev" />
                 </RelativeLayout>

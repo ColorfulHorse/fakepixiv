@@ -2,6 +2,7 @@ package com.lyj.fakepivix.module.common
 
 
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.FragmentationFragment
@@ -64,7 +65,9 @@ class UserListFragment : FragmentationFragment<CommonRefreshList, UserListViewMo
                 recyclerView.layoutManager = layoutManager
                 mAdapter.bindToRecyclerView(recyclerView)
                 recyclerView.addItemDecoration(CommonItemDecoration.Builder()
-                        .dividerWidth(12.dp2px(), 0)
+                        .dividerWidth(16.dp2px(), 0)
+                        .draw(true)
+                        .color(ContextCompat.getColor(mActivity, R.color.bg_general))
                         .build())
                 // 加载更多
                 recyclerView.attachLoadMore { vm.loadMore() }

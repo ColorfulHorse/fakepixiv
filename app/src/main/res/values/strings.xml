@@ -101,4 +101,5 @@
     <string name="chapter">章节</string>
     <string name="mark_page">已在第%1$d页添加书签</string>
     <string name="unmark">已删除书签</string>
+    <string name="not_found">抱歉，没有找到相关结果</string>
 </resources>
