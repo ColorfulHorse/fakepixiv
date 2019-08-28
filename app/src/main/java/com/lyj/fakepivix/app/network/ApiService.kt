@@ -91,6 +91,25 @@ interface ApiService {
     suspend fun getUserRecommend(): UserPreviewListResp
 
     /**
+     * 关注中的用户
+     */
+    @GET("/v1/user/following")
+    suspend fun getFollowingUser(@Query("user_id") userId: String,
+                                 @Restrict @Query("restrict")restrict: String = Restrict.PUBLIC): UserPreviewListResp
+
+    /**
+     * 粉丝
+     */
+    @GET("/v1/user/follower")
+    suspend fun getFollower(@Query("user_id") userId: String): UserPreviewListResp
+
+    /**
+     * 好P友
+     */
+    @GET("/v1/user/mypixiv")
+    suspend fun getMypixiv(@Query("user_id") userId: String): UserPreviewListResp
+
+    /**
      * 更多用户
      */
     @GET
