@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.module.main.novel
+package com.lyj.fakepivix.module.novel
 
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.gyf.barlibrary.ImmersionBar
-import com.gyf.barlibrary.ImmersionFragment
-import com.gyf.barlibrary.ImmersionOwner
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
@@ -20,9 +18,7 @@ import com.lyj.fakepivix.app.utils.JsonUtil
 import com.lyj.fakepivix.app.utils.bindState
 import com.lyj.fakepivix.databinding.FragmentNovelDetailBinding
 import com.lyj.fakepivix.databinding.NovelChapterFooter
-import com.lyj.fakepivix.module.main.illust.AboutDialogFragment
-import com.lyj.fakepivix.module.main.illust.RelatedIllustDialogFragment
-import com.lyj.fakepivix.module.main.illust.RelatedUserDialogFragment
+import com.lyj.fakepivix.module.illust.AboutDialogFragment
 
 /**
  * @author greensun

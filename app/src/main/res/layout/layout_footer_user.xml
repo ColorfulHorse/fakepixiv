@@ -3,7 +3,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.lyj.fakepivix.module.main.illust.UserFooterViewModel"/>
+        <import type="com.lyj.fakepivix.module.illust.UserFooterViewModel"/>
         <import type="com.lyj.fakepivix.app.network.LoadState"/>
         <variable
             name="vm"

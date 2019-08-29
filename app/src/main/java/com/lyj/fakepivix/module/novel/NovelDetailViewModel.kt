@@ -1,15 +1,12 @@
-package com.lyj.fakepivix.module.main.novel
+package com.lyj.fakepivix.module.novel
 
-import android.arch.lifecycle.LifecycleOwner
 import android.databinding.Bindable
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import android.databinding.ObservableList
-import android.util.Log
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.data.model.response.NovelChapter
-import com.lyj.fakepivix.app.data.model.response.NovelMarker
 import com.lyj.fakepivix.app.data.model.response.NovelText
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.network.LoadState
@@ -17,7 +14,6 @@ import com.lyj.fakepivix.app.utils.ToastUtil
 import com.lyj.fakepivix.module.common.DetailViewModel
 import kotlinx.coroutines.*
 import timber.log.Timber
-import java.lang.Exception
 
 /**
  * @author greensun

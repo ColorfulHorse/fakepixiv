@@ -73,23 +73,21 @@ class MainRootFragment : FragmentationFragment<MainRoot, BaseViewModel<*>?>() {
                 TabBean(R.drawable.ic_menu_new_arrival, R.drawable.ic_menu_new_arrival, getString(R.string.tab_news)),
                 TabBean(R.drawable.ic_search, R.drawable.ic_search, getString(R.string.tab_search))
         )
-        var homeFragment = findFragment(HomeFragment::class.java)
-        var newsFragment = findFragment(NewsFragment::class.java)
-        var searchFragment = findFragment(SearchFragment::class.java)
+        var homeFragment = findChildFragment(HomeFragment::class.java)
+        var newsFragment = findChildFragment(NewsFragment::class.java)
+        var searchFragment = findChildFragment(SearchFragment::class.java)
         if (homeFragment == null) {
             homeFragment = HomeFragment.newInstance()
-        }
-        if (newsFragment == null) {
             newsFragment = NewsFragment.newInstance()
-        }
-        if (searchFragment == null) {
             searchFragment = SearchFragment.newInstance()
+            loadMultipleRootFragment(R.id.fragmentContainer, 0, homeFragment, newsFragment, searchFragment)
         }
+
         fragments.clear()
         fragments.add(homeFragment)
-        fragments.add(newsFragment)
-        fragments.add(searchFragment)
-        loadMultipleRootFragment(R.id.fragmentContainer, 0, fragments[0], fragments[1], fragments[2])
+        newsFragment?.let { fragments.add(it) }
+        searchFragment?.let { fragments.add(it) }
+
         mBinding.tabLayout.setTabData(tabs)
         (0 until fragments.size).filterNot {
             it == prePosition

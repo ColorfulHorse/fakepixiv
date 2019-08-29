@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.module.main.illust
+package com.lyj.fakepivix.module.illust
 
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
@@ -10,9 +10,6 @@ import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.FragmentationFragment
-import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
-import com.lyj.fakepivix.app.network.LoadState
-import com.lyj.fakepivix.app.utils.Router
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.FragmentIllustDetailBinding
 import com.lyj.fakepivix.widget.DetailItemDecoration

@@ -1,9 +1,8 @@
-package com.lyj.fakepivix.module.main.illust
+package com.lyj.fakepivix.module.illust
 
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.text.Html
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import com.lyj.fakepivix.BR

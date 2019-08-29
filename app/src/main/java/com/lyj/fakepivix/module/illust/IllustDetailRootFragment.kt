@@ -1,7 +1,6 @@
-package com.lyj.fakepivix.module.main.illust
+package com.lyj.fakepivix.module.illust
 
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.R

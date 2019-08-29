@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.module.main.user
+package com.lyj.fakepivix.module.user.detail
 
 import android.databinding.ViewDataBinding
 import android.os.Bundle
@@ -6,8 +6,6 @@ import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
-import android.view.View
 import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
