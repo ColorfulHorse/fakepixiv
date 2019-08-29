@@ -11,6 +11,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
         >
         <ImageView
             android:id="@+id/wallpaper"
@@ -22,7 +23,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
-            android:layout_marginTop="25dp"
             >
             <ImageView
                 android:id="@+id/avatar"

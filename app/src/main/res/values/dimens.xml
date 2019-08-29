@@ -11,4 +11,5 @@
     <dimen name="detail_padding_h">16dp</dimen>
     <dimen name="corners_default">4dp</dimen>
     <dimen name="corners_small">4dp</dimen>
+    <dimen name="indicator_width">58dp</dimen>
 </resources>

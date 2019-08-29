@@ -36,11 +36,11 @@
                     app:tl_textsize="@dimen/tab_textSize"
                     app:tl_iconVisible="false"
                     app:tl_indicator_style="BLOCK"
+                    app:tl_tab_space_equal="true"
                     app:tl_indicator_color="@color/colorPrimary"
                     app:tl_indicator_corner_radius="30dp"
                     app:tl_indicator_anim_enable="false"
-                    app:tl_indicator_margin_left="48dp"
-                    app:tl_indicator_margin_right="48dp"
+                    app:tl_indicator_width="@dimen/indicator_width"
                     app:tl_indicator_margin_top="10dp"
                     app:tl_indicator_margin_bottom="10dp"
                     />

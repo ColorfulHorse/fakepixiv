@@ -7,6 +7,7 @@ import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.data.model.response.UserPreviewListResp
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
+import com.lyj.fakepivix.app.network.ApiException
 import com.lyj.fakepivix.app.network.LoadState
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
@@ -39,6 +40,9 @@ class UserListViewModel(var action: (suspend () -> UserPreviewListResp)) : BaseV
             data.clear()
             val resp = withContext(Dispatchers.IO) {
                 action.invoke()
+            }
+            if (resp.user_previews.isEmpty()) {
+                throw ApiException(ApiException.CODE_EMPTY_DATA)
             }
             data.addAll(resp.user_previews.map { UserItemViewModel(this@UserListViewModel, it) })
             nextUrl = resp.next_url
