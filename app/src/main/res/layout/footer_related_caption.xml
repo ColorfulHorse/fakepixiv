@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-        <import type="com.lyj.fakepivix.module.main.illust.RelatedCaptionViewModel"/>
+        <import type="com.lyj.fakepivix.module.illust.RelatedCaptionViewModel"/>
         <import type="com.lyj.fakepivix.app.network.LoadState"/>
         <variable
             name="vm"

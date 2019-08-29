@@ -93,6 +93,12 @@ interface ApiService {
     /**
      * 更多用户
      */
+    @GET("/v1/user/following")
+    suspend fun getFollowing(@Query("user_id") userId: String, @Query("restrict")restrict: String): UserPreviewListResp
+
+    /**
+     * 更多用户
+     */
     @GET
     suspend fun getMoreUser(@Url nextUrl: String): UserPreviewListResp
 

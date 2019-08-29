@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.module.main.illust
+package com.lyj.fakepivix.module.illust
 
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
@@ -6,7 +6,6 @@ import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
-import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.Router
 import com.lyj.fakepivix.module.common.DetailViewModel

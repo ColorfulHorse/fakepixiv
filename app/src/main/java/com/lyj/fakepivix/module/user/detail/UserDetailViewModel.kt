@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.module.main.user
+package com.lyj.fakepivix.module.user.detail
 
 import android.arch.lifecycle.LifecycleOwner
 import android.databinding.Bindable
@@ -14,12 +14,9 @@ import com.lyj.fakepivix.app.data.model.response.UserInfo
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import com.lyj.fakepivix.app.network.LoadState
-import com.lyj.fakepivix.module.login.register.IRegisterModel
-import com.lyj.fakepivix.module.login.register.RegisterModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.rx2.awaitSingle
 import kotlinx.coroutines.withContext
 
 /**

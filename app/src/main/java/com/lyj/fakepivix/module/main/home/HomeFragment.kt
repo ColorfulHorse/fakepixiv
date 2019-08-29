@@ -55,23 +55,19 @@ class HomeFragment : FragmentationFragment<FragmentHomeBinding, BaseViewModel<*>
     }
 
     private fun initFragment() {
-        var illustFragment = findFragment(HomeIllustFragment::class.java)
-        var comicFragment = findFragment(HomeComicFragment::class.java)
-        var novalFragment = findFragment(HomeNovelFragment::class.java)
+        var illustFragment = findChildFragment(HomeIllustFragment::class.java)
+        var comicFragment = findChildFragment(HomeComicFragment::class.java)
+        var novelFragment = findChildFragment(HomeNovelFragment::class.java)
         if (illustFragment == null) {
             illustFragment = HomeIllustFragment.newInstance()
-        }
-        if (comicFragment == null) {
             comicFragment = HomeComicFragment.newInstance()
-        }
-        if (novalFragment == null) {
-            novalFragment = HomeNovelFragment.newInstance()
+            novelFragment = HomeNovelFragment.newInstance()
+            loadMultipleRootFragment(R.id.fl_container, 0, illustFragment, comicFragment, novelFragment)
         }
         fragments.clear()
         fragments.add(illustFragment)
-        fragments.add(comicFragment)
-        fragments.add(novalFragment)
-        loadMultipleRootFragment(R.id.fl_container, 0, fragments[0], fragments[1], fragments[2])
+        comicFragment?.let { fragments.add(it) }
+        novelFragment?.let { fragments.add(it) }
     }
 
     /**

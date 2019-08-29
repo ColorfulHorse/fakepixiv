@@ -83,6 +83,12 @@ class UserRepository private constructor(){
                 .getUserRecommend()
     }
 
+    suspend fun getFollowing(userId: String, @Restrict restrict: String): UserPreviewListResp {
+        return RetrofitManager.instance
+                .apiService
+                .getFollowing(userId, restrict)
+    }
+
     /**
      * 搜索用户
      */

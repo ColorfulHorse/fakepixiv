@@ -7,10 +7,10 @@ import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.User
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
-import com.lyj.fakepivix.module.main.illust.IllustDetailRootFragment
-import com.lyj.fakepivix.module.main.novel.NovelDetailFragment
-import com.lyj.fakepivix.module.main.novel.NovelDialogFragment
-import com.lyj.fakepivix.module.main.user.UserDetailFragment
+import com.lyj.fakepivix.module.illust.IllustDetailRootFragment
+import com.lyj.fakepivix.module.novel.NovelDetailFragment
+import com.lyj.fakepivix.module.novel.NovelDialogFragment
+import com.lyj.fakepivix.module.user.detail.UserDetailFragment
 import me.yokeyword.fragmentation.SupportHelper
 
 /**

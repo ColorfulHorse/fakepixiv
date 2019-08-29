@@ -1,14 +1,11 @@
-package com.lyj.fakepivix.module.main.illust
+package com.lyj.fakepivix.module.illust
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.util.Log
 import android.util.SparseArray
-import android.view.View
-import android.view.ViewGroup
 import com.lyj.fakepivix.app.data.model.response.Illust
-import timber.log.Timber
 
 /**
  * @author greensun

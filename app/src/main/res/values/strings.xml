@@ -38,6 +38,8 @@
     <string name="tab_user">用户</string>
     <string name="tab_follower">关注者</string>
     <string name="tab_friend">好P友</string>
+    <string name="tab_public">公开</string>
+    <string name="tab_private">私人</string>
     <string name="title_rank">排行榜</string>
     <string name="read_more">查看更多</string>
     <string name="title_live">人气直播</string>

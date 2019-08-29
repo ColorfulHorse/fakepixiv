@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.module.main.illust
+package com.lyj.fakepivix.module.illust
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle

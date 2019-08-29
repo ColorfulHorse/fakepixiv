@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.module.main.novel
+package com.lyj.fakepivix.module.novel
 
 import android.databinding.Bindable
 import com.lyj.fakepivix.BR

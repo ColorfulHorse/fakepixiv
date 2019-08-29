@@ -1,6 +1,5 @@
-package com.lyj.fakepivix.module.main.novel
+package com.lyj.fakepivix.module.novel
 
-import android.arch.lifecycle.LifecycleObserver
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
@@ -12,13 +11,9 @@ import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
 import com.lyj.fakepivix.app.data.model.response.Tag
-import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.utils.Router
-import com.lyj.fakepivix.app.utils.screenHeight
-import com.lyj.fakepivix.app.utils.screenWidth
 import com.lyj.fakepivix.databinding.DialogNovelBinding
 import com.lyj.fakepivix.databinding.ItemTagBinding
-import com.lyj.fakepivix.module.main.illust.IllustDetailFragment
 import com.lyj.fakepivix.widget.FlowLayoutManager
 
 /**
