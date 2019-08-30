@@ -16,6 +16,8 @@ import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import com.lyj.fakepivix.app.utils.bindState
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.FragmentUserDetailBinding
+import com.lyj.fakepivix.databinding.ItemWorkspaceBinding
+import com.lyj.fakepivix.databinding.ItemWorkspaceBindingImpl
 import com.lyj.fakepivix.module.common.adapter.IllustAdapter
 import com.lyj.fakepivix.widget.CommonItemDecoration
 
@@ -77,7 +79,7 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
             val adapter = BaseBindingAdapter<Pair<String, String>, ViewDataBinding>(R.layout.item_workspace, mViewModel.workspace, BR.data)
             val layoutManager = LinearLayoutManager(mActivity)
             userContainer.rvWorkspace.layoutManager = layoutManager
-            adapter.bindToRecyclerView(illustWorks.recyclerView)
+            adapter.bindToRecyclerView(userContainer.rvWorkspace)
         }
     }
 
@@ -101,8 +103,8 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
     private fun initComic() {
         with(mBinding) {
             val adapter = IllustAdapter(mViewModel.comicWorks, false).apply {
-                addItemType(Illust.TYPE_COMIC, R.layout.item_home_comic, BR.illust)
-                addItemType(Illust.TYPE_ILLUST, R.layout.item_home_comic, BR.illust)
+                addItemType(Illust.TYPE_COMIC, R.layout.item_home_comic, BR.data)
+                addItemType(Illust.TYPE_ILLUST, R.layout.item_home_comic, BR.data)
             }
             val layoutManager = GridLayoutManager(mActivity, 2)
             comicWorks.recyclerView.layoutManager = layoutManager
@@ -119,8 +121,8 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
     private fun initNovel() {
         with(mBinding) {
             val adapter = IllustAdapter(mViewModel.novelWorks, false).apply {
-                addItemType(Illust.TYPE_NOVEL, R.layout.item_home_novel, BR.illust)
-                addItemType(Illust.TYPE_ILLUST, R.layout.item_home_novel, BR.illust)
+                addItemType(Illust.TYPE_NOVEL, R.layout.item_home_novel, BR.data)
+                addItemType(Illust.TYPE_ILLUST, R.layout.item_home_novel, BR.data)
             }
             val layoutManager = LinearLayoutManager(mActivity)
             novelWorks.recyclerView.layoutManager = layoutManager
@@ -150,11 +152,11 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
             }
             illustBookmarks.recyclerView.addItemDecoration(CommonItemDecoration.Builder().dividerWidth(1.dp2px(), 1.dp2px()).draw(false).build())
 
-            val novelAdapter = IllustAdapter(mViewModel.novelBookmarks).apply {
-                addItemType(Illust.TYPE_NOVEL, R.layout.item_home_novel, BR.illust)
-                addItemType(Illust.TYPE_ILLUST, R.layout.item_home_novel, BR.illust)
+            val novelAdapter = IllustAdapter(mViewModel.novelBookmarks, false).apply {
+                addItemType(Illust.TYPE_NOVEL, R.layout.item_home_novel, BR.data)
+                addItemType(Illust.TYPE_ILLUST, R.layout.item_home_novel, BR.data)
             }
-            novelWorks.recyclerView.layoutManager = LinearLayoutManager(mActivity)
+            novelBookmarks.recyclerView.layoutManager = LinearLayoutManager(mActivity)
             novelAdapter.apply {
                 bindToRecyclerView(novelBookmarks.recyclerView)
                 bindState(mViewModel.novelBookmarksState, small = true) {

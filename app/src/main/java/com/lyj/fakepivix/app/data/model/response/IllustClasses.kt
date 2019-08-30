@@ -69,7 +69,7 @@ data class Illust (
         var total_view: Int = 0,
         var type: String = "",
         val user: User = User(),
-        val visible: Boolean = false,
+        val visible: Boolean = true,
         val width: Int = 0,
         val x_restrict: Int = 0
 ): MultiItemEntity, BaseObservable() {

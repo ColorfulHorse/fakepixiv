@@ -37,6 +37,16 @@
             <!--android:text="@{String.valueOf(illust.page_count)}"-->
             <!--android:visibility="@{illust.page_count>1}"-->
             <!--/>-->
+        <TextView
+            android:id="@+id/count"
+            style="@style/count_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/image"
+            android:layout_alignEnd="@id/image"
+            android:text="@{String.valueOf(illust.page_count)}"
+            android:visibility="@{illust.page_count>1}" />
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -1,5 +1,6 @@
 package com.lyj.fakepivix.module.common.adapter
 
+import android.databinding.ObservableField
 import android.databinding.ViewDataBinding
 import android.graphics.drawable.Drawable
 import android.view.View
@@ -10,7 +11,11 @@ import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.adapter.PreloadMultiBindingAdapter
+import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.data.model.response.Illust
+import com.lyj.fakepivix.app.data.source.remote.IllustRepository
+import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
+import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.Router
 import com.lyj.fakepivix.widget.LikeButton
 
@@ -40,9 +45,31 @@ open class IllustAdapter(data: MutableList<Illust>, val likeButton: Boolean = tr
 
     override fun convert(helper: BaseBindingViewHolder<ViewDataBinding>, item: Illust) {
         super.convert(helper, item)
-        if (!likeButton) {
-            val likeButton = helper.getView<LikeButton>(R.id.like)
-            likeButton?.visibility = View.GONE
+        val button = helper.getView<LikeButton>(R.id.like)
+        button?.let {
+            if (!likeButton) it.visibility = View.GONE
+            it.action = {
+                it.processing = true
+                val star = item.is_bookmarked
+                val starState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
+                starState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
+                    when(starState.get()) {
+                        is LoadState.Failed -> {
+                            it.processing = false
+                            if (star) {
+                                it.like()
+                            }else {
+                                it.unlike()
+                            }
+                        }
+                        is LoadState.Succeed -> {
+                            it.processing = false
+                        }
+                    }
+                })
+                IllustRepository.instance
+                        .star(item, starState)
+            }
         }
     }
 

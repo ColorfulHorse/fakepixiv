@@ -13,7 +13,9 @@ import com.lyj.fakepivix.app.data.model.response.User
 import com.lyj.fakepivix.app.data.model.response.UserInfo
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
+import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
+import com.lyj.fakepivix.module.illust.RelatedUserDialogViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -40,6 +42,7 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
     var user: User? = null
     set(value) {
         field = value
+        value?.let { relatedUserViewModel.user = it }
         notifyPropertyChanged(BR.user)
     }
 
@@ -78,8 +81,23 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
     val novelBookmarks = ObservableArrayList<Illust>()
     val workspace = ObservableArrayList<Pair<String, String>>()
 
-    override fun onCreate(owner: LifecycleOwner) {
-        super.onCreate(owner)
+    // 相关作者
+    val relatedUserViewModel = RelatedUserDialogViewModel()
+
+
+    init {
+        this + relatedUserViewModel
+        followState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
+            val state = followState.get()
+            if (state is LoadState.Succeed) {
+                user?.let {
+                    if (it.is_followed) {
+                        // 关注成功加载弹出窗数据
+                        relatedUserViewModel.load()
+                    }
+                }
+            }
+        })
     }
 
     /**
@@ -177,7 +195,7 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
                         .instance.loadUserBookmarks(userId)
             }
             illustBookmarks.clear()
-            illustBookmarks.addAll(resp.illusts.take(6).toMutableList())
+            illustBookmarks.addAll(resp.illusts.filter { it.visible }.take(6).toMutableList())
             illustBookmarksState.set(LoadState.Succeed)
         }
     }

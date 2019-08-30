@@ -127,10 +127,10 @@ class IllustRepository private constructor() {
     /**
      * 获取用户收藏
      */
-    suspend fun loadUserBookmarks(@Query("user_id")userId: String, @IllustCategory category: String = IllustCategory.ILLUST,
-                               @Restrict restrict: String = Restrict.PUBLIC): IllustListResp {
+    suspend fun loadUserBookmarks(@Query("user_id")userId: String, @IllustCategory category: String = ILLUST,
+                                  @Restrict restrict: String = Restrict.PUBLIC): IllustListResp {
         return RetrofitManager.instance.apiService
-                .getUserBookmarks(userId, category, restrict)
+                .getUserBookmarks(category, userId, restrict)
     }
 
 

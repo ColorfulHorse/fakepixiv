@@ -23,6 +23,8 @@ class LikeButton : RelativeLayout {
     private var selected: ImageView
     private var effect: View
     var liked = false
+    var processing = false
+    var action: (() -> Unit)? = null
 
     constructor(context: Context?) : super(context)
 
@@ -37,16 +39,20 @@ class LikeButton : RelativeLayout {
         effect = findViewById(R.id.effect)
 
         setOnClickListener {
-            if (liked) {
-                unlike()
-            }else {
-                like()
+            if (!processing) {
+                if (liked) {
+                    unlike()
+                }else {
+                    like()
+                }
+                liked = !liked
+                action?.invoke()
             }
-            liked = !liked
         }
     }
 
-     fun setLikedWithoutAmin(liked: Boolean) {
+
+     fun setLikedWithoutAnim(liked: Boolean) {
         if(liked) {
             normal.visibility = View.INVISIBLE
             selected.visibility = View.VISIBLE

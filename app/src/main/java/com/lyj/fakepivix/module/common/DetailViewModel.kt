@@ -31,6 +31,7 @@ open class DetailViewModel : BaseViewModel<IModel?>() {
     var illust = Illust()
     set(value) {
         field = value
+        relatedUserViewModel.user = value.user
         notifyPropertyChanged(BR.illust)
     }
 
@@ -56,7 +57,7 @@ open class DetailViewModel : BaseViewModel<IModel?>() {
     val userFooterViewModel = UserFooterViewModel(this)
     val commentFooterViewModel = CommentFooterViewModel(this)
     val relatedIllustViewModel = RelatedIllustDialogViewModel(this)
-    val relatedUserViewModel = RelatedUserDialogViewModel(this)
+    val relatedUserViewModel = RelatedUserDialogViewModel(illust.user)
 
     open fun setData(key: Int, position: Int) {
         this.key = key
@@ -80,11 +81,9 @@ open class DetailViewModel : BaseViewModel<IModel?>() {
         followState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
             val state = followState.get()
             if (state is LoadState.Succeed) {
-                liveData.user.let {
-                    if (it.is_followed) {
-                        // 关注成功加载弹出窗数据
-                        relatedUserViewModel.load()
-                    }
+                if (liveData.user.is_followed) {
+                    // 关注成功加载弹出窗数据
+                    relatedUserViewModel.load()
                 }
             }
         })

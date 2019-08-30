@@ -1,6 +1,5 @@
 package com.lyj.fakepivix.app.databinding
 
-import android.annotation.SuppressLint
 import android.databinding.BindingAdapter
 import android.databinding.BindingConversion
 import android.graphics.Canvas
@@ -21,20 +20,10 @@ import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.widget.LikeButton
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.Bitmap
-import android.graphics.drawable.LayerDrawable
-import android.util.Log
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
-import com.bumptech.glide.load.resource.bitmap.TransformationUtils.circleCrop
-import com.bumptech.glide.request.target.*
-import com.bumptech.glide.request.target.Target
-import com.bumptech.glide.request.transition.BitmapTransitionFactory
-import com.bumptech.glide.request.transition.Transition
-import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.utils.PaddingAnimationFactory
 import com.lyj.fakepivix.app.utils.screenHeight
 import com.lyj.fakepivix.app.utils.screenWidth
 import jp.wasabeef.glide.transformations.BlurTransformation
-import kotlinx.android.synthetic.main.item_novel_chapter.view.*
 
 
 /**
@@ -142,7 +131,7 @@ fun ImageView.url(url: String?, placeHolder: Drawable?, placeHolderRatio: String
 
 @BindingAdapter(value = ["liked"])
 fun LikeButton.liked(liked: Boolean = false) {
-    this.setLikedWithoutAmin(liked)
+    this.setLikedWithoutAnim(liked)
 }
 
 @BindingConversion

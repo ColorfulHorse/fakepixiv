@@ -5,6 +5,7 @@ import android.databinding.ObservableField
 import android.util.SparseBooleanArray
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
+import com.lyj.fakepivix.app.data.model.response.User
 import com.lyj.fakepivix.app.data.model.response.UserPreview
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import com.lyj.fakepivix.app.network.LoadState
@@ -19,7 +20,7 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc 相关用户
  */
-class RelatedUserDialogViewModel(val parent: DetailViewModel) : BaseViewModel<IModel?>() {
+class RelatedUserDialogViewModel(var user: User = User()) : BaseViewModel<IModel?>() {
     override val mModel: IModel? = null
 
     var data = ObservableArrayList<UserPreview>()
@@ -32,7 +33,7 @@ class RelatedUserDialogViewModel(val parent: DetailViewModel) : BaseViewModel<IM
 
     fun load() {
         val disposable = UserRepository.instance
-                .getRelatedUsers(parent.illust.user?.id.toString())
+                .getRelatedUsers(user.id)
                 .doOnSubscribe { loadState.set(LoadState.Loading) }
                 .subscribeBy(onNext = {
                     data.addAll(it.user_previews)
