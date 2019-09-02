@@ -265,10 +265,9 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
         super.initImmersionBar()
         ImmersionBar
                 .with(this)
+                .titleBar(mBinding.toolbar)
                 .statusBarDarkFont(true)
-                .titleBarMarginTop(mBinding.toolbar)
                 .statusBarColor(R.color.white)
-                //.keyboardEnable(true, WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE or WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
                 .init()
     }
 

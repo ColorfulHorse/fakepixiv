@@ -72,8 +72,8 @@ interface ApiService {
     /**
      * 获取排行榜
      */
-    @GET("/v1/illust/ranking")
-    fun getRankIllust(@Query("mode") mode: String, @Query("date") date: String): Observable<IllustListResp>
+    @GET("/v1/{category}/ranking")
+    fun getRankIllust(@Path("category") category: String = ILLUST, @Query("mode") mode: String, @Query("date") date: String): Observable<IllustListResp>
 
 
     /**

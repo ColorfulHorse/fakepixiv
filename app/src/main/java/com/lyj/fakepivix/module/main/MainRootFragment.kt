@@ -19,6 +19,7 @@ import com.lyj.fakepivix.module.main.news.NewsFragment
 import com.lyj.fakepivix.module.main.search.SearchFragment
 import com.lyj.fakepivix.module.main.search.illust.SearchTagFragment
 import com.lyj.fakepivix.module.main.search.main.SearchMainFragment
+import me.yokeyword.fragmentation.SupportHelper
 
 /**
  * @author greensun
@@ -61,6 +62,7 @@ class MainRootFragment : FragmentationFragment<MainRoot, BaseViewModel<*>?>() {
     override fun initImmersionBar() {
         ImmersionBar.with(this)
                 .titleBarMarginTop(mBinding.contentView)
+               // .fitsSystemWindows(true)
                 .statusBarColor(R.color.transparent)
                 .statusBarColorTransform(R.color.black)
                 .statusBarAlpha(0.25f)
@@ -109,11 +111,7 @@ class MainRootFragment : FragmentationFragment<MainRoot, BaseViewModel<*>?>() {
         })
         mBinding.search.setOnClickListener {
             var category = IllustCategory.ILLUST
-            val active = Router.getActiveFragment()
-            if (active is SearchTagFragment) {
-                category = active.category
-                start(SearchMainFragment.newInstance(category))
-            }
+            start(SearchMainFragment.newInstance(category))
         }
     }
 

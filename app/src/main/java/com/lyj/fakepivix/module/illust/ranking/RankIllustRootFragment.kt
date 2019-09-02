@@ -35,7 +35,7 @@ class RankIllustRootFragment : BackFragment<FragmentRootRankIllustBinding, BaseV
     override fun init(savedInstanceState: Bundle?) {
         mToolbar?.title = getString(R.string.ranking)
         val modes = resources.getStringArray(R.array.rank_modes)
-        for (mode in Constant.Net.MODE_TYPES) {
+        for (mode in Constant.Net.ILLUST_RANK_MODES) {
             val fragment = RankIllustFragment.newInstance()
             val viewModel = IllustListViewModel {
                 IllustRepository.instance
@@ -59,11 +59,16 @@ class RankIllustRootFragment : BackFragment<FragmentRootRankIllustBinding, BaseV
 
 
     override fun initImmersionBar() {
+//        ImmersionBar.with(this)
+//                .titleBarMarginTop(mBinding.contentView)
+//                .statusBarColor(R.color.transparent)
+//                .statusBarColorTransform(R.color.black)
+//                .statusBarAlpha(0.25f)
+//                .init()
         ImmersionBar.with(this)
+                //.fitsSystemWindows(true)
                 .titleBarMarginTop(mBinding.contentView)
-                .statusBarColor(R.color.transparent)
-                .statusBarColorTransform(R.color.black)
-                .statusBarAlpha(0.25f)
+                .statusBarColor(R.color.primary)
                 .init()
     }
 

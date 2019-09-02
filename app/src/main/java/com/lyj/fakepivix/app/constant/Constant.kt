@@ -9,7 +9,8 @@ package com.lyj.fakepivix.app.constant
  */
 interface Constant {
     object Net {
-        val MODE_TYPES = listOf(
+        // 排行榜类型
+        val ILLUST_RANK_MODES = listOf(
                 "day",
                 "male",
                 "female",
@@ -17,6 +18,20 @@ interface Constant {
                 "week_rookie",
                 "week",
                 "month",
+                "day")
+        val COMIC_RANK_MODES = listOf(
+                "day_manga",
+                "week_rookie_manga",
+                "week_manga",
+                "month_manga",
+                "day_manga")
+
+        val NOVEL_RANK_MODES = listOf(
+                "day",
+                "male",
+                "female",
+                "week_rookie",
+                "week",
                 "day")
 
         const val BASE_URL = "https://app-api.pixiv.net"
