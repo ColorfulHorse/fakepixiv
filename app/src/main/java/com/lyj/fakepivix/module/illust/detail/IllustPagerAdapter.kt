@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.module.illust
+package com.lyj.fakepivix.module.illust.detail
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager

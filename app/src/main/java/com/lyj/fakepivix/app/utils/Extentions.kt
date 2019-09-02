@@ -87,6 +87,11 @@ fun BaseQuickAdapter<*, *>.bindState(loadState: ObservableField<LoadState>, onSu
     errorView.reload.setOnClickListener {
         reload?.invoke()
     }
+    refreshLayout?.let {
+        it.setOnRefreshListener {
+            reload?.invoke()
+        }
+    }
     loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { observable, i ->
         when (loadState.get()) {
             is LoadState.Loading -> {

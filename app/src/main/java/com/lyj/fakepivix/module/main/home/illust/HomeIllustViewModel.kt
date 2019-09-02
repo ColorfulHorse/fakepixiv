@@ -37,6 +37,7 @@ class HomeIllustViewModel : BaseViewModel<IHomeIllustModel>() {
     }
 
     fun load() {
+        this + liveViewModel + pixivisionViewModel
         when (liveViewModel.loadState.get()) {
             is LoadState.Idle, is LoadState.Failed -> liveViewModel.load()
         }

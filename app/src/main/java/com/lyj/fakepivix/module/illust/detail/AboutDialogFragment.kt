@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.module.illust
+package com.lyj.fakepivix.module.illust.detail
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -45,8 +45,8 @@ class AboutDialogFragment : BottomSheetDialogFragment() {
             with(binding) {
                 detailViewModel?.let { vm ->
                     context?.let {
-                        val descFooter =  DescFooter(it, vm.illust, descContainer)
-                        val userFooter =  UserFooter(it, vm.userFooterViewModel, userContainer)
+                        val descFooter = DescFooter(it, vm.illust, descContainer)
+                        val userFooter = UserFooter(it, vm.userFooterViewModel, userContainer)
                         val commentFooter = CommentFooter(it, vm.commentFooterViewModel, commentContainer)
                     }
 //                    vm.illust.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->

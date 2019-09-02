@@ -24,6 +24,7 @@
             android:scaleType="centerCrop"
             app:url="@{illust.image_urls.large}"
             app:fade="@{true}"
+            app:topCrop="@{true}"
             app:placeHolder="@{@drawable/common_border_placeholder}"
             />
         <TextView

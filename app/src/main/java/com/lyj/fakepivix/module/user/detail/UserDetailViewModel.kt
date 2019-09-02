@@ -1,6 +1,5 @@
 package com.lyj.fakepivix.module.user.detail
 
-import android.arch.lifecycle.LifecycleOwner
 import android.databinding.Bindable
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
@@ -15,7 +14,7 @@ import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
-import com.lyj.fakepivix.module.illust.RelatedUserDialogViewModel
+import com.lyj.fakepivix.module.illust.detail.RelatedUserDialogViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

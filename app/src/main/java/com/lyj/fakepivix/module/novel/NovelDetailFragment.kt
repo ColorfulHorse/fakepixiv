@@ -18,7 +18,7 @@ import com.lyj.fakepivix.app.utils.JsonUtil
 import com.lyj.fakepivix.app.utils.bindState
 import com.lyj.fakepivix.databinding.FragmentNovelDetailBinding
 import com.lyj.fakepivix.databinding.NovelChapterFooter
-import com.lyj.fakepivix.module.illust.AboutDialogFragment
+import com.lyj.fakepivix.module.illust.detail.AboutDialogFragment
 
 /**
  * @author greensun

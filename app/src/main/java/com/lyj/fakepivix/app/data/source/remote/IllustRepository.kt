@@ -14,12 +14,9 @@ import com.lyj.fakepivix.app.network.ApiException
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
 import com.lyj.fakepivix.app.reactivex.schedulerTransform
-import com.lyj.fakepivix.app.utils.Router
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
-import retrofit2.http.Field
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -57,6 +54,10 @@ class IllustRepository private constructor() {
         return service.getRecommendIllust(category)
                 .schedulerTransform()
     }
+
+    fun getRankIllust(mod: String, date: String = ""): Observable<IllustListResp> =
+            RetrofitManager.instance.apiService.getRankIllust(mod, date)
+                    .schedulerTransform()
 
     /**
      * 获取关注的

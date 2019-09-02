@@ -32,6 +32,10 @@ class HomeComicViewModel : BaseViewModel<IModel?>() {
 
     var nextUrl = ""
 
+    init {
+        this + rankViewModel + pixivisionViewModel
+    }
+
     fun lazyLoad() {
         load()
     }

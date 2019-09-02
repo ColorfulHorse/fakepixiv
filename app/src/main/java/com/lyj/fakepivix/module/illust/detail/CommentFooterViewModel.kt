@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.module.illust
+package com.lyj.fakepivix.module.illust.detail
 
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField

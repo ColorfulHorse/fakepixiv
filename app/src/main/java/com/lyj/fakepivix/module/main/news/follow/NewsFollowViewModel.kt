@@ -15,4 +15,8 @@ class NewsFollowViewModel : BaseViewModel<IModel?>() {
     override var mModel: IModel? = null
 
     val userViewModel = UserHeaderViewModel()
+
+    init {
+        this + userViewModel
+    }
 }

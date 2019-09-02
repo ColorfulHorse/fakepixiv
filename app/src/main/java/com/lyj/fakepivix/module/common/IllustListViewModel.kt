@@ -4,8 +4,6 @@ import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
-import com.lyj.fakepivix.app.constant.IllustCategory
-import com.lyj.fakepivix.app.constant.IllustCategory.ILLUST
 
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.IllustListResp
@@ -21,7 +19,7 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc
  */
-class IllustListViewModel(@IllustCategory var category: String = ILLUST, var action: (() -> Observable<IllustListResp>)) : BaseViewModel<IModel?>() {
+class IllustListViewModel(var action: () -> Observable<IllustListResp>) : BaseViewModel<IModel?>() {
 
     override var mModel: IModel? = null
 

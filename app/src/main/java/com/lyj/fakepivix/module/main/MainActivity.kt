@@ -108,10 +108,14 @@ class MainActivity : FragmentationActivity<ActivityMainBinding, MainViewModel>()
 
 
     override fun onBackPressedSupport() {
-        if (supportFragmentManager.backStackEntryCount > 1) {
-            pop()
-        } else {
-            moveTaskToBack(true)
+        if (mBinding.drawerLayout.isDrawerOpen(Gravity.START)) {
+            mBinding.drawerLayout.closeDrawers()
+        }else {
+            if (supportFragmentManager.backStackEntryCount > 1) {
+                pop()
+            } else {
+                moveTaskToBack(true)
+            }
         }
     }
 

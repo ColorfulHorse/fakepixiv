@@ -4,13 +4,11 @@ import android.arch.lifecycle.LifecycleOwner
 import android.databinding.Bindable
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
-import android.databinding.ObservableList
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.constant.Constant
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.data.model.response.Tag
-import com.lyj.fakepivix.app.data.model.response.UserPreview
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.data.source.remote.SearchRepository
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
@@ -29,7 +27,7 @@ import java.util.regex.Pattern
  *
  * @date 2019/3/13
  *
- * @desc 登录
+ * @desc 搜索
  */
 class SearchMainViewModel constructor(@IllustCategory c: String = IllustCategory.ILLUST) : BaseViewModel<ISearchMainModel>() {
 
@@ -103,15 +101,15 @@ class SearchMainViewModel constructor(@IllustCategory c: String = IllustCategory
 
     init {
         this.category = c
-        newVm = IllustListViewModel(category) {
+        newVm = IllustListViewModel {
             IllustRepository.instance
                     .searchIllust(category, keyword, false, start, end, strategy)
         }
-        polularVm = IllustListViewModel(category) {
+        polularVm = IllustListViewModel {
             IllustRepository.instance
                     .searchPopularIllust(category, keyword, start, end, strategy)
         }
-        descVm = IllustListViewModel(category) {
+        descVm = IllustListViewModel {
             IllustRepository.instance
                     .searchIllust(category, keyword, true, start, end, strategy)
         }
@@ -121,6 +119,7 @@ class SearchMainViewModel constructor(@IllustCategory c: String = IllustCategory
             UserRepository.instance
                     .searchUser(keyword)
         }
+        this + userViewModel
 
         // 自动补全
         val disposable = Observable.create<String> {

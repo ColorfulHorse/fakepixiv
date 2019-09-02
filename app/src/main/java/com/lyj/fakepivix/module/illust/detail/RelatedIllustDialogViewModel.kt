@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.module.illust
+package com.lyj.fakepivix.module.illust.detail
 
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
@@ -25,9 +25,6 @@ class RelatedIllustDialogViewModel(val parent: DetailViewModel) : BaseViewModel<
 
     var loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
-    init {
-
-    }
 
     fun load() {
         val disposable = IllustRepository.instance

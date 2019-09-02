@@ -13,6 +13,7 @@ import com.lyj.fakepivix.app.constant.IllustCategory.NOVEL
 
 
 import com.lyj.fakepivix.app.data.model.response.Illust
+import com.lyj.fakepivix.app.utils.Router
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.HeaderRankBinding
 import com.lyj.fakepivix.module.common.adapter.IllustAdapter
@@ -58,6 +59,9 @@ class RankHeader(val context: Context?, viewModel: RankViewModel, @IllustCategor
                         .build())
                 PagerSnapHelper().attachToRecyclerView(recyclerView)
                 recyclerView.adapter = adapter
+                readMore.setOnClickListener {
+                    Router.goRank(ILLUST)
+                }
             }
         }
     }

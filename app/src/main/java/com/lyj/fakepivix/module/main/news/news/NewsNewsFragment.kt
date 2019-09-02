@@ -40,13 +40,13 @@ class NewsNewsFragment : FragmentationFragment<FragmentNewsNewsBinding, BaseView
         val illustFragment = IllustListFragment.newInstance(ILLUST)
         val comicFragment = IllustListFragment.newInstance(COMIC)
         val novelFragment = IllustListFragment.newInstance(NOVEL)
-        illustViewModel = IllustListViewModel(ILLUST) {
+        illustViewModel = IllustListViewModel {
             IllustRepository.instance.loadNewIllust(ILLUST)
         }
-        comicViewModel = IllustListViewModel(COMIC) {
+        comicViewModel = IllustListViewModel {
             IllustRepository.instance.loadNewIllust(COMIC)
         }
-        novelViewModel = IllustListViewModel(NOVEL) {
+        novelViewModel = IllustListViewModel {
             IllustRepository.instance.loadNewIllust(NOVEL)
         }
         illustFragment.mViewModel = illustViewModel

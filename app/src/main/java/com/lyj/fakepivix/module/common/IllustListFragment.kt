@@ -34,15 +34,10 @@ import kotlinx.android.synthetic.main.layout_error.view.*
 class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListViewModel?>() {
 
     override var mViewModel: IllustListViewModel? = null
-    set(value) {
-        value?.category = category
-        field = value
-    }
 
     var category = ILLUST
         set(value) {
             field = value
-            mViewModel?.category = field
             mViewModel?.clear()
             if (onCreated) {
                 transformAdapter()
@@ -61,22 +56,16 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
 
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var mAdapter: IllustAdapter
-//    private val loadingView: View by lazy { layoutInflater.inflate(R.layout.layout_common_loading, null) }
-//    private val errorView: View by lazy { layoutInflater.inflate(R.layout.layout_error, null) }
 
     private lateinit var loadingView: View
     private lateinit var errorView: View
 
 
     override fun init(savedInstanceState: Bundle?) {
-        mViewModel?.category = category
 //        arguments?.let {
 //            category = it.getString(EXTRA_CATEGORY, ILLUST)
 //            mViewModel?.category = category
 //        }
-        mViewModel?.let {
-            lifecycle.addObserver(it)
-        }
         initList()
         listenState()
     }

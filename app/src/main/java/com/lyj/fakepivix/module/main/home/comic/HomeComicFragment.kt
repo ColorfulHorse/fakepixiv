@@ -57,10 +57,8 @@ class HomeComicFragment : FragmentationFragment<CommonRefreshList, HomeComicView
      */
     private fun initList() {
         layoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
-        val pixivisionViewModel = mViewModel.pixivisionViewModel
-        lifecycle.addObserver(pixivisionViewModel)
         // 特辑列表
-        pixivisionHeader = PixivisionHeader(context, pixivisionViewModel, COMIC)
+        pixivisionHeader = PixivisionHeader(context, mViewModel.pixivisionViewModel, COMIC)
         mAdapter = HomeComicAdapter(mViewModel.data, pixivisionHeader)
 
         with(mBinding) {

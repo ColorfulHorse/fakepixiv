@@ -25,13 +25,6 @@ import com.lyj.fakepivix.widget.CommonItemDecoration
 class UserListFragment : FragmentationFragment<CommonRefreshList, UserListViewModel?>() {
 
     override var mViewModel: UserListViewModel? = null
-    set(value) {
-        field = value
-        field?.let {
-            lifecycle.addObserver(it)
-        }
-    }
-
 
     companion object {
         fun newInstance() = UserListFragment()
@@ -41,11 +34,7 @@ class UserListFragment : FragmentationFragment<CommonRefreshList, UserListViewMo
     private lateinit var mAdapter: UserPreviewAdapter
 
     override fun init(savedInstanceState: Bundle?) {
-        mViewModel?.let {
-            lifecycle.addObserver(it)
-        }
         initList()
-
     }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
@@ -71,9 +60,9 @@ class UserListFragment : FragmentationFragment<CommonRefreshList, UserListViewMo
                         .build())
                 // 加载更多
                 recyclerView.attachLoadMore { vm.loadMore() }
-                refreshLayout.setOnRefreshListener {
-                    vm.load()
-                }
+//                refreshLayout.setOnRefreshListener {
+//                    vm.load()
+//                }
 
                 mAdapter.bindState(vm.loadState, reload = vm::load , refreshLayout = refreshLayout)
             }

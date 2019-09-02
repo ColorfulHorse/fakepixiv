@@ -9,6 +9,15 @@ package com.lyj.fakepivix.app.constant
  */
 interface Constant {
     object Net {
+        val MODE_TYPES = listOf(
+                "day",
+                "male",
+                "female",
+                "week_original",
+                "week_rookie",
+                "week",
+                "month",
+                "day")
 
         const val BASE_URL = "https://app-api.pixiv.net"
         const val AUTH_URL = "https://oauth.secure.pixiv.net"

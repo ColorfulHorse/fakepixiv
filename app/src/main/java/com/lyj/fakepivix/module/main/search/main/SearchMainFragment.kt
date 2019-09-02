@@ -241,10 +241,6 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
         newFragment.mViewModel = mViewModel.newVm
         popularFragment.mViewModel = mViewModel.polularVm
         descFragment.mViewModel = mViewModel.descVm
-        lifecycle.addObserver(mViewModel.newVm)
-        lifecycle.addObserver(mViewModel.polularVm)
-        lifecycle.addObserver(mViewModel.descVm)
-        lifecycle.addObserver(mViewModel.userViewModel)
         fragments.apply {
             add(newFragment)
             add(popularFragment)

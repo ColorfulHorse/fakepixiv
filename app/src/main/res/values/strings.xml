@@ -104,4 +104,16 @@
     <string name="mark_page">已在第%1$d页添加书签</string>
     <string name="unmark">已删除书签</string>
     <string name="not_found">抱歉，没有找到相关结果</string>
+    <string name="ranking">排行榜</string>
+
+    <string-array name="rank_modes">
+        <item>每日</item>
+        <item>男性向</item>
+        <item>女性向</item>
+        <item>原创</item>
+        <item>新人</item>
+        <item>每周</item>
+        <item>每月</item>
+        <item>过去</item>
+    </string-array>
 </resources>

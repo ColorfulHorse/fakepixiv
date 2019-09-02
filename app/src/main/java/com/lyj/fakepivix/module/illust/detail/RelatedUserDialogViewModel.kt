@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.module.illust
+package com.lyj.fakepivix.module.illust.detail
 
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
@@ -10,7 +10,6 @@ import com.lyj.fakepivix.app.data.model.response.UserPreview
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.Router
-import com.lyj.fakepivix.module.common.DetailViewModel
 import io.reactivex.rxkotlin.subscribeBy
 
 /**

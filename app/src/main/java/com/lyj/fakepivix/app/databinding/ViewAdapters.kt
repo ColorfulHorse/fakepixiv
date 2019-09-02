@@ -20,6 +20,11 @@ import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.widget.LikeButton
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.Bitmap
+import com.bumptech.glide.load.Transformation
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy
+import com.bumptech.glide.load.resource.bitmap.TransformationUtils
+import com.lyj.fakepivix.app.glide.PositionedCrop
 import com.lyj.fakepivix.app.utils.PaddingAnimationFactory
 import com.lyj.fakepivix.app.utils.screenHeight
 import com.lyj.fakepivix.app.utils.screenWidth
@@ -36,8 +41,8 @@ import jp.wasabeef.glide.transformations.BlurTransformation
 
 val factory: DrawableCrossFadeFactory = DrawableCrossFadeFactory.Builder(400).setCrossFadeEnabled(true).build()
 
-@BindingAdapter(value = ["url", "placeHolder", "placeHolderRatio", "fallback", "error", "circle", "fade", "blur"], requireAll = false)
-fun ImageView.url(url: String?, placeHolder: Drawable?, placeHolderRatio: String?, error: Drawable?, fallback: Drawable?, circle: Boolean = false, fade: Boolean = false, blur: Boolean) {
+@BindingAdapter(value = ["url", "placeHolder", "placeHolderRatio", "topCrop", "fallback", "error", "circle", "fade", "blur"], requireAll = false)
+fun ImageView.url(url: String?, placeHolder: Drawable?, placeHolderRatio: String?, topCrop: Boolean = false, error: Drawable?, fallback: Drawable?, circle: Boolean = false, fade: Boolean = false, blur: Boolean) {
     var req = GlideApp.with(this)
             .load(url)
     if (fade) {
@@ -50,6 +55,9 @@ fun ImageView.url(url: String?, placeHolder: Drawable?, placeHolderRatio: String
     val options = RequestOptions()
     if (circle) {
         options.circleCrop()
+    }
+    if (topCrop) {
+        options.transform(PositionedCrop(0f, 0f))
     }
     placeHolder?.let {
         var drawable = placeHolder

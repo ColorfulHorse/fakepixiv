@@ -62,10 +62,10 @@ class NewsFriendFragment : FragmentationFragment<FragmentNewsNewsBinding, BaseVi
         val followIllustFragment = IllustListFragment.newInstance(OTHER)
         val followNovelFragment = IllustListFragment.newInstance(NOVEL)
 
-        illustViewModel = IllustListViewModel(OTHER) {
+        illustViewModel = IllustListViewModel {
             IllustRepository.instance.loadFriendIllust(OTHER)
         }
-        novelViewModel = IllustListViewModel(NOVEL) {
+        novelViewModel = IllustListViewModel {
             IllustRepository.instance.loadFriendIllust(NOVEL)
         }
         followIllustFragment.mViewModel = illustViewModel

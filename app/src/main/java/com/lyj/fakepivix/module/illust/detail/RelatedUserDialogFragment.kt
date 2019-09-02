@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.module.illust
+package com.lyj.fakepivix.module.illust.detail
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -16,6 +16,7 @@ import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.UserPreview
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.DialogRelatedBinding
+import com.lyj.fakepivix.databinding.FragmentUserDetailBinding
 import com.lyj.fakepivix.databinding.ItemUserRelatedBinding
 import com.lyj.fakepivix.module.common.adapter.IllustAdapter
 import com.lyj.fakepivix.widget.CommonItemDecoration
@@ -31,12 +32,6 @@ class RelatedUserDialogFragment : BottomDialogFragment() {
 
     var mBinding: DialogRelatedBinding? = null
     var mViewModel: RelatedUserDialogViewModel? = null
-        set(value) {
-            field = value
-            mViewModel?.let {
-                lifecycle.addObserver(it)
-            }
-        }
     var mAdapter = object : BaseBindingAdapter<UserPreview, ItemUserRelatedBinding>(R.layout.item_user_related, mutableListOf(), BR.data) {
         override fun convert(helper: BaseBindingViewHolder<ItemUserRelatedBinding>, item: UserPreview) {
             super.convert(helper, item)

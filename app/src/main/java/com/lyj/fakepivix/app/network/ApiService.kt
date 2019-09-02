@@ -68,10 +68,12 @@ interface ApiService {
                            @Query("include_ranking_illusts") ranking: Boolean = true,
                            @Query("include_ranking_novels") ranking2: Boolean = true,
                            @Query("include_privacy_policy") privacy: Boolean = true): Observable<IllustListResp>
-//https://app-api.pixiv.net/v1/illust/ranking?filter=for_android&mode=day
-    // male female week_original  week_rookie week month day  &date=2019-08-31
+
+    /**
+     * 获取排行榜
+     */
     @GET("/v1/illust/ranking")
-    suspend fun getRankLllust(@Query("mode") mode: String, @Query("date") date: String = "")
+    fun getRankIllust(@Query("mode") mode: String, @Query("date") date: String): Observable<IllustListResp>
 
 
     /**

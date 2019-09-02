@@ -2,10 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <import type="com.lyj.fakepivix.module.illust.RelatedIllustDialogViewModel"/>
-        <variable
-            name="vm"
-            type="RelatedIllustDialogViewModel"/>
+
     </data>
 
     <LinearLayout

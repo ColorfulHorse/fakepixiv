@@ -54,7 +54,6 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
     private fun initList() {
         layoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
         val pixivisionViewModel = mViewModel.pixivisionViewModel
-        lifecycle.addObserver(pixivisionViewModel)
         // 特辑列表
         pixivisionHeader = PixivisionHeader(context, pixivisionViewModel)
         mAdapter = HomeIllustAdapter(mViewModel.data, pixivisionHeader)
@@ -127,7 +126,6 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
      */
     private fun initHeader() {
         val title = layoutInflater.inflate(R.layout.header_recommend, null)
-        lifecycle.addObserver(mViewModel.liveViewModel)
         rankHeader = RankHeader(context, mViewModel.rankViewModel)
         liveHeader = LiveHeader(context, mViewModel.liveViewModel)
         mAdapter.addHeaderView(rankHeader.mBinding?.root)

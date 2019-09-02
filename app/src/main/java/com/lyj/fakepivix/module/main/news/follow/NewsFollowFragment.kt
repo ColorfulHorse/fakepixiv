@@ -86,10 +86,10 @@ class NewsFollowFragment : FragmentationFragment<FragmentNewsFollowBinding, News
         val illustRestrict = SPUtil.get(Constant.SP.KEY_RESTRICT_ILLUST, Restrict.PUBLIC)
         val novelRestrict = SPUtil.get(Constant.SP.KEY_RESTRICT_NOVEL, Restrict.PUBLIC)
 
-        illustViewModel = IllustListViewModel(OTHER) {
+        illustViewModel = IllustListViewModel {
             IllustRepository.instance.loadFollowedIllust(ILLUST, illustRestrict)
         }
-        novelViewModel = IllustListViewModel(NOVEL) {
+        novelViewModel = IllustListViewModel {
             IllustRepository.instance.loadFollowedIllust(NOVEL, novelRestrict)
         }
         followIllustFragment.mViewModel = illustViewModel

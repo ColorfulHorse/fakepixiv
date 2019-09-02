@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.module.illust
+package com.lyj.fakepivix.module.illust.detail
 
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager

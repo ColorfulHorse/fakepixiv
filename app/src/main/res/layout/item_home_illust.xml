@@ -12,20 +12,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-        <!--
-        app:url="@{illust.image_urls.large}"
-            app:fade="@{true}"
-            app:placeHolder="@{@drawable/common_border_placeholder}"
-        -->
         <com.lyj.fakepivix.widget.RecImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
             app:url="@{illust.image_urls.large}"
             app:fade="@{true}"
+            app:topCrop="@{true}"
             app:placeHolder="@{@drawable/common_border_placeholder}"
             />
+        <!--android:scaleType="centerCrop"-->
         <TextView
             android:id="@+id/count"
             android:layout_width="wrap_content"

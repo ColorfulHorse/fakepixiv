@@ -2,10 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.lyj.fakepivix.module.illust.IllustDetailViewModel"/>
+        <import type="com.lyj.fakepivix.module.illust.detail.IllustDetailViewModel"/>
         <variable
             name="vm"
-            type="com.lyj.fakepivix.module.illust.IllustDetailViewModel"/>
+            type="com.lyj.fakepivix.module.illust.detail.IllustDetailViewModel"/>
     </data>
 
     <RelativeLayout

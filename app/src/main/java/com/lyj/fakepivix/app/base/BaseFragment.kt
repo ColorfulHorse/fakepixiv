@@ -18,6 +18,7 @@ import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.App
 import me.yokeyword.fragmentation.ISupportFragment
+import me.yokeyword.fragmentation.SupportHelper.hideSoftInput
 import kotlin.properties.Delegates
 
 
@@ -48,13 +49,9 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, bindLayout(), container, false)
         mBinding.setLifecycleOwner(this)
-        if (mViewModel != null) {
-            lifecycle.addObserver(mViewModel as LifecycleObserver)
-            mBinding.setVariable(bindViewModel(), mViewModel)
-        }
         mViewModel?.let {
-            lifecycle.addObserver(mViewModel as LifecycleObserver)
-            mBinding.setVariable(bindViewModel(), mViewModel)
+            lifecycle.addObserver(it as LifecycleObserver)
+            mBinding.setVariable(bindViewModel(), it)
         }
         mToolbar = mBinding.root.findViewById(bindToolbar())
         mToolbar?.overflowIcon = ContextCompat.getDrawable(App.context, R.drawable.ic_more)

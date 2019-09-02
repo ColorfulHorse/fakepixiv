@@ -10,7 +10,10 @@ import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
-import com.lyj.fakepivix.module.illust.*
+import com.lyj.fakepivix.module.illust.detail.CommentFooterViewModel
+import com.lyj.fakepivix.module.illust.detail.RelatedIllustDialogViewModel
+import com.lyj.fakepivix.module.illust.detail.RelatedUserDialogViewModel
+import com.lyj.fakepivix.module.illust.detail.UserFooterViewModel
 
 /**
  * @author greensun
@@ -67,7 +70,7 @@ open class DetailViewModel : BaseViewModel<IModel?>() {
     }
 
     init {
-        this + userFooterViewModel + commentFooterViewModel + relatedIllustViewModel + relatedIllustViewModel
+        this + userFooterViewModel + commentFooterViewModel + relatedIllustViewModel + relatedUserViewModel
         starState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
             val state = starState.get()
             if (state is LoadState.Succeed) {

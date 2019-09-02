@@ -20,7 +20,7 @@
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
+            app:topCrop="@{true}"
             app:url="@{data.image_urls.large}"
             app:fade="@{true}"
             app:placeHolder="@{@drawable/common_placeholder}"

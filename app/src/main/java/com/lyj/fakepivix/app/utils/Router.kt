@@ -3,11 +3,14 @@ package com.lyj.fakepivix.app.utils
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import com.lyj.fakepivix.app.base.FragmentationFragment
+import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.User
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
-import com.lyj.fakepivix.module.illust.IllustDetailRootFragment
+import com.lyj.fakepivix.module.illust.detail.IllustDetailRootFragment
+import com.lyj.fakepivix.module.illust.ranking.RankIllustFragment
+import com.lyj.fakepivix.module.illust.ranking.RankIllustRootFragment
 import com.lyj.fakepivix.module.novel.NovelDetailFragment
 import com.lyj.fakepivix.module.novel.NovelDialogFragment
 import com.lyj.fakepivix.module.user.detail.UserDetailFragment
@@ -36,6 +39,11 @@ object Router {
                 top.start(fragment)
             }
         }
+    }
+
+    fun goRank(@IllustCategory category: String) {
+        val fragment = RankIllustRootFragment.newInstance()
+        getTopFragment()?.start(fragment)
     }
 
     fun goNovelDetail(key: Int, position: Int) {
