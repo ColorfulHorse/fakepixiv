@@ -75,7 +75,7 @@ private val moshi: Moshi by lazy { Moshi.Builder().add(KotlinJsonAdapterFactory(
                     }
                 }
             }
-            else -> return chain.proceed(req)
+            else -> return response
         }
     }
 
