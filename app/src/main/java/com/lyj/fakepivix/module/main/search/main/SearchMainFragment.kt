@@ -1,6 +1,7 @@
 package com.lyj.fakepivix.module.main.search.main
 
 import android.databinding.ViewDataBinding
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -11,6 +12,7 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ImageSpan
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
@@ -262,12 +264,13 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
     }
 
     override fun initImmersionBar() {
-        super.initImmersionBar()
         ImmersionBar
                 .with(this)
-                .titleBar(mBinding.toolbar)
+                .titleBarMarginTop(mBinding.contentView)
                 .statusBarDarkFont(true)
-                .statusBarColor(R.color.white)
+                .statusBarColor(R.color.white, R.color.transparent_white, 0.7f)
+                .keyboardEnable(true, WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+                .setOnKeyboardListener(keyboardListener)
                 .init()
     }
 

@@ -35,12 +35,12 @@
             android:layout_alignEnd="@id/image"
             android:layout_alignTop="@id/image"
             android:text="@{String.valueOf(illust.page_count)}"
-            android:visibility="@{illust.page_count > 1}"
+            android:visibility="gone"                     app:visible="@{illust.page_count > 1}"
             />
         <!--<RelativeLayout-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
-            <!--android:visibility="@{illust.series != null}"-->
+            <!--android:visibility="gone"                     app:visible="@{illust.series != null}"-->
             <!--&gt;-->
 
             <!--<ImageView-->

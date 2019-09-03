@@ -47,7 +47,8 @@
                     android:layout_alignTop="@id/image"
                     android:layout_alignEnd="@id/image"
                     android:text="@{String.valueOf(data.page_count)}"
-                    android:visibility="@{data.page_count>1}" />
+                    android:visibility="gone"
+                    app:visible="@{data.page_count>1}" />
 
                 <com.lyj.fakepivix.widget.LikeButton
                     android:id="@+id/like"
@@ -59,31 +60,11 @@
             </RelativeLayout>
         </android.support.constraint.ConstraintLayout>
 
-        <RelativeLayout
+        <com.lyj.fakepivix.widget.SeriesView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{data.series != null}"
-            >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/yellow_mark_left_top" />
-            <TextView
-                android:id="@+id/tag_series"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="-6dp"
-                android:layout_marginEnd="-6dp"
-                android:layout_marginTop="-6dp"
-                android:rotation="315.0"
-                android:text="@string/series"
-                android:textColor="@android:color/white"
-                android:textSize="10.0sp"
-                android:textStyle="bold"
-                />
-        </RelativeLayout>
+            android:visibility="gone"
+            app:visible="@{data.series != null}"/>
 
         <LinearLayout
             android:id="@+id/desc"

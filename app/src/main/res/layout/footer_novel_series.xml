@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="36dp"
         android:orientation="vertical"
-        android:visibility="@{(data.series_prev.id != -1) || (data.series_next.id != -1)}"
+        android:visibility="gone"                     app:visible="@{(data.series_prev.id != -1) || (data.series_next.id != -1)}"
         >
 
         <View

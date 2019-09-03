@@ -106,7 +106,7 @@
                 android:textColor="@color/novel_series"
                 android:textSize="12.0sp"
                 android:textStyle="bold"
-                android:visibility="@{data.series != null}"
+                android:visibility="gone"                     app:visible="@{data.series != null}"
                 android:text="@{data.series.title}"
                 />
 

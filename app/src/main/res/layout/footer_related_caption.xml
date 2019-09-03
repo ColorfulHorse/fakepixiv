@@ -36,7 +36,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="@{vm.parent.loadState instanceof LoadState.Loading}"
+                android:visibility="gone"                     app:visible="@{vm.parent.loadState instanceof LoadState.Loading}"
                 android:layout_centerInParent="true"
                 android:minHeight="150dp"
                 >
@@ -63,7 +63,7 @@
 
             <include layout="@layout/layout_error_small"
                 android:id="@+id/errorView"
-                android:visibility="@{vm.parent.loadState instanceof LoadState.Failed}"
+                android:visibility="gone"                     app:visible="@{vm.parent.loadState instanceof LoadState.Failed}"
                 />
         </RelativeLayout>
     </LinearLayout>

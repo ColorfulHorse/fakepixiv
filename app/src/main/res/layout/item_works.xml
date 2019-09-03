@@ -20,7 +20,7 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingBottom="16dp"
-        android:visibility="@{show}"
+        android:visibility="gone"                     app:visible="@{show}"
         >
 
         <RelativeLayout

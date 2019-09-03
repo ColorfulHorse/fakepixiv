@@ -43,6 +43,11 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
 
     var initializer: (() -> Unit)? = null
 
+    protected var keyboardListener: ((Boolean, Int) -> Unit)? = { isOpen, height ->
+        keyboardOpen = isOpen
+        onKeyboardChanged(isOpen, height)
+    }
+
     protected var onCreated = false
     protected var lazyCreated = false
 
@@ -85,10 +90,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
             immersionBar = immersionBar.titleBar(mToolbar)
         }
         immersionBar.keyboardEnable(true, WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-                    .setOnKeyboardListener{isOpen, height ->
-                        keyboardOpen = isOpen
-                        onKeyboardChanged(isOpen, height)
-                    }
+                    .setOnKeyboardListener(keyboardListener)
                     .init()
     }
 

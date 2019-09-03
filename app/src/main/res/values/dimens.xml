@@ -12,4 +12,5 @@
     <dimen name="corners_default">4dp</dimen>
     <dimen name="corners_small">4dp</dimen>
     <dimen name="indicator_width">58dp</dimen>
+    <dimen name="avatar_small">32dp</dimen>
 </resources>

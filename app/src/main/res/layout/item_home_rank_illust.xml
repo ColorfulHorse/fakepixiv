@@ -1,120 +1,103 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 主页排行榜item -->
+<?xml version="1.0" encoding="utf-8"?><!-- 主页排行榜item -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
-        <import type="com.lyj.fakepivix.app.data.model.response.Illust"/>
+
+        <import type="com.lyj.fakepivix.app.data.model.response.Illust" />
+
         <variable
             name="data"
-            type="Illust"/>
+            type="Illust" />
     </data>
+
     <android.support.v7.widget.CardView
         android:layout_width="@dimen/rank_item_size"
         android:layout_height="@dimen/rank_item_size"
-        app:cardElevation="0dp"
-        app:cardPreventCornerOverlap="true"
-        app:cardCornerRadius="4dp"
         app:cardBackgroundColor="@color/white"
-        >
+        app:cardCornerRadius="4dp"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true">
+
         <ImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:topCrop="@{true}"
-            app:url="@{data.image_urls.large}"
             app:fade="@{true}"
             app:placeHolder="@{@drawable/common_placeholder}"
-            />
+            app:topCrop="@{true}"
+            app:url="@{data.image_urls.large}" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp"
             android:background="@drawable/gradient_illust"
-            >
+            android:padding="10dp">
+
             <LinearLayout
                 android:id="@+id/container_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_alignParentBottom="true"
-                >
+                android:orientation="horizontal">
+
                 <ImageView
                     android:id="@+id/avatar"
                     android:layout_width="@dimen/small_avatar"
                     android:layout_height="@dimen/small_avatar"
-                    android:scaleType="centerCrop"
                     android:layout_gravity="center_vertical"
-                    app:url="@{data.user.profile_image_urls.medium}"
+                    android:scaleType="centerCrop"
                     app:circle="@{true}"
                     app:placeHolder="@{@drawable/no_profile}"
-                    />
+                    app:url="@{data.user.profile_image_urls.medium}" />
+
                 <TextView
                     android:id="@+id/userName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="11sp"
                     android:layout_gravity="center_vertical"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
+                    android:layout_marginStart="5dp"
                     android:shadowColor="@color/black"
                     android:shadowRadius="6.0"
-                    android:layout_marginStart="5dp"
                     android:text="@{data.user.name}"
-                    />
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
             </LinearLayout>
+
             <TextView
                 android:id="@+id/title"
+                style="@style/illust_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/illust_title"
                 android:layout_above="@+id/container_user"
                 android:layout_marginBottom="8dp"
-                android:text="@{data.title}"
-                />
+                android:text="@{data.title}" />
         </RelativeLayout>
+
         <TextView
             android:id="@+id/count"
+            style="@style/count_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/count_tag"
             android:layout_gravity="end"
             android:text="@{String.valueOf(data.page_count)}"
-            android:visibility="@{data.page_count>1}"
-            />
+            android:visibility="gone"
+            app:visible="@{data.page_count>1}" />
 
         <com.lyj.fakepivix.widget.LikeButton
             android:id="@+id/like"
             android:layout_width="@dimen/like_button_size"
             android:layout_height="@dimen/like_button_size"
-            app:liked="@{data._bookmarked}"
             android:layout_gravity="end|bottom"
-            />
+            app:liked="@{data._bookmarked}" />
 
-        <RelativeLayout
+        <com.lyj.fakepivix.widget.SeriesView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{data.series != null}"
-            >
+            android:visibility="gone"
+            app:visible="@{data.series != null}"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/yellow_mark_left_top_round" />
-            <TextView
-                android:id="@+id/tag_series"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp"
-                android:layout_marginTop="6dp"
-                android:rotation="315.0"
-                android:text="@string/series"
-                android:textColor="@android:color/white"
-                android:textSize="10.0sp"
-                android:textStyle="bold"
-                />
-        </RelativeLayout>
 
     </android.support.v7.widget.CardView>
 </layout>

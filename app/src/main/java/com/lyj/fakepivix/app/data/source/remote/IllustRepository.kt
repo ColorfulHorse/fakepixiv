@@ -55,8 +55,8 @@ class IllustRepository private constructor() {
                 .schedulerTransform()
     }
 
-    fun getRankIllust(mod: String, date: String = ""): Observable<IllustListResp> =
-            RetrofitManager.instance.apiService.getRankIllust(mod, date)
+    fun getRankIllust(mode: String, date: String = "", @IllustCategory category: String = ILLUST): Observable<IllustListResp> =
+            RetrofitManager.instance.apiService.getRankIllust(category, mode, date)
                     .schedulerTransform()
 
     /**

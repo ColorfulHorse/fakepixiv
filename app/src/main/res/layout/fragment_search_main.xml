@@ -7,207 +7,220 @@
             name="vm"
             type="SearchMainViewModel"/>
     </data>
-    <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/contentView"
+    <FrameLayout
+        android:id="@+id/rootView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appBar"
+        <View
+            android:id="@+id/dummyView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_scrollFlags="scroll|enterAlways"
-                android:background="@color/white">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <RelativeLayout
-                        android:id="@+id/search_container"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_margin="8dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_edit_text"
-                        >
-
-                        <EditText
-                            android:id="@+id/input"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_vertical"
-                            android:background="@null"
-                            android:gravity="center_vertical"
-                            android:hint="@string/search_prompt"
-                            android:imeOptions="actionSearch"
-                            android:inputType="text"
-                            android:maxLines="1"
-                            android:paddingStart="8dp"
-                            android:paddingEnd="8dp"
-                            android:textColor="@color/renewal_font_gray"
-                            android:textColorHint="@color/renewal_font_gray"
-                            android:textSize="16sp"
-                            android:text="@={vm.inputText}"
-                            android:visibility="@{!vm.showSearch}"
-                            />
-                        <!--android:visibility="@{!vm.showSearch}"-->
-                        <!--<View-->
-                            <!--android:id="@+id/dummy"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="match_parent"-->
-                            <!--android:visibility="@{vm.showSearch}"-->
-                            <!--android:clickable="true"-->
-                            <!--android:focusable="true"-->
-                            <!--/>-->
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/rv_words"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:clipToPadding="false"
-                            android:paddingStart="8dp"
-                            android:paddingEnd="8dp"
-                            android:paddingTop="4dp"
-                            android:paddingBottom="4dp"
-                            android:clickable="false"
-                            android:visibility="@{vm.showSearch}"
-                            android:background="#fff5f5f5"
-                            />
-                        <!--android:visibility="@{vm.showSearch}"-->
-                    </RelativeLayout>
-
-                    <ImageView
-                        android:id="@+id/filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="16dp"
-                        android:src="@drawable/ic_search_filter"
-                        android:visibility="@{vm.showSearch &amp;&amp; !vm.showUser}" />
-                </LinearLayout>
-            </android.support.v7.widget.Toolbar>
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <com.flyco.tablayout.CommonTabLayout
-                    android:id="@+id/segmentLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/tab_height"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@color/white"
-                    app:tl_iconVisible="false"
-                    app:tl_indicator_anim_enable="false"
-                    app:tl_indicator_color="@color/colorPrimary"
-                    app:tl_indicator_corner_radius="30dp"
-                    app:tl_indicator_margin_bottom="10dp"
-                    app:tl_indicator_margin_top="10dp"
-                    app:tl_indicator_style="BLOCK"
-                    app:tl_tab_space_equal="false"
-                    app:tl_textBold="SELECT"
-                    app:tl_textSelectColor="@color/white"
-                    app:tl_textUnselectColor="@color/tab_textColor_n"
-                    app:tl_textsize="@dimen/tab_textSize"
-                    android:visibility="@{!vm.showSearch}"
-                    />
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/tabLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/tab_height"
-                    android:minHeight="48dp"
-                    app:tabMode="fixed"
-                    app:tabIndicatorColor="@color/colorPrimary"
-                    app:tabIndicatorHeight="3dp"
-                    app:tabIndicatorFullWidth="true"
-                    app:tabTextColor="@color/tab_textColor_n"
-                    app:tabSelectedTextColor="@color/normal_text_dark"
-                    app:tabTextAppearance="@style/tab_textAppearance"
-                    android:visibility="@{vm.showSearch &amp;&amp; !vm.showUser}"
-                    />
-            </FrameLayout>
-        </android.support.design.widget.AppBarLayout>
-
-        <FrameLayout
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            />
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/contentView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            >
 
-            <LinearLayout
-                android:id="@+id/container_history"
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/appBar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="@{!(vm.showSearch || vm.showComplete)}"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
                 >
 
-                <RelativeLayout
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    android:background="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:id="@+id/search_container"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_margin="8dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_edit_text"
+                            >
+
+                            <EditText
+                                android:id="@+id/input"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:background="@null"
+                                android:gravity="center_vertical"
+                                android:hint="@string/search_prompt"
+                                android:imeOptions="actionSearch"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:paddingStart="8dp"
+                                android:paddingEnd="8dp"
+                                android:textColor="@color/renewal_font_gray"
+                                android:textColorHint="@color/renewal_font_gray"
+                                android:textSize="16sp"
+                                android:text="@={vm.inputText}"
+                                android:visibility="gone"                     app:visible="@{!vm.showSearch}"
+                                />
+                            <!--android:visibility="gone"                     app:visible="@{!vm.showSearch}"-->
+                            <!--<View-->
+                                <!--android:id="@+id/dummy"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:visibility="gone"                     app:visible="@{vm.showSearch}"-->
+                                <!--android:clickable="true"-->
+                                <!--android:focusable="true"-->
+                                <!--/>-->
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/rv_words"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:clipToPadding="false"
+                                android:paddingStart="8dp"
+                                android:paddingEnd="8dp"
+                                android:paddingTop="4dp"
+                                android:paddingBottom="4dp"
+                                android:clickable="false"
+                                android:visibility="gone"                     app:visible="@{vm.showSearch}"
+                                android:background="#fff5f5f5"
+                                />
+                            <!--android:visibility="gone"                     app:visible="@{vm.showSearch}"-->
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:id="@+id/filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="16dp"
+                            android:src="@drawable/ic_search_filter"
+                            android:visibility="gone"                     app:visible="@{vm.showSearch &amp;&amp; !vm.showUser}" />
+                    </LinearLayout>
+                </android.support.v7.widget.Toolbar>
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
-                    <TextView
+                    <com.flyco.tablayout.CommonTabLayout
+                        android:id="@+id/segmentLayout"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="12dp"
-                        android:text="@string/search_history" />
-
-                    <TextView
-                        android:id="@+id/clear_history"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:padding="12dp"
-                        android:text="@string/search_history_clear"
-                        android:onClick="@{() -> vm.clearHistory()}"
+                        android:layout_height="@dimen/tab_height"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@color/white"
+                        app:tl_iconVisible="false"
+                        app:tl_indicator_anim_enable="false"
+                        app:tl_indicator_color="@color/colorPrimary"
+                        app:tl_indicator_corner_radius="30dp"
+                        app:tl_indicator_margin_bottom="10dp"
+                        app:tl_indicator_margin_top="10dp"
+                        app:tl_indicator_style="BLOCK"
+                        app:tl_tab_space_equal="false"
+                        app:tl_textBold="SELECT"
+                        app:tl_textSelectColor="@color/white"
+                        app:tl_textUnselectColor="@color/tab_textColor_n"
+                        app:tl_textsize="@dimen/tab_textSize"
+                        android:visibility="gone"                     app:visible="@{!vm.showSearch}"
                         />
-                </RelativeLayout>
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_history"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-            </LinearLayout>
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/tabLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/tab_height"
+                        android:minHeight="48dp"
+                        app:tabMode="fixed"
+                        app:tabIndicatorColor="@color/colorPrimary"
+                        app:tabIndicatorHeight="3dp"
+                        app:tabIndicatorFullWidth="true"
+                        app:tabTextColor="@color/tab_textColor_n"
+                        app:tabSelectedTextColor="@color/normal_text_dark"
+                        app:tabTextAppearance="@style/tab_textAppearance"
+                        android:visibility="gone"                     app:visible="@{vm.showSearch &amp;&amp; !vm.showUser}"
+                        />
+                </FrameLayout>
+            </android.support.design.widget.AppBarLayout>
 
-            <LinearLayout
-                android:id="@+id/container_complete"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="@{vm.showComplete &amp;&amp; !vm.showSearch}"
-                >
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="12dp"
-                        android:text="@string/search_tag_hint" />
-                </RelativeLayout>
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_complete"
+                <LinearLayout
+                    android:id="@+id/container_history"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-            </LinearLayout>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_user"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="@{vm.showSearch &amp;&amp; vm.showUser}"
-                />
-            <android.support.v4.view.ViewPager
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="@{vm.showSearch &amp;&amp; !vm.showUser}"
-                />
-        </FrameLayout>
-    </android.support.design.widget.CoordinatorLayout>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone"                     app:visible="@{!(vm.showSearch || vm.showComplete)}"
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="12dp"
+                            android:text="@string/search_history" />
+
+                        <TextView
+                            android:id="@+id/clear_history"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:padding="12dp"
+                            android:text="@string/search_history_clear"
+                            android:onClick="@{() -> vm.clearHistory()}"
+                            />
+                    </RelativeLayout>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_history"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/container_complete"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone"                     app:visible="@{vm.showComplete &amp;&amp; !vm.showSearch}"
+                    >
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="12dp"
+                            android:text="@string/search_tag_hint" />
+                    </RelativeLayout>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_complete"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"                     app:visible="@{vm.showSearch &amp;&amp; vm.showUser}"
+                    />
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"                     app:visible="@{vm.showSearch &amp;&amp; !vm.showUser}"
+                    />
+            </FrameLayout>
+        </android.support.design.widget.CoordinatorLayout>
+    </FrameLayout>
 </layout>

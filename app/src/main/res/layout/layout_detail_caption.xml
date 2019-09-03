@@ -12,7 +12,7 @@
             type="Boolean"
             />
     </data>
-    <!--android:visibility="@{(vm.illustWorksState instanceof LoadState.Idle) || (vm.userInfo.profile.total_illusts > 0)}"-->
+    <!--android:visibility="gone"                     app:visible="@{(vm.illustWorksState instanceof LoadState.Idle) || (vm.userInfo.profile.total_illusts > 0)}"-->
     <RelativeLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
         android:background="@color/bg_general_new"
         android:layout_gravity="bottom"
         android:layout_alignParentBottom="true"
-        android:visibility="@{showCaption}"
+        android:visibility="gone"                     app:visible="@{showCaption}"
         >
 
         <ImageButton

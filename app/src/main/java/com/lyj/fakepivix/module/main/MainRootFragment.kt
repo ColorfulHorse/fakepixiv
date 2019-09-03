@@ -62,7 +62,6 @@ class MainRootFragment : FragmentationFragment<MainRoot, BaseViewModel<*>?>() {
     override fun initImmersionBar() {
         ImmersionBar.with(this)
                 .titleBarMarginTop(mBinding.contentView)
-               // .fitsSystemWindows(true)
                 .statusBarColor(R.color.transparent)
                 .statusBarColorTransform(R.color.black)
                 .statusBarAlpha(0.25f)

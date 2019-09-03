@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
 
-            android:visibility="@{vm.toolbarVisibility}"
+            android:visibility="gone"                     app:visible="@{vm.toolbarVisibility}"
             >
             <!--android:background="@drawable/gradient_toolbar"-->
             <android.support.v7.widget.Toolbar
@@ -34,7 +34,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="@{vm.total > 1}"
+                    android:visibility="gone"                     app:visible="@{vm.total > 1}"
                     >
                     <TextView
                         android:id="@+id/pageNum"

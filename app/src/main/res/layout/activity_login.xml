@@ -1,40 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<data>
-    <import type="com.lyj.fakepivix.module.login.WallpaperViewModel"/>
-    <variable
-        name="vm"
-        type="WallpaperViewModel"/>
-</data>
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+
+    <data>
+
+        <import type="com.lyj.fakepivix.module.login.WallpaperViewModel" />
+
+        <variable
+            name="vm"
+            type="WallpaperViewModel" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/list_bg"
-        />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#636363"
-        android:visibility="@{vm.overlayVisibility}"
-        />
-    <!--
-        app:adapter="@{vm.adapter}"
-        app:layoutManager="android.support.v7.widget.GridLayoutManager"
-        android:orientation="vertical"
-        app:spanCount="2"
-    -->
-    <FrameLayout
-        android:id="@+id/fragmentContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent"
-        />
-</RelativeLayout>
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/list_bg" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#636363"
+            android:visibility="gone"
+            app:visible="@{vm.overlayVisibility}" />
+        <!--
+            app:adapter="@{vm.adapter}"
+            app:layoutManager="android.support.v7.widget.GridLayoutManager"
+            android:orientation="vertical"
+            app:spanCount="2"
+        -->
+        <FrameLayout
+            android:id="@+id/fragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent" />
+    </RelativeLayout>
 </layout>

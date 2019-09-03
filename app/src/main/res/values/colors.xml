@@ -225,6 +225,7 @@
     <color name="white">#ffffffff</color>
     <color name="black">#ff000000</color>
     <color name="transparent">#00000000</color>
+    <color name="transparent_white">#00ffffff</color>
     <color name="btn_success">#ff79DB41</color>
     <color name="btn_disable">#ff9B9B9B</color>
     <color name="list_bg">#fff8f8f8</color>

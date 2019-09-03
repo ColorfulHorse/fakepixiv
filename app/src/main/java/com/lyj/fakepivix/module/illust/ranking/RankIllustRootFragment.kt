@@ -59,16 +59,10 @@ class RankIllustRootFragment : BackFragment<FragmentRootRankIllustBinding, BaseV
 
 
     override fun initImmersionBar() {
-//        ImmersionBar.with(this)
-//                .titleBarMarginTop(mBinding.contentView)
-//                .statusBarColor(R.color.transparent)
-//                .statusBarColorTransform(R.color.black)
-//                .statusBarAlpha(0.25f)
-//                .init()
         ImmersionBar.with(this)
-                //.fitsSystemWindows(true)
                 .titleBarMarginTop(mBinding.contentView)
-                .statusBarColor(R.color.primary)
+                .statusBarColor(R.color.transparent, R.color.black, 0.25f)
+                .statusBarAlpha(0.25f)
                 .init()
     }
 

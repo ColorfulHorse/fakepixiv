@@ -65,7 +65,7 @@
                     android:gravity="center_horizontal"
                     android:layout_gravity="center_horizontal"
                     android:text="@{tag.translated_name}"
-                    android:visibility="@{!TextUtils.isEmpty(tag.translated_name)}"
+                    android:visibility="gone"                     app:visible="@{!TextUtils.isEmpty(tag.translated_name)}"
                     />
             </LinearLayout>
         </RelativeLayout>

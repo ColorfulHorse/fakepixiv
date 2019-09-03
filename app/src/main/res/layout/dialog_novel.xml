@@ -280,7 +280,7 @@
                         android:id="@+id/series_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="@{vm.data.series != null}">
+                        android:visibility="gone"                     app:visible="@{vm.data.series != null}">
 
                         <TextView
                             android:id="@+id/series_label"

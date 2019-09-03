@@ -58,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="false"
-            android:visibility="@{!vm.noneData}"
+            android:visibility="gone"                     app:visible="@{!vm.noneData}"
             />
 
         <TextView
@@ -71,20 +71,20 @@
             android:paddingBottom="16dp"
             android:text="@string/no_comment"
             android:textColor="@color/font_color_gray"
-            android:visibility="@{vm.noneData}" />
+            android:visibility="gone"                     app:visible="@{vm.noneData}" />
 
         <View
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:background="@color/bg_item"
-            android:visibility="@{vm.showMore}" />
+            android:visibility="gone"                     app:visible="@{vm.showMore}" />
 
         <LinearLayout
             android:id="@+id/more"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:visibility="@{vm.showMore}">
+            android:visibility="gone"                     app:visible="@{vm.showMore}">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

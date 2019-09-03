@@ -1,69 +1,53 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 主页排行榜item -->
+<?xml version="1.0" encoding="utf-8"?><!-- 主页排行榜item -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
-        <import type="com.lyj.fakepivix.app.data.model.response.Illust"/>
+
+        <import type="com.lyj.fakepivix.app.data.model.response.Illust" />
+
         <variable
             name="illust"
-            type="Illust"/>
+            type="Illust" />
     </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
+
         <com.lyj.fakepivix.widget.RecImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:url="@{illust.image_urls.large}"
             app:fade="@{true}"
-            app:topCrop="@{true}"
             app:placeHolder="@{@drawable/common_border_placeholder}"
-            />
+            app:topCrop="@{true}"
+            app:url="@{illust.image_urls.large}" />
         <!--android:scaleType="centerCrop"-->
         <TextView
             android:id="@+id/count"
+            style="@style/count_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/count_tag"
-            android:layout_alignEnd="@id/image"
             android:layout_alignTop="@id/image"
+            android:layout_alignEnd="@id/image"
             android:text="@{String.valueOf(illust.page_count)}"
-            android:visibility="@{illust.page_count>1}"
-            />
+            android:visibility="gone"
+            app:visible="@{illust.page_count>1}" />
+
         <com.lyj.fakepivix.widget.LikeButton
             android:id="@+id/like"
             android:layout_width="@dimen/like_button_size"
             android:layout_height="@dimen/like_button_size"
-            app:liked="@{illust._bookmarked}"
             android:layout_alignEnd="@id/image"
             android:layout_alignBottom="@id/image"
-            />
-        <RelativeLayout
+            app:liked="@{illust._bookmarked}" />
+
+        <com.lyj.fakepivix.widget.SeriesView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{illust.series != null}"
-            >
+            android:visibility="gone"
+            app:visible="@{illust.series != null}"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/yellow_mark_left_top" />
-            <TextView
-                android:id="@+id/tag_series"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp"
-                android:layout_marginTop="6dp"
-                android:rotation="315.0"
-                android:text="@string/series"
-                android:textColor="@android:color/white"
-                android:textSize="10.0sp"
-                android:textStyle="bold"
-                />
-        </RelativeLayout>
     </RelativeLayout>
 </layout>

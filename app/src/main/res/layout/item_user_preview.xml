@@ -2,67 +2,72 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
-        <import type="com.lyj.fakepivix.module.common.UserItemViewModel"/>
-        <import type="com.lyj.fakepivix.app.network.LoadState"/>
+
+        <import type="com.lyj.fakepivix.module.common.UserItemViewModel" />
+
+        <import type="com.lyj.fakepivix.app.network.LoadState" />
+
         <variable
             name="vm"
-            type="UserItemViewModel"/>
+            type="UserItemViewModel" />
     </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:background="@android:color/white"
         android:clipChildren="false"
-        >
+        android:orientation="vertical">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:orientation="horizontal"
             android:clipChildren="false"
-            >
+            android:orientation="horizontal">
+
             <RelativeLayout
                 android:id="@+id/container"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
                 android:layout_gravity="bottom"
-                android:onClick="@{() -> vm.goDetail()}"
-                >
+                android:layout_marginStart="8dp"
+                android:onClick="@{() -> vm.goDetail()}">
+
                 <ImageView
                     android:id="@+id/avatar"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginTop="-16dp"
-                    android:visibility="@{vm.data.illusts.size > 0}"
-                    app:url="@{vm.data.user.profile_image_urls.medium}"
-                    app:placeHolder="@{@drawable/no_profile}"
+                    android:visibility="gone"
                     app:circle="@{true}"
-                    />
+                    app:placeHolder="@{@drawable/no_profile}"
+                    app:url="@{vm.data.user.profile_image_urls.medium}"
+                    app:visible="@{vm.data.illusts.size > 0}" />
 
                 <ImageView
                     android:id="@+id/avatar_small"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_centerVertical="true"
-                    android:visibility="@{vm.data.illusts.size() == 0}"
-                    app:url="@{vm.data.user.profile_image_urls.medium}"
-                    app:placeHolder="@{@drawable/no_profile}"
+                    android:visibility="gone"
                     app:circle="@{true}"
-                    />
+                    app:placeHolder="@{@drawable/no_profile}"
+                    app:url="@{vm.data.user.profile_image_urls.medium}"
+                    app:visible="@{vm.data.illusts.size() == 0}" />
             </RelativeLayout>
 
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingEnd="16dp"
-                >
+                android:paddingEnd="16dp">
 
                 <TextView
                     android:id="@id/nickName"
@@ -73,26 +78,24 @@
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical"
                     android:maxLines="1"
+                    android:onClick="@{() -> vm.goDetail()}"
                     android:padding="8dp"
+                    android:text="@{vm.data.user.name}"
                     android:textColor="@color/renewal_font_black"
                     android:textSize="12.0sp"
-                    android:text="@{vm.data.user.name}"
-                    android:textStyle="bold"
-                    android:onClick="@{() -> vm.goDetail()}"
-                    />
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/follow"
                     style="@style/follow_button"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:textColor="@{vm.data.user._followed?@color/white:@color/colorPrimary}"
-                    android:onClick="@{() -> vm.follow()}"
-                    android:text="@{vm.data.user._followed?@string/followed:@string/follow}"
                     android:background="@{vm.data.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_primary}"
                     android:enabled="@{!(vm.followState instanceof LoadState.Loading)}"
-                    android:textStyle="normal"
-                    />
+                    android:onClick="@{() -> vm.follow()}"
+                    android:text="@{vm.data.user._followed?@string/followed:@string/follow}"
+                    android:textColor="@{vm.data.user._followed?@color/white:@color/colorPrimary}"
+                    android:textStyle="normal" />
             </RelativeLayout>
 
         </LinearLayout>

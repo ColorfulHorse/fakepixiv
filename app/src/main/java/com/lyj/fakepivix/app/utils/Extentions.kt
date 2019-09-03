@@ -56,19 +56,24 @@ fun Activity.statusBarColor(color: Int) {
     window.statusBarColor = color
 }
 
+fun Context.softInputActive(): Boolean {
+    val imm = this.getSystemService (Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    return imm.isActive
+}
+
+fun Context.hideSoftInput() {
+    val imm = this.getSystemService (Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    if (imm.isActive) {
+        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS)
+    }
+}
+
 fun <T> Context.startActivity(cls: Class<T>) {
     startActivity(Intent(this, cls))
 }
 
 fun Fragment.finish() {
     this.activity?.finish()
-}
-
-fun Context.hideKeyboard() {
-    val imm = this.getSystemService (Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    if (imm.isActive) {
-        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS)
-    }
 }
 
 

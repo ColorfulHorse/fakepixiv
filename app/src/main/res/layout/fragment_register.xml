@@ -100,7 +100,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
-            android:visibility="@{!vm.keyboardOpened}"
+            android:visibility="gone"                     app:visible="@{!vm.keyboardOpened}"
             />
     </android.support.constraint.ConstraintLayout>
 </layout>

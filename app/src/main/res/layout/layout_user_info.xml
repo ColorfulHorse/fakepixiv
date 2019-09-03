@@ -41,7 +41,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="8dp"
                     android:src="@drawable/ic_profile_premium"
-                    android:visibility="@{vm.userInfo.profile._premium}" />
+                    android:visibility="gone"                     app:visible="@{vm.userInfo.profile._premium}" />
             </LinearLayout>
 
             <LinearLayout
@@ -60,7 +60,7 @@
                     android:singleLine="true"
                     android:textColor="@color/more_button_text"
                     android:text="@{vm.userInfo.profile.webpage}"
-                    android:visibility="@{!TextUtils.isEmpty(vm.userInfo.profile.webpage)}"
+                    android:visibility="gone"                     app:visible="@{!TextUtils.isEmpty(vm.userInfo.profile.webpage)}"
                     />
 
                 <TextView
@@ -74,7 +74,7 @@
                     android:singleLine="true"
                     android:textColor="@color/more_button_text"
                     android:text="@{vm.userInfo.profile.twitter_account}"
-                    android:visibility="@{!TextUtils.isEmpty(vm.userInfo.profile.twitter_url)}"
+                    android:visibility="gone"                     app:visible="@{!TextUtils.isEmpty(vm.userInfo.profile.twitter_url)}"
                     />
             </LinearLayout>
 
@@ -160,7 +160,7 @@
                     android:layout_gravity="center_horizontal"
                     android:textColor="@color/renewal_fg_general"
                     android:text="@{vm.userInfo.profile.getProfileText()}"
-                    android:visibility="@{vm.showMore}"
+                    android:visibility="gone"                     app:visible="@{vm.showMore}"
                     />
 
                 <LinearLayout
@@ -170,7 +170,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="16dp"
                     android:orientation="vertical"
-                    android:visibility="@{vm.showMore}">
+                    android:visibility="gone"                     app:visible="@{vm.showMore}">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_workspace"
@@ -183,7 +183,7 @@
                     android:id="@+id/read_more"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="@{!vm.showMore}"
+                    android:visibility="gone"                     app:visible="@{!vm.showMore}"
                     android:onClick="@{() -> vm.showMore()}"
                     >
                     <!--android:onClick="@{() -> vm.showMore.set(!vm.showMore)}"-->
@@ -213,7 +213,7 @@
                     android:layout_marginBottom="16dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/pawoo"
-                    android:visibility="@{!TextUtils.isEmpty(vm.userInfo.profile.pawoo_url)}" />
+                    android:visibility="gone"                     app:visible="@{!TextUtils.isEmpty(vm.userInfo.profile.pawoo_url)}" />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

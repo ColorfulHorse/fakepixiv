@@ -23,7 +23,7 @@
             android:paddingBottom="48dp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:visibility="@{position > 0}">
+            android:visibility="gone"                     app:visible="@{position > 0}">
 
             <View
                 android:layout_width="0dp"
