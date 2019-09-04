@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.lyj.fakepivix.app.data.model.response.Illust" />
+        <import type="com.lyj.fakepivix.app.utils.StringUtil"/>
+
+        <variable
+            name="data"
+            type="Illust" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/cover"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            app:placeHolder="@{@drawable/common_border_placeholder}"
+            app:url="@{data.image_urls.large}"
+            app:fade="@{true}"
+            app:placeHolderRatio='@{"w," + String.valueOf(data.width) + ":" + String.valueOf(data.height)}'
+            />
+
+        <TextView
+            android:id="@+id/series_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/novel_series"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:visible="@{data.series != null}"
+            android:text="@{data.series.title}"
+            />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/renewal_fg_general"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="@{data.title}"
+            />
+
+        <TextView
+            android:id="@+id/text_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/renewal_fg_sub"
+            android:textSize="14sp"
+            android:text="@{StringUtil.formatLength(data.text_length)}"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical" />
+
+        <include
+            layout="@layout/container_user"
+            app:data="@{data}"
+            />
+    </LinearLayout>
+</layout>

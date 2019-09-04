@@ -12,6 +12,8 @@ import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.constant.Constant
+import com.lyj.fakepivix.app.constant.IllustCategory
+import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.databinding.FragmentRootRankIllustBinding
 import com.lyj.fakepivix.module.common.IllustListViewModel
@@ -27,19 +29,37 @@ class RankIllustRootFragment : BackFragment<FragmentRootRankIllustBinding, BaseV
     override var mViewModel: BaseViewModel<IModel?>? = null
 
     private val fragments = mutableListOf<FragmentationFragment<*,*>>()
-
+    var category = IllustCategory.ILLUST
     companion object {
-        fun newInstance() = RankIllustRootFragment()
+        const val EXTRA_CATEGORY = "EXTRA_CATEGORY"
+        fun newInstance(@IllustCategory category: String) = RankIllustRootFragment().apply {
+            arguments = Bundle().apply {
+                putString(RankIllustFragment.EXTRA_CATEGORY, category)
+            }
+        }
     }
 
     override fun init(savedInstanceState: Bundle?) {
+        arguments?.let {
+            category = it.getString(RankIllustFragment.EXTRA_CATEGORY, IllustCategory.ILLUST)
+        }
         mToolbar?.title = getString(R.string.ranking)
         val modes = resources.getStringArray(R.array.rank_modes)
         for (mode in Constant.Net.ILLUST_RANK_MODES) {
-            val fragment = RankIllustFragment.newInstance()
+            val fragment = RankIllustFragment.newInstance(category)
+            val realCategory = if (category == IllustCategory.NOVEL) IllustCategory.NOVEL else IllustCategory.ILLUST
             val viewModel = IllustListViewModel {
                 IllustRepository.instance
-                        .getRankIllust(mode)
+                        .getRankIllust(mode, category = realCategory)
+                        .map{
+                            // 排行榜前三布局不同
+                            it.illusts.forEachIndexed { index, illust ->
+                                if (index <= 2) {
+                                    illust.type = Illust.RANK + category
+                                }
+                            }
+                            it
+                        }
             }
             fragment.mViewModel = viewModel
             fragments.add(fragment)
@@ -48,13 +68,6 @@ class RankIllustRootFragment : BackFragment<FragmentRootRankIllustBinding, BaseV
             viewPager.adapter = CommonFragmentAdapter(childFragmentManager, fragments, modes)
             tabLayout.setupWithViewPager(viewPager)
         }
-        initFragment()
-    }
-
-
-
-    private fun initFragment() {
-
     }
 
 

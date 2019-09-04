@@ -8,6 +8,7 @@ import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.base.FragmentationFragment
+import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.IllustCategory.COMIC
 
 import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
@@ -130,7 +131,7 @@ class HomeComicFragment : FragmentationFragment<CommonRefreshList, HomeComicView
      */
     private fun initHeader() {
         val title = layoutInflater.inflate(R.layout.header_recommend, null)
-        rankHeader = RankHeader(context, mViewModel.rankViewModel)
+        rankHeader = RankHeader(context, mViewModel.rankViewModel, COMIC)
         mAdapter.addHeaderView(rankHeader.mBinding?.root)
         mAdapter.addHeaderView(title)
     }

@@ -55,6 +55,10 @@ class IllustRepository private constructor() {
                 .schedulerTransform()
     }
 
+    /**
+     * 获取排行榜
+     * [category] illust插画、漫画 novel小说
+     */
     fun getRankIllust(mode: String, date: String = "", @IllustCategory category: String = ILLUST): Observable<IllustListResp> =
             RetrofitManager.instance.apiService.getRankIllust(category, mode, date)
                     .schedulerTransform()

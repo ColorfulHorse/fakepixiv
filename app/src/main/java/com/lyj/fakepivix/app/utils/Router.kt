@@ -42,7 +42,7 @@ object Router {
     }
 
     fun goRank(@IllustCategory category: String) {
-        val fragment = RankIllustRootFragment.newInstance()
+        val fragment = RankIllustRootFragment.newInstance(category)
         getTopFragment()?.start(fragment)
     }
 

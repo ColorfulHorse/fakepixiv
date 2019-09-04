@@ -8,8 +8,7 @@ import android.view.LayoutInflater
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.constant.IllustCategory
-import com.lyj.fakepivix.app.constant.IllustCategory.ILLUST
-import com.lyj.fakepivix.app.constant.IllustCategory.NOVEL
+import com.lyj.fakepivix.app.constant.IllustCategory.*
 
 
 import com.lyj.fakepivix.app.data.model.response.Illust
@@ -36,7 +35,7 @@ class RankHeader(val context: Context?, viewModel: RankViewModel, @IllustCategor
 
     init {
         when(category) {
-            ILLUST -> {
+            ILLUST, COMIC -> {
                 adapter.addItemType(Illust.TYPE_ILLUST, R.layout.item_home_rank_illust, BR.data)
                 adapter.addItemType(Illust.TYPE_COMIC, R.layout.item_home_rank_illust, BR.data)
             }
@@ -60,7 +59,7 @@ class RankHeader(val context: Context?, viewModel: RankViewModel, @IllustCategor
                 PagerSnapHelper().attachToRecyclerView(recyclerView)
                 recyclerView.adapter = adapter
                 readMore.setOnClickListener {
-                    Router.goRank(ILLUST)
+                    Router.goRank(category)
                 }
             }
         }

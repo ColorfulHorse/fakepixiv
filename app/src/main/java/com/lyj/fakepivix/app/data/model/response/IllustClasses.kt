@@ -47,7 +47,7 @@ data class IllustListResp(
 
 
 //@JsonClass(generateAdapter = true)
-data class Illust (
+data class Illust(
         var caption: String = "",
         var create_date: String = "",
         val height: Int = 0,
@@ -72,30 +72,35 @@ data class Illust (
         val visible: Boolean = true,
         val width: Int = 0,
         val x_restrict: Int = 0
-): MultiItemEntity, BaseObservable() {
+) : MultiItemEntity, BaseObservable() {
     // 收藏
     @get:Bindable
     var is_bookmarked: Boolean = false
-    set(value) {
-        field = value
-        notifyPropertyChanged(BR._bookmarked)
-    }
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR._bookmarked)
+        }
 
     companion object {
         const val TYPE_ILLUST = 1
         const val TYPE_COMIC = 2
-        const val TYPE_NOVEL = 3
+        const val TYPE_NOVEL = 4
         // 详情大图
-        const val TYPE_META = 4
+        const val TYPE_META = 8
+        const val TYPE_RANK = 16
 
         const val META = "meta"
+        const val RANK = "rank"
     }
 
-    override fun getItemType(): Int = when(type) {
+    override fun getItemType(): Int = when (type) {
         ILLUST -> TYPE_ILLUST
         COMIC -> TYPE_COMIC
         NOVEL -> TYPE_NOVEL
         META -> TYPE_META
+        RANK + ILLUST -> TYPE_RANK + TYPE_ILLUST
+        RANK + COMIC -> TYPE_RANK + TYPE_COMIC
+        RANK + NOVEL -> TYPE_RANK + TYPE_NOVEL
         else -> TYPE_ILLUST
     }
 
@@ -109,10 +114,11 @@ data class Illust (
         return sb.toString()
     }
 
+
     fun getTranslateTags() = tags.flatMap { tag ->
         val list = mutableListOf<Tag>()
         if (!TextUtils.isEmpty(tag.name)) {
-            list.add(tag.copy(name = "#${tag.name}"))
+            list.add(tag.copy(name = tag.name))
             if (!TextUtils.isEmpty(tag.translated_name)) {
                 list.add(tag.copy(isTranslated = true))
             }

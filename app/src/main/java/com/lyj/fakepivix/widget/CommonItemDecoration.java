@@ -34,6 +34,7 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
     private int crossEdge;
     private int realDividerWidth;
     private int spanCount = -1;
+    private int itemType = -1;
 
     protected CommonItemDecoration() {
         init();
@@ -90,6 +91,14 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
     public void setColor(int color) {
         this.color = color;
         this.paint.setColor(color);
+    }
+
+    public int getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
     }
 
     public int getSpanCount() {
@@ -177,6 +186,11 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
             return this;
         }
 
+        public Builder itemType(int type) {
+            itemDecoration.setItemType(type);
+            return this;
+        }
+
         public CommonItemDecoration build() {
             itemDecoration.calculateDivider();
             return itemDecoration;
@@ -194,6 +208,10 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
         RecyclerView.LayoutManager manager = parent.getLayoutManager();
         int size = parent.getAdapter().getItemCount();
         int position = parent.getChildAdapterPosition(view);
+        int type = parent.getAdapter().getItemViewType(position);
+        if (itemType != -1 && itemType != type) {
+            return;
+        }
         if (manager instanceof LinearLayoutManager) {
             LinearLayoutManager llManager = (LinearLayoutManager) manager;
             boolean isVertical = llManager.getOrientation() == LinearLayoutManager.VERTICAL;
@@ -300,6 +318,10 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
                     for (int i = 0; i < parent.getChildCount() ; i++) {
                         View view = parent.getChildAt(i);
                         int position = parent.getChildAdapterPosition(view);
+                        int type = parent.getAdapter().getItemViewType(position);
+                        if (itemType != -1 && itemType != type) {
+                            continue;
+                        }
                         // 该item占了几列
                         int spanSize = glManager.getSpanSizeLookup().getSpanSize(position);
                         // 该item在第几列/行

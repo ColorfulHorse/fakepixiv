@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.lyj.fakepivix.app.data.model.response.Illust" />
+        <import type="com.lyj.fakepivix.app.utils.StringUtil"/>
+
+        <variable
+            name="data"
+            type="Illust" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="@dimen/avatar_small"
+            android:layout_height="@dimen/avatar_small"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="8dp"
+            app:circle="@{true}"
+            app:placeHolder="@{@drawable/no_profile}"
+            app:url="@{data.image_urls.medium}"
+            />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingEnd="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:textColor="@color/renewal_fg_general"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:text="@{data.title}"
+                />
+
+            <TextView
+                android:id="@+id/nickName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/renewal_fg_sub"
+                android:textSize="12sp"
+                android:text="@{data.user.name}"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/like_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textColor="#ff9ca9ac"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:text="@{StringUtil.formatCount(data.total_bookmarks)}"
+            />
+
+        <com.lyj.fakepivix.widget.LikeButton
+            android:id="@id/like_button"
+            android:layout_width="@dimen/like_button_size"
+            android:layout_height="@dimen/like_button_size" />
+    </LinearLayout>
+</layout>
