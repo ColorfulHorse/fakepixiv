@@ -12,8 +12,8 @@ interface Constant {
         // 排行榜类型
         val ILLUST_RANK_MODES = listOf(
                 "day",
-                "male",
-                "female",
+                "day_male",
+                "day_female",
                 "week_original",
                 "week_rookie",
                 "week",
@@ -28,8 +28,8 @@ interface Constant {
 
         val NOVEL_RANK_MODES = listOf(
                 "day",
-                "male",
-                "female",
+                "day_male",
+                "day_female",
                 "week_rookie",
                 "week",
                 "day")
