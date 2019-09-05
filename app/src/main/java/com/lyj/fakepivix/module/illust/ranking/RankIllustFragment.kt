@@ -71,11 +71,11 @@ class RankIllustFragment : FragmentationFragment<CommonList, IllustListViewModel
                 it.load()
             }
         }
+        mViewModel?.load()
     }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
-        mViewModel?.load()
     }
 
     override fun immersionBarEnabled(): Boolean = false

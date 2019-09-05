@@ -22,35 +22,38 @@ class CommonParamsInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         var oldReq = chain.request()
         val url = oldReq.url().toString()
+        if ("GET" == oldReq.method()) {
+            val urlBuilder = oldReq.url().newBuilder()
+            val size = oldReq.url().querySize()
+            for (i in 0 until size) {
+                val key = oldReq.url().queryParameterName(i)
+                val param = oldReq.url().queryParameterValue(i)
+                if (TextUtils.isEmpty(param)) {
+                    urlBuilder.removeAllQueryParameters(key)
+                }
+            }
+        }else if ("POST" == oldReq.method()) {
+            val requestBody = oldReq.body()
+            if (requestBody is FormBody) {
+                val newBody = FormBody.Builder()
+                for (i in 0 until requestBody.size()) {
+                    val key = requestBody.encodedName(i)
+                    val value = requestBody.encodedValue(i)
+                    if (value.isNotEmpty()) {
+                        newBody.addEncoded(key, value)
+                    }
+                }
+                oldReq = oldReq.newBuilder().post(newBody.build()).build()
+            }
+        }
         if (url.contains(Constant.Net.BASE_URL)) {
             val token = UserRepository.instance.accessToken
             if ("GET" == oldReq.method()) {
                 val urlBuilder = oldReq.url().newBuilder()
-                val size = oldReq.url().querySize()
-                for (i in 0 until size) {
-                    val key = oldReq.url().queryParameterName(i)
-                    val param = oldReq.url().queryParameterValue(i)
-                    if (TextUtils.isEmpty(param)) {
-                        urlBuilder.removeAllQueryParameters(key)
-                    }
-                }
                 oldReq = oldReq.newBuilder().url(urlBuilder
                         .addQueryParameter("filter", "for_android")
                         .build()
                 ).build()
-            }else if ("POST" == oldReq.method()) {
-                val requestBody = oldReq.body()
-                if (requestBody is FormBody) {
-                    val newBody = FormBody.Builder()
-                    for (i in 0 until requestBody.size()) {
-                        val key = requestBody.encodedName(i)
-                        val value = requestBody.encodedValue(i)
-                        if (value.isNotEmpty()) {
-                            newBody.addEncoded(key, value)
-                        }
-                    }
-                    oldReq = oldReq.newBuilder().post(requestBody).build()
-                }
             }
             token?.let {
                 val newReq = oldReq

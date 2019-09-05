@@ -68,7 +68,7 @@ fun Context.hideSoftInput() {
     }
 }
 
-fun <T> Context.startActivity(cls: Class<T>) {
+fun <T> Activity.startActivity(cls: Class<T>) {
     startActivity(Intent(this, cls))
 }
 

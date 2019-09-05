@@ -2,6 +2,7 @@ package com.lyj.fakepivix.module.splash
 
 import android.app.Activity
 import android.os.Bundle
+import android.os.Handler
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationActivity
@@ -45,6 +46,7 @@ class SplashActivity : FragmentationActivity<ActivitySplashBinding, BaseViewMode
                     })
         }
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

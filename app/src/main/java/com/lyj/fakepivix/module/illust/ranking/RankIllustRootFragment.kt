@@ -44,29 +44,47 @@ class RankIllustRootFragment : BackFragment<FragmentRootRankIllustBinding, BaseV
             category = it.getString(RankIllustFragment.EXTRA_CATEGORY, IllustCategory.ILLUST)
         }
         mToolbar?.title = getString(R.string.ranking)
-        val modes = resources.getStringArray(R.array.rank_modes)
-        for (mode in Constant.Net.ILLUST_RANK_MODES) {
+        val titles = when(category) {
+            IllustCategory.ILLUST -> resources.getStringArray(R.array.illust_rank_modes)
+            IllustCategory.COMIC -> resources.getStringArray(R.array.comic_rank_modes)
+            IllustCategory.NOVEL -> resources.getStringArray(R.array.novel_rank_modes)
+            else -> resources.getStringArray(R.array.illust_rank_modes)
+        }
+        initFragments()
+        with(mBinding) {
+            viewPager.adapter = CommonFragmentAdapter(childFragmentManager, fragments, titles)
+            tabLayout.setupWithViewPager(viewPager)
+        }
+    }
+
+    private fun initFragments() {
+        val modes = when(category) {
+            IllustCategory.ILLUST -> Constant.Net.ILLUST_RANK_MODES
+            IllustCategory.COMIC -> Constant.Net.COMIC_RANK_MODES
+            IllustCategory.NOVEL -> Constant.Net.NOVEL_RANK_MODES
+            else -> Constant.Net.ILLUST_RANK_MODES
+        }
+        for (mode in modes) {
             val fragment = RankIllustFragment.newInstance(category)
             val realCategory = if (category == IllustCategory.NOVEL) IllustCategory.NOVEL else IllustCategory.ILLUST
             val viewModel = IllustListViewModel {
                 IllustRepository.instance
                         .getRankIllust(mode, category = realCategory)
-                        .map{
+                        .map {res ->
                             // 排行榜前三布局不同
-                            it.illusts.forEachIndexed { index, illust ->
-                                if (index <= 2) {
-                                    illust.type = Illust.RANK + category
-                                }
-                            }
-                            it
+                            val newList = res.illusts
+                                    .filterNot { it.type != category}
+                            newList.forEachIndexed { index, illust ->
+                                        if (index <= 2) {
+                                            illust.type = Illust.RANK + category
+                                        }
+                                    }
+                            res.illusts = newList
+                            res
                         }
             }
             fragment.mViewModel = viewModel
             fragments.add(fragment)
-        }
-        with(mBinding) {
-            viewPager.adapter = CommonFragmentAdapter(childFragmentManager, fragments, modes)
-            tabLayout.setupWithViewPager(viewPager)
         }
     }
 

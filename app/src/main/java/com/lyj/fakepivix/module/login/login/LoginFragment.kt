@@ -46,7 +46,7 @@ class LoginFragment : FragmentationFragment<FragmentLoginBinding, LoginViewModel
                     is LoadState.Loading -> showLoadingDialog()
                     is LoadState.Succeed -> {
                         hideLoadingDialog()
-                        context?.startActivity(MainActivity::class.java)
+                        mActivity.startActivity(MainActivity::class.java)
                         finish()
                     }
                     is LoadState.Failed -> {
