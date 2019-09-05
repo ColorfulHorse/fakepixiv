@@ -38,4 +38,13 @@ object DateUtil {
             dateStr
         }
     }
+
+    @JvmStatic fun format(date: Date): String {
+        return try {
+            sdf.format(date)
+        }catch (e: ParseException) {
+            ""
+        }
+    }
+
 }
