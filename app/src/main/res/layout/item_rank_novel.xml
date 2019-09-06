@@ -12,70 +12,83 @@
             type="Illust" />
     </data>
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="12dp">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/cover"
-            android:layout_width="96dp"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            app:placeHolder="@{@drawable/common_border_placeholder}"
-            app:url="@{data.image_urls.large}"
-            app:fade="@{true}"
-            app:placeHolderRatio='@{"w," + String.valueOf(data.width) + ":" + String.valueOf(data.height)}'
-            />
-
-        <TextView
-            android:id="@+id/series_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/novel_series"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:visibility="gone"
-            app:visible="@{data.series != null}"
-            android:text="@{data.series.title}"
-            />
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textColor="@color/renewal_fg_general"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:text="@{data.title}"
-            />
-
-        <TextView
-            android:id="@+id/text_length"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/renewal_fg_sub"
-            android:textSize="14sp"
-            android:text="@{StringUtil.formatLength(data.text_length)}"
-            />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_tag"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="vertical" />
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:padding="12dp"
+                android:paddingBottom="0dp"
+                >
 
-        <include
-            layout="@layout/container_user"
-            app:data="@{data}"
-            />
-    </LinearLayout>
+                <ImageView
+                    android:id="@+id/cover"
+                    android:layout_width="96dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    app:placeHolder="@{@drawable/common_border_placeholder}"
+                    app:url="@{data.image_urls.large}"
+                    app:fade="@{true}"
+                    app:placeHolderRatio='@{"w," + String.valueOf(data.width) + ":" + String.valueOf(data.height)}'
+                    />
+
+                <TextView
+                    android:id="@+id/series_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@color/novel_series"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:visible="@{data.series != null}"
+                    android:text="@{data.series.title}"
+                    />
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/renewal_fg_general"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:text="@{data.title}"
+                    />
+
+                <TextView
+                    android:id="@+id/text_length"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/renewal_fg_sub"
+                    android:textSize="14sp"
+                    android:text="@{StringUtil.formatLength(data.text_length) + @string/text_length}"
+                    />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_tag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical" />
+            </LinearLayout>
+            <include
+                layout="@layout/container_user"
+                app:data="@{data}"
+                />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 </layout>

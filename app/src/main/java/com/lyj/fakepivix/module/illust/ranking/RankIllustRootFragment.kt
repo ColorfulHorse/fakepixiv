@@ -72,14 +72,19 @@ class RankIllustRootFragment : BackFragment<FragmentRootRankIllustBinding, BaseV
                         .getRankIllust(mode, category = realCategory)
                         .map {res ->
                             // 排行榜前三布局不同
-                            val newList = res.illusts
-                                    .filterNot { it.type != category}
-                            newList.forEachIndexed { index, illust ->
-                                        if (index <= 2) {
-                                            illust.type = Illust.RANK + category
-                                        }
-                                    }
-                            res.illusts = newList
+//                            val newList = res.illusts
+//                                    .filterNot { it.type != category}
+//                            newList.forEachIndexed { index, illust ->
+//                                        if (index <= 2) {
+//                                            illust.type = Illust.RANK + category
+//                                        }
+//                                    }
+//                            res.illusts = newList
+                            res.illusts.forEachIndexed { index, illust ->
+                                if (index <= 2) {
+                                    illust.type = Illust.RANK + category
+                                }
+                            }
                             res
                         }
             }

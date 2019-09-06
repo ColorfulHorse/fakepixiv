@@ -32,7 +32,7 @@ object Router {
             val key = (System.currentTimeMillis()/1000).toInt()
             val illust = data[position]
             IllustRepository.instance[key] = data.filter { it.id != 0L }
-            if (illust.itemType == Illust.TYPE_NOVEL) {
+            if (illust.itemType and Illust.TYPE_NOVEL == Illust.TYPE_NOVEL) {
                 NovelDialogFragment.newInstance(position, key).show(fm, "NovelDialogFragment-$key")
             }else {
                 val fragment = IllustDetailRootFragment.newInstance(position, key)

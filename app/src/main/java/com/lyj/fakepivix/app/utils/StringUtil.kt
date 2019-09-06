@@ -19,7 +19,7 @@ object StringUtil {
 
     @JvmStatic
     fun formatCount(count: Int): String {
-        if (count > 10000) {
+        if (count > 1000) {
             val df = DecimalFormat(".#k")
             return df.format(count / 1000f)
         }

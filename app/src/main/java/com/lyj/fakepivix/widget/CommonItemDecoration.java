@@ -34,7 +34,7 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
     private int crossEdge;
     private int realDividerWidth;
     private int spanCount = -1;
-    private int itemType = -1;
+    private int ignoreType = -1;
 
     protected CommonItemDecoration() {
         init();
@@ -93,12 +93,12 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
         this.paint.setColor(color);
     }
 
-    public int getItemType() {
-        return itemType;
+    public int getIgnoreType() {
+        return ignoreType;
     }
 
-    public void setItemType(int itemType) {
-        this.itemType = itemType;
+    public void setIgnoreType(int itemType) {
+        this.ignoreType = itemType;
     }
 
     public int getSpanCount() {
@@ -186,8 +186,8 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
             return this;
         }
 
-        public Builder itemType(int type) {
-            itemDecoration.setItemType(type);
+        public Builder ignoreType(int type) {
+            itemDecoration.setIgnoreType(type);
             return this;
         }
 
@@ -209,7 +209,7 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
         int size = parent.getAdapter().getItemCount();
         int position = parent.getChildAdapterPosition(view);
         int type = parent.getAdapter().getItemViewType(position);
-        if (itemType != -1 && itemType != type) {
+        if (ignoreType != -1 && ignoreType == (type & ignoreType)) {
             return;
         }
         if (manager instanceof LinearLayoutManager) {
@@ -319,7 +319,7 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
                         View view = parent.getChildAt(i);
                         int position = parent.getChildAdapterPosition(view);
                         int type = parent.getAdapter().getItemViewType(position);
-                        if (itemType != -1 && itemType != type) {
+                        if (ignoreType != -1 && ignoreType == (type & ignoreType)) {
                             continue;
                         }
                         // 该item占了几列

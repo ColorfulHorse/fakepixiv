@@ -57,7 +57,7 @@ class NovelDialogFragment : DialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         with(mBinding) {
-            val adapter = BaseBindingAdapter<Tag, ItemTagBinding>(R.layout.item_detail_tag, mViewModel.data.getTranslateTags(), BR.data)
+            val adapter = BaseBindingAdapter<Tag, ItemTagBinding>(R.layout.item_tag, mViewModel.data.getTranslateTags(), BR.data)
             adapter.bindToRecyclerView(recyclerView)
             recyclerView.layoutManager = FlowLayoutManager()
             likeContainer.setOnClickListener {

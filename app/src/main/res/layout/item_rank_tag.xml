@@ -12,9 +12,9 @@
         android:layout_height="wrap_content"
         android:paddingStart="0dp"
         android:paddingEnd="5dp"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:textColor="@color/tag_blue"
-        android:text="@{data.name}"
+        android:text="@{'#' + data.name}"
         />
     <!--android:textColor="@{data.isTranslated?@color/work_tag:@color/tag_green}"
         android:text="@{data.isTranslated?data.translated_name:data.name}"-->

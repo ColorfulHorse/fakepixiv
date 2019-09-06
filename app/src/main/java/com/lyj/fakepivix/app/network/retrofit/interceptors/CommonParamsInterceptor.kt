@@ -36,6 +36,9 @@ class CommonParamsInterceptor : Interceptor {
                     urlBuilder.removeAllQueryParameters(key)
                 }
             }
+            oldReq = oldReq.newBuilder()
+                    .url(urlBuilder.build())
+                    .build()
         }else if ("POST" == oldReq.method()) {
             val requestBody = oldReq.body()
             if (requestBody is FormBody) {

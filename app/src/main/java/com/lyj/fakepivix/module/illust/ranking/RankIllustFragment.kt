@@ -9,6 +9,7 @@ import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.data.model.response.Illust
+import com.lyj.fakepivix.app.databinding.attachLoadMore
 import com.lyj.fakepivix.app.utils.bindState
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.CommonList
@@ -48,27 +49,57 @@ class RankIllustFragment : FragmentationFragment<CommonList, IllustListViewModel
             when(category) {
                 IllustCategory.ILLUST, IllustCategory.OTHER, IllustCategory.COMIC -> {
                     layoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
-                    mBinding.recyclerView.addItemDecoration(CommonItemDecoration.Builder()
+                    val decoration = CommonItemDecoration.Builder()
                             .dividerWidth(3.5f.dp2px(), 3.5f.dp2px())
-                            .build())
+                            .build()
+                    when(category) {
+                        IllustCategory.ILLUST -> {
+                            adapter.apply {
+                                addItemType(Illust.TYPE_RANK + Illust.TYPE_ILLUST, R.layout.item_rank_illust, BR.data)
+                                addItemType(Illust.TYPE_RANK + Illust.TYPE_COMIC, R.layout.item_rank_illust, BR.data)
+                                addItemType(Illust.TYPE_ILLUST, R.layout.item_home_illust, BR.illust)
+                                addItemType(Illust.TYPE_COMIC, R.layout.item_home_illust, BR.illust)
+                            }
+                            decoration.ignoreType = (Illust.TYPE_RANK + Illust.TYPE_ILLUST) or (Illust.TYPE_RANK + Illust.TYPE_COMIC)
+                        }
+                        IllustCategory.COMIC -> {
+                            adapter.apply {
+                                addItemType(Illust.TYPE_RANK + Illust.TYPE_COMIC, R.layout.item_rank_illust, BR.data)
+                                addItemType(Illust.TYPE_COMIC, R.layout.item_home_comic, BR.data)
+                            }
+                            decoration.ignoreType = Illust.TYPE_RANK + Illust.TYPE_COMIC
+                        }
+                    }
+                    mBinding.recyclerView.addItemDecoration(decoration)
                 }
                 IllustCategory.NOVEL -> {
                     layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                    mBinding.recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+                    adapter.apply {
+                        addItemType(Illust.TYPE_RANK + Illust.TYPE_NOVEL, R.layout.item_rank_novel, BR.data)
+                        addItemType(Illust.TYPE_NOVEL, R.layout.item_home_novel, BR.data)
+                    }
+                    mBinding.recyclerView.addItemDecoration(CommonItemDecoration.Builder()
+                            .dividerWidth(1.dp2px(), 0)
+                            .ignoreType(Illust.TYPE_RANK + Illust.TYPE_NOVEL)
+                            .draw(true)
+                            .build())
                 }
             }
-            adapter.apply {
-                addItemType(Illust.TYPE_RANK + Illust.TYPE_ILLUST, R.layout.item_rank_illust, BR.data)
-                addItemType(Illust.TYPE_RANK + Illust.TYPE_COMIC, R.layout.item_rank_illust, BR.data)
-                addItemType(Illust.TYPE_RANK + Illust.TYPE_NOVEL, R.layout.item_rank_novel, BR.data)
-                addItemType(Illust.TYPE_ILLUST, R.layout.item_home_illust, BR.data)
-                addItemType(Illust.TYPE_COMIC, R.layout.item_home_comic, BR.data)
-                addItemType(Illust.TYPE_NOVEL, R.layout.item_home_novel, BR.data)
-            }
+//            adapter.apply {
+//                addItemType(Illust.TYPE_RANK + Illust.TYPE_ILLUST, R.layout.item_rank_illust, BR.data)
+//                addItemType(Illust.TYPE_RANK + Illust.TYPE_COMIC, R.layout.item_rank_illust, BR.data)
+//                addItemType(Illust.TYPE_RANK + Illust.TYPE_NOVEL, R.layout.item_rank_novel, BR.data)
+//                addItemType(Illust.TYPE_ILLUST, R.layout.item_home_illust, BR.illust)
+//                addItemType(Illust.TYPE_COMIC, R.layout.item_home_comic, BR.data)
+//                addItemType(Illust.TYPE_NOVEL, R.layout.item_home_novel, BR.data)
+//            }
             mBinding.recyclerView.layoutManager = layoutManager
             adapter.bindToRecyclerView(mBinding.recyclerView)
             adapter.bindState(it.loadState) {
                 it.load()
+            }
+            mBinding.recyclerView.attachLoadMore {
+                it.loadMore()
             }
         }
         mViewModel?.load()

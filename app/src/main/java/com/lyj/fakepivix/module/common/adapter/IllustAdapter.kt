@@ -46,6 +46,7 @@ open class IllustAdapter(data: MutableList<Illust>, val likeButton: Boolean = tr
     override fun convert(helper: BaseBindingViewHolder<ViewDataBinding>, item: Illust) {
         super.convert(helper, item)
         val button = helper.getView<LikeButton>(R.id.like)
+        val series = helper.getView<View>(R.id.series_title)
         button?.let {
             if (!likeButton) it.visibility = View.GONE
             it.action = {
@@ -69,6 +70,11 @@ open class IllustAdapter(data: MutableList<Illust>, val likeButton: Boolean = tr
                 })
                 IllustRepository.instance
                         .star(item, starState)
+            }
+        }
+        series?.let {
+            series.setOnClickListener {
+                // 系列
             }
         }
     }
