@@ -13,10 +13,7 @@ import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.constant.Constant
 import com.lyj.fakepivix.app.constant.IllustCategory
-import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.databinding.FragmentRootRankIllustBinding
-import com.lyj.fakepivix.module.common.IllustListViewModel
 
 /**
  * @author greensun
@@ -64,30 +61,14 @@ class RankIllustRootFragment : BackFragment<FragmentRootRankIllustBinding, BaseV
             IllustCategory.NOVEL -> Constant.Net.NOVEL_RANK_MODES
             else -> Constant.Net.ILLUST_RANK_MODES
         }
-        for (mode in modes) {
-            val fragment = RankIllustFragment.newInstance(category)
-            val realCategory = if (category == IllustCategory.NOVEL) IllustCategory.NOVEL else IllustCategory.ILLUST
-            val viewModel = IllustListViewModel {
-                IllustRepository.instance
-                        .getRankIllust(mode, category = realCategory)
-                        .map {res ->
-                            // 排行榜前三布局不同
-//                            val newList = res.illusts
-//                                    .filterNot { it.type != category}
-//                            newList.forEachIndexed { index, illust ->
-//                                        if (index <= 2) {
-//                                            illust.type = Illust.RANK + category
-//                                        }
-//                                    }
-//                            res.illusts = newList
-                            res.illusts.forEachIndexed { index, illust ->
-                                if (index <= 2) {
-                                    illust.type = Illust.RANK + category
-                                }
-                            }
-                            res
-                        }
+        val realCategory = if (category == IllustCategory.NOVEL) IllustCategory.NOVEL else IllustCategory.ILLUST
+        for ((index, mode) in modes.withIndex()) {
+            val fragment = if (index == modes.size - 1) {
+                RankIllustFragment.newInstance(category, true)
+            }else {
+                RankIllustFragment.newInstance(category)
             }
+            val viewModel = RankIllustViewModel(realCategory, mode)
             fragment.mViewModel = viewModel
             fragments.add(fragment)
         }

@@ -112,4 +112,15 @@
         <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="android:background">@color/colorPrimary</item>
     </style>
+
+    <style name="spinnerStyle">
+        <item name="colorControlActivated">@color/renewal_font_black</item>
+        <item name="colorControlHighlight">@color/renewal_font_black</item>
+        <item name="colorControlNormal">@color/renewal_font_gray</item>
+    </style>
+
+    <style name="datePickerStyle" parent="@style/Theme.AppCompat.Light">
+        <item name="android:textColorPrimary">@color/renewal_font_black</item>
+        <item name="android:textColorSecondary">@color/primary</item>
+    </style>
 </resources>

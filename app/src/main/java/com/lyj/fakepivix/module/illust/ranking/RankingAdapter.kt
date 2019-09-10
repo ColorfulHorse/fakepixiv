@@ -40,10 +40,11 @@ class RankingAdapter(data: MutableList<Illust>, likeButton: Boolean = true) : Il
 
     override fun convert(helper: BaseBindingViewHolder<ViewDataBinding>, item: Illust) {
         super.convert(helper, item)
-        if (helper.layoutPosition <= 2) {
+        var pos = helper.layoutPosition - headerLayoutCount
+        if (pos in 0..2) {
             var margin = 6.dp2px()
             var b = 0
-            if (helper.layoutPosition == 2) {
+            if (pos == 2) {
                 b = margin
             }
             val lp = helper.itemView.layoutParams as ViewGroup.MarginLayoutParams

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:tag="layout/view_old_ranking_dialog_0"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="48.0dip"
+        android:layout_margin="8.0dip"
+        android:theme="@style/spinnerStyle" />
+
+    <DatePicker
+        android:id="@+id/date_picker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:calendarViewShown="false"
+        android:theme="@style/datePickerStyle"
+        android:datePickerMode="spinner"
+        />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8.0dip"
+        android:background="@drawable/shape_btn_primary"
+        android:text="@string/ok"
+        android:textColor="@android:color/white" />
+</LinearLayout>

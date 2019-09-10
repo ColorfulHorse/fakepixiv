@@ -19,7 +19,7 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc
  */
-class IllustListViewModel(var action: () -> Observable<IllustListResp>) : BaseViewModel<IModel?>() {
+open class IllustListViewModel(var action: () -> Observable<IllustListResp>) : BaseViewModel<IModel?>() {
 
     override var mModel: IModel? = null
 

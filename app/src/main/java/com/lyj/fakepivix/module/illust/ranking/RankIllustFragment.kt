@@ -4,18 +4,23 @@ import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.databinding.attachLoadMore
+import com.lyj.fakepivix.app.utils.DateUtil
 import com.lyj.fakepivix.app.utils.bindState
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.CommonList
 import com.lyj.fakepivix.module.common.IllustListFragment
 import com.lyj.fakepivix.module.common.IllustListViewModel
 import com.lyj.fakepivix.widget.CommonItemDecoration
+import kotlinx.android.synthetic.main.title_rank.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * @author greensun
@@ -24,24 +29,26 @@ import com.lyj.fakepivix.widget.CommonItemDecoration
  *
  * @desc 排行榜列表fragment
  */
-class RankIllustFragment : FragmentationFragment<CommonList, IllustListViewModel?>() {
+class RankIllustFragment : FragmentationFragment<CommonList, RankIllustViewModel?>() {
 
-    override var mViewModel: IllustListViewModel? = null
-
-    var category = IllustCategory.ILLUST
+    override var mViewModel: RankIllustViewModel? = null
 
     companion object {
         const val EXTRA_CATEGORY = "EXTRA_CATEGORY"
-        fun newInstance(@IllustCategory category: String) = RankIllustFragment().apply {
+        const val EXTRA_OLD = "EXTRA_OLD"
+        fun newInstance(@IllustCategory category: String, old: Boolean = false) = RankIllustFragment().apply {
             arguments = Bundle().apply {
                 putString(EXTRA_CATEGORY, category)
+                putBoolean(EXTRA_OLD, old)
             }
         }
     }
-
+    private var category = IllustCategory.ILLUST
+    private var old = false
     override fun init(savedInstanceState: Bundle?) {
         arguments?.let {
             category = it.getString(EXTRA_CATEGORY, IllustCategory.ILLUST)
+            old = it.getBoolean(EXTRA_OLD, false)
         }
         mViewModel?.let {
             val adapter = RankingAdapter(it.data)
@@ -85,14 +92,22 @@ class RankIllustFragment : FragmentationFragment<CommonList, IllustListViewModel
                             .build())
                 }
             }
-//            adapter.apply {
-//                addItemType(Illust.TYPE_RANK + Illust.TYPE_ILLUST, R.layout.item_rank_illust, BR.data)
-//                addItemType(Illust.TYPE_RANK + Illust.TYPE_COMIC, R.layout.item_rank_illust, BR.data)
-//                addItemType(Illust.TYPE_RANK + Illust.TYPE_NOVEL, R.layout.item_rank_novel, BR.data)
-//                addItemType(Illust.TYPE_ILLUST, R.layout.item_home_illust, BR.illust)
-//                addItemType(Illust.TYPE_COMIC, R.layout.item_home_comic, BR.data)
-//                addItemType(Illust.TYPE_NOVEL, R.layout.item_home_novel, BR.data)
-//            }
+            if (old) {
+                val title = layoutInflater.inflate(R.layout.title_rank, null)
+                title.text_view.text = transformDate()
+                title.setOnClickListener {
+                    val oldDialog = OldRankDialog.newInstance(category)
+                    oldDialog.onResult = { mode, date ->
+                        mViewModel?.mode = mode
+                        mViewModel?.date = date
+                        title.text_view.text = transformDate()
+                        mViewModel?.load()
+                    }
+                    oldDialog.show(childFragmentManager, "oldDialog")
+                }
+                adapter.addHeaderView(title)
+            }
+
             mBinding.recyclerView.layoutManager = layoutManager
             adapter.bindToRecyclerView(mBinding.recyclerView)
             adapter.bindState(it.loadState) {
@@ -103,6 +118,14 @@ class RankIllustFragment : FragmentationFragment<CommonList, IllustListViewModel
             }
         }
         mViewModel?.load()
+    }
+
+    private fun transformDate(): String {
+        var sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val date = sdf.parse(mViewModel?.date)
+        sdf = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
+        val text = "${sdf.format(date)} 历史排行榜"
+        return text
     }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {

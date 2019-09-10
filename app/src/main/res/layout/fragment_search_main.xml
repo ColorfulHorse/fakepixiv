@@ -103,7 +103,8 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginEnd="16dp"
                             android:src="@drawable/ic_search_filter"
-                            android:visibility="gone"                     app:visible="@{vm.showSearch &amp;&amp; !vm.showUser}" />
+                            android:visibility="gone"
+                            app:visible="@{vm.showSearch &amp;&amp; !vm.showUser}" />
                     </LinearLayout>
                 </android.support.v7.widget.Toolbar>
                 <FrameLayout

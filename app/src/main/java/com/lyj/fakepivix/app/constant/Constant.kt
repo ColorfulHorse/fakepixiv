@@ -7,7 +7,11 @@ package com.lyj.fakepivix.app.constant
  *
  * @desc
  */
+
+const val EXTRA_CATEGORY = "EXTRA_CATEGORY"
+
 interface Constant {
+
     object Net {
         // 排行榜类型
         val ILLUST_RANK_MODES = listOf(
