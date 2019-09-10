@@ -43,6 +43,20 @@ class RankIllustFragment : FragmentationFragment<CommonList, RankIllustViewModel
             }
         }
     }
+
+    val title: View by lazy { layoutInflater.inflate(R.layout.title_rank, null) }
+
+    val oldDialog: OldRankDialog by lazy {
+        val oldDialog = OldRankDialog.newInstance(category)
+        oldDialog.onResult = { caption, mode, date ->
+            mViewModel?.mode = mode
+            mViewModel?.date = date
+            title.text_view.text = transformDate(caption)
+            mViewModel?.load()
+        }
+        oldDialog
+    }
+
     private var category = IllustCategory.ILLUST
     private var old = false
     override fun init(savedInstanceState: Bundle?) {
@@ -73,6 +87,7 @@ class RankIllustFragment : FragmentationFragment<CommonList, RankIllustViewModel
                             adapter.apply {
                                 addItemType(Illust.TYPE_RANK + Illust.TYPE_COMIC, R.layout.item_rank_illust, BR.data)
                                 addItemType(Illust.TYPE_COMIC, R.layout.item_home_comic, BR.data)
+                                addItemType(Illust.TYPE_ILLUST, R.layout.item_home_comic, BR.data)
                             }
                             decoration.ignoreType = Illust.TYPE_RANK + Illust.TYPE_COMIC
                         }
@@ -84,6 +99,7 @@ class RankIllustFragment : FragmentationFragment<CommonList, RankIllustViewModel
                     adapter.apply {
                         addItemType(Illust.TYPE_RANK + Illust.TYPE_NOVEL, R.layout.item_rank_novel, BR.data)
                         addItemType(Illust.TYPE_NOVEL, R.layout.item_home_novel, BR.data)
+                        addItemType(Illust.TYPE_ILLUST, R.layout.item_home_novel, BR.data)
                     }
                     mBinding.recyclerView.addItemDecoration(CommonItemDecoration.Builder()
                             .dividerWidth(1.dp2px(), 0)
@@ -93,16 +109,15 @@ class RankIllustFragment : FragmentationFragment<CommonList, RankIllustViewModel
                 }
             }
             if (old) {
-                val title = layoutInflater.inflate(R.layout.title_rank, null)
-                title.text_view.text = transformDate()
+                title.text_view.text = transformDate(getString(R.string.daily))
                 title.setOnClickListener {
-                    val oldDialog = OldRankDialog.newInstance(category)
-                    oldDialog.onResult = { mode, date ->
-                        mViewModel?.mode = mode
-                        mViewModel?.date = date
-                        title.text_view.text = transformDate()
-                        mViewModel?.load()
-                    }
+//                    val oldDialog = OldRankDialog.newInstance(category)
+//                    oldDialog.onResult = { mode, date ->
+//                        mViewModel?.mode = mode
+//                        mViewModel?.date = date
+//                        title.text_view.text = transformDate()
+//                        mViewModel?.load()
+//                    }
                     oldDialog.show(childFragmentManager, "oldDialog")
                 }
                 adapter.addHeaderView(title)
@@ -120,11 +135,11 @@ class RankIllustFragment : FragmentationFragment<CommonList, RankIllustViewModel
         mViewModel?.load()
     }
 
-    private fun transformDate(): String {
+    private fun transformDate(caption: String): String {
         var sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val date = sdf.parse(mViewModel?.date)
         sdf = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
-        val text = "${sdf.format(date)} 历史排行榜"
+        val text = "${sdf.format(date)} ${caption}排行榜"
         return text
     }
 

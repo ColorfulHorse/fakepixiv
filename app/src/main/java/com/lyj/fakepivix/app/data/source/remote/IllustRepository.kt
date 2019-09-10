@@ -18,7 +18,6 @@ import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 import retrofit2.http.Query
-
 /**
  * @author greensun
  *
@@ -59,9 +58,12 @@ class IllustRepository private constructor() {
      * 获取排行榜
      * [category] illust插画、漫画 novel小说
      */
-    fun getRankIllust(mode: String, date: String = "", @IllustCategory category: String = ILLUST): Observable<IllustListResp> =
-            RetrofitManager.instance.apiService.getRankIllust(category, mode, date)
-                    .schedulerTransform()
+    fun getRankIllust(mode: String, date: String = "", @IllustCategory category: String = ILLUST): Observable<IllustListResp> {
+        val realCategory = if (category == NOVEL) NOVEL else ILLUST
+        return RetrofitManager.instance.apiService.getRankIllust(realCategory, mode, date)
+                .schedulerTransform()
+    }
+
 
     /**
      * 获取关注的
@@ -284,3 +286,4 @@ class IllustRepository private constructor() {
     }
 
 }
+
