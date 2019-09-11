@@ -1,7 +1,6 @@
 package com.lyj.fakepivix.module.main.search.main
 
 import android.databinding.ViewDataBinding
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -11,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ImageSpan
-import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import com.flyco.tablayout.listener.CustomTabEntity
@@ -49,14 +47,16 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
     override var mViewModel: SearchMainViewModel = SearchMainViewModel()
 
     private var category = IllustCategory.ILLUST
+    //上个页面传过来的关键字
+    private var keyword = ""
 
     companion object {
         private const val EXTRA_CATEGORY = "EXTRA_CATEGORY"
-        fun newInstance(@IllustCategory category: String? = null) = SearchMainFragment().apply {
-            category?.let {
-                arguments = Bundle().apply {
-                    putString(EXTRA_CATEGORY, category)
-                }
+        private const val EXTRA_KEYWORD = "EXTRA_KEYWORD"
+        fun newInstance(@IllustCategory category: String, keyword: String = "") = SearchMainFragment().apply {
+            arguments = Bundle().apply {
+                putString(EXTRA_CATEGORY, category)
+                putString(EXTRA_KEYWORD, keyword)
             }
         }
     }
@@ -67,12 +67,11 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
     private lateinit var wordAdapter: BaseBindingAdapter<String, ViewDataBinding>
     private lateinit var completeAdapter: BaseBindingAdapter<Tag, ViewDataBinding>
     private lateinit var userAdapter: UserPreviewAdapter
-    private val loadingView: View by lazy { layoutInflater.inflate(R.layout.layout_common_loading, null) }
-    private val errorView: View by lazy { layoutInflater.inflate(R.layout.layout_error, null) }
 
     override fun init(savedInstanceState: Bundle?) {
         arguments?.let {
             category = it.getString(EXTRA_CATEGORY, IllustCategory.ILLUST)
+            keyword = it.getString(EXTRA_KEYWORD, "")
             mViewModel.category = category
         }
 
@@ -84,7 +83,7 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
         )
         with(mBinding) {
             segmentLayout.currentTab = when(category) {
-                IllustCategory.ILLUST -> 0
+                IllustCategory.ILLUST, IllustCategory.COMIC -> 0
                 IllustCategory.NOVEL -> 1
                 else -> 2
             }
@@ -105,18 +104,29 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
                 }
 
             })
-            input.requestFocus()
+            input.post {
+                input.requestFocus()
+            }
             searchContainer.setOnClickListener {
-                reSearch()
+                resetSearch()
             }
         }
         initHistory()
         initSearchList()
         initCompleteList()
         initUserList()
+
+        if (keyword.isNotBlank()) {
+            mViewModel.words.add(keyword)
+            hideSoftInput()
+            mViewModel.search()
+        }
     }
 
-    private fun FragmentSearchMainBinding.reSearch() {
+    /**
+     * 重新输入关键字
+     */
+    private fun FragmentSearchMainBinding.resetSearch() {
         mViewModel.showSearch.set(false)
         val text = "${mViewModel.keyword} "
         input.setText(text)
@@ -174,6 +184,7 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
                     helper.addOnClickListener(R.id.delete)
                 }
             }
+            // 删除关键字
             wordAdapter.setOnItemChildClickListener { _, _, position ->
                 mViewModel.words.removeAt(position)
                 if (mViewModel.words.isEmpty()) {
@@ -186,7 +197,7 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
             }
 
             wordAdapter.setOnItemClickListener { adapter, view, position ->
-                reSearch()
+                resetSearch()
             }
 
             rvWords.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -269,7 +280,7 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
                 .titleBarMarginTop(mBinding.contentView)
                 .statusBarDarkFont(true)
                 .statusBarColor(R.color.white, R.color.transparent_white, 0.7f)
-                .keyboardEnable(true, WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+                .keyboardEnable(true, WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE or WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
                 .setOnKeyboardListener(keyboardListener)
                 .init()
     }

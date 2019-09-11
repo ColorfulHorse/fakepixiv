@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
 import android.support.design.widget.BottomSheetDialogFragment
 import android.support.design.widget.CoordinatorLayout
+import android.text.TextUtils.isEmpty
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,7 @@ class AboutDialogFragment : BottomSheetDialogFragment() {
 
     var detailViewModel: DetailViewModel? = null
     var bottomSheetBehavior: BottomSheetBehavior<View>? = null
+    var mBinding: DialogDetailBottomBinding? = null
 
     companion object {
         fun newInstance(): AboutDialogFragment {
@@ -36,12 +38,15 @@ class AboutDialogFragment : BottomSheetDialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.dialog_detail_bottom, container, false)
-        val binding = DataBindingUtil.bind<DialogDetailBottomBinding>(rootView)
+        val lp = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, screenHeight()*2/3)
+        rootView.layoutParams = lp
+        mBinding = DataBindingUtil.bind(rootView)
+        mBinding?.setLifecycleOwner(this)
         detailViewModel?.let {
-            binding?.vm = it
+            mBinding?.vm = it
         }
 
-        binding?.let {
+        mBinding?.let { binding ->
             with(binding) {
                 detailViewModel?.let { vm ->
                     context?.let {
@@ -52,15 +57,15 @@ class AboutDialogFragment : BottomSheetDialogFragment() {
 //                    vm.illust.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
 //                        caption.setVariable(BR.data, vm.illust.get())
 //                    })
+                    descContainer.tagsLabel.visibility = if (vm.illust.getTranslateTags().isEmpty()) View.GONE else View.VISIBLE
+                    descContainer.descLabel.visibility = if (vm.illust.caption.isBlank()) View.GONE else View.VISIBLE
+                    descContainer.desc.visibility = if (vm.illust.caption.isBlank()) View.GONE else View.VISIBLE
                 }
                 caption.show.setImageResource(R.drawable.action_detail_rev)
-                descContainer.tagsLabel.visibility = View.VISIBLE
-                descContainer.descLabel.visibility = View.VISIBLE
                 descContainer.containerCaption.visibility = View.GONE
                 caption.show.setOnClickListener {
                     bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
                 }
-
             }
         }
         return rootView
@@ -68,7 +73,6 @@ class AboutDialogFragment : BottomSheetDialogFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        //dialog.setCanceledOnTouchOutside(false)
         dialog.setOnKeyListener { dialog, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_BACK) {
                 if (event.action == KeyEvent.ACTION_DOWN) {
@@ -79,16 +83,20 @@ class AboutDialogFragment : BottomSheetDialogFragment() {
             false
         }
         val view = dialog.window.findViewById<View>(android.support.design.R.id.design_bottom_sheet)
-        bottomSheetBehavior = BottomSheetBehavior.from(view)
-        val parent = view.parent as View
-        parent.post {
-            val h = parent.height
+        (view as ViewGroup).let {
+            it.descendantFocusability = ViewGroup.FOCUS_BLOCK_DESCENDANTS
+            it.isFocusable = true
+            it.isFocusableInTouchMode = true
         }
+        bottomSheetBehavior = BottomSheetBehavior.from(view)
+        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
+//        mBinding?.scrollView?.post {
+//            mBinding?.scrollView?.scrollTo(0, 0)
+//        }
+        val parent = view.parent as View
         parent.setOnClickListener {
             bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         }
-        val lp = view.layoutParams as CoordinatorLayout.LayoutParams
-        lp.height = screenHeight()*2/3
         detailViewModel?.let {
             it.userFooterViewModel.load()
             it.commentFooterViewModel.load()

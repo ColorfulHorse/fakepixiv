@@ -109,8 +109,12 @@ class MainRootFragment : FragmentationFragment<MainRoot, BaseViewModel<*>?>() {
 
         })
         mBinding.search.setOnClickListener {
-            var category = IllustCategory.ILLUST
-            start(SearchMainFragment.newInstance(category))
+            var category = IllustCategory.OTHER
+            val active = Router.getActiveFragment()
+            if (active is SearchTagFragment) {
+                category = active.category
+            }
+            Router.goSearch(category)
         }
     }
 

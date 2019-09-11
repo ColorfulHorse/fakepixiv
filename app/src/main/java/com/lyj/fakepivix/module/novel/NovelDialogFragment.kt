@@ -7,13 +7,17 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager
+import com.beloo.widget.chipslayoutmanager.SpacingItemDecoration
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
-import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
-import com.lyj.fakepivix.app.data.model.response.Tag
+import com.lyj.fakepivix.app.App
+import com.lyj.fakepivix.app.constant.IllustCategory
+import com.lyj.fakepivix.app.databinding.bindAction
 import com.lyj.fakepivix.app.utils.Router
+import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.DialogNovelBinding
-import com.lyj.fakepivix.databinding.ItemTagBinding
+import com.lyj.fakepivix.module.common.adapter.IllustTagAdapter
 import com.lyj.fakepivix.widget.FlowLayoutManager
 
 /**
@@ -57,14 +61,20 @@ class NovelDialogFragment : DialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         with(mBinding) {
-            val adapter = BaseBindingAdapter<Tag, ItemTagBinding>(R.layout.item_tag, mViewModel.data.getTranslateTags(), BR.data)
+            val adapter = IllustTagAdapter(IllustCategory.NOVEL, R.layout.item_tag, mViewModel.data.getTranslateTags())
             adapter.bindToRecyclerView(recyclerView)
-            recyclerView.layoutManager = FlowLayoutManager()
-            likeContainer.setOnClickListener {
-
-            }
+            recyclerView.layoutManager = ChipsLayoutManager.newBuilder(App.context)
+                    .setOrientation(ChipsLayoutManager.HORIZONTAL)
+                    .build()
+            recyclerView.addItemDecoration(SpacingItemDecoration(1.dp2px(), 6.dp2px()))
+            likeButton.bindAction(mViewModel.data)
             closeContainer.setOnClickListener {
-                this@NovelDialogFragment.dismiss()
+                dismiss()
+            }
+
+            userContainer.setOnClickListener {
+                dismiss()
+                Router.goUserDetail(mViewModel.data.user)
             }
 
             readContainer.setOnClickListener {
@@ -77,14 +87,6 @@ class NovelDialogFragment : DialogFragment() {
             }
 
             likes.setOnClickListener {
-
-            }
-
-            avatar.setOnClickListener {
-
-            }
-
-            nickName.setOnClickListener {
 
             }
         }

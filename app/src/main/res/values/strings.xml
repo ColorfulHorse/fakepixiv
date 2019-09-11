@@ -106,6 +106,7 @@
     <string name="not_found">抱歉，没有找到相关结果</string>
     <string name="ranking">排行榜</string>
     <string name="ok">OK</string>
+    <string name="series_previous">上一话</string>
 
     <string-array name="illust_rank_modes">
         <item>每日</item>

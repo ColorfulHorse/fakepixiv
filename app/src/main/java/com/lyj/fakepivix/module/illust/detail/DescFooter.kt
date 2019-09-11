@@ -1,17 +1,20 @@
 package com.lyj.fakepivix.module.illust.detail
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
-import com.lyj.fakepivix.BR
+import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager
+import com.beloo.widget.chipslayoutmanager.SpacingItemDecoration
 import com.lyj.fakepivix.R
-import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
+import com.lyj.fakepivix.app.App
+import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.data.model.response.Tag
-import com.lyj.fakepivix.databinding.ItemTagBinding
+import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.LayoutFooterDescBinding
+import com.lyj.fakepivix.module.common.adapter.IllustTagAdapter
 import com.lyj.fakepivix.widget.FlowLayoutManager
 
 /**
@@ -46,8 +49,11 @@ class DescFooter(val context: Context, val data: Illust, var mBinding: LayoutFoo
         binding.desc.text = Html.fromHtml(data.caption)
         // 转换标签+#+翻译
         val tags = data.getTranslateTags()
-        val adapter = BaseBindingAdapter<Tag, ItemTagBinding>(R.layout.item_tag, tags, BR.data)
+        val adapter = IllustTagAdapter(IllustCategory.ILLUST, R.layout.item_tag, tags)
         adapter.bindToRecyclerView(binding.recyclerView)
-        binding.recyclerView.layoutManager = FlowLayoutManager()
+        binding.recyclerView.layoutManager = ChipsLayoutManager.newBuilder(App.context)
+                .setOrientation(ChipsLayoutManager.HORIZONTAL)
+                .build()
+        binding.recyclerView.addItemDecoration(SpacingItemDecoration(1.dp2px(), 6.dp2px()))
     }
 }

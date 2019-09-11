@@ -218,7 +218,7 @@
             android:layout_above="@id/bottom_container">
 
             <LinearLayout
-                android:id="@+id/top_container"
+                android:id="@+id/user_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -268,7 +268,7 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/top_container">
+                android:layout_below="@id/user_container">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -333,7 +333,7 @@
                         android:layout_marginBottom="8dp"
                         android:text="@string/tags"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                     <android.support.v7.widget.RecyclerView
@@ -358,7 +358,7 @@
                             android:layout_marginBottom="8dp"
                             android:text="@string/desc_label"
                             android:textColor="@android:color/black"
-                            android:textSize="10sp"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <TextView

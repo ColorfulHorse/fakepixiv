@@ -20,7 +20,8 @@
         android:background="@color/bg_general_new"
         android:layout_gravity="bottom"
         android:layout_alignParentBottom="true"
-        android:visibility="gone"                     app:visible="@{showCaption}"
+        android:visibility="gone"
+        app:visible="@{showCaption}"
         >
 
         <ImageButton

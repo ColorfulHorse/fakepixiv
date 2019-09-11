@@ -1,5 +1,6 @@
 package com.lyj.fakepivix.app.utils
 
+import android.app.Dialog
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import com.lyj.fakepivix.app.base.FragmentationFragment
@@ -11,6 +12,7 @@ import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import com.lyj.fakepivix.module.illust.detail.IllustDetailRootFragment
 import com.lyj.fakepivix.module.illust.ranking.RankIllustFragment
 import com.lyj.fakepivix.module.illust.ranking.RankIllustRootFragment
+import com.lyj.fakepivix.module.main.search.main.SearchMainFragment
 import com.lyj.fakepivix.module.novel.NovelDetailFragment
 import com.lyj.fakepivix.module.novel.NovelDialogFragment
 import com.lyj.fakepivix.module.user.detail.UserDetailFragment
@@ -25,6 +27,9 @@ import me.yokeyword.fragmentation.SupportHelper
  */
 object Router {
 
+    /**
+     *
+     */
     fun goDetail(position: Int, data: List<Illust>) {
         val fm = getTopFragmentManager()
         fm?.let {
@@ -41,20 +46,36 @@ object Router {
         }
     }
 
+    /**
+     * 排行榜
+     */
     fun goRank(@IllustCategory category: String) {
         val fragment = RankIllustRootFragment.newInstance(category)
         getTopFragment()?.start(fragment)
     }
 
+    /**
+     * 小说详情页
+     */
     fun goNovelDetail(key: Int, position: Int) {
         val fragment = NovelDetailFragment.newInstance(position, key)
         getTopFragment()?.start(fragment)
     }
 
+    /**
+     * 用户详情页
+     */
     fun goUserDetail(user: User) {
         UserRepository.instance[user.id] = user
         val fragment = UserDetailFragment.newInstance(user.id)
         getTopFragment()?.start(fragment)
+    }
+
+    /**
+     * 搜索页
+     */
+    fun goSearch(@IllustCategory category: String, keyword: String = "") {
+        getTopFragment()?.start(SearchMainFragment.newInstance(category, keyword))
     }
 
     fun getTopFragmentManager(): FragmentManager? {
@@ -79,5 +100,6 @@ object Router {
         }
         return null
     }
+
 
 }

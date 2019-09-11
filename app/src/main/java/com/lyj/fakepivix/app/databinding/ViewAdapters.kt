@@ -2,6 +2,7 @@ package com.lyj.fakepivix.app.databinding
 
 import android.databinding.BindingAdapter
 import android.databinding.BindingConversion
+import android.databinding.ObservableField
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.support.constraint.ConstraintLayout
@@ -24,6 +25,8 @@ import com.bumptech.glide.load.Transformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils
+import com.lyj.fakepivix.app.data.model.response.Illust
+import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.glide.PositionedCrop
 import com.lyj.fakepivix.app.utils.PaddingAnimationFactory
 import com.lyj.fakepivix.app.utils.screenHeight
@@ -140,6 +143,35 @@ fun ImageView.url(url: String?, placeHolder: Drawable?, placeHolderRatio: String
 @BindingAdapter(value = ["liked"])
 fun LikeButton.liked(liked: Boolean = false) {
     this.setLikedWithoutAnim(liked)
+}
+
+/**
+ * 收藏按钮
+ */
+@BindingAdapter(value = ["data"])
+fun LikeButton.bindAction(data: Illust) {
+    action = {
+        processing = true
+        val star = data.is_bookmarked
+        val starState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
+        starState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
+            when(starState.get()) {
+                is LoadState.Failed -> {
+                    processing = false
+                    if (star) {
+                        like()
+                    }else {
+                        unlike()
+                    }
+                }
+                is LoadState.Succeed -> {
+                    processing = false
+                }
+            }
+        })
+        IllustRepository.instance
+                .star(data, starState)
+    }
 }
 
 @BindingConversion

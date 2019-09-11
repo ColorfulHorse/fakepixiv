@@ -7,41 +7,35 @@
             name="vm"
             type="DetailViewModel"/>
     </data>
-    <LinearLayout
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         >
-        <include layout="@layout/layout_detail_caption"
-            android:id="@+id/caption"
-            app:data="@{vm.illust}"
-            app:showCaption="@{true}"
-            />
-        <android.support.v4.widget.NestedScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_behavior="@string/bottom_sheet_behavior"
-            app:behavior_hideable="true"
+            android:orientation="vertical"
+            android:background="@color/white"
             >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@color/white"
-                >
-                <include layout="@layout/layout_footer_desc"
-                    android:id="@+id/desc_container"
-                    app:data="@{vm.illust}"
-                    />
-                <include layout="@layout/layout_footer_user"
-                    android:id="@+id/user_container"
-                    app:vm="@{vm.userFooterViewModel}"
-                    />
-                <include layout="@layout/layout_footer_comment"
-                    app:vm="@{vm.commentFooterViewModel}"
-                    android:id="@+id/comment_container"
-                    />
-            </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
-    </LinearLayout>
+            <include layout="@layout/layout_detail_caption"
+                android:id="@+id/caption"
+                app:data="@{vm.illust}"
+                app:showCaption="@{true}"
+                />
+            <include layout="@layout/layout_footer_desc"
+                android:id="@+id/desc_container"
+                app:data="@{vm.illust}"
+                />
+            <include layout="@layout/layout_footer_user"
+                android:id="@+id/user_container"
+                app:vm="@{vm.userFooterViewModel}"
+                />
+            <include layout="@layout/layout_footer_comment"
+                app:vm="@{vm.commentFooterViewModel}"
+                android:id="@+id/comment_container"
+                />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </layout>

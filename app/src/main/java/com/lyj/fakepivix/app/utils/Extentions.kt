@@ -18,8 +18,11 @@ import android.view.WindowManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.App
+import com.lyj.fakepivix.app.data.model.response.Illust
+import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
+import com.lyj.fakepivix.widget.LikeButton
 import kotlinx.android.synthetic.main.layout_common_refresh_recycler.*
 import kotlinx.android.synthetic.main.layout_error.view.*
 
@@ -123,4 +126,5 @@ fun BaseQuickAdapter<*, *>.bindState(loadState: ObservableField<LoadState>, onSu
         }
     })
 }
+
 

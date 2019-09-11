@@ -14,6 +14,7 @@ import com.lyj.fakepivix.app.adapter.PreloadMultiBindingAdapter
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
+import com.lyj.fakepivix.app.databinding.bindAction
 import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.Router
@@ -49,28 +50,7 @@ open class IllustAdapter(data: MutableList<Illust>, val likeButton: Boolean = tr
         val series = helper.getView<View>(R.id.series_title)
         button?.let {
             if (!likeButton) it.visibility = View.GONE
-            it.action = {
-                it.processing = true
-                val star = item.is_bookmarked
-                val starState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
-                starState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
-                    when(starState.get()) {
-                        is LoadState.Failed -> {
-                            it.processing = false
-                            if (star) {
-                                it.like()
-                            }else {
-                                it.unlike()
-                            }
-                        }
-                        is LoadState.Succeed -> {
-                            it.processing = false
-                        }
-                    }
-                })
-                IllustRepository.instance
-                        .star(item, starState)
-            }
+            it.bindAction(item)
         }
         series?.let {
             series.setOnClickListener {
