@@ -19,7 +19,7 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc
  */
-open class IllustListViewModel(var action: () -> Observable<IllustListResp>) : BaseViewModel<IModel?>() {
+open class IllustListViewModel(var action: (() -> Observable<IllustListResp>)? = null) : BaseViewModel<IModel?>() {
 
     override var mModel: IModel? = null
 
@@ -31,20 +31,22 @@ open class IllustListViewModel(var action: () -> Observable<IllustListResp>) : B
 
     fun load() {
         if (loadMoreState.get() !is LoadState.Loading) {
-            val disposable = action()
-                    .doOnSubscribe {
-                        loadState.set(LoadState.Loading)
-                        data.clear()
-                    }
-                    .subscribeBy(onNext = {
-                        loadState.set(LoadState.Succeed)
-                        nextUrl = it.next_url
-                        data.clear()
-                        data.addAll(it.illusts)
-                    }, onError = {
-                        loadState.set(LoadState.Failed(it))
-                    })
-            addDisposable(disposable)
+            action?.let {
+                val disposable = it()
+                        .doOnSubscribe {
+                            loadState.set(LoadState.Loading)
+                            data.clear()
+                        }
+                        .subscribeBy(onNext = {
+                            loadState.set(LoadState.Succeed)
+                            nextUrl = it.next_url
+                            data.clear()
+                            data.addAll(it.illusts)
+                        }, onError = {
+                            loadState.set(LoadState.Failed(it))
+                        })
+                addDisposable(disposable)
+            }
         }
     }
 

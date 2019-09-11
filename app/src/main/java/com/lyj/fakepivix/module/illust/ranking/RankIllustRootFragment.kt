@@ -14,13 +14,14 @@ import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.constant.Constant
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.databinding.FragmentRootRankIllustBinding
+import java.util.*
 
 /**
  * @author greensun
  *
  * @date 2019/3/20
  *
- * @desc
+ * @desc 排行榜根页面
  */
 class RankIllustRootFragment : BackFragment<FragmentRootRankIllustBinding, BaseViewModel<IModel?>?>() {
     override var mViewModel: BaseViewModel<IModel?>? = null
@@ -38,7 +39,7 @@ class RankIllustRootFragment : BackFragment<FragmentRootRankIllustBinding, BaseV
 
     override fun init(savedInstanceState: Bundle?) {
         arguments?.let {
-            category = it.getString(RankIllustFragment.EXTRA_CATEGORY, IllustCategory.ILLUST)
+            category = it.getString(RankIllustRootFragment.EXTRA_CATEGORY, IllustCategory.ILLUST)
         }
         mToolbar?.title = getString(R.string.ranking)
         val titles = when(category) {
@@ -61,14 +62,29 @@ class RankIllustRootFragment : BackFragment<FragmentRootRankIllustBinding, BaseV
             IllustCategory.NOVEL -> Constant.Net.NOVEL_RANK_MODES
             else -> Constant.Net.ILLUST_RANK_MODES
         }
-        val realCategory = if (category == IllustCategory.NOVEL) IllustCategory.NOVEL else IllustCategory.ILLUST
         for ((index, mode) in modes.withIndex()) {
+            val viewModel = RankIllustViewModel(category, mode)
             val fragment = if (index == modes.size - 1) {
+                // 过去排行榜
+                val c = Calendar.getInstance()
+                var y = c.get(Calendar.YEAR)
+                var m = c.get(Calendar.MONTH)
+                var d = c.get(Calendar.DAY_OF_MONTH)
+                if (d <= 1) {
+                    if (m <= 0) {
+                        c.roll(Calendar.YEAR, -1)
+                    }
+                    c.roll(Calendar.MONTH, -1)
+                }
+                c.roll(Calendar.DAY_OF_MONTH, -1)
+                y = c.get(Calendar.YEAR)
+                m = c.get(Calendar.MONTH)
+                d = c.get(Calendar.DAY_OF_MONTH)
+                viewModel.date = String.format("%d-%02d-%02d", y, m + 1, d)
                 RankIllustFragment.newInstance(category, true)
             }else {
                 RankIllustFragment.newInstance(category)
             }
-            val viewModel = RankIllustViewModel(realCategory, mode)
             fragment.mViewModel = viewModel
             fragments.add(fragment)
         }

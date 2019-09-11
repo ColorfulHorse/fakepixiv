@@ -107,6 +107,7 @@
     <string name="ranking">排行榜</string>
     <string name="ok">OK</string>
     <string name="series_previous">上一话</string>
+    <string name="daily">每日</string>
 
     <string-array name="illust_rank_modes">
         <item>每日</item>
@@ -121,9 +122,6 @@
 
     <string-array name="comic_rank_modes">
         <item>每日</item>
-        <item>男性向</item>
-        <item>女性向</item>
-        <item>原创</item>
         <item>新人</item>
         <item>每周</item>
         <item>每月</item>
@@ -134,10 +132,8 @@
         <item>每日</item>
         <item>男性向</item>
         <item>女性向</item>
-        <item>原创</item>
         <item>新人</item>
         <item>每周</item>
-        <item>每月</item>
         <item>过去</item>
     </string-array>
 </resources>
