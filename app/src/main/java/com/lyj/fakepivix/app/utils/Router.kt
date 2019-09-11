@@ -1,6 +1,7 @@
 package com.lyj.fakepivix.app.utils
 
 import android.app.Dialog
+import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import com.lyj.fakepivix.app.base.FragmentationFragment
@@ -75,6 +76,11 @@ object Router {
      * 搜索页
      */
     fun goSearch(@IllustCategory category: String, keyword: String = "") {
+        getActiveFragment()?.childFragmentManager?.fragments?.forEach {
+            if (it is DialogFragment) {
+                it.dismiss()
+            }
+        }
         getTopFragment()?.start(SearchMainFragment.newInstance(category, keyword))
     }
 
