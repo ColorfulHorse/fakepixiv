@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CommonTabLayout">
+        <attr format="boolean" name="tl_indicator_width_equal_title"/>
+        <attr format="dimension" name="tl_indicator_padding_left"/>
+        <attr format="dimension" name="tl_indicator_padding_right"/>
+    </declare-styleable>
+</resources>

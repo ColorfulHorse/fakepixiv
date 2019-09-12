@@ -25,7 +25,7 @@
                     style="@style/base_toolbar"
                     app:layout_scrollFlags="scroll|enterAlways|snap"
                     />
-                <com.flyco.tablayout.CommonTabLayout
+                <com.lyj.fakepivix.widget.SlidingTabLayout
                     android:id="@+id/segmentLayout"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/tab_height"
@@ -40,14 +40,14 @@
                     app:tl_indicator_color="@color/colorPrimary"
                     app:tl_indicator_corner_radius="30dp"
                     app:tl_indicator_anim_enable="false"
-                    app:tl_indicator_width="@dimen/indicator_width"
                     app:tl_indicator_margin_top="10dp"
                     app:tl_indicator_margin_bottom="10dp"
+                    app:tl_indicator_width_equal_title="true"
                     />
 
             </android.support.design.widget.AppBarLayout>
 
-            <android.support.v4.view.ViewPager
+            <com.lyj.fakepivix.widget.NoScrollViewpager
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

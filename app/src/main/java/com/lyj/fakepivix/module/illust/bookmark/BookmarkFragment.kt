@@ -1,11 +1,13 @@
 package com.lyj.fakepivix.module.illust.bookmark
 
+import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.DrawFilter
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
+import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v7.graphics.drawable.DrawerArrowDrawable
-import com.flyco.tablayout.listener.CustomTabEntity
-import com.flyco.tablayout.listener.OnTabSelectListener
 import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.CommonFragmentAdapter
@@ -16,15 +18,9 @@ import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
-import com.lyj.fakepivix.app.entity.TabBean
 import com.lyj.fakepivix.databinding.FragmentBookmarkBinding
-import com.lyj.fakepivix.databinding.FragmentFollowingBinding
 import com.lyj.fakepivix.module.common.IllustListFragment
 import com.lyj.fakepivix.module.common.IllustListViewModel
-import com.lyj.fakepivix.module.common.UserListFragment
-import io.reactivex.Observable
-import io.reactivex.rxkotlin.Observables
-import kotlinx.coroutines.rx2.rxObservable
 
 /**
  * @author greensun
@@ -37,7 +33,6 @@ class BookmarkFragment : BackFragment<FragmentBookmarkBinding, BaseViewModel<IMo
     override var mViewModel: BaseViewModel<IModel?>? = null
 
     private val fragments = mutableListOf<FragmentationFragment<*,*>>()
-    var prePosition = 0
     var userId = ""
 
     companion object {
@@ -49,21 +44,42 @@ class BookmarkFragment : BackFragment<FragmentBookmarkBinding, BaseViewModel<IMo
 
     override fun init(savedInstanceState: Bundle?) {
         userId = UserRepository.instance.loginData?.user?.id.toString()
-        mToolbar?.title = getString(R.string.bookmark)
+        mToolbar?.let {
+            it.title = getString(R.string.bookmark)
+            it.inflateMenu(R.menu.menu_bookmark)
+            val icon = ContextCompat.getDrawable(mActivity, R.drawable.ic_search_filter)
+            icon?.let { drawable ->
+                DrawableCompat.setTint(drawable, Color.WHITE)
+                it.menu.findItem(R.id.restrict).setIcon(drawable)
+            }
+        }
         initFragment()
     }
 
 
 
     private fun initFragment() {
-        val tabs = arrayListOf<CustomTabEntity>(
-                TabBean(title = getString(R.string.tab_pic)),
-                TabBean(title = getString(R.string.tab_novel))
-        )
+
         val illustListFragment = IllustListFragment.newInstance(IllustCategory.ILLUST).apply {
-            mViewModel = IllustListViewModel()
+            mViewModel = IllustListViewModel {
+                IllustRepository.instance
+                        .loadUserBookmarks(userId, category)
+            }
         }
-        //val adapter = CommonFragmentAdapter(childFragmentManager, )
+        val novelFragment = IllustListFragment.newInstance(IllustCategory.NOVEL).apply {
+            mViewModel = IllustListViewModel {
+                IllustRepository.instance
+                        .loadUserBookmarks(userId, category)
+            }
+        }
+        fragments.add(illustListFragment)
+        fragments.add(novelFragment)
+        val adapter = CommonFragmentAdapter(childFragmentManager, fragments, arrayOf(getString(R.string.tab_pic), getString(R.string.tab_novel)))
+        with(mBinding) {
+            viewPager.adapter = adapter
+            segmentLayout.setViewPager(viewPager)
+            segmentLayout.currentTab = 0
+        }
     }
 
 
