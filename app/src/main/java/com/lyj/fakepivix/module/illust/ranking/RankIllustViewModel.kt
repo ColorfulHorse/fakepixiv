@@ -18,17 +18,23 @@ class RankIllustViewModel(@IllustCategory val category: String, var mode: String
 
     init {
         action = {
-            IllustRepository.instance
+            var res = IllustRepository.instance
                     .getRankIllust(mode, category = category, date = date)
-                    .map { res ->
-                        // 排行榜前三布局不同
-                        res.illusts.forEachIndexed { index, illust ->
-                            if (index <= 2) {
-                                illust.type = Illust.RANK + category
-                            }
-                        }
-                        res
-                    }
+            res.illusts.forEachIndexed { index, illust ->
+                if (index <= 2) {
+                    illust.type = Illust.RANK + category
+                }
+            }
+            res
+//                    .map { res ->
+//                        // 排行榜前三布局不同
+//                        res.illusts.forEachIndexed { index, illust ->
+//                            if (index <= 2) {
+//                                illust.type = Illust.RANK + category
+//                            }
+//                        }
+//                        res
+//                    }
         }
     }
 }

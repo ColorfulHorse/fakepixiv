@@ -4,13 +4,16 @@ import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
-
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.IllustListResp
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
+import com.lyj.fakepivix.app.data.source.remote.checkEmpty
 import com.lyj.fakepivix.app.network.LoadState
-import io.reactivex.Observable
 import io.reactivex.rxkotlin.subscribeBy
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * @author greensun
@@ -19,7 +22,7 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc
  */
-open class IllustListViewModel(var action: (() -> Observable<IllustListResp>)? = null) : BaseViewModel<IModel?>() {
+open class IllustListViewModel(val allowEmpty: Boolean = false, var action: (suspend () -> IllustListResp)? = null) : BaseViewModel<IModel?>() {
 
     override var mModel: IModel? = null
 
@@ -32,23 +35,24 @@ open class IllustListViewModel(var action: (() -> Observable<IllustListResp>)? =
     fun load() {
         if (loadMoreState.get() !is LoadState.Loading) {
             action?.let {
-                val disposable = it()
-                        .doOnSubscribe {
-                            loadState.set(LoadState.Loading)
-                            data.clear()
-                        }
-                        .subscribeBy(onNext = {
-                            loadState.set(LoadState.Succeed)
-                            nextUrl = it.next_url
-                            data.clear()
-                            data.addAll(it.illusts)
-                        }, onError = {
-                            loadState.set(LoadState.Failed(it))
-                        })
-                addDisposable(disposable)
+                launch(CoroutineExceptionHandler { _, err ->
+                    loadState.set(LoadState.Failed(err))
+                }) {
+                    loadState.set(LoadState.Loading)
+                    data.clear()
+                    val resp = withContext(Dispatchers.IO) {
+                        it()
+                    }
+                    resp.checkEmpty()
+                    nextUrl = resp.next_url
+                    data.clear()
+                    data.addAll(resp.illusts)
+                    loadState.set(LoadState.Succeed)
+                }
             }
         }
     }
+
 
     fun loadMore() {
         if (nextUrl.isBlank())

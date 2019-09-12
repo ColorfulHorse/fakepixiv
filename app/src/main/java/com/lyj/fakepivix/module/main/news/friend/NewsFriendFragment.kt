@@ -9,11 +9,14 @@ import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.constant.IllustCategory.OTHER
 import com.lyj.fakepivix.app.constant.IllustCategory.NOVEL
+import com.lyj.fakepivix.app.data.model.response.IllustListResp
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.entity.TabBean
+import com.lyj.fakepivix.app.network.ApiException
 import com.lyj.fakepivix.databinding.FragmentNewsNewsBinding
 import com.lyj.fakepivix.module.common.IllustListFragment
 import com.lyj.fakepivix.module.common.IllustListViewModel
+import io.reactivex.Observable
 
 
 /**
@@ -78,5 +81,4 @@ class NewsFriendFragment : FragmentationFragment<FragmentNewsNewsBinding, BaseVi
     override fun immersionBarEnabled(): Boolean = false
 
     override fun bindLayout(): Int = R.layout.fragment_news_news
-
 }

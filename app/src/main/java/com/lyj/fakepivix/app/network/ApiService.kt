@@ -73,7 +73,7 @@ interface ApiService {
      * 获取排行榜
      */
     @GET("/v1/{category}/ranking")
-    fun getRankIllust(@Path("category") category: String = ILLUST, @Query("mode") mode: String, @Query("date") date: String): Observable<IllustListResp>
+    suspend fun getRankIllust(@Path("category") category: String = ILLUST, @Query("mode") mode: String, @Query("date") date: String): IllustListResp
 
 
     /**
@@ -177,16 +177,16 @@ interface ApiService {
      * [filter] 筛选条件 全部/公开/私密
      */
     @GET("/v2/{category}/follow")
-    fun getFollowIllustData(@IllustCategory @Path("category")category: String = ILLUST,
-                            @Restrict @Query("restrict") restrict: String = Restrict.ALL): Observable<IllustListResp>
+    suspend fun getFollowIllustData(@IllustCategory @Path("category")category: String = ILLUST,
+                            @Restrict @Query("restrict") restrict: String = Restrict.ALL): IllustListResp
 
     /**
      * 最新-关注者
      * [category] 小说
      */
     @GET("/v1/{category}/follow")
-    fun getFollowNovelData(@IllustCategory @Path("category")category: String = NOVEL,
-                           @Restrict @Query("restrict") restrict: String = Restrict.ALL): Observable<IllustListResp>
+    suspend fun getFollowNovelData(@IllustCategory @Path("category")category: String = NOVEL,
+                           @Restrict @Query("restrict") restrict: String = Restrict.ALL): IllustListResp
 
 
 
@@ -195,28 +195,28 @@ interface ApiService {
      * [category] 插画/漫画
      */
     @GET("/v1/illust/new")
-    fun getNewIllustData(@IllustCategory @Query("content_type")category: String): Observable<IllustListResp>
+    suspend fun getNewIllustData(@IllustCategory @Query("content_type")category: String): IllustListResp
 
     /**
      * 最新-最新
      * [category] 小说
      */
     @GET("/v1/novel/new")
-    fun getNewNovelData(): Observable<IllustListResp>
+    suspend fun getNewNovelData(): IllustListResp
 
     /**
      * 最新-好P友
      * 插画漫画
      */
     @GET("/v2/illust/mypixiv")
-    fun getFriendIllustData(): Observable<IllustListResp>
+    suspend fun getFriendIllustData(): IllustListResp
 
     /**
      * 最新-好P友
      * 小说
      */
     @GET("/v1/illust/mypixiv")
-    fun getFriendNovelData(): Observable<IllustListResp>
+    suspend fun getFriendNovelData(): IllustListResp
 
 
     /**
@@ -283,24 +283,24 @@ interface ApiService {
      * 按热度搜索
      */
     @GET("/v1/search/popular-preview/{category}")
-    fun searchPopularIllust(@IllustCategory @Path("category")category: String,
+    suspend fun searchPopularIllust(@IllustCategory @Path("category")category: String,
                             @Query("word")keyword: String,
                             @Query("search_target")mode: String = Constant.Request.KEY_SEARCH_PARTIAL,
                             @Query("start_date")start_date: String = "",
                             @Query("end_date")end_date: String = "",
-                            @Query("include_translated_tag_results")translate: Boolean = true): Observable<IllustListResp>
+                            @Query("include_translated_tag_results")translate: Boolean = true): IllustListResp
 
     /**
      * 按顺序搜索
      */
     @GET("/v1/search/{category}")
-    fun searchIllust(@IllustCategory @Path("category")category: String,
+    suspend fun searchIllust(@IllustCategory @Path("category")category: String,
                      @Query("word")keyword: String,
                      @Query("sort")sort: String,
                      @Query("search_target")strategy: String = Constant.Request.KEY_SEARCH_PARTIAL,
                      @Query("start_date")start_date: String = "",
                      @Query("end_date")end_date: String = "",
-                     @Query("include_translated_tag_results")translate: Boolean = true): Observable<IllustListResp>
+                     @Query("include_translated_tag_results")translate: Boolean = true): IllustListResp
 
     /**
      * 搜索用户
