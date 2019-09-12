@@ -27,6 +27,7 @@ class SearchRepository {
                 .getIllustSearchTag(category)
                 .map {
                     it.trend_tags[0].type = TrendTag.TYPE_HEADER
+                    it.trend_tags.forEach { tag -> tag.illust.type = category }
                     it
                 }
                 .schedulerTransform()

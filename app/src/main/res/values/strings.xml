@@ -108,6 +108,7 @@
     <string name="ok">OK</string>
     <string name="series_previous">上一话</string>
     <string name="daily">每日</string>
+    <string name="bookmark">收藏</string>
 
     <string-array name="illust_rank_modes">
         <item>每日</item>

@@ -73,10 +73,6 @@ class SearchTagFragment : FragmentationFragment<CommonList, SearchTagViewModel>(
                 mAdapter.bindToRecyclerView(recyclerView)
                 // 加载更多
                 //recyclerView.attachLoadMore { loadMore() }
-
-                mAdapter.setOnItemClickListener { _, _, position ->
-                    ToastUtil.showToast("$position")
-                }
                 mAdapter.bindState(loadState) {
                     load()
                 }

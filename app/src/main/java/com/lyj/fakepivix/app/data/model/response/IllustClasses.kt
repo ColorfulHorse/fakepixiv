@@ -67,7 +67,7 @@ data class Illust(
         val tools: List<Any> = listOf(),
         var total_bookmarks: Int = 0,
         var total_view: Int = 0,
-        var type: String = "",
+        @IllustCategory var type: String = ILLUST,
         val user: User = User(),
         val visible: Boolean = true,
         val width: Int = 0,
