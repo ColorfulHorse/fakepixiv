@@ -14,6 +14,7 @@ import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationActivity
 import com.lyj.fakepivix.databinding.ActivityMainBinding
 import com.lyj.fakepivix.databinding.MainNavHeader
+import com.lyj.fakepivix.module.illust.bookmark.BookmarkFragment
 import com.lyj.fakepivix.module.user.following.FollowingFragment
 import me.yokeyword.fragmentation.ISupportFragment
 
@@ -95,6 +96,10 @@ class MainActivity : FragmentationActivity<ActivityMainBinding, MainViewModel>()
                     }
                     R.id.nav_following -> {
                         start(FollowingFragment.newInstance())
+                        false
+                    }
+                    R.id.nav_collection -> {
+                        start(BookmarkFragment.newInstance())
                         false
                     }
 

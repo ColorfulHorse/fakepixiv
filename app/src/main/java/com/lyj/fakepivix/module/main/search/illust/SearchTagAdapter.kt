@@ -10,7 +10,9 @@ import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.adapter.PreloadMultiBindingAdapter
+import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.data.model.response.TrendTag
+import com.lyj.fakepivix.app.utils.Router
 import com.lyj.fakepivix.databinding.SearchTagItem
 
 /**
@@ -25,6 +27,9 @@ class SearchTagAdapter(val data: ObservableList<TrendTag>) : PreloadMultiBinding
     init {
         addItemType(TrendTag.TYPE_HEADER, R.layout.item_header_search_tag, BR.tag)
         addItemType(TrendTag.TYPE_NORMAL, R.layout.item_search_tag, BR.tag)
+        setOnItemClickListener { baseQuickAdapter, view, i ->
+            Router.goSearch(mData[i].illust.type, mData[i].tag)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseBindingViewHolder<ViewDataBinding> {

@@ -30,6 +30,7 @@
                 app:tl_indicator_margin_right="32dp"
                 app:tl_indicator_margin_top="10dp"
                 app:tl_indicator_margin_bottom="10dp"
+                app:tl_tab_space_equal="true"
                 />
         </android.support.design.widget.AppBarLayout>
 

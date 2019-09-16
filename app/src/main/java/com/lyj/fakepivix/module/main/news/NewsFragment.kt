@@ -43,6 +43,7 @@ class NewsFragment : FragmentationFragment<FragmentNewsBinding, BaseViewModel<*>
             viewPager.offscreenPageLimit = 2
             viewPager.adapter = CommonFragmentAdapter(childFragmentManager, fragments, titles)
             tabLayout.setupWithViewPager(viewPager)
+            tabLayout.tabIndicatorGravity
         }
 
     }

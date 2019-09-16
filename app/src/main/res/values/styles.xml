@@ -123,4 +123,10 @@
         <item name="android:textColorPrimary">@color/renewal_font_black</item>
         <item name="android:textColorSecondary">@color/primary</item>
     </style>
+
+    <style name="switchStyle">
+        <item name="android:colorForeground">@color/renewal_font_black</item>
+        <item name="colorControlActivated">@color/primary</item>
+        <item name="colorSwitchThumbNormal">@android:color/white</item>
+    </style>
 </resources>

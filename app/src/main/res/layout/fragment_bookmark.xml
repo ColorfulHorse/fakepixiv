@@ -25,7 +25,7 @@
                     style="@style/base_toolbar"
                     app:layout_scrollFlags="scroll|enterAlways|snap"
                     />
-                <com.lyj.fakepivix.widget.CommonTabLayout
+                <com.lyj.fakepivix.widget.SlidingTabLayout
                     android:id="@+id/segmentLayout"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/tab_height"
@@ -47,8 +47,8 @@
 
             </android.support.design.widget.AppBarLayout>
 
-            <FrameLayout
-                android:id="@+id/fl_container"
+            <com.lyj.fakepivix.widget.NoScrollViewpager
+                android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"

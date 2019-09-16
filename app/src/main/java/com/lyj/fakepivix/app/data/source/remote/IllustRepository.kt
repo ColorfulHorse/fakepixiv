@@ -58,10 +58,9 @@ class IllustRepository private constructor() {
      * 获取排行榜
      * [category] illust插画、漫画 novel小说
      */
-    fun getRankIllust(mode: String, date: String = "", @IllustCategory category: String = ILLUST): Observable<IllustListResp> {
+    suspend fun getRankIllust(mode: String, date: String = "", @IllustCategory category: String = ILLUST): IllustListResp {
         val realCategory = if (category == NOVEL) NOVEL else ILLUST
         return RetrofitManager.instance.apiService.getRankIllust(realCategory, mode, date)
-                .schedulerTransform()
     }
 
 
@@ -69,40 +68,34 @@ class IllustRepository private constructor() {
      * 获取关注的
      * [filter] 筛选条件
      */
-    fun loadFollowedIllust(@IllustCategory category: String, @Restrict filter: String = Restrict.ALL): Observable<IllustListResp> {
+    suspend fun loadFollowedIllust(@IllustCategory category: String, @Restrict filter: String = Restrict.ALL): IllustListResp {
         val service = RetrofitManager.instance.apiService
-        var ob = when(category) {
+        return when(category) {
             ILLUST, COMIC -> service.getFollowIllustData(restrict = filter)
             else -> service.getFollowNovelData(restrict = filter)
         }
-        return ob.checkEmpty()
-                .schedulerTransform()
     }
 
     /**
      * 获取最新的
      */
-    fun loadNewIllust(@IllustCategory category: String): Observable<IllustListResp> {
+    suspend fun loadNewIllust(@IllustCategory category: String): IllustListResp {
         val service = RetrofitManager.instance.apiService
-        val ob = when(category) {
+        return when(category) {
             ILLUST, COMIC -> service.getNewIllustData(category = category)
             else -> service.getNewNovelData()
         }
-        return ob.checkEmpty()
-                .schedulerTransform()
     }
 
     /**
      * 获取好P友
      */
-    fun loadFriendIllust(@IllustCategory category: String): Observable<IllustListResp> {
+    suspend fun loadFriendIllust(@IllustCategory category: String): IllustListResp {
         val service = RetrofitManager.instance.apiService
-        var ob = when(category) {
+        return when(category) {
             OTHER -> service.getFriendIllustData()
             else -> service.getFriendNovelData()
         }
-        return ob.checkEmpty()
-                .schedulerTransform()
     }
 
     /**
@@ -154,32 +147,28 @@ class IllustRepository private constructor() {
     /**
      * 按顺序搜索
      */
-    fun searchIllust(@IllustCategory category: String,
+    suspend fun searchIllust(@IllustCategory category: String,
                      keyword: String,
                      asc: Boolean,
                      start: String = "",
                      end: String = "" ,
                      strategy: String = Constant.Request.KEY_SEARCH_PARTIAL
-    ): Observable<IllustListResp> {
+    ): IllustListResp {
         return RetrofitManager.instance.apiService
                 .searchIllust(category, keyword, if (asc) "date_asc" else "date_desc", strategy, start, end)
-                .checkEmpty()
-                .schedulerTransform()
     }
 
     /**
      * 按热门搜索
      */
-    fun searchPopularIllust(@IllustCategory category: String,
+    suspend fun searchPopularIllust(@IllustCategory category: String,
                      keyword: String,
                      start: String = "",
                      end: String = "" ,
                      strategy: String = Constant.Request.KEY_SEARCH_PARTIAL
-    ): Observable<IllustListResp> {
+    ): IllustListResp {
         return RetrofitManager.instance.apiService
                 .searchPopularIllust(category, keyword, strategy, start, end)
-                .checkEmpty()
-                .schedulerTransform()
     }
 
     /**
@@ -278,12 +267,20 @@ class IllustRepository private constructor() {
                 .schedulerTransform()
     }
 
-    fun Observable<IllustListResp>.checkEmpty(): Observable<IllustListResp> = this.map {
-        if (it.illusts.isEmpty()) {
-            throw ApiException(ApiException.CODE_EMPTY_DATA)
-        }
-        it
-    }
+}
 
+@Throws(ApiException::class)
+fun Observable<IllustListResp>.checkEmpty(): Observable<IllustListResp> = this.map {
+    if (it.illusts.isEmpty()) {
+        throw ApiException(ApiException.CODE_EMPTY_DATA)
+    }
+    it
+}
+
+@Throws(ApiException::class)
+fun IllustListResp.checkEmpty() {
+    if (this.illusts.isEmpty()) {
+        throw ApiException(ApiException.CODE_EMPTY_DATA)
+    }
 }
 

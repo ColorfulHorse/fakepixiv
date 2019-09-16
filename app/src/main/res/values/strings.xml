@@ -108,6 +108,14 @@
     <string name="ok">OK</string>
     <string name="series_previous">上一话</string>
     <string name="daily">每日</string>
+    <string name="bookmark">收藏</string>
+    <string name="add_like">添加为喜欢！</string>
+    <string name="collection_tags">收藏的标签</string>
+    <string name="collection_tags_count">%d/10</string>
+    <string name="upload_illust_hint_tag">添加标签</string>
+    <string name="common_private">私密</string>
+    <string name="unlike">取消喜欢</string>
+    <string name="save">保存</string>
 
     <string-array name="illust_rank_modes">
         <item>每日</item>

@@ -14,6 +14,7 @@ import com.lyj.fakepivix.app.entity.TabBean
 import com.lyj.fakepivix.databinding.FragmentNewsNewsBinding
 import com.lyj.fakepivix.module.common.IllustListFragment
 import com.lyj.fakepivix.module.common.IllustListViewModel
+import kotlinx.coroutines.rx2.awaitFirst
 import me.yokeyword.fragmentation.ISupportFragment
 
 
