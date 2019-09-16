@@ -141,7 +141,8 @@ data class MetaPage(
 data class Tag(
         val name: String = "",
         val translated_name: String = "",
-        var isTranslated: Boolean = false
+        var isTranslated: Boolean = false,
+        val is_registered: Boolean = false
 )
 
 @JsonClass(generateAdapter = true)

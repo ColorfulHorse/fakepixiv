@@ -244,12 +244,20 @@ interface ApiService {
     fun getMoreComment(@Url nextUrl: String): Observable<CommentListResp>
 
     /**
-     * 收藏
+     * 收藏  illust_id=76767615&restrict=public&tags%5B%5D=fgo&tags%5B%5D=Fate%2FGrandOrder
      */
     @POST("/v2/illust/bookmark/add")
     @FormUrlEncoded
     fun starIllust(@Field("illust_id")illustId: String, @Restrict @Field("restrict") restrict: String = Restrict.PUBLIC): Observable<Any>
 
+
+    //https://app-api.pixiv.net/v2/illust/bookmark/detail?illust_id=76767615
+    //GET https://app-api.pixiv.net/v2/novel/bookmark/detail?novel_id=11670481
+
+    //https://app-api.pixiv.net/v1/user/bookmark-tags/novel?user_id=35023005&restrict=public
+    //https://app-api.pixiv.net/v1/user/bookmark-tags/illust?user_id=35023005&restrict=public
+    // https://app-api.pixiv.net/v1/novel/series?series_id=968178
+    //https://app-api.pixiv.net/v1/illust/series?filter=for_android&illust_series_id=39075
     /**
      * 取消收藏
      */
