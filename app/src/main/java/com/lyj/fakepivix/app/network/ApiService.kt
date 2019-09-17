@@ -9,7 +9,9 @@ import com.lyj.fakepivix.app.data.model.response.*
 import com.lyj.fakepivix.app.network.retrofit.interceptors.SwitchBaseUrlInterceptor
 import io.reactivex.CompletableOnSubscribe
 import io.reactivex.Observable
+import org.greenrobot.essentials.collections.Multimap
 import retrofit2.http.*
+import java.util.*
 
 /**
  * @author 19930
@@ -244,8 +246,6 @@ interface ApiService {
     fun getMoreComment(@Url nextUrl: String): Observable<CommentListResp>
 
 
-    // https://app-api.pixiv.net/v1/novel/series?series_id=968178
-    //https://app-api.pixiv.net/v1/illust/series?filter=for_android&illust_series_id=39075
     /**
      * 获取收藏详情
      */
@@ -269,7 +269,7 @@ interface ApiService {
     @POST("/v2/illust/bookmark/add")
     @FormUrlEncoded
     fun starIllust(@Field("illust_id")illustId: String,
-                   @FieldMap tags: MutableMap<String, String> = mutableMapOf(),
+                   @FieldMap tags: Map<String, String> = mapOf(),
                    @Restrict @Field("restrict") restrict: String = Restrict.PUBLIC): Observable<Any>
 
     /**
@@ -285,7 +285,7 @@ interface ApiService {
     @POST("/v2/novel/bookmark/add")
     @FormUrlEncoded
     fun starNovel(@Field("novel_id")illustId: String,
-                  @FieldMap tags: MutableMap<String, String> = mutableMapOf(),
+                  @FieldMap tags: Map<String, String> = mapOf(),
                   @Restrict @Field("restrict") restrict: String = Restrict.PUBLIC): Observable<Any>
 
     /**
@@ -351,4 +351,23 @@ interface ApiService {
     @POST("/v1/novel/marker/delete")
     @FormUrlEncoded
     suspend fun unMarkNovel(@Field("novel_id")novelId: String): Any
+
+
+    /**
+     * 漫画系列
+     */
+    @GET("/v1/illust/series")
+    suspend fun getMangaSeries(@Query("illust_series_id")seriesId: String): SeriesExt
+
+    /**
+     * 小说系列
+     */
+    @GET("/v1/novel/series")
+    suspend fun getNovelSeries(@Query("series_id")seriesId: String): IllustListResp
+
+    /**
+     * 获取是否有上一章下一章
+     */
+    @GET("/v1/illust-series/illust")
+    suspend fun getSeriesContext(@Query("illust_id")illustId: String): SeriesContextResp
 }

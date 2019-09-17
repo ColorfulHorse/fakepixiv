@@ -14,7 +14,9 @@ import com.lyj.fakepivix.app.reactivex.schedulerTransform
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
+import org.greenrobot.essentials.collections.Multimap
 import retrofit2.http.Query
+import java.lang.StringBuilder
 import java.util.*
 
 /**
@@ -215,7 +217,7 @@ class IllustRepository private constructor() {
     private fun starIllust(illustId: String, star: Boolean, tags: List<String> = listOf(), @Restrict restrict: String = Restrict.PUBLIC): Observable<Any> {
         val tagMap = IdentityHashMap<String, String>()
         tags.forEach {
-            tagMap["tags[]"] = it
+            tagMap[StringBuilder("tags[]").toString()] = it
         }
         return if (star)
             RetrofitManager.instance.apiService
@@ -234,7 +236,7 @@ class IllustRepository private constructor() {
     private fun starNovel(novelId: String, star: Boolean, tags: List<String> = listOf(), @Restrict restrict: String = Restrict.PUBLIC): Observable<Any> {
         val tagMap = IdentityHashMap<String, String>()
         tags.forEach {
-            tagMap["tag[]"] = it
+            tagMap[StringBuilder("tags[]").toString()] = it
         }
         return if (star)
             RetrofitManager.instance.apiService
@@ -251,19 +253,19 @@ class IllustRepository private constructor() {
      */
     fun star(illust: Illust, loadState: ObservableField<LoadState>, tags: List<String> = listOf(), @Restrict restrict: String = Restrict.PUBLIC, edit: Boolean = false): Disposable? {
         if (loadState.get() !is LoadState.Loading) {
-            var star = illust.is_bookmarked
+            var star = !illust.is_bookmarked
             if (edit) star = true
             val ob = if (illust.type == NOVEL) {
                 instance
-                        .starNovel(illust.id.toString(), !star, tags, restrict)
+                        .starNovel(illust.id.toString(), star, tags, restrict)
             }else {
                 instance
-                        .starIllust(illust.id.toString(), !star, tags, restrict)
+                        .starIllust(illust.id.toString(), star, tags, restrict)
             }
             return  ob
                     .doOnSubscribe { loadState.set(LoadState.Loading) }
                     .subscribeBy(onNext = {
-                        illust.is_bookmarked = !star
+                        illust.is_bookmarked = star
                         loadState.set(LoadState.Succeed)
                     }, onError = {
                         loadState.set(LoadState.Failed(it))
