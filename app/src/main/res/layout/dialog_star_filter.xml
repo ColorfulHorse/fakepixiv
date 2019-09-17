@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <data>
+        
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:tag="layout/fragment_collection_filter_dialog_0">
+
+        <RelativeLayout
+            android:id="@id/header"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <ImageView
+                android:id="@+id/close_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:padding="16dp"
+                android:src="@drawable/ic_collection_close" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/restrict"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <com.lyj.fakepivix.widget.CommonTabLayout
+            android:id="@+id/segmentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tab_height"
+            android:background="@color/white"
+            app:tl_textBold="SELECT"
+            app:tl_textSelectColor="@color/white"
+            app:tl_textUnselectColor="@color/tab_textColor_n"
+            app:tl_textsize="@dimen/tab_textSize"
+            app:tl_iconVisible="false"
+            app:tl_indicator_style="BLOCK"
+            app:tl_tab_space_equal="true"
+            app:tl_indicator_color="@color/colorPrimary"
+            app:tl_indicator_corner_radius="30dp"
+            app:tl_indicator_anim_enable="false"
+            app:tl_indicator_margin_top="10dp"
+            app:tl_indicator_margin_bottom="10dp"
+            app:tl_indicator_width_equal_title="true" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff6f6f6"
+            android:paddingLeft="16dp"
+            android:paddingTop="8dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:text="@string/collection_tags" />
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:background="@android:color/white" />
+    </LinearLayout>
+</layout>

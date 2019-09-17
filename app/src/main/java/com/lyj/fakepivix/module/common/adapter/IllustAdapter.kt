@@ -18,6 +18,7 @@ import com.lyj.fakepivix.app.databinding.bindAction
 import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.Router
+import com.lyj.fakepivix.module.common.StarDialog
 import com.lyj.fakepivix.widget.LikeButton
 
 /**
@@ -51,6 +52,14 @@ open class IllustAdapter(data: MutableList<Illust>, val likeButton: Boolean = tr
         button?.let {
             if (!likeButton) it.visibility = View.GONE
             it.bindAction(item)
+            it.setOnLongClickListener {
+                Router.getActiveFragment()?.let { f ->
+                    val dialog = StarDialog.newInstance()
+                    dialog.mViewModel.data = item
+                    dialog.show(f.childFragmentManager, "StarDialog")
+                }
+                true
+            }
         }
         series?.let {
             series.setOnClickListener {

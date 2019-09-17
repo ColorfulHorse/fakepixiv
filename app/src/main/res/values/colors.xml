@@ -220,7 +220,7 @@
 
     <color name="colorPrimary">#ff0096fa</color>
     <color name="colorPrimaryDark">#ff1976d2</color>
-    <color name="colorAccent">#ff0096fa</color>
+    <color name="colorAccent">#ff008577</color>
     <!--<color name="statusBar">#2f000000</color>-->
     <color name="white">#ffffffff</color>
     <color name="black">#ff000000</color>

@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="com.lyj.fakepivix.module.common.StarDialogViewModel" />
+        <variable
+            name="vm"
+            type="StarDialogViewModel"/>
+    </data>
     
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="@string/add_like"
+                android:text="@{vm.data._bookmarked?@string/edit_like:@string/add_like}"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </RelativeLayout>
@@ -56,9 +61,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:text="@string/collection_tags_count"
+                android:text="@{String.format(@string/collection_tags_count, vm.tags.size())}"
                 android:textColor="@color/renewal_font_gray"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                />
         </RelativeLayout>
 
         <RelativeLayout
@@ -103,13 +109,14 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:textColor="@color/renewal_font_black"
-                android:textColorHint="@color/primary"
-                android:textSize="14sp" />
+                android:textColorHint="@color/inout_hint_color"
+                android:textSize="14sp"
+                />
         </RelativeLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@android:color/white" />
 
@@ -121,7 +128,9 @@
             android:padding="16dp"
             android:text="@string/common_private"
             android:textColor="@color/renewal_font_black"
-            android:theme="@style/switchStyle" />
+            android:theme="@style/switchStyle"
+            android:checked="@={vm.pri}"
+            />
 
         <LinearLayout
             android:id="@id/like_button"
@@ -130,7 +139,10 @@
             android:background="?selectableItemBackground"
             android:gravity="center"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:visibility="@{!vm.data._bookmarked}"
+            android:onClick="@{() -> vm.star(false)}"
+            >
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -150,7 +162,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="@{vm.data._bookmarked}"
+            >
 
             <TextView
                 android:id="@+id/unlike"
@@ -163,7 +177,8 @@
                 android:text="@string/unlike"
                 android:textColor="@color/renewal_edge_color"
                 android:textStyle="bold"
-                android:visibility="gone" />
+                android:onClick="@{() -> vm.star(false)}"
+                />
 
             <TextView
                 android:id="@+id/save"
@@ -176,7 +191,8 @@
                 android:text="@string/save"
                 android:textColor="@color/renewal_edge_color"
                 android:textStyle="bold"
-                android:visibility="gone" />
+                android:onClick="@{() -> vm.star(true)}"
+                />
         </LinearLayout>
     </LinearLayout>
 </layout>

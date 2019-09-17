@@ -243,21 +243,35 @@ interface ApiService {
     @GET
     fun getMoreComment(@Url nextUrl: String): Observable<CommentListResp>
 
+
+    // https://app-api.pixiv.net/v1/novel/series?series_id=968178
+    //https://app-api.pixiv.net/v1/illust/series?filter=for_android&illust_series_id=39075
+    /**
+     * 获取收藏详情
+     */
+    @GET("/v2/illust/bookmark/detail")
+    suspend fun getIllustBookmark(@Query("illust_id")illustId: String): BookMarkResp
+
+    @GET("/v2/novel/bookmark/detail")
+    suspend fun getNovelBookmark(@Query("novel_id")illustId: String): BookMarkResp
+
+    /**
+     * 收藏分类
+     */
+    @GET("/v1/user/bookmark-tags/{category}")
+    suspend fun getBookmarkTag(@Query("user_id")userId: String,
+                               @IllustCategory @Path("category")category: String,
+                               @Restrict @Query("restrict") restrict: String = Restrict.PUBLIC): BookmarkTags
+
     /**
      * 收藏  illust_id=76767615&restrict=public&tags%5B%5D=fgo&tags%5B%5D=Fate%2FGrandOrder
      */
     @POST("/v2/illust/bookmark/add")
     @FormUrlEncoded
-    fun starIllust(@Field("illust_id")illustId: String, @Restrict @Field("restrict") restrict: String = Restrict.PUBLIC): Observable<Any>
+    fun starIllust(@Field("illust_id")illustId: String,
+                   @FieldMap tags: MutableMap<String, String> = mutableMapOf(),
+                   @Restrict @Field("restrict") restrict: String = Restrict.PUBLIC): Observable<Any>
 
-
-    //https://app-api.pixiv.net/v2/illust/bookmark/detail?illust_id=76767615
-    //GET https://app-api.pixiv.net/v2/novel/bookmark/detail?novel_id=11670481
-
-    //https://app-api.pixiv.net/v1/user/bookmark-tags/novel?user_id=35023005&restrict=public
-    //https://app-api.pixiv.net/v1/user/bookmark-tags/illust?user_id=35023005&restrict=public
-    // https://app-api.pixiv.net/v1/novel/series?series_id=968178
-    //https://app-api.pixiv.net/v1/illust/series?filter=for_android&illust_series_id=39075
     /**
      * 取消收藏
      */
@@ -270,7 +284,9 @@ interface ApiService {
      */
     @POST("/v2/novel/bookmark/add")
     @FormUrlEncoded
-    fun starNovel(@Field("novel_id")illustId: String, @Restrict @Field("restrict") restrict: String = Restrict.PUBLIC): Observable<Any>
+    fun starNovel(@Field("novel_id")illustId: String,
+                  @FieldMap tags: MutableMap<String, String> = mutableMapOf(),
+                  @Restrict @Field("restrict") restrict: String = Restrict.PUBLIC): Observable<Any>
 
     /**
      * 收藏

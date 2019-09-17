@@ -7,7 +7,6 @@ import com.lyj.fakepivix.app.network.retrofit.interceptors.CommonParamsIntercept
 import com.lyj.fakepivix.app.network.retrofit.interceptors.LoggerInterceptor
 import com.lyj.fakepivix.app.network.retrofit.interceptors.SwitchBaseUrlInterceptor
 import com.lyj.fakepivix.app.utils.ExcludeNullAdapter
-import com.lyj.fakepivix.app.utils.ExcludeNullObjectAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -15,15 +14,16 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.io.File
-import java.lang.Exception
-import java.lang.IllegalArgumentException
 import java.security.KeyStore
 import java.security.SecureRandom
 import java.security.cert.Certificate
 import java.security.cert.CertificateFactory
 import java.security.cert.X509Certificate
 import java.util.concurrent.TimeUnit
-import javax.net.ssl.*
+import javax.net.ssl.SSLContext
+import javax.net.ssl.SSLSocketFactory
+import javax.net.ssl.TrustManagerFactory
+import javax.net.ssl.X509TrustManager
 
 /**.
  *

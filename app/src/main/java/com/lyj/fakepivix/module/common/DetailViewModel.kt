@@ -55,7 +55,7 @@ open class DetailViewModel : BaseViewModel<IModel?>() {
     // 悬浮标题是否显示
     var captionVisibility = ObservableField(false)
 
-    //var star = ObservableField(false)
+    //var starIllust = ObservableField(false)
 
     val userFooterViewModel = UserFooterViewModel(this)
     val commentFooterViewModel = CommentFooterViewModel(this)

@@ -18,6 +18,8 @@ import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
+import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
+import com.lyj.fakepivix.app.utils.StringUtil
 import com.lyj.fakepivix.databinding.FragmentBookmarkBinding
 import com.lyj.fakepivix.module.common.IllustListFragment
 import com.lyj.fakepivix.module.common.IllustListViewModel
@@ -51,6 +53,10 @@ class BookmarkFragment : BackFragment<FragmentBookmarkBinding, BaseViewModel<IMo
             icon?.let { drawable ->
                 DrawableCompat.setTint(drawable, Color.WHITE)
                 it.menu.findItem(R.id.restrict).setIcon(drawable)
+            }
+            it.setOnMenuItemClickListener { menu ->
+                FilterDialog.newInstance().show(childFragmentManager, "FilterDialog")
+                true
             }
         }
         initFragment()

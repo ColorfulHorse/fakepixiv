@@ -6,10 +6,7 @@ import com.lyj.fakepivix.app.constant.Constant
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.IllustCategory.*
 import com.lyj.fakepivix.app.constant.Restrict
-import com.lyj.fakepivix.app.data.model.response.CommentListResp
-import com.lyj.fakepivix.app.data.model.response.Illust
-import com.lyj.fakepivix.app.data.model.response.IllustListResp
-import com.lyj.fakepivix.app.data.model.response.NovelText
+import com.lyj.fakepivix.app.data.model.response.*
 import com.lyj.fakepivix.app.network.ApiException
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
@@ -18,6 +15,8 @@ import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 import retrofit2.http.Query
+import java.util.*
+
 /**
  * @author greensun
  *
@@ -133,6 +132,30 @@ class IllustRepository private constructor() {
                 .getUserBookmarks(category, userId, restrict)
     }
 
+    /**
+     * 获取illust收藏标签列表
+     */
+    suspend fun getBookMarkDetail(id: String, @IllustCategory category: String): BookMarkResp {
+        return if (category == NOVEL) {
+            RetrofitManager.instance.apiService
+                    .getNovelBookmark(id)
+        }else {
+            RetrofitManager.instance.apiService
+                    .getIllustBookmark(id)
+        }
+    }
+
+    /**
+     * 获取所有收藏标签列表
+     */
+    suspend fun getBookMarkTags(@IllustCategory category: String, @Restrict restrict: String = Restrict.PUBLIC): BookmarkTags {
+        UserRepository.instance.loginData?.user?.id?.let {
+            return RetrofitManager.instance.apiService
+                    .getBookmarkTag(it, category, restrict)
+        }
+        return BookmarkTags()
+    }
+
 
     /**
      * 获取相关作品
@@ -189,10 +212,14 @@ class IllustRepository private constructor() {
     /**
      * 收藏/取消收藏
      */
-    fun star(illustId: String, star: Boolean, @Restrict restrict: String = Restrict.PUBLIC): Observable<Any> {
+    private fun starIllust(illustId: String, star: Boolean, tags: List<String> = listOf(), @Restrict restrict: String = Restrict.PUBLIC): Observable<Any> {
+        val tagMap = IdentityHashMap<String, String>()
+        tags.forEach {
+            tagMap["tags[]"] = it
+        }
         return if (star)
             RetrofitManager.instance.apiService
-                .starIllust(illustId)
+                .starIllust(illustId, tagMap, restrict)
                 .schedulerTransform()
         else
             RetrofitManager.instance.apiService
@@ -204,10 +231,14 @@ class IllustRepository private constructor() {
     /**
      * 收藏小说/取消收藏
      */
-    fun starNovel(novelId: String, star: Boolean, @Restrict restrict: String = Restrict.PUBLIC): Observable<Any> {
+    private fun starNovel(novelId: String, star: Boolean, tags: List<String> = listOf(), @Restrict restrict: String = Restrict.PUBLIC): Observable<Any> {
+        val tagMap = IdentityHashMap<String, String>()
+        tags.forEach {
+            tagMap["tag[]"] = it
+        }
         return if (star)
             RetrofitManager.instance.apiService
-                    .starNovel(novelId)
+                    .starNovel(novelId, tagMap, restrict)
                     .schedulerTransform()
         else
             RetrofitManager.instance.apiService
@@ -218,15 +249,16 @@ class IllustRepository private constructor() {
     /**
      * 收藏/取消收藏
      */
-    fun star(illust: Illust, loadState: ObservableField<LoadState>, @Restrict restrict: String = Restrict.PUBLIC): Disposable? {
+    fun star(illust: Illust, loadState: ObservableField<LoadState>, tags: List<String> = listOf(), @Restrict restrict: String = Restrict.PUBLIC, edit: Boolean = false): Disposable? {
         if (loadState.get() !is LoadState.Loading) {
-            val star = illust.is_bookmarked
+            var star = illust.is_bookmarked
+            if (edit) star = true
             val ob = if (illust.type == NOVEL) {
                 instance
-                        .starNovel(illust.id.toString(), !star, restrict)
+                        .starNovel(illust.id.toString(), !star, tags, restrict)
             }else {
                 instance
-                        .star(illust.id.toString(), !star, restrict)
+                        .starIllust(illust.id.toString(), !star, tags, restrict)
             }
             return  ob
                     .doOnSubscribe { loadState.set(LoadState.Loading) }
