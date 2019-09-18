@@ -6,13 +6,13 @@ import android.view.WindowManager
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
+import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.base.BaseDialogFragment
 import com.lyj.fakepivix.app.data.model.response.Tag
 import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.ToastUtil
 import com.lyj.fakepivix.app.utils.bindState
-import com.lyj.fakepivix.app.utils.screenWidth
 import com.lyj.fakepivix.databinding.DialogStarBinding
 import com.lyj.fakepivix.databinding.ItemStarTagBinding
 
@@ -31,17 +31,30 @@ class StarDialog : BaseDialogFragment<DialogStarBinding, StarDialogViewModel>() 
         fun newInstance() = StarDialog()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.full_screen_dialog)
+    }
+
     override fun init(savedInstanceState: Bundle?) {
         val lp = dialog.window.attributes
-        lp.width = screenWidth()*5/6
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
         dialog.window.attributes = lp
         with(mBinding) {
-            val adapter = BaseBindingAdapter<Tag, ItemStarTagBinding>(R.layout.item_star_tag, mViewModel.tags, BR.data)
+            val adapter = object : BaseBindingAdapter<Tag, ItemStarTagBinding>(R.layout.item_star_tag, mViewModel.tags, BR.data) {
+                override fun convert(helper: BaseBindingViewHolder<ItemStarTagBinding>, item: Tag) {
+                    super.convert(helper, item)
+                }
+            }
             recyclerView.layoutManager = LinearLayoutManager(context)
             adapter.bindState(mViewModel.loadState) {
                 mViewModel.load()
             }
             adapter.bindToRecyclerView(recyclerView)
+            close.setOnClickListener {
+                dismiss()
+            }
         }
         mViewModel.starState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
             when(mViewModel.starState.get()) {

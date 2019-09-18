@@ -46,6 +46,9 @@ open class BaseMultiBindingAdapter<T : MultiItemEntity>(data: MutableList<T>) : 
                         start += count
                     }
                     notifyItemRangeInserted(start, itemCount)
+                    if (start == 0) {
+                        recyclerView?.scrollToPosition(0)
+                    }
                     compatibilityDataSizeChanged(itemCount)
                 }
 

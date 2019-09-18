@@ -137,13 +137,18 @@ data class MetaPage(
         val image_urls: ImageUrls = ImageUrls()
 )
 
-@JsonClass(generateAdapter = true)
-data class Tag(
+data class Tag constructor(
         val name: String = "",
         val translated_name: String = "",
-        var isTranslated: Boolean = false,
-        var is_registered: Boolean = false
-)
+        var isTranslated: Boolean = false
+): BaseObservable() {
+     @get:Bindable
+     var is_registered: Boolean = false
+     set(value) {
+         field = value
+         notifyPropertyChanged(BR._registered)
+     }
+}
 
 @JsonClass(generateAdapter = true)
 data class Series(

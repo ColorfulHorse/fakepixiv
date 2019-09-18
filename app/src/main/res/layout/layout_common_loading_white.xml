@@ -6,7 +6,6 @@
     android:minHeight="150dp"
     >
     <ProgressBar
-        style="?android:progressBarStyle"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_centerInParent="true"

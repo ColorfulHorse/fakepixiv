@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <import type="com.lyj.fakepivix.module.common.StarDialogViewModel" />
+        <import type="android.text.TextUtils" />
         <variable
             name="vm"
             type="StarDialogViewModel"/>
@@ -61,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:text="@{String.format(@string/collection_tags_count, vm.tags.size())}"
+                android:text="@{String.format(@string/collection_tags_count, vm.activeTagSize(), vm.tags.size())}"
                 android:textColor="@color/renewal_font_gray"
                 android:textSize="12sp"
                 />
@@ -75,22 +76,27 @@
             android:paddingLeft="8dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp">
-
-            <TextView
-                android:id="@+id/add_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
+            <RelativeLayout
+                android:id="@+id/add_container"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginLeft="4dp"
                 android:layout_marginRight="4dp"
+                android:layout_alignParentEnd="true"
+                app:enable="@{!TextUtils.isEmpty(vm.newTag)}"
+                android:onClick="@{() -> vm.add()}"
                 android:background="?selectableItemBackground"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:text="+"
-                android:textColor="@color/renewal_edge_color"
-                android:textSize="24sp" />
+                >
+
+                <ImageView
+                    android:id="@+id/add_button"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/bg_add"
+                    app:enable="@{!TextUtils.isEmpty(vm.newTag)}"
+                    />
+            </RelativeLayout>
 
             <EditText
                 android:id="@+id/input"
@@ -99,8 +105,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:layout_toStartOf="@id/add_button"
-                android:layout_toLeftOf="@id/add_button"
+                android:layout_toStartOf="@id/add_container"
+                android:layout_toLeftOf="@id/add_container"
                 android:background="@drawable/bg_edit_text"
                 android:hint="@string/upload_illust_hint_tag"
                 android:imeOptions="actionDone|flagNoFullscreen"
@@ -111,6 +117,7 @@
                 android:textColor="@color/renewal_font_black"
                 android:textColorHint="@color/inout_hint_color"
                 android:textSize="14sp"
+                android:text="@={vm.newTag}"
                 />
         </RelativeLayout>
 

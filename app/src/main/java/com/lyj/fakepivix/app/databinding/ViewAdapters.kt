@@ -187,6 +187,11 @@ fun View.show(show: Boolean = true) {
     this.visibility = if (show) View.VISIBLE else View.INVISIBLE
 }
 
+@BindingAdapter(value = ["enable"])
+fun View.enable(enable: Boolean = true) {
+    this.isEnabled = enable
+}
+
 @BindingAdapter(value = ["html"])
 fun TextView.html(content: String) {
     this.text = Html.fromHtml(content)

@@ -3,13 +3,16 @@ package com.lyj.fakepivix.module.common
 import android.databinding.Bindable
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
+import android.widget.ImageView
 import com.lyj.fakepivix.BR
+import com.lyj.fakepivix.app.App
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.constant.Restrict
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.Tag
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
+import com.lyj.fakepivix.app.databinding.ObservableBeanArrayList
 import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.ApiException
 import com.lyj.fakepivix.app.network.LoadState
@@ -45,7 +48,14 @@ class StarDialogViewModel : BaseViewModel<IModel?>() {
             notifyPropertyChanged(BR.pri)
         }
 
-    val tags = ObservableArrayList<Tag>()
+    @get: Bindable
+    var newTag = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.newTag)
+        }
+
+    val tags = ObservableBeanArrayList<Tag>()
 
 
     fun load() {
@@ -72,5 +82,16 @@ class StarDialogViewModel : BaseViewModel<IModel?>() {
         disposable?.let {
             addDisposable(it)
         }
+    }
+
+    fun add() {
+        tags.add(0, Tag(name = newTag).apply {
+            is_registered = true
+        })
+        newTag = ""
+    }
+
+    fun activeTagSize(): Int {
+        return tags.filter { it.is_registered }.size
     }
 }
