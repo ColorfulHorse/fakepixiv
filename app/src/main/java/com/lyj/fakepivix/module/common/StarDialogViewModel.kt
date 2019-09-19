@@ -3,7 +3,9 @@ package com.lyj.fakepivix.module.common
 import android.databinding.Bindable
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
+import android.databinding.ObservableList
 import android.widget.ImageView
+import com.beloo.widget.chipslayoutmanager.util.log.Log
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.app.App
 import com.lyj.fakepivix.app.base.BaseViewModel
@@ -55,8 +57,50 @@ class StarDialogViewModel : BaseViewModel<IModel?>() {
             notifyPropertyChanged(BR.newTag)
         }
 
-    val tags = ObservableBeanArrayList<Tag>()
+    @get: Bindable
+    var activeCount = 0
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.activeCount)
+        }
 
+    val tags = ObservableArrayList<Tag>()
+
+
+    init {
+        tags.addOnListChangedCallback(object : ObservableList.OnListChangedCallback<ObservableList<Tag>>() {
+            override fun onChanged(sender: ObservableList<Tag>?) {
+
+            }
+
+            override fun onItemRangeRemoved(sender: ObservableList<Tag>?, positionStart: Int, itemCount: Int) {
+
+            }
+
+            override fun onItemRangeMoved(sender: ObservableList<Tag>?, fromPosition: Int, toPosition: Int, itemCount: Int) {
+
+            }
+
+            override fun onItemRangeInserted(sender: ObservableList<Tag>, positionStart: Int, itemCount: Int) {
+                sender.takeLast(itemCount).forEach {
+                    it.addOnPropertyChangedCallback(onPropertyChangedCallback { _, id ->
+                        if (id == BR._registered) {
+                            if (it.is_registered) {
+                                activeCount ++
+                            }else {
+                                activeCount --
+                            }
+                        }
+                    })
+                }
+            }
+
+            override fun onItemRangeChanged(sender: ObservableList<Tag>?, positionStart: Int, itemCount: Int) {
+
+            }
+
+        })
+    }
 
     fun load() {
         launch(CoroutineExceptionHandler { _, err ->
@@ -72,6 +116,7 @@ class StarDialogViewModel : BaseViewModel<IModel?>() {
                 throw ApiException(ApiException.CODE_EMPTY_DATA)
             }
             tags.addAll(resp.bookmark_detail.tags)
+            activeCount = tags.filter { it.is_registered }.size
             pri = resp.bookmark_detail.restrict == Restrict.PRIVATE
             loadState.set(LoadState.Succeed)
         }
@@ -91,7 +136,4 @@ class StarDialogViewModel : BaseViewModel<IModel?>() {
         newTag = ""
     }
 
-    fun activeTagSize(): Int {
-        return tags.filter { it.is_registered }.size
-    }
 }

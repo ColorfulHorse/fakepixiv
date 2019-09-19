@@ -92,7 +92,7 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
             illustWorks.recyclerView.layoutManager = layoutManager
             adapter.apply {
                 bindToRecyclerView(illustWorks.recyclerView)
-                bindState(mViewModel.illustWorksState, small = true) {
+                bindState(mViewModel.illustWorksState, errorRes = R.layout.layout_error_small) {
                     mViewModel.loadIllustWorks()
                 }
             }
@@ -110,7 +110,7 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
             comicWorks.recyclerView.layoutManager = layoutManager
             adapter.apply {
                 bindToRecyclerView(comicWorks.recyclerView)
-                bindState(mViewModel.comicWorksState, small = true) {
+                bindState(mViewModel.comicWorksState, errorRes = R.layout.layout_error_small) {
                     mViewModel.loadComicWorks()
                 }
             }
@@ -128,7 +128,7 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
             novelWorks.recyclerView.layoutManager = layoutManager
             adapter.apply {
                 bindToRecyclerView(novelWorks.recyclerView)
-                bindState(mViewModel.novelWorksState, small = true) {
+                bindState(mViewModel.novelWorksState, errorRes = R.layout.layout_error_small) {
                     mViewModel.loadNovelWorks()
                 }
             }
@@ -146,7 +146,7 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
             illustBookmarks.recyclerView.layoutManager = layoutManager
             adapter.apply {
                 bindToRecyclerView(illustBookmarks.recyclerView)
-                bindState(mViewModel.illustBookmarksState, small = true) {
+                bindState(mViewModel.illustBookmarksState, errorRes = R.layout.layout_error_small) {
                     mViewModel.loadIllustBookmarks()
                 }
             }
@@ -159,7 +159,7 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
             novelBookmarks.recyclerView.layoutManager = LinearLayoutManager(mActivity)
             novelAdapter.apply {
                 bindToRecyclerView(novelBookmarks.recyclerView)
-                bindState(mViewModel.novelBookmarksState, small = true) {
+                bindState(mViewModel.novelBookmarksState, errorRes = R.layout.layout_error_small) {
                     mViewModel.loadNovelBookmarks()
                 }
             }

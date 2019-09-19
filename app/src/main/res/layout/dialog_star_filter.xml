@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
     <data>
-        
+        <variable
+            name="vm"
+            type="com.lyj.fakepivix.module.illust.bookmark.FilterViewModel"/>
     </data>
 
     <LinearLayout
@@ -52,7 +54,9 @@
             app:tl_indicator_anim_enable="false"
             app:tl_indicator_margin_top="10dp"
             app:tl_indicator_margin_bottom="10dp"
-            app:tl_indicator_width_equal_title="true" />
+            app:tl_indicator_width_equal_title="true"
+            app:onTabSelect="@{(position) -> vm.load(position)}"
+            />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -71,10 +75,23 @@
                 android:text="@string/collection_tags" />
         </RelativeLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="wrap_content"
-            android:layout_height="300dp"
-            android:background="@android:color/white" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_public"
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                android:background="@android:color/white"
+                android:visibility="@{vm.isPublic}"
+                />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_private"
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                android:background="@android:color/white"
+                android:visibility="@{!vm.isPublic}"
+                />
+        </RelativeLayout>
     </LinearLayout>
 </layout>

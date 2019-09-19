@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:text="@{String.format(@string/collection_tags_count, vm.activeTagSize(), vm.tags.size())}"
+                android:text="@{String.format(@string/collection_tags_count, vm.activeCount, vm.tags.size())}"
                 android:textColor="@color/renewal_font_gray"
                 android:textSize="12sp"
                 />

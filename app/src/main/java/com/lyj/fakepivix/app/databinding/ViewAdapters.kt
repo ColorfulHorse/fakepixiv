@@ -25,12 +25,14 @@ import com.bumptech.glide.load.Transformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils
+import com.flyco.tablayout.listener.OnTabSelectListener
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.glide.PositionedCrop
 import com.lyj.fakepivix.app.utils.PaddingAnimationFactory
 import com.lyj.fakepivix.app.utils.screenHeight
 import com.lyj.fakepivix.app.utils.screenWidth
+import com.lyj.fakepivix.widget.CommonTabLayout
 import jp.wasabeef.glide.transformations.BlurTransformation
 
 
@@ -174,8 +176,6 @@ fun LikeButton.bindAction(data: Illust) {
     }
 }
 
-@BindingConversion
-fun boolToVisibility(visibility: Boolean) = if (visibility) View.VISIBLE else View.GONE
 
 @BindingAdapter(value = ["visible"])
 fun View.visible(show: Boolean = true) {
@@ -226,6 +226,42 @@ fun View.dimensionRatio(dimensionRatio: String) {
     }
     this.layoutParams = lp
 }
+
+//@BindingAdapter(value = ["onTabSelect", "onTabReSelect"], requireAll = false)
+//fun CommonTabLayout.onTabSelect(onTabSelect: (Int) -> Unit, onTabReSelect: (Int) -> Unit) {
+//    this.setOnTabSelectListener(object : OnTabSelectListener {
+//        override fun onTabSelect(position: Int) {
+//            onTabSelect(position)
+//        }
+//
+//        override fun onTabReselect(position: Int) {
+//            onTabReSelect(position)
+//        }
+//
+//    })
+//}
+
+@BindingAdapter(value = ["onTabSelect", "onTabReSelect"], requireAll = false)
+fun CommonTabLayout.onTabListener(onTabSelect: TabSelectListener, onTabReSelect: TabSelectListener) {
+    this.setOnTabSelectListener(object : OnTabSelectListener {
+        override fun onTabSelect(position: Int) {
+            onTabSelect.onTabSelect(position)
+        }
+
+        override fun onTabReselect(position: Int) {
+            onTabReSelect.onTabSelect(position)
+        }
+
+    })
+}
+
+interface TabSelectListener{
+    fun onTabSelect(position: Int)
+}
+
+
+@BindingConversion
+fun boolToVisibility(visibility: Boolean) = if (visibility) View.VISIBLE else View.GONE
 
 
 @BindingConversion

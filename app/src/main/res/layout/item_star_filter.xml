@@ -2,7 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
+        <variable
+            name="data"
+            type="com.lyj.fakepivix.app.data.model.response.BookmarkTag"/>
     </data>
 
     <FrameLayout
@@ -25,7 +27,9 @@
                 android:layout_marginStart="16.0dip"
                 android:layout_marginLeft="16.0dip"
                 android:textColor="@drawable/item_white_text_color"
-                android:textSize="14.0sp" />
+                android:textSize="14.0sp"
+                android:text="@{data.name}"
+                />
 
             <TextView
                 android:id="@+id/count"
@@ -37,7 +41,10 @@
                 android:layout_marginEnd="16.0dip"
                 android:layout_marginRight="16.0dip"
                 android:textColor="@drawable/item_white_text_color"
-                android:textSize="12.0sp" />
+                android:textSize="12.0sp"
+                android:visibility="@{data.count > 0}"
+                android:text="@{data.count}"
+                />
         </RelativeLayout>
     </FrameLayout>
 </layout>

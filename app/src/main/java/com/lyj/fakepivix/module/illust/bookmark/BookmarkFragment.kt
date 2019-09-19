@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v7.graphics.drawable.DrawerArrowDrawable
+import com.flyco.tablayout.listener.OnTabSelectListener
 import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.CommonFragmentAdapter
@@ -36,6 +37,7 @@ class BookmarkFragment : BackFragment<FragmentBookmarkBinding, BaseViewModel<IMo
 
     private val fragments = mutableListOf<FragmentationFragment<*,*>>()
     var userId = ""
+    var category = IllustCategory.ILLUST
 
     companion object {
         const val TAG_PUBLIC = "TAG_PUBLIC"
@@ -55,7 +57,7 @@ class BookmarkFragment : BackFragment<FragmentBookmarkBinding, BaseViewModel<IMo
                 it.menu.findItem(R.id.restrict).setIcon(drawable)
             }
             it.setOnMenuItemClickListener { menu ->
-                FilterDialog.newInstance().show(childFragmentManager, "FilterDialog")
+                FilterDialog.newInstance(category).show(childFragmentManager, "FilterDialog")
                 true
             }
         }
@@ -85,6 +87,14 @@ class BookmarkFragment : BackFragment<FragmentBookmarkBinding, BaseViewModel<IMo
             viewPager.adapter = adapter
             segmentLayout.setViewPager(viewPager)
             segmentLayout.currentTab = 0
+            segmentLayout.setOnTabSelectListener(object : OnTabSelectListener {
+                override fun onTabSelect(position: Int) {
+                    category = if (position == 0) IllustCategory.ILLUST else IllustCategory.NOVEL
+                }
+                override fun onTabReselect(position: Int) {
+
+                }
+            })
         }
     }
 
