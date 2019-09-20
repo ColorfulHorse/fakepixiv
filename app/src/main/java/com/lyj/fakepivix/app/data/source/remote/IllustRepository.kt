@@ -153,7 +153,7 @@ class IllustRepository private constructor() {
     suspend fun getBookMarkTags(@IllustCategory category: String, @Restrict restrict: String = Restrict.PUBLIC): BookmarkTags {
         UserRepository.instance.loginData?.user?.id?.let {
             return RetrofitManager.instance.apiService
-                    .getBookmarkTag(it, category, restrict)
+                    .getBookmarkTag(category, it, restrict)
         }
         return BookmarkTags()
     }
@@ -167,6 +167,11 @@ class IllustRepository private constructor() {
                 .getRelatedIllustData(illustId)
                 .checkEmpty()
                 .schedulerTransform()
+    }
+
+    suspend fun getSeriesContext(illustId: String): SeriesContextResp {
+        return RetrofitManager.instance.apiService
+                .getSeriesContext(illustId)
     }
 
     /**

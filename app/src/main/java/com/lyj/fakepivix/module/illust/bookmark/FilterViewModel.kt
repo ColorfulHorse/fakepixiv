@@ -2,8 +2,11 @@ package com.lyj.fakepivix.module.illust.bookmark
 
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
+import com.lyj.fakepivix.R
+import com.lyj.fakepivix.app.App
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
+import com.lyj.fakepivix.app.constant.Constant
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.Restrict
 import com.lyj.fakepivix.app.data.model.response.BookmarkTag
@@ -38,6 +41,8 @@ class FilterViewModel : BaseViewModel<IModel?>() {
 
     val privateTags = ObservableArrayList<BookmarkTag>()
 
+    var selected = App.context.getString(R.string.all)
+
     fun loadPublic() {
         if (publicLoadState.get() is LoadState.Succeed)
             return
@@ -50,7 +55,7 @@ class FilterViewModel : BaseViewModel<IModel?>() {
                 IllustRepository.instance
                         .getBookMarkTags(category)
             }
-            publicTags.addAll(resp.bookmark_tags.plus(BookmarkTag("全部")))
+            publicTags.addAll(resp.bookmark_tags.plus(BookmarkTag(App.context.getString(R.string.all))))
             publicLoadState.set(LoadState.Succeed)
         }
     }
@@ -68,7 +73,7 @@ class FilterViewModel : BaseViewModel<IModel?>() {
                         .getBookMarkTags(category, Restrict.PRIVATE)
             }
 
-            privateTags.addAll(resp.bookmark_tags.plus(BookmarkTag("全部")))
+            privateTags.addAll(resp.bookmark_tags.plus(BookmarkTag(App.context.getString(R.string.all))))
             privateLoadState.set(LoadState.Succeed)
         }
     }

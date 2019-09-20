@@ -242,14 +242,14 @@ fun View.dimensionRatio(dimensionRatio: String) {
 //}
 
 @BindingAdapter(value = ["onTabSelect", "onTabReSelect"], requireAll = false)
-fun CommonTabLayout.onTabListener(onTabSelect: TabSelectListener, onTabReSelect: TabSelectListener) {
+fun CommonTabLayout.onTabListener(onTabSelect: TabSelectListener? = null, onTabReSelect: TabSelectListener? = null) {
     this.setOnTabSelectListener(object : OnTabSelectListener {
         override fun onTabSelect(position: Int) {
-            onTabSelect.onTabSelect(position)
+            onTabSelect?.onTabSelect(position)
         }
 
         override fun onTabReselect(position: Int) {
-            onTabReSelect.onTabSelect(position)
+            onTabReSelect?.onTabSelect(position)
         }
 
     })

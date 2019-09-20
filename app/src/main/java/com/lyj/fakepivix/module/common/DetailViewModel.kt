@@ -31,7 +31,7 @@ open class DetailViewModel : BaseViewModel<IModel?>() {
     var liveData = Illust()
 
     @get: Bindable
-    var illust = Illust()
+    var  illust = Illust()
     set(value) {
         field = value
         relatedUserViewModel.user = value.user

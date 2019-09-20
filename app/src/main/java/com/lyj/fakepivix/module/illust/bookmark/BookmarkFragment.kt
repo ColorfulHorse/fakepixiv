@@ -11,12 +11,14 @@ import android.support.v7.graphics.drawable.DrawerArrowDrawable
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.R
+import com.lyj.fakepivix.app.App
 import com.lyj.fakepivix.app.adapter.CommonFragmentAdapter
 import com.lyj.fakepivix.app.base.BackFragment
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.constant.IllustCategory
+import com.lyj.fakepivix.app.constant.Restrict
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
@@ -38,6 +40,16 @@ class BookmarkFragment : BackFragment<FragmentBookmarkBinding, BaseViewModel<IMo
     private val fragments = mutableListOf<FragmentationFragment<*,*>>()
     var userId = ""
     var category = IllustCategory.ILLUST
+    var publicTag = App.context.getString(R.string.all)
+    var privateTag = ""
+
+    val filterDialog by lazy { FilterDialog.newInstance(category) { restrict, tag ->
+        if (restrict == Restrict.PUBLIC) {
+            publicTag = tag
+        }else {
+            privateTag = tag
+        }
+    } }
 
     companion object {
         const val TAG_PUBLIC = "TAG_PUBLIC"
@@ -57,7 +69,7 @@ class BookmarkFragment : BackFragment<FragmentBookmarkBinding, BaseViewModel<IMo
                 it.menu.findItem(R.id.restrict).setIcon(drawable)
             }
             it.setOnMenuItemClickListener { menu ->
-                FilterDialog.newInstance(category).show(childFragmentManager, "FilterDialog")
+                filterDialog.show(childFragmentManager, "FilterDialog")
                 true
             }
         }

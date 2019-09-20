@@ -259,8 +259,8 @@ interface ApiService {
      * 收藏分类
      */
     @GET("/v1/user/bookmark-tags/{category}")
-    suspend fun getBookmarkTag(@Query("user_id")userId: String,
-                               @IllustCategory @Path("category")category: String,
+    suspend fun getBookmarkTag(@IllustCategory @Path("category")category: String,
+                               @Query("user_id")userId: String,
                                @Restrict @Query("restrict") restrict: String = Restrict.PUBLIC): BookmarkTags
 
     /**
