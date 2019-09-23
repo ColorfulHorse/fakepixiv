@@ -82,14 +82,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/white"
-                android:visibility="@{vm.isPublic}"
+                android:visibility="@{vm.pub}"
                 />
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_private"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/white"
-                android:visibility="@{!vm.isPublic}"
+                android:visibility="@{!vm.pub}"
                 />
         </RelativeLayout>
     </LinearLayout>

@@ -1,8 +1,6 @@
 package com.lyj.fakepivix.module.illust.bookmark
 
-import android.content.res.ColorStateList
 import android.graphics.Color
-import android.graphics.DrawFilter
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -11,7 +9,6 @@ import android.support.v7.graphics.drawable.DrawerArrowDrawable
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.R
-import com.lyj.fakepivix.app.App
 import com.lyj.fakepivix.app.adapter.CommonFragmentAdapter
 import com.lyj.fakepivix.app.base.BackFragment
 import com.lyj.fakepivix.app.base.BaseViewModel
@@ -21,8 +18,6 @@ import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.Restrict
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
-import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
-import com.lyj.fakepivix.app.utils.StringUtil
 import com.lyj.fakepivix.databinding.FragmentBookmarkBinding
 import com.lyj.fakepivix.module.common.IllustListFragment
 import com.lyj.fakepivix.module.common.IllustListViewModel
@@ -32,7 +27,7 @@ import com.lyj.fakepivix.module.common.IllustListViewModel
  *
  * @date 2019/3/20
  *
- * @desc
+ * @desc 用户收藏页
  */
 class BookmarkFragment : BackFragment<FragmentBookmarkBinding, BaseViewModel<IModel?>?>() {
     override var mViewModel: BaseViewModel<IModel?>? = null
@@ -40,16 +35,29 @@ class BookmarkFragment : BackFragment<FragmentBookmarkBinding, BaseViewModel<IMo
     private val fragments = mutableListOf<FragmentationFragment<*,*>>()
     var userId = ""
     var category = IllustCategory.ILLUST
-    var publicTag = App.context.getString(R.string.all)
+    // 选中标签
+    var publicTag = ""
     var privateTag = ""
+    // 收藏标签
+    var filterTag = publicTag
+    var restrict = Restrict.PUBLIC
+    private lateinit var illustVm: IllustListViewModel
+    private lateinit var novelVm: IllustListViewModel
 
-    val filterDialog by lazy { FilterDialog.newInstance(category) { restrict, tag ->
-        if (restrict == Restrict.PUBLIC) {
-            publicTag = tag
-        }else {
-            privateTag = tag
-        }
-    } }
+//    val filterDialog by lazy { FilterDialog.newInstance(category, publicTag, privateTag) { restrict, tag ->
+//        filterTag = tag
+//        this.restrict = restrict
+//        if (restrict == Restrict.PUBLIC) {
+//            publicTag = tag
+//        }else {
+//            privateTag = tag
+//        }
+//        if (mBinding.viewPager.currentItem == 0) {
+//            illustVm.load()
+//        }else {
+//            novelVm.load()
+//        }
+//    } }
 
     companion object {
         const val TAG_PUBLIC = "TAG_PUBLIC"
@@ -69,6 +77,20 @@ class BookmarkFragment : BackFragment<FragmentBookmarkBinding, BaseViewModel<IMo
                 it.menu.findItem(R.id.restrict).setIcon(drawable)
             }
             it.setOnMenuItemClickListener { menu ->
+                val filterDialog = FilterDialog.newInstance(category, restrict, publicTag, privateTag) { restrict, tag ->
+                    filterTag = tag
+                    this.restrict = restrict
+                    if (restrict == Restrict.PUBLIC) {
+                        publicTag = tag
+                    }else {
+                        privateTag = tag
+                    }
+                    if (mBinding.viewPager.currentItem == 0) {
+                        illustVm.load()
+                    }else {
+                        novelVm.load()
+                    }
+                }
                 filterDialog.show(childFragmentManager, "FilterDialog")
                 true
             }
@@ -81,16 +103,18 @@ class BookmarkFragment : BackFragment<FragmentBookmarkBinding, BaseViewModel<IMo
     private fun initFragment() {
 
         val illustListFragment = IllustListFragment.newInstance(IllustCategory.ILLUST).apply {
-            mViewModel = IllustListViewModel {
+            illustVm = IllustListViewModel {
                 IllustRepository.instance
-                        .loadUserBookmarks(userId, category)
+                        .loadUserBookmarks(userId, category,restrict, filterTag)
             }
+            mViewModel = illustVm
         }
         val novelFragment = IllustListFragment.newInstance(IllustCategory.NOVEL).apply {
-            mViewModel = IllustListViewModel {
+            novelVm = IllustListViewModel {
                 IllustRepository.instance
-                        .loadUserBookmarks(userId, category)
+                        .loadUserBookmarks(userId, category, restrict, filterTag)
             }
+            mViewModel = novelVm
         }
         fragments.add(illustListFragment)
         fragments.add(novelFragment)

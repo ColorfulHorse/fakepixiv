@@ -12,135 +12,135 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/bg_general_new"
-            android:orientation="vertical">
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/bg_general_new"-->
+            <!--android:orientation="vertical">-->
 
-            <RelativeLayout
-                android:id="@+id/next_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp">
+            <!--<RelativeLayout-->
+                <!--android:id="@+id/next_container"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:padding="16dp">-->
 
-                <TextView
-                    android:id="@+id/series_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:textColor="@color/novel_series"
-                    android:textSize="12sp"
+                <!--<TextView-->
+                    <!--android:id="@+id/series_title"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginBottom="12dp"-->
+                    <!--android:textColor="@color/novel_series"-->
+                    <!--android:textSize="12sp"-->
 
-                    />
+                    <!--/>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/title"
-                    android:orientation="horizontal">
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_below="@id/series_title"-->
+                    <!--android:orientation="horizontal">-->
 
-                    <ImageView
-                        android:id="@+id/cover"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:scaleType="centerCrop"
-                        app:url="@{data.user.profile_image_urls.medium}"
-                        app:placeHolder="@{@drawable/common_placeholder}"
-                        />
+                    <!--<ImageView-->
+                        <!--android:id="@+id/cover"-->
+                        <!--android:layout_width="48dp"-->
+                        <!--android:layout_height="48dp"-->
+                        <!--android:scaleType="centerCrop"-->
+                        <!--app:url="@{vm.data.user.profile_image_urls.medium}"-->
+                        <!--app:placeHolder="@{@drawable/common_placeholder}"-->
+                        <!--/>-->
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:orientation="vertical">
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:layout_marginStart="8dp"-->
+                        <!--android:layout_marginLeft="8dp"-->
+                        <!--android:orientation="vertical">-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/illust_detail_text_color"
-                            android:textSize="12sp"
-                            />
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:textColor="@color/illust_detail_text_color"-->
+                            <!--android:textSize="12sp"-->
+                            <!--/>-->
 
-                        <TextView
-                            android:id="@+id/next_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:textColor="@color/gray_text"
-                            android:textSize="12sp"
-                            />
-                    </LinearLayout>
-                </LinearLayout>
+                        <!--<TextView-->
+                            <!--android:id="@+id/next_title"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginTop="8dp"-->
+                            <!--android:textColor="@color/gray_text"-->
+                            <!--android:textSize="12sp"-->
+                            <!--/>-->
+                    <!--</LinearLayout>-->
+                <!--</LinearLayout>-->
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_read_more_work" />
-            </RelativeLayout>
+                <!--<ImageView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentEnd="true"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:src="@drawable/ic_read_more_work" />-->
+            <!--</RelativeLayout>-->
 
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/series_work_border"
-                />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:background="@color/series_work_border"-->
+                <!--/>-->
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal">-->
 
-                <TextView
-                    android:id="@+id/previous"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1.0"
-                    android:gravity="center"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="16dp"
-                    android:text="@string/series_previous"
-                    android:textColor="@color/gray_text"
-                    android:textSize="12sp" />
+                <!--<TextView-->
+                    <!--android:id="@+id/previous"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="1.0"-->
+                    <!--android:gravity="center"-->
+                    <!--android:paddingTop="16dp"-->
+                    <!--android:paddingBottom="16dp"-->
+                    <!--android:text="@string/series_previous"-->
+                    <!--android:textColor="@color/gray_text"-->
+                    <!--android:textSize="12sp" />-->
 
-                <TextView
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/series_work_border" />
+                <!--<TextView-->
+                    <!--android:layout_width="1dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:background="@color/series_work_border" />-->
 
-                <TextView
-                    android:id="@+id/go_series"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1.0"
-                    android:gravity="center"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="16dp"
-                    android:text="@string/series_list"
-                    android:textColor="@color/gray_text"
-                    android:textSize="12sp" />
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/series_work_border"
-                />
-        </LinearLayout>
-        <include
-            android:id="@+id/loading"
-            layout="@layout/layout_common_loading_white"
-            android:visibility="gone"
-            app:visible="@{vm.parent.loadState instanceof LoadState.Loading}"
-            />
-        <include
-            android:id="@+id/errorView"
-            layout="@layout/layout_error_small"
-            android:visibility="gone"
-            app:visible="@{vm.parent.loadState instanceof LoadState.Failed}"
-            />
+                <!--<TextView-->
+                    <!--android:id="@+id/go_series"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="1.0"-->
+                    <!--android:gravity="center"-->
+                    <!--android:paddingTop="16dp"-->
+                    <!--android:paddingBottom="16dp"-->
+                    <!--android:text="@string/series_list"-->
+                    <!--android:textColor="@color/gray_text"-->
+                    <!--android:textSize="12sp" />-->
+            <!--</LinearLayout>-->
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:background="@color/series_work_border"-->
+                <!--/>-->
+        <!--</LinearLayout>-->
+        <!--<include-->
+            <!--android:id="@+id/loading"-->
+            <!--layout="@layout/layout_common_loading_white"-->
+            <!--android:visibility="gone"-->
+            <!--app:visible="@{vm.parent.loadState instanceof LoadState.Loading}"-->
+            <!--/>-->
+        <!--<include-->
+            <!--android:id="@+id/errorView"-->
+            <!--layout="@layout/layout_error_small"-->
+            <!--android:visibility="gone"-->
+            <!--app:visible="@{vm.parent.loadState instanceof LoadState.Failed}"-->
+            <!--/>-->
     </RelativeLayout>
 </layout>

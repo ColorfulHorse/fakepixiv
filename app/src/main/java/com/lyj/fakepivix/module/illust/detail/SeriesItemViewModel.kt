@@ -20,7 +20,7 @@ class SeriesItemViewModel(val parent: IllustDetailViewModel) : BaseViewModel<IMo
     var loadState = ObservableField<LoadState>(LoadState.Idle)
 
     fun load() {
-        IllustRepository.instance
-                .getSeriesContext(parent.illust)
+//        IllustRepository.instance
+//                .getSeriesContext(parent.illust)
     }
 }
