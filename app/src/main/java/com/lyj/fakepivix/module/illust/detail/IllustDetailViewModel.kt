@@ -6,6 +6,8 @@ import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.module.common.DetailViewModel
+import com.lyj.fakepivix.module.illust.detail.items.RelatedCaptionViewModel
+import com.lyj.fakepivix.module.illust.detail.items.SeriesItemViewModel
 import io.reactivex.rxkotlin.subscribeBy
 
 /**
@@ -13,16 +15,17 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @date 2019/5/30
  *
- * @desc 插画漫画详情
+ * @desc 插画漫画详情vm
  */
 class IllustDetailViewModel : DetailViewModel() {
 
     var data: ObservableList<Illust> = ObservableArrayList()
 
+    val seriesItemViewModel = SeriesItemViewModel(this)
     val relatedCaptionFooterViewModel = RelatedCaptionViewModel(this)
 
     init {
-        this + relatedCaptionFooterViewModel
+        this + seriesItemViewModel + relatedCaptionFooterViewModel
     }
 
 

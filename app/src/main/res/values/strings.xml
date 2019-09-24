@@ -120,6 +120,7 @@
     <string name="bookmark_failed">收藏失败</string>
     <string name="unBookmark_failed">取消收藏失败</string>
     <string name="other">未分類</string>
+    <string name="no_series_next">现在还没有下一话</string>
 
     <string-array name="illust_rank_modes">
         <item>每日</item>

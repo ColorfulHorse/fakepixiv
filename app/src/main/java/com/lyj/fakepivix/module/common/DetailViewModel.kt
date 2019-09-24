@@ -10,10 +10,10 @@ import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
-import com.lyj.fakepivix.module.illust.detail.CommentFooterViewModel
+import com.lyj.fakepivix.module.illust.detail.items.CommentFooterViewModel
 import com.lyj.fakepivix.module.illust.detail.RelatedIllustDialogViewModel
 import com.lyj.fakepivix.module.illust.detail.RelatedUserDialogViewModel
-import com.lyj.fakepivix.module.illust.detail.UserFooterViewModel
+import com.lyj.fakepivix.module.illust.detail.items.UserFooterViewModel
 
 /**
  * @author greensun
@@ -31,7 +31,7 @@ open class DetailViewModel : BaseViewModel<IModel?>() {
     var liveData = Illust()
 
     @get: Bindable
-    var  illust = Illust()
+    var illust = Illust()
     set(value) {
         field = value
         relatedUserViewModel.user = value.user

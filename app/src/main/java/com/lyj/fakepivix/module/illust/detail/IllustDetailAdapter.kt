@@ -2,7 +2,6 @@ package com.lyj.fakepivix.module.illust.detail
 
 import android.databinding.ViewDataBinding
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.ViewGroup
 import com.bumptech.glide.RequestBuilder
 import com.lyj.fakepivix.BR
@@ -12,6 +11,13 @@ import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.utils.Router
 import com.lyj.fakepivix.module.common.adapter.IllustAdapter
+import com.lyj.fakepivix.module.illust.detail.items.*
+import com.lyj.fakepivix.module.illust.detail.items.DetailItem.Companion.LAYOUT_COMMENT
+import com.lyj.fakepivix.module.illust.detail.items.DetailItem.Companion.LAYOUT_DESC
+import com.lyj.fakepivix.module.illust.detail.items.DetailItem.Companion.LAYOUT_RELATED_CAPTION
+import com.lyj.fakepivix.module.illust.detail.items.DetailItem.Companion.LAYOUT_SERIES
+import com.lyj.fakepivix.module.illust.detail.items.DetailItem.Companion.LAYOUT_USER
+
 
 /**
  * @author greensun
@@ -22,19 +28,10 @@ import com.lyj.fakepivix.module.common.adapter.IllustAdapter
  */
 class IllustDetailAdapter(val viewModel: IllustDetailViewModel) : IllustAdapter(viewModel.data) {
 
-    companion object {
-        const val LAYOUT_DESC = 111
-        const val LAYOUT_USER = 222
-        const val LAYOUT_COMMENT = 333
-        const val LAYOUT_RELATED_CAPTION = 444
-    }
-
     var start = data.size
 
-    var descFooter: DescFooter? = null
-    var userFooter: UserFooter? = null
-    var commentFooter: CommentFooter? = null
-    var relatedCaptionFooter: RelatedCaptionFooter? = null
+    val items = mutableListOf<DetailItem>()
+
 
     init {
         addItemType(Illust.TYPE_META, R.layout.item_illust_detail, BR.data)
@@ -47,28 +44,23 @@ class IllustDetailAdapter(val viewModel: IllustDetailViewModel) : IllustAdapter(
             if (type == Illust.TYPE_META) {
 
             }else {
-                Router.goDetail(position - 4, data)
+                Router.goDetail(position - items.size, data)
             }
         }
+    }
+
+    fun addItem(item: DetailItem) {
+        items.add(item)
     }
 
 
     override fun getItemViewType(position: Int): Int {
         when {
-            position == start -> {
-                return LAYOUT_DESC
+            position in start..start + items.size -> {
+                return items[position - start].type
             }
-            position == start + 1 -> {
-                return LAYOUT_USER
-            }
-            position == start + 2 -> {
-                return LAYOUT_COMMENT
-            }
-            position == start + 3 -> {
-                return LAYOUT_RELATED_CAPTION
-            }
-            position > start + 3 -> {
-                return super.getItemViewType(position - 4)
+            position > start + items.size -> {
+                return super.getItemViewType(position - items.size)
             }
             else -> {
                 return super.getItemViewType(position)
@@ -78,15 +70,14 @@ class IllustDetailAdapter(val viewModel: IllustDetailViewModel) : IllustAdapter(
 
     override fun getItemCount(): Int {
         if (!data.isNullOrEmpty()) {
-            return super.getItemCount() + 4
+            return super.getItemCount() + items.size
         }
         return super.getItemCount()
     }
 
     override fun getItem(position: Int): Illust? {
-        Log.e("xxx","getItem：$position")
         if (position > start + 3) {
-            return super.getItem(position - 4)
+            return super.getItem(position - items.size)
         }
         return super.getItem(position)
     }
@@ -94,27 +85,28 @@ class IllustDetailAdapter(val viewModel: IllustDetailViewModel) : IllustAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseBindingViewHolder<ViewDataBinding> {
         when(viewType) {
             LAYOUT_DESC -> {
-                descFooter?.let {
-                    return BaseBindingViewHolder(it.rootView)
-                }
+                val item = items.find { it.type == LAYOUT_DESC } as DescFooter
+                return BaseBindingViewHolder(item.rootView)
+            }
+            LAYOUT_SERIES -> {
+                val item = items.find { it.type == LAYOUT_SERIES } as SeriesItem
+                item.viewModel.load()
+                return BaseBindingViewHolder(item.mBinding)
             }
             LAYOUT_USER -> {
-                userFooter?.let {
-                    it.viewModel.load()
-                    return BaseBindingViewHolder(it.rootView)
-                }
+                val item = items.find { it.type == LAYOUT_USER } as UserFooter
+                item.viewModel.load()
+                return BaseBindingViewHolder(item.rootView)
             }
             LAYOUT_COMMENT -> {
-                commentFooter?.let {
-                    it.viewModel.load()
-                    return BaseBindingViewHolder(it.rootView)
-                }
+                val item = items.find { it.type == LAYOUT_COMMENT } as CommentFooter
+                item.viewModel.load()
+                return BaseBindingViewHolder(item.rootView)
             }
             LAYOUT_RELATED_CAPTION -> {
-                relatedCaptionFooter?.let {
-                    viewModel.load()
-                    return BaseBindingViewHolder(it.rootView)
-                }
+                val item = items.find { it.type == LAYOUT_RELATED_CAPTION } as RelatedCaptionFooter
+                item.viewModel.parent.load()
+                return BaseBindingViewHolder(item.rootView)
             }
         }
         return super.onCreateViewHolder(parent, viewType)
@@ -122,14 +114,14 @@ class IllustDetailAdapter(val viewModel: IllustDetailViewModel) : IllustAdapter(
 
     override fun onBindViewHolder(holder: BaseBindingViewHolder<ViewDataBinding>, position: Int) {
         when(holder.itemViewType) {
-            LAYOUT_DESC, LAYOUT_USER, LAYOUT_COMMENT, LAYOUT_RELATED_CAPTION ->
+            LAYOUT_DESC, LAYOUT_SERIES, LAYOUT_USER, LAYOUT_COMMENT, LAYOUT_RELATED_CAPTION ->
                 return
         }
         super.onBindViewHolder(holder, position)
     }
 
     override fun isFixedViewType(type: Int): Boolean {
-        return super.isFixedViewType(type) or (type == Illust.TYPE_META) or (type == LAYOUT_DESC) or (type == LAYOUT_USER) or (type == LAYOUT_COMMENT) or (type == LAYOUT_RELATED_CAPTION)
+        return super.isFixedViewType(type) or (type == Illust.TYPE_META) or (type == LAYOUT_DESC) or (type == LAYOUT_SERIES) or (type == LAYOUT_USER) or (type == LAYOUT_COMMENT) or (type == LAYOUT_RELATED_CAPTION)
     }
 
 

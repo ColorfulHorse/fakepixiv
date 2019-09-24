@@ -1,8 +1,9 @@
-package com.lyj.fakepivix.module.illust.detail
+package com.lyj.fakepivix.module.illust.detail.items
 
 import android.databinding.ObservableField
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
+import com.lyj.fakepivix.module.illust.detail.IllustDetailViewModel
 
 /**
  * @author greensun

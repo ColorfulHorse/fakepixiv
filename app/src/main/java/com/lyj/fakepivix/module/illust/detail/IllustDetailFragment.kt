@@ -12,6 +12,7 @@ import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.FragmentIllustDetailBinding
+import com.lyj.fakepivix.module.illust.detail.items.*
 import com.lyj.fakepivix.widget.DetailItemDecoration
 
 /**
@@ -136,7 +137,7 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
      * 悬浮标题是否显示
      */
     private fun captionAnim(show: Boolean) {
-        mViewModel?.let {
+        mViewModel.let {
             if (show == showCaption)
                 return
             showCaption = show
@@ -181,25 +182,30 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
         with(mBinding) {
             recyclerView.layoutManager = layoutManager
             mAdapter.bindToRecyclerView(recyclerView)
-            initFooter()
+            initItem()
         }
     }
 
 
 
     /**
-     * 实例化作品描述，用户作品，作品评论
+     * 实例化作品描述，用户作品，作品评论等
      */
-    private fun initFooter() {
+    private fun initItem() {
         val descFooter = DescFooter(mActivity, mViewModel.illust)
         val userFooter = UserFooter(mActivity, mViewModel.userFooterViewModel)
         val commentFooter = CommentFooter(mActivity, mViewModel.commentFooterViewModel)
         val relatedCaptionFooter = RelatedCaptionFooter(mActivity, mViewModel.relatedCaptionFooterViewModel)
 
-        mAdapter.descFooter = descFooter
-        mAdapter.userFooter = userFooter
-        mAdapter.commentFooter = commentFooter
-        mAdapter.relatedCaptionFooter = relatedCaptionFooter
+
+        mAdapter.addItem(descFooter)
+        if (mViewModel.illust.series != null) {
+            val seriesItem = SeriesItem(mActivity, mViewModel.seriesItemViewModel)
+            mAdapter.addItem(seriesItem)
+        }
+        mAdapter.addItem(userFooter)
+        mAdapter.addItem(commentFooter)
+        mAdapter.addItem(relatedCaptionFooter)
 
     }
 

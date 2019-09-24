@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 插画人气直播header -->
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="loadFailed"
@@ -57,7 +58,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/read_more"
-            android:minHeight="130dp"
             />
         <include
             android:id="@+id/errorView"
@@ -66,7 +66,8 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/read_more"
             android:layout_alignBottom="@id/recyclerView"
-            android:visibility="gone"                     app:visible="@{loadFailed??false}"
+            android:visibility="gone"
+            app:visible="@{loadFailed??false}"
             />
     </RelativeLayout>
 </layout>

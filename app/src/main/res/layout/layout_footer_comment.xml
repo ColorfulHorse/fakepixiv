@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.lyj.fakepivix.module.illust.detail.CommentFooterViewModel"/>
+        <import type="com.lyj.fakepivix.module.illust.detail.items.CommentFooterViewModel"/>
         <variable
             name="vm"
-            type="com.lyj.fakepivix.module.illust.detail.CommentFooterViewModel"/>
+            type="com.lyj.fakepivix.module.illust.detail.items.CommentFooterViewModel"/>
     </data>
 
     <LinearLayout

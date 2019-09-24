@@ -2,11 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.lyj.fakepivix.module.illust.detail.RelatedCaptionViewModel"/>
+        <import type="com.lyj.fakepivix.module.illust.detail.items.RelatedCaptionViewModel"/>
         <import type="com.lyj.fakepivix.app.network.LoadState"/>
         <variable
             name="vm"
-            type="com.lyj.fakepivix.module.illust.detail.RelatedCaptionViewModel"/>
+            type="com.lyj.fakepivix.module.illust.detail.items.RelatedCaptionViewModel"/>
     </data>
     <LinearLayout
         android:layout_width="match_parent"

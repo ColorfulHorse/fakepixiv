@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.module.illust.detail
+package com.lyj.fakepivix.module.illust.detail.items
 
 import android.content.Context
 import android.databinding.DataBindingUtil
@@ -24,7 +24,9 @@ import kotlinx.android.synthetic.main.layout_error_small.view.*
  *
  * @desc 用户简介
  */
-class UserFooter(val context: Context, val viewModel: UserFooterViewModel, var mBinding: LayoutFooterUserBinding? = null) {
+class UserFooter(val context: Context, val viewModel: UserFooterViewModel, var mBinding: LayoutFooterUserBinding? = null): DetailItem {
+
+    override var type: Int = DetailItem.LAYOUT_USER
 
     val rootView: View by lazy { LayoutInflater.from(context).inflate(R.layout.layout_footer_user, null) }
 

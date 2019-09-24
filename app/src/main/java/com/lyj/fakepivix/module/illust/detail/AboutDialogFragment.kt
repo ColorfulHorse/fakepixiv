@@ -4,8 +4,6 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
 import android.support.design.widget.BottomSheetDialogFragment
-import android.support.design.widget.CoordinatorLayout
-import android.text.TextUtils.isEmpty
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +12,9 @@ import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.utils.screenHeight
 import com.lyj.fakepivix.databinding.DialogDetailBottomBinding
 import com.lyj.fakepivix.module.common.DetailViewModel
+import com.lyj.fakepivix.module.illust.detail.items.CommentFooter
+import com.lyj.fakepivix.module.illust.detail.items.DescFooter
+import com.lyj.fakepivix.module.illust.detail.items.UserFooter
 
 /**
  * @author greensun

@@ -1,6 +1,5 @@
-package com.lyj.fakepivix.module.illust.detail
+package com.lyj.fakepivix.module.illust.detail.items
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.text.Html
@@ -15,7 +14,6 @@ import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.LayoutFooterDescBinding
 import com.lyj.fakepivix.module.common.adapter.IllustTagAdapter
-import com.lyj.fakepivix.widget.FlowLayoutManager
 
 /**
  * @author greensun
@@ -24,7 +22,9 @@ import com.lyj.fakepivix.widget.FlowLayoutManager
  *
  * @desc 作品介绍
  */
-class DescFooter(val context: Context, val data: Illust, var mBinding: LayoutFooterDescBinding? = null) {
+class DescFooter(val context: Context, val data: Illust, var mBinding: LayoutFooterDescBinding? = null): DetailItem {
+
+    override var type: Int = DetailItem.LAYOUT_DESC
 
     val rootView: View by lazy { LayoutInflater.from(context).inflate(R.layout.layout_footer_desc, null) }
 

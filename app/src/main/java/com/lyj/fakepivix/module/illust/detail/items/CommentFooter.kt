@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.module.illust.detail
+package com.lyj.fakepivix.module.illust.detail.items
 
 import android.content.Context
 import android.databinding.DataBindingUtil
@@ -21,7 +21,8 @@ import kotlinx.android.synthetic.main.layout_error_small.view.*
  *
  * @desc 用户简介
  */
-class CommentFooter(val context: Context, val viewModel: CommentFooterViewModel, var mBinding: LayoutFooterCommentBinding? = null) {
+class CommentFooter(val context: Context, val viewModel: CommentFooterViewModel, var mBinding: LayoutFooterCommentBinding? = null): DetailItem {
+    override var type: Int = DetailItem.LAYOUT_COMMENT
 
     val rootView: View by lazy { LayoutInflater.from(context).inflate(R.layout.layout_footer_comment, null) }
 

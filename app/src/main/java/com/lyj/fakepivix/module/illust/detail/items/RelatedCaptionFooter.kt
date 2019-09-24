@@ -1,4 +1,4 @@
-package com.lyj.fakepivix.module.illust.detail
+package com.lyj.fakepivix.module.illust.detail.items
 
 import android.content.Context
 import android.databinding.DataBindingUtil
@@ -15,7 +15,9 @@ import kotlinx.android.synthetic.main.layout_error_small.view.*
  *
  * @desc 用户简介
  */
-class RelatedCaptionFooter(val context: Context, val viewModel: RelatedCaptionViewModel) {
+class RelatedCaptionFooter(val context: Context, val viewModel: RelatedCaptionViewModel): DetailItem {
+
+    override var type: Int = DetailItem.LAYOUT_RELATED_CAPTION
 
     val rootView: View by lazy { LayoutInflater.from(context).inflate(R.layout.footer_related_caption, null) }
 
