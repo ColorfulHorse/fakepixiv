@@ -1,6 +1,7 @@
 package com.lyj.fakepivix.app.data.model.response
 
 import android.databinding.BaseObservable
+import android.databinding.Bindable
 import com.lyj.fakepivix.BR
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -58,6 +59,7 @@ data class BookmarkTag(
     val name: String = "",
     val count: Int = 0
 ): BaseObservable() {
+    @get:Bindable
     var selected: Boolean = false
     set(value) {
         field = value

@@ -1,7 +1,10 @@
 package com.lyj.fakepivix.module.illust.bookmark
 
+import android.arch.lifecycle.LifecycleOwner
+import android.databinding.Bindable
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
+import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.App
 import com.lyj.fakepivix.app.base.BaseViewModel
@@ -13,6 +16,7 @@ import com.lyj.fakepivix.app.data.model.response.BookmarkTag
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.network.ApiException
 import com.lyj.fakepivix.app.network.LoadState
+import com.lyj.fakepivix.app.utils.ToastUtil
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,7 +35,12 @@ class FilterViewModel : BaseViewModel<IModel?>() {
 
     var category: String = IllustCategory.ILLUST
 
-    var isPublic = true
+    @get:Bindable
+    var isPub = true
+    set(value) {
+        field = value
+        notifyPropertyChanged(BR.pub)
+    }
 
     var privateLoadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
@@ -41,7 +50,14 @@ class FilterViewModel : BaseViewModel<IModel?>() {
 
     val privateTags = ObservableArrayList<BookmarkTag>()
 
-    var selected = App.context.getString(R.string.all)
+    var publicTag = ""
+    var privateTag = ""
+
+//    override fun onCreate(owner: LifecycleOwner) {
+//        super.onCreate(owner)
+//        privateLoadState = ObservableField(LoadState.Idle)
+//        publicLoadState = ObservableField(LoadState.Idle)
+//    }
 
     fun loadPublic() {
         if (publicLoadState.get() is LoadState.Succeed)
@@ -55,7 +71,9 @@ class FilterViewModel : BaseViewModel<IModel?>() {
                 IllustRepository.instance
                         .getBookMarkTags(category)
             }
-            publicTags.addAll(resp.bookmark_tags.plus(BookmarkTag(App.context.getString(R.string.all))))
+            val tags = listOf(BookmarkTag(App.context.getString(R.string.all)), BookmarkTag(App.context.getString(R.string.other))) + resp.bookmark_tags
+            tags.first { it.name == publicTag }.selected = true
+            publicTags.addAll(tags)
             publicLoadState.set(LoadState.Succeed)
         }
     }
@@ -72,14 +90,15 @@ class FilterViewModel : BaseViewModel<IModel?>() {
                 IllustRepository.instance
                         .getBookMarkTags(category, Restrict.PRIVATE)
             }
-
-            privateTags.addAll(resp.bookmark_tags.plus(BookmarkTag(App.context.getString(R.string.all))))
+            val tags = listOf(BookmarkTag(App.context.getString(R.string.all)), BookmarkTag(App.context.getString(R.string.other))) + resp.bookmark_tags
+            tags.first { it.name == privateTag }.selected = true
+            privateTags.addAll(tags)
             privateLoadState.set(LoadState.Succeed)
         }
     }
 
     fun load(position: Int) {
-        isPublic = position == 0
+        isPub = position == 0
         if (position == 0) {
             loadPublic()
         } else {

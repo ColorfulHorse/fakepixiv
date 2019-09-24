@@ -50,7 +50,8 @@ abstract class BaseViewModel<M : IModel?> : BaseObservable(), LifecycleObserver,
         mSubViewModelList.forEach { it.onDestroy(owner) }
         mModel?.destroy()
         mDisposable.dispose()
-        cancel()
+        //cancel()
+        coroutineContext.cancelChildren()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_ANY)

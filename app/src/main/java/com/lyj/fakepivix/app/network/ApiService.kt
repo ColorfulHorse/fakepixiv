@@ -150,8 +150,10 @@ interface ApiService {
      *
      */
     @GET("/v1/user/bookmarks/{category}")
-    suspend fun getUserBookmarks(@IllustCategory @Path("category")category: String, @Query("user_id")userId: String,
-                         @Restrict @Query("restrict")restrict: String = Restrict.PUBLIC): IllustListResp
+    suspend fun getUserBookmarks(@IllustCategory @Path("category")category: String,
+                                 @Query("user_id")userId: String,
+                                 @Restrict @Query("restrict")restrict: String = Restrict.PUBLIC,
+                                 @Query("tag")tag: String = ""): IllustListResp
 
     /**
      * 获取相关用户

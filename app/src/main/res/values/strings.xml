@@ -119,6 +119,7 @@
     <string name="edit_like">编辑喜欢</string>
     <string name="bookmark_failed">收藏失败</string>
     <string name="unBookmark_failed">取消收藏失败</string>
+    <string name="other">未分類</string>
 
     <string-array name="illust_rank_modes">
         <item>每日</item>
