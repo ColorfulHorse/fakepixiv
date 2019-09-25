@@ -19,6 +19,7 @@ import android.view.WindowManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.App
+import com.lyj.fakepivix.app.App.Companion.context
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
@@ -26,6 +27,8 @@ import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.widget.LikeButton
 import kotlinx.android.synthetic.main.layout_common_refresh_recycler.*
 import kotlinx.android.synthetic.main.layout_error.view.*
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 
 /**
@@ -78,6 +81,24 @@ fun <T> Activity.startActivity(cls: Class<T>) {
 
 fun Fragment.finish() {
     this.activity?.finish()
+}
+
+/**
+ * 简单封装请求网络
+ */
+fun <T> CoroutineScope.ioTask(loadState: ObservableField<LoadState>? = null, thenAsync: ((T) -> Unit)? = null, then: ((T) -> Unit)? = null, task: suspend () -> T) {
+    launch(CoroutineExceptionHandler { _, err ->
+        loadState?.set(LoadState.Failed(err))
+    }) {
+        loadState?.set(LoadState.Loading)
+        val res = withContext(Dispatchers.IO) {
+            val result = task()
+            thenAsync?.invoke(result)
+            result
+        }
+        then?.invoke(res)
+        loadState?.set(LoadState.Succeed)
+    }
 }
 
 

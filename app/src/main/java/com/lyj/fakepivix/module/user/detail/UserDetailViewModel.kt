@@ -103,7 +103,7 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
      * 获取用户信息
      */
     fun loadUserInfo() {
-        launch(Dispatchers.Main + CoroutineExceptionHandler { _, err ->
+        launch(CoroutineExceptionHandler { _, err ->
             loadState.set(LoadState.Failed(err))
         }) {
             loadState.set(LoadState.Loading)
@@ -139,7 +139,7 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
      * 用户插画作品
      */
     fun loadIllustWorks() {
-        launch(Dispatchers.Main + CoroutineExceptionHandler { _, err ->
+        launch(CoroutineExceptionHandler { _, err ->
             illustWorksState.set(LoadState.Failed(err))
         }) {
             illustWorksState.set(LoadState.Loading)
@@ -154,7 +154,7 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
     }
 
     fun loadComicWorks() {
-        launch(Dispatchers.Main + CoroutineExceptionHandler { _, err ->
+        launch(CoroutineExceptionHandler { _, err ->
             comicWorksState.set(LoadState.Failed(err))
         }) {
             comicWorksState.set(LoadState.Loading)
@@ -167,7 +167,7 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
     }
 
     fun loadNovelWorks() {
-        launch(Dispatchers.Main + CoroutineExceptionHandler { _, err ->
+        launch(CoroutineExceptionHandler { _, err ->
             novelWorksState.set(LoadState.Failed(err))
         }) {
             novelWorksState.set(LoadState.Loading)
@@ -185,7 +185,7 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
      * 用户收藏插画-漫画
      */
     fun loadIllustBookmarks() {
-        launch(Dispatchers.Main + CoroutineExceptionHandler { _, err ->
+        launch(CoroutineExceptionHandler { _, err ->
             illustBookmarksState.set(LoadState.Failed(err))
         }) {
             illustBookmarksState.set(LoadState.Loading)
@@ -200,7 +200,7 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
     }
 
     fun loadNovelBookmarks() {
-        launch(Dispatchers.Main + CoroutineExceptionHandler { _, err ->
+        launch(CoroutineExceptionHandler { _, err ->
             novelBookmarksState.set(LoadState.Failed(err))
         }) {
             novelBookmarksState.set(LoadState.Loading)

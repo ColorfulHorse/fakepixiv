@@ -8,6 +8,7 @@ import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.data.model.response.SeriesContext
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.network.LoadState
+import com.lyj.fakepivix.app.utils.Router
 import com.lyj.fakepivix.module.illust.detail.IllustDetailViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
@@ -48,11 +49,15 @@ class SeriesItemViewModel(val parent: IllustDetailViewModel) : BaseViewModel<IMo
     }
 
     fun goNext() {
-
+        data.next?.let {
+            Router.goDetail(0, listOf(it))
+        }
     }
 
     fun goPrev() {
-
+        data.prev?.let {
+            Router.goDetail(0, listOf(it))
+        }
     }
 
     fun goSeries() {

@@ -35,7 +35,7 @@ class UserFooterViewModel(val parent: DetailViewModel) : BaseViewModel<IModel?>(
     fun reLoad() {
         val type = parent.illust.type
         val p = parent.illust.user
-        launch(Dispatchers.Main + CoroutineExceptionHandler { _, err ->
+        launch(CoroutineExceptionHandler { _, err ->
             loadState.set(LoadState.Failed(err))
         }) {
             loadState.set(LoadState.Loading)

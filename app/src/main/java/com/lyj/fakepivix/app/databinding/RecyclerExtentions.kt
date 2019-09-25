@@ -1,9 +1,11 @@
 package com.lyj.fakepivix.app.databinding
 
+import android.databinding.ObservableField
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.lyj.fakepivix.R
+import com.lyj.fakepivix.app.network.LoadState
 
 /**
  * @author greensun

@@ -83,7 +83,7 @@ class NovelDetailViewModel : DetailViewModel() {
     fun mark() {
         if (markState.get() is LoadState.Loading)
             return
-        launch(Dispatchers.Main + CoroutineExceptionHandler { context, err ->
+        launch(CoroutineExceptionHandler { context, err ->
             markState.set(LoadState.Failed(err))
         }) {
             markState.set(LoadState.Loading)

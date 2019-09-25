@@ -11,9 +11,12 @@ import com.lyj.fakepivix.app.network.ApiException
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.network.retrofit.RetrofitManager
 import com.lyj.fakepivix.app.reactivex.schedulerTransform
+import com.lyj.fakepivix.app.utils.ioTask
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.rx2.awaitSingle
 import org.greenrobot.essentials.collections.Multimap
 import retrofit2.http.Query
 import java.lang.StringBuilder
@@ -174,6 +177,12 @@ class IllustRepository private constructor() {
                 .getSeriesContext(illustId)
     }
 
+    suspend fun getSeriesDetail(seriesId: String): SeriesExt {
+        return RetrofitManager.instance.apiService
+                .getMangaSeries(seriesId)
+    }
+
+
     /**
      * 按顺序搜索
      */
@@ -306,6 +315,11 @@ class IllustRepository private constructor() {
                 .schedulerTransform()
     }
 
+    fun loadMore(scope: CoroutineScope, nextUrl: String, loadState: ObservableField<LoadState>? = null, then: ((IllustListResp) -> Unit)? = null) {
+        scope.ioTask(loadState, then = then) {
+            RetrofitManager.instance.apiService.getMoreIllust(nextUrl).awaitSingle()
+        }
+    }
 }
 
 @Throws(ApiException::class)

@@ -33,7 +33,7 @@ class UserListViewModel(var action: (suspend () -> UserPreviewListResp)) : BaseV
     var nextUrl = ""
 
     fun load() {
-        launch(Dispatchers.Main + CoroutineExceptionHandler { _, err ->
+        launch(CoroutineExceptionHandler { _, err ->
             loadState.set(LoadState.Failed(err))
         }) {
             loadState.set(LoadState.Loading)
@@ -53,7 +53,7 @@ class UserListViewModel(var action: (suspend () -> UserPreviewListResp)) : BaseV
     fun loadMore() {
         if (nextUrl.isBlank())
             return
-        launch(Dispatchers.Main + CoroutineExceptionHandler { _, err ->
+        launch(CoroutineExceptionHandler { _, err ->
             loadMoreState.set(LoadState.Failed(err))
         }) {
             loadMoreState.set(LoadState.Loading)

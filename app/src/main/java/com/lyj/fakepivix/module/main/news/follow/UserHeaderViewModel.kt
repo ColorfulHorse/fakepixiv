@@ -32,7 +32,7 @@ class UserHeaderViewModel : BaseViewModel<IModel?>() {
     var user3: ObservableField<UserPreview> = ObservableField()
 
     fun load() {
-        launch(Dispatchers.Main + CoroutineExceptionHandler { _, err ->
+        launch(CoroutineExceptionHandler { _, err ->
 
         }) {
             val res = withContext(Dispatchers.IO) {
