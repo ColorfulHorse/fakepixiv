@@ -4,6 +4,7 @@ import android.databinding.Bindable
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import android.databinding.ObservableList
+import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.data.model.response.Illust
@@ -11,6 +12,7 @@ import com.lyj.fakepivix.app.data.model.response.SeriesDetail
 import com.lyj.fakepivix.app.data.model.response.User
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.network.LoadState
+import com.lyj.fakepivix.app.utils.Router
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,6 +37,10 @@ class ComicSeriesViewModel : BaseViewModel<IModel?>() {
 
     @get:Bindable
     var detail: SeriesDetail = SeriesDetail()
+    set(value) {
+        field = value
+        notifyPropertyChanged(BR.detail)
+    }
 
     var first: ObservableField<Illust> = ObservableField()
 
@@ -64,5 +70,13 @@ class ComicSeriesViewModel : BaseViewModel<IModel?>() {
             nextUrl = it.next_url
             data.addAll(it.illusts)
         }
+    }
+
+    fun goUserDetail() {
+        Router.goUserDetail(detail.user)
+    }
+
+    fun goFirst() {
+        Router.goDetail(0, listOf(first.get()) as List<Illust>)
     }
 }

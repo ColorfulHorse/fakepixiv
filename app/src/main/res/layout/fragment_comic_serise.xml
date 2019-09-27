@@ -40,7 +40,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            app:url="@{vm.detail.imageUrls.large}"
+                            app:url="@{vm.detail.imageUrls.medium}"
                             app:placeHolder="@{@drawable/primary_placeholder}"
                             app:fade="@{true}"
                             />
@@ -57,55 +57,59 @@
                         app:layout_collapseMode="pin"
                         android:elevation="0dp"
                         >
-                        <RelativeLayout
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentStart="true"
+                            android:orientation="horizontal"
+                            android:onClick="@{() -> vm.goUserDetail()}"
                             >
-                            <LinearLayout
-                                android:layout_width="wrap_content"
+
+                            <ImageView
+                                android:id="@+id/toolbar_avatar"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:layout_gravity="center_vertical"
+                                app:url="@{vm.detail.user.profile_image_urls.medium}"
+                                app:placeHolder="@{@drawable/no_profile}"
+                                app:error="@{@drawable/no_profile}"
+                                app:circle="@{true}"
+                                app:fade="@{true}"
+                                />
+
+                            <TextView
+                                android:id="@+id/nickName"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_alignParentStart="true"
-                                android:orientation="horizontal">
+                                android:layout_weight="1"
+                                android:paddingEnd="8dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="8dp"
+                                android:maxLines="2"
+                                android:text="@{vm.detail.user.name}"
+                                android:textColor="@color/font_color_white"
+                                android:textSize="18.0sp"
+                                />
+                        </LinearLayout>
 
-                                <ImageView
-                                    android:id="@+id/toolbar_avatar"
-                                    android:layout_width="36dp"
-                                    android:layout_height="36dp"
-                                    android:layout_gravity="center"
-                                    app:url="@{vm.detail.user.profile_image_urls.medium}"
-                                    app:placeHolder="@{@drawable/no_profile}"
-                                    app:error="@{@drawable/no_profile}"
-                                    app:circle="@{true}"
-                                    app:fade="@{true}"
-                                    />
-
-                                <TextView
-                                    android:id="@+id/nickName"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:paddingEnd="8dp"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginStart="8dp"
-                                    android:maxLines="2"
-                                    android:text="@{vm.detail.user.name}"
-                                    android:textColor="@color/font_color_white"
-                                    android:textSize="18.0sp"
-                                    />
-                            </LinearLayout>
-                        </RelativeLayout>
                     </android.support.v7.widget.Toolbar>
                 </android.support.design.widget.CollapsingToolbarLayout>
             </android.support.design.widget.AppBarLayout>
-
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                />
         </android.support.design.widget.CoordinatorLayout>
 
-        <include
-            android:id="@+id/errorView"
-            layout="@layout/layout_error"
-            android:visibility="gone"
-            app:visible="@{vm.loadState instanceof LoadState.Failed}"
-            />
+        <!--<include-->
+            <!--android:id="@+id/errorView"-->
+            <!--layout="@layout/layout_error"-->
+            <!--android:visibility="gone"-->
+            <!--app:visible="@{vm.loadState instanceof LoadState.Failed}"-->
+            <!--/>-->
     </FrameLayout>
 </layout>

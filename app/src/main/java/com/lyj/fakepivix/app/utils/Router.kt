@@ -13,6 +13,7 @@ import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import com.lyj.fakepivix.module.illust.detail.IllustDetailRootFragment
 import com.lyj.fakepivix.module.illust.ranking.RankIllustFragment
 import com.lyj.fakepivix.module.illust.ranking.RankIllustRootFragment
+import com.lyj.fakepivix.module.illust.series.ComicSeriesFragment
 import com.lyj.fakepivix.module.main.search.main.SearchMainFragment
 import com.lyj.fakepivix.module.novel.NovelDetailFragment
 import com.lyj.fakepivix.module.novel.NovelDialogFragment
@@ -32,6 +33,7 @@ object Router {
      *
      */
     fun goDetail(position: Int, data: List<Illust>) {
+        closeDialog()
         val fm = getTopFragmentManager()
         fm?.let {
             val top = SupportHelper.getTopFragment(fm) as FragmentationFragment<*, *>
@@ -76,12 +78,21 @@ object Router {
      * 搜索页
      */
     fun goSearch(@IllustCategory category: String, keyword: String = "") {
+        closeDialog()
+        getTopFragment()?.start(SearchMainFragment.newInstance(category, keyword))
+    }
+
+    fun goIllustSeries(seriesId: String) {
+        closeDialog()
+        getTopFragment()?.start(ComicSeriesFragment.newInstance(seriesId))
+    }
+
+    private fun closeDialog() {
         getActiveFragment()?.childFragmentManager?.fragments?.forEach {
             if (it is DialogFragment) {
                 it.dismiss()
             }
         }
-        getTopFragment()?.start(SearchMainFragment.newInstance(category, keyword))
     }
 
     fun getTopFragmentManager(): FragmentManager? {
@@ -106,6 +117,7 @@ object Router {
         }
         return null
     }
+
 
 
 }

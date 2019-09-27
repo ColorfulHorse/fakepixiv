@@ -13,6 +13,7 @@ import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.module.illust.detail.items.CommentFooterViewModel
 import com.lyj.fakepivix.module.illust.detail.RelatedIllustDialogViewModel
 import com.lyj.fakepivix.module.illust.detail.RelatedUserDialogViewModel
+import com.lyj.fakepivix.module.illust.detail.items.SeriesItemViewModel
 import com.lyj.fakepivix.module.illust.detail.items.UserFooterViewModel
 
 /**
@@ -61,6 +62,8 @@ open class DetailViewModel : BaseViewModel<IModel?>() {
     val commentFooterViewModel = CommentFooterViewModel(this)
     val relatedIllustViewModel = RelatedIllustDialogViewModel(this)
     val relatedUserViewModel = RelatedUserDialogViewModel(illust.user)
+
+    open val seriesItemViewModel: SeriesItemViewModel? = null
 
     open fun setData(key: Int, position: Int) {
         this.key = key

@@ -121,6 +121,11 @@
     <string name="unBookmark_failed">取消收藏失败</string>
     <string name="other">未分類</string>
     <string name="no_series_next">现在还没有下一话</string>
+    <string name="works_count_suffix">作品</string>
+    <string name="watch_series_first">从第一话开始阅读</string>
+    <string name="original">原创</string>
+    <string name="concluded">完结</string>
+    <string name="novel_series_expand">显示更多</string>
 
     <string-array name="illust_rank_modes">
         <item>每日</item>

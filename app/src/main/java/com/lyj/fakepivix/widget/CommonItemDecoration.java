@@ -11,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+
 /**
  * @author greensun
  *
@@ -34,7 +36,8 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
     private int crossEdge;
     private int realDividerWidth;
     private int spanCount = -1;
-    private int ignoreType = -1;
+    private int defaultIgnore = BaseQuickAdapter.EMPTY_VIEW | BaseQuickAdapter.HEADER_VIEW | BaseQuickAdapter.FOOTER_VIEW | BaseQuickAdapter.LOADING_VIEW;
+    private int ignoreType = defaultIgnore;
 
     protected CommonItemDecoration() {
         init();
@@ -209,7 +212,7 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
         int size = parent.getAdapter().getItemCount();
         int position = parent.getChildAdapterPosition(view);
         int type = parent.getAdapter().getItemViewType(position);
-        if (ignoreType != -1 && ignoreType == (type & ignoreType)) {
+        if (ignoreType != defaultIgnore && ignoreType == (type & ignoreType)) {
             return;
         }
         if (manager instanceof LinearLayoutManager) {
@@ -319,7 +322,7 @@ public class CommonItemDecoration extends RecyclerView.ItemDecoration {
                         View view = parent.getChildAt(i);
                         int position = parent.getChildAdapterPosition(view);
                         int type = parent.getAdapter().getItemViewType(position);
-                        if (ignoreType != -1 && ignoreType == (type & ignoreType)) {
+                        if (ignoreType != defaultIgnore && ignoreType == (type & ignoreType)) {
                             continue;
                         }
                         // 该item占了几列

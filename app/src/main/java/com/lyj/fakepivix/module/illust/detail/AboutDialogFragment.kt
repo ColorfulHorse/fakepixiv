@@ -14,6 +14,7 @@ import com.lyj.fakepivix.databinding.DialogDetailBottomBinding
 import com.lyj.fakepivix.module.common.DetailViewModel
 import com.lyj.fakepivix.module.illust.detail.items.CommentFooter
 import com.lyj.fakepivix.module.illust.detail.items.DescFooter
+import com.lyj.fakepivix.module.illust.detail.items.SeriesItem
 import com.lyj.fakepivix.module.illust.detail.items.UserFooter
 
 /**
@@ -52,6 +53,9 @@ class AboutDialogFragment : BottomSheetDialogFragment() {
                 detailViewModel?.let { vm ->
                     context?.let {
                         val descFooter = DescFooter(it, vm.illust, descContainer)
+                        if (vm is IllustDetailViewModel) {
+                            val seriesItem = SeriesItem(it, vm.seriesItemViewModel)
+                        }
                         val userFooter = UserFooter(it, vm.userFooterViewModel, userContainer)
                         val commentFooter = CommentFooter(it, vm.commentFooterViewModel, commentContainer)
                     }

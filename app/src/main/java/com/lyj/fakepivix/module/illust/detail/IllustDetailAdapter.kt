@@ -56,7 +56,7 @@ class IllustDetailAdapter(val viewModel: IllustDetailViewModel) : IllustAdapter(
 
     override fun getItemViewType(position: Int): Int {
         when {
-            position in start..start + items.size -> {
+            position in start until start + items.size -> {
                 return items[position - start].type
             }
             position > start + items.size -> {

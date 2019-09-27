@@ -61,6 +61,8 @@ class SeriesItemViewModel(val parent: IllustDetailViewModel) : BaseViewModel<IMo
     }
 
     fun goSeries() {
-
+        parent.illust.series?.let {
+            Router.goIllustSeries(it.id.toString())
+        }
     }
 }

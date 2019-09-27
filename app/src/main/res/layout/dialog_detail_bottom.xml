@@ -28,6 +28,12 @@
                 android:id="@+id/desc_container"
                 app:data="@{vm.illust}"
                 />
+
+            <include layout="@layout/detail_illust_series"
+                android:id="@+id/series_container"
+                app:show="@{vm.seriesItemViewModel != null}"
+                app:vm="@{vm.seriesItemViewModel}"
+                />
             <include layout="@layout/layout_footer_user"
                 android:id="@+id/user_container"
                 app:vm="@{vm.userFooterViewModel}"

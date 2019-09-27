@@ -1,4 +1,4 @@
-#### kotlin + MVVM + DataBinding练手项目，仿pixiv android客户端，进度奇慢:snail::snail:不确定有没有耐心写完
+#### kotlin + MVVM + DataBinding + 协程 练手项目，仿pixiv android客户端，进度奇慢:snail::snail:不确定有没有耐心写完
 
 #### 2019-8-8  
 - 用户列表网络相关逻辑改用协程方式  
@@ -14,6 +14,9 @@
 #### 2019-9-24
 - 我的收藏列表添加
 
+#### 2019-9-27
+- 漫画系列完成
+
 #### todo list  
-- 漫画系列、小说系列
+- 小说系列
 - pixivision webView

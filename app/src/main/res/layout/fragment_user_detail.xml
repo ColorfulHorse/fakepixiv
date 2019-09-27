@@ -187,14 +187,16 @@
                 app:circle="@{true}"
                 app:elevation="0dp"
                 app:fade="@{true}"
-                android:visibility="gone"                     app:visible="@{vm.loadState instanceof LoadState.Succeed}"
+                android:visibility="gone"
+                app:visible="@{vm.loadState instanceof LoadState.Succeed}"
                 />
         </android.support.design.widget.CoordinatorLayout>
 
         <include
             android:id="@+id/errorView"
             layout="@layout/layout_error"
-            android:visibility="gone"                     app:visible="@{vm.loadState instanceof LoadState.Failed}"
+            android:visibility="gone"
+            app:visible="@{vm.loadState instanceof LoadState.Failed}"
             />
     </FrameLayout>
 </layout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="index"
+            type="Integer"/>
+        <variable
+            name="data"
+            type="com.lyj.fakepivix.app.data.model.response.Illust"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardElevation="0dp"
+            app:cardCornerRadius="@dimen/corners_default"
+            >
+            <include
+                layout="@layout/item_home_illust"
+                app:illust="@{data}"
+                />
+        </android.support.v7.widget.CardView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:text="@{String.valueOf(index) + '.' + data.title}"
+            />
+    </LinearLayout>
+</layout>

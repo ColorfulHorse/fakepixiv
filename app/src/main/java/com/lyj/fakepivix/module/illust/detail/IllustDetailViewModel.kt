@@ -21,7 +21,7 @@ class IllustDetailViewModel : DetailViewModel() {
 
     var data: ObservableList<Illust> = ObservableArrayList()
 
-    val seriesItemViewModel = SeriesItemViewModel(this)
+    override val seriesItemViewModel = SeriesItemViewModel(this)
     val relatedCaptionFooterViewModel = RelatedCaptionViewModel(this)
 
     init {

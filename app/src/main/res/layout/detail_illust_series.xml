@@ -5,13 +5,19 @@
         <import type="com.lyj.fakepivix.module.illust.detail.items.SeriesItemViewModel" />
         <import type="com.lyj.fakepivix.app.network.LoadState"/>
         <variable
+            name="show"
+            type="Boolean"
+            />
+        <variable
             name="vm"
             type="com.lyj.fakepivix.module.illust.detail.items.SeriesItemViewModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="@{show??true}"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"

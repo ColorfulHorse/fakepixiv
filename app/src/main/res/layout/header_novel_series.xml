@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="vm"
+            type="com.lyj.fakepivix.module.illust.series.ComicSeriesViewModel"/>
+    </data>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_general_new"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="16dp"
+        android:tag="layout/view_holder_novel_series_detail_header_0">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_novel_series_label"
+                android:paddingStart="6dp"
+                android:paddingLeft="6dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="6dp"
+                android:paddingRight="6dp"
+                android:paddingBottom="4dp"
+                android:text="@string/original"
+                android:textColor="@color/font_color_white"
+                android:textSize="10sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/bg_novel_series_label"
+                android:paddingStart="6dp"
+                android:paddingLeft="6dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="6dp"
+                android:paddingRight="6dp"
+                android:paddingBottom="4dp"
+                android:text="@string/concluded"
+                android:textColor="@color/font_color_white"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@id/series_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:lineSpacingExtra="6sp"
+            android:textColor="@color/font_color_main"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:textColor="@color/renewal_font_gray"
+            android:textSize="12sp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp">
+
+            <TextView
+                android:id="@id/caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="4sp"
+                android:maxLines="10"
+                android:textColor="@color/font_color_main"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom|center"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_read_more" />
+
+                <TextView
+                    android:id="@id/read_more_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bg_general_new"
+                    android:lineSpacingExtra="4sp"
+                    android:maxLines="1"
+                    android:paddingStart="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingEnd="0dp"
+                    android:paddingRight="0dp"
+                    android:text="@string/novel_series_expand"
+                    android:textColor="@color/primary"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/bg_read_novel_series"
+            android:gravity="center"
+            android:textColor="@color/primary"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/novel_recycler_divider_line" />
+    </LinearLayout>
+</layout>

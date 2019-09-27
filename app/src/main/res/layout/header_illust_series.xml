@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="vm"
+            type="com.lyj.fakepivix.module.illust.series.ComicSeriesViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_general_new"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_illust_series_mark"
+            android:paddingLeft="8dp"
+            android:paddingTop="4dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="4dp"
+            android:text="@string/series"
+            android:textColor="@color/font_color_white"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@id/series_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:lineSpacingExtra="6sp"
+            android:textColor="@color/font_color_main"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="@{vm.detail.title}"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/font_color_main"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:text="@{String.valueOf(vm.detail.series_work_count)}"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:text="@string/works_count_suffix"
+                android:textColor="@color/font_color_gray"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@id/caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:lineSpacingExtra="6sp"
+            android:textColor="@color/font_color_main"
+            android:textSize="12sp"
+            android:text="@{vm.detail.caption}"
+            />
+
+        <TextView
+            android:id="@+id/btn_first"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/bg_work_detail"
+            android:gravity="center"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:text="@string/watch_series_first"
+            android:textColor="@color/bg_follow_button"
+            android:textSize="12sp"
+            android:onClick="@{() -> vm.goFirst()}"
+            />
+    </LinearLayout>
+</layout>
