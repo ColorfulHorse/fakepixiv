@@ -364,8 +364,8 @@ interface ApiService {
     /**
      * 小说系列
      */
-    @GET("/v1/novel/series")
-    suspend fun getNovelSeries(@Query("series_id")seriesId: String): IllustListResp
+    @GET("/v2/novel/series")
+    suspend fun getNovelSeries(@Query("series_id")seriesId: String): NovelSeries
 
     /**
      * 获取是否有上一章下一章

@@ -22,6 +22,7 @@ data class SpotLightResp(
         val spotlight_articles: List<SpotlightArticle> = listOf()
 )
 
+// https://www.pixivision.net/zh/a/5073 HTTP/1.1
 @JsonClass(generateAdapter = true)
 data class SpotlightArticle(
         val article_url: String = "",
@@ -29,6 +30,7 @@ data class SpotlightArticle(
         val id: Long = 0,
         val publish_date: String = "",
         val pure_title: String = "",
+        // 采访（橙色） 插画
         val subcategory_label: String = "",
         val thumbnail: String = "",
         val title: String = ""
