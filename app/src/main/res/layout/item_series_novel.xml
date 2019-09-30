@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout   xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <data>
+        <import type="com.lyj.fakepivix.app.utils.DateUtil"/>
+        <import type="com.lyj.fakepivix.app.utils.StringUtil"/>
+        <variable
+            name="position"
+            type="Integer"/>
+        <variable
+            name="data"
+            type="com.lyj.fakepivix.app.data.model.response.Illust"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:foreground="?selectableItemBackground">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp">
+
+            <com.lyj.fakepivix.widget.LikeButton
+                android:id="@+id/like_button"
+                android:layout_width="@dimen/like_button_size"
+                android:layout_height="@dimen/like_button_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:liked="@{data._bookmarked}"
+                />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:ellipsize="end"
+                android:lineSpacingExtra="8sp"
+                android:maxLines="2"
+                android:textColor="@color/renewal_font_black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/like_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@{'#' + String.valueOf(position + 1) + data.title}"
+                />
+
+            <LinearLayout
+                android:id="@+id/novel_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/renewal_font_gray"
+                    android:textSize="14sp"
+                    android:text="@{DateUtil.format(data.create_date)}"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:textColor="@color/renewal_font_gray"
+                    android:textSize="14sp"
+                    android:text="@{String.format(@string/novel_length, StringUtil.formatLength(data.text_length))}"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:drawableStart="@drawable/ic_total_likes"
+                    android:drawableLeft="@drawable/ic_total_likes"
+                    android:drawablePadding="4dp"
+                    android:textColor="@color/renewal_font_gray"
+                    android:textSize="14sp"
+                    android:text="@{StringUtil.formatCount(data.total_bookmarks)}"
+                    />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:textColor="@color/renewal_font_gray"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/novel_info"
+                android:text="@{data.tagsText}"
+                />
+        </android.support.constraint.ConstraintLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp" />
+        </FrameLayout>
+    </FrameLayout>
+</layout>

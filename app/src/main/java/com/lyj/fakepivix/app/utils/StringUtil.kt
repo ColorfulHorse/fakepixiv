@@ -1,5 +1,8 @@
 package com.lyj.fakepivix.app.utils
 
+import com.lyj.fakepivix.R
+import com.lyj.fakepivix.app.App
+import com.lyj.fakepivix.app.data.model.response.Illust
 import java.text.DecimalFormat
 
 /**
@@ -25,4 +28,26 @@ object StringUtil {
         }
         return count.toString()
     }
+
+    @JvmStatic
+    fun transformTextLength(count: Int): String {
+        // 每分钟500字
+        val min = count / 500
+        if (min == 0) {
+            return "少于一分钟"
+        }
+        val sb = StringBuilder()
+        var h = 0
+        var m = min
+        if (min >= 60) {
+            h = min/60
+            m = min%60
+        }
+        if (h > 0) {
+            sb.append(h).append("小时")
+        }
+        sb.append(m).append("分钟")
+        return sb.toString()
+    }
+
 }

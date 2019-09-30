@@ -1,5 +1,8 @@
 package com.lyj.fakepivix.app.data.model.response
 
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+
 /**
  * @author greensun
  *
@@ -7,37 +10,18 @@ package com.lyj.fakepivix.app.data.model.response
  *
  * @desc
  */
+@JsonClass(generateAdapter = true)
 data class NovelSeries(
     val novel_series_detail: NovelSeriesDetail = NovelSeriesDetail(),
-    val novel_series_first_novel: NovelSeriesFirstNovel = NovelSeriesFirstNovel(),
-    val novel_series_latest_novel: NovelSeriesLatestNovel = NovelSeriesLatestNovel(),
-    val novels: List<Novel> = listOf(),
+    @Json(name = "novel_series_first_novel")
+    val first: Illust = Illust(),
+    @Json(name = "novel_series_latest_novel")
+    val last: Illust = Illust(),
+    val novels: List<Illust> = listOf(),
     val next_url: String = ""
 )
 
-data class NovelSeriesFirstNovel(
-    val id: Int = 0,
-    val title: String = "",
-    val caption: String = "",
-    val restrict: Int = 0,
-    val x_restrict: Int = 0,
-    val image_urls: ImageUrls = ImageUrls(),
-    val create_date: String = "",
-    val tags: List<Tag> = listOf(),
-    val page_count: Int = 0,
-    val text_length: Int = 0,
-    val user: User = User(),
-    val series: Series = Series(),
-    val is_bookmarked: Boolean = false,
-    val total_bookmarks: Int = 0,
-    val total_view: Int = 0,
-    val visible: Boolean = false,
-    val total_comments: Int = 0,
-    val is_muted: Boolean = false,
-    val is_mypixiv_only: Boolean = false,
-    val is_x_restricted: Boolean = false
-)
-
+@JsonClass(generateAdapter = true)
 data class NovelSeriesDetail(
     val id: Int = 0,
     val title: String = "",
@@ -48,50 +32,4 @@ data class NovelSeriesDetail(
     val total_character_count: Int = 0,
     val user: User = User(),
     val display_text: String = ""
-)
-
-data class Novel(
-    val id: Int = 0,
-    val title: String = "",
-    val caption: String = "",
-    val restrict: Int = 0,
-    val x_restrict: Int = 0,
-    val image_urls: ImageUrls = ImageUrls(),
-    val create_date: String = "",
-    val tags: List<Tag> = listOf(),
-    val page_count: Int = 0,
-    val text_length: Int = 0,
-    val user: User = User(),
-    val series: Series = Series(),
-    val is_bookmarked: Boolean = false,
-    val total_bookmarks: Int = 0,
-    val total_view: Int = 0,
-    val visible: Boolean = false,
-    val total_comments: Int = 0,
-    val is_muted: Boolean = false,
-    val is_mypixiv_only: Boolean = false,
-    val is_x_restricted: Boolean = false
-)
-
-data class NovelSeriesLatestNovel(
-    val id: Int = 0,
-    val title: String = "",
-    val caption: String = "",
-    val restrict: Int = 0,
-    val x_restrict: Int = 0,
-    val image_urls: ImageUrls = ImageUrls(),
-    val create_date: String = "",
-    val tags: List<Tag> = listOf(),
-    val page_count: Int = 0,
-    val text_length: Int = 0,
-    val user: User = User(),
-    val series: Series = Series(),
-    val is_bookmarked: Boolean = false,
-    val total_bookmarks: Int = 0,
-    val total_view: Int = 0,
-    val visible: Boolean = false,
-    val total_comments: Int = 0,
-    val is_muted: Boolean = false,
-    val is_mypixiv_only: Boolean = false,
-    val is_x_restricted: Boolean = false
 )

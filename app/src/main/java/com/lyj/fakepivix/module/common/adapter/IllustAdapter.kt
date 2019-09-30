@@ -64,6 +64,7 @@ open class IllustAdapter(data: MutableList<Illust>, val likeButton: Boolean = tr
         series?.let {
             series.setOnClickListener {
                 // 系列
+                Router.goNovelSeries(item.id.toString())
             }
         }
     }

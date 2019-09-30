@@ -1,6 +1,5 @@
 package com.lyj.fakepivix.app.utils
 
-import android.app.Dialog
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
@@ -11,9 +10,9 @@ import com.lyj.fakepivix.app.data.model.response.User
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import com.lyj.fakepivix.module.illust.detail.IllustDetailRootFragment
-import com.lyj.fakepivix.module.illust.ranking.RankIllustFragment
 import com.lyj.fakepivix.module.illust.ranking.RankIllustRootFragment
 import com.lyj.fakepivix.module.illust.series.ComicSeriesFragment
+import com.lyj.fakepivix.module.novel.series.NovelSeriesFragment
 import com.lyj.fakepivix.module.main.search.main.SearchMainFragment
 import com.lyj.fakepivix.module.novel.NovelDetailFragment
 import com.lyj.fakepivix.module.novel.NovelDialogFragment
@@ -85,6 +84,11 @@ object Router {
     fun goIllustSeries(seriesId: String) {
         closeDialog()
         getTopFragment()?.start(ComicSeriesFragment.newInstance(seriesId))
+    }
+
+    fun goNovelSeries(seriesId: String) {
+        closeDialog()
+        getTopFragment()?.start(NovelSeriesFragment.newInstance(seriesId))
     }
 
     private fun closeDialog() {

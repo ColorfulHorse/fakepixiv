@@ -126,6 +126,9 @@
     <string name="original">原创</string>
     <string name="concluded">完结</string>
     <string name="novel_series_expand">显示更多</string>
+    <string name="novel_series_desc">%1$d作品&#8195;%2$s个字&#8195;看完需要%3$s&#8195;</string>
+    <string name="watch_series_last">阅读最新一话(#%1$d)</string>
+    <string name="novel_length">%s个字</string>
 
     <string-array name="illust_rank_modes">
         <item>每日</item>

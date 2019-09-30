@@ -6,8 +6,10 @@ import android.databinding.Bindable
 import android.text.TextUtils
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.lyj.fakepivix.BR
+import com.lyj.fakepivix.app.App
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.IllustCategory.*
+import com.lyj.fakepivix.app.utils.StringUtil
 import com.squareup.moshi.JsonClass
 
 /**

@@ -182,6 +182,11 @@ class IllustRepository private constructor() {
                 .getMangaSeries(seriesId)
     }
 
+    suspend fun getNovelSeriesDetail(seriesId: String): NovelSeries {
+        return RetrofitManager.instance.apiService
+                .getNovelSeries(seriesId)
+    }
+
 
     /**
      * 按顺序搜索

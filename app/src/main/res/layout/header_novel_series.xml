@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <data>
+    <data class="HeaderNovelSeries">
+        <import type="com.lyj.fakepivix.app.utils.StringUtil"/>
         <variable
             name="vm"
-            type="com.lyj.fakepivix.module.illust.series.ComicSeriesViewModel"/>
+            type="com.lyj.fakepivix.module.novel.series.NovelSeriesViewModel"/>
     </data>
     <LinearLayout 
         android:layout_width="match_parent"
@@ -36,6 +37,7 @@
                 android:text="@string/original"
                 android:textColor="@color/font_color_white"
                 android:textSize="10sp"
+                android:visibility="@{vm.detail._original}"
                 />
 
             <TextView
@@ -52,7 +54,9 @@
                 android:paddingBottom="4dp"
                 android:text="@string/concluded"
                 android:textColor="@color/font_color_white"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                android:visibility="@{vm.detail._concluded}"
+                />
         </LinearLayout>
 
         <TextView
@@ -67,7 +71,9 @@
             android:lineSpacingExtra="6sp"
             android:textColor="@color/font_color_main"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:text="@{vm.detail.title}"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -78,7 +84,9 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:textColor="@color/renewal_font_gray"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:text="@{String.format(@string/novel_series_desc, vm.detail.total_character_count, StringUtil.formatLength(vm.detail.content_count), StringUtil.transformTextLength(vm.detail.content_count))}"
+            />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -138,7 +146,10 @@
             android:gravity="center"
             android:textColor="@color/primary"
             android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:text="@{String.format(@string/watch_series_last, vm.detail.total_character_count)}"
+            android:onClick="@{() -> vm.goLast()}"
+            />
 
         <View
             android:layout_width="match_parent"

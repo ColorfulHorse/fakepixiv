@@ -83,7 +83,7 @@ class NovelDialogFragment : DialogFragment() {
             }
 
             seriesContainer.setOnClickListener {
-
+                Router.goNovelSeries(mViewModel.data.series?.id.toString())
             }
 
             likes.setOnClickListener {

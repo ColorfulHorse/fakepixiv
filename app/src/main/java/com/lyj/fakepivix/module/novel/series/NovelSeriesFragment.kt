@@ -1,20 +1,19 @@
-package com.lyj.fakepivix.module.illust.series
+package com.lyj.fakepivix.module.novel.series
 
-import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
 import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
-import com.lyj.fakepivix.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepivix.app.base.BackFragment
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.databinding.attachLoadMore
 import com.lyj.fakepivix.app.utils.bindState
-import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.FragmentComicSeriseBinding
+import com.lyj.fakepivix.databinding.FragmentNovelDetailBinding
+import com.lyj.fakepivix.databinding.FragmentNovelSeriesBinding
 import com.lyj.fakepivix.module.common.adapter.IllustAdapter
-import com.lyj.fakepivix.widget.CommonItemDecoration
 
 /**
  * @author greensun
@@ -23,16 +22,16 @@ import com.lyj.fakepivix.widget.CommonItemDecoration
  *
  * @desc 漫画系列
  */
-class ComicSeriesFragment : BackFragment<FragmentComicSeriseBinding, ComicSeriesViewModel>() {
+class NovelSeriesFragment : BackFragment<FragmentNovelSeriesBinding, NovelSeriesViewModel>() {
 
-    override var mViewModel: ComicSeriesViewModel = ComicSeriesViewModel()
+    override var mViewModel: NovelSeriesViewModel = NovelSeriesViewModel()
 
     private var seriesId: String = ""
 
     companion object {
         private const val EXTRA_SERIES_ID = "EXTRA_SERIES_ID"
-        fun newInstance(seriesId: String): ComicSeriesFragment {
-            return ComicSeriesFragment().apply {
+        fun newInstance(seriesId: String): NovelSeriesFragment {
+            return NovelSeriesFragment().apply {
                 arguments = Bundle().apply {
                     putString(EXTRA_SERIES_ID, seriesId)
                 }
@@ -48,15 +47,11 @@ class ComicSeriesFragment : BackFragment<FragmentComicSeriseBinding, ComicSeries
         mToolbar?.inflateMenu(R.menu.menu_comic_series)
 
         with(mBinding) {
-            val adapter = object : IllustAdapter(mViewModel.data, true) {
-                override fun convert(helper: BaseBindingViewHolder<ViewDataBinding>, item: Illust) {
-                    super.convert(helper, item)
-                    helper.binding?.setVariable(BR.index, mViewModel.detail.series_work_count - helper.adapterPosition)
-                }
-            }.apply {
-                addItemType(Illust.TYPE_COMIC, R.layout.item_comic_series, BR.data)
+            val adapter = IllustAdapter(mViewModel.data, true).apply {
+                addItemType(Illust.TYPE_NOVEL, R.layout.item_series_novel, BR.data)
+                addItemType(Illust.TYPE_ILLUST, R.layout.item_series_novel, BR.data)
             }
-            val header = SeriesListHeader(mActivity, mViewModel)
+            val header = NovelSeriesHeader(mActivity, mViewModel)
             adapter.addHeaderView(header.rootView)
             adapter.bindState(mViewModel.loadState) {
                 mViewModel.load()
@@ -64,17 +59,13 @@ class ComicSeriesFragment : BackFragment<FragmentComicSeriseBinding, ComicSeries
             recyclerView.attachLoadMore {
                 mViewModel.loadMore()
             }
-            val layoutManager = GridLayoutManager(mActivity, 2)
+            val layoutManager = LinearLayoutManager(mActivity)
             recyclerView.layoutManager = layoutManager
             recyclerView.adapter = adapter
-            recyclerView.addItemDecoration(CommonItemDecoration.Builder()
-                    .dividerWidth(10.dp2px(), 10.dp2px())
-                    .edge(0, 16.dp2px())
-                    .build())
+            recyclerView.addItemDecoration(DividerItemDecoration(mActivity, LinearLayoutManager.VERTICAL))
         }
         mViewModel.load()
     }
-
 
 
     override fun initImmersionBar() {
@@ -87,5 +78,5 @@ class ComicSeriesFragment : BackFragment<FragmentComicSeriseBinding, ComicSeries
     }
 
 
-    override fun bindLayout(): Int = R.layout.fragment_comic_serise
+    override fun bindLayout(): Int = R.layout.fragment_novel_series
 }

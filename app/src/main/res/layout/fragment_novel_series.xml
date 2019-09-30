@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="com.lyj.fakepivix.app.network.LoadState"/>
+        <variable
+            name="vm"
+            type="com.lyj.fakepivix.module.novel.series.NovelSeriesViewModel"/>
+    </data>
+    
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -21,7 +28,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    app:url="@{vm.userInfo.profile.background_image_url==null ? vm.userInfo.profile.background_image_url : vm.user.profile_image_urls.medium}"
+                    app:url="@{vm.detail.user.profile_image_urls.medium}"
                     app:placeHolder="@{@drawable/no_profile}"
                     app:blur="@{true}"
                     app:fade="@{true}"
@@ -50,14 +57,15 @@
                         android:layout_alignParentStart="true"
                         android:layout_toStartOf="@+id/follow"
                         android:orientation="horizontal"
-                        app:fadeIn="@{vm.collapsed}">
+                        android:onClick="@{() -> vm.goUserDetail()}"
+                        >
 
                         <ImageView
                             android:id="@+id/toolbar_avatar"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:layout_gravity="center"
-                            app:url="@{vm.userInfo.user.profile_image_urls.medium}"
+                            app:url="@{vm.detail.user.profile_image_urls.medium}"
                             app:placeHolder="@{@drawable/no_profile}"
                             app:error="@{@drawable/no_profile}"
                             app:circle="@{true}"
@@ -73,7 +81,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="8dp"
                             android:maxLines="2"
-                            android:text="@{vm.user.name}"
+                            android:text="@{vm.detail.user.name}"
                             android:textColor="@color/font_color_white"
                             android:textSize="18.0sp"
                             />
@@ -84,8 +92,8 @@
                         style="@style/follow_button"
                         android:textColor="@color/white"
                         android:onClick="@{() -> vm.follow()}"
-                        android:text="@{vm.user._followed?@string/followed:@string/follow}"
-                        android:background="@{vm.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_white}"
+                        android:text="@{vm.detail.user._followed?@string/followed:@string/follow}"
+                        android:background="@{vm.detail.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_white}"
                         android:layout_centerVertical="true"
                         android:layout_alignParentEnd="true"
                         android:enabled="@{!(vm.followState instanceof LoadState.Loading)}"
@@ -98,8 +106,8 @@
         </android.support.design.widget.AppBarLayout>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             />
     </android.support.design.widget.CoordinatorLayout>
