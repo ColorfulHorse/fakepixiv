@@ -17,92 +17,103 @@
             android:layout_height="wrap_content"
             android:background="@{vm.loadState instanceof LoadState.Succeed ? @color/transparent : @color/colorPrimary}"
             >
-            <FrameLayout
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/toolbar_wrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:visible="@{vm.loadState instanceof LoadState.Succeed}"
                 >
-                <ImageView
-                    android:id="@+id/wallpaper"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    app:url="@{vm.detail.user.profile_image_urls.medium}"
-                    app:placeHolder="@{@drawable/no_profile}"
-                    app:blur="@{true}"
-                    app:fade="@{true}"
-                    />
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/wallpaper_overlay"
-                    />
-            </FrameLayout>
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                android:elevation="0dp"
-                >
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+                    android:visibility="gone"
+                    app:visible="@{vm.loadState instanceof LoadState.Succeed}"
                     >
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_toStartOf="@+id/follow"
-                        android:orientation="horizontal"
-                        android:onClick="@{() -> vm.goUserDetail()}"
-                        >
-
-                        <ImageView
-                            android:id="@+id/toolbar_avatar"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:layout_gravity="center"
-                            app:url="@{vm.detail.user.profile_image_urls.medium}"
-                            app:placeHolder="@{@drawable/no_profile}"
-                            app:error="@{@drawable/no_profile}"
-                            app:circle="@{true}"
-                            app:fade="@{true}"
-                            />
-
-                        <TextView
-                            android:id="@+id/nickName"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:paddingEnd="8dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="8dp"
-                            android:maxLines="2"
-                            android:text="@{vm.detail.user.name}"
-                            android:textColor="@color/font_color_white"
-                            android:textSize="18.0sp"
-                            />
-                    </LinearLayout>
-
-                    <Button
-                        android:id="@+id/follow"
-                        style="@style/follow_button"
-                        android:textColor="@color/white"
-                        android:onClick="@{() -> vm.follow()}"
-                        android:text="@{vm.detail.user._followed?@string/followed:@string/follow}"
-                        android:background="@{vm.detail.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_white}"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentEnd="true"
-                        android:enabled="@{!(vm.followState instanceof LoadState.Loading)}"
-                        android:layout_marginEnd="4dp"
-                        android:visibility="gone"
-                        app:visible="@{vm.loadState instanceof LoadState.Succeed}"
+                    <ImageView
+                        android:id="@+id/wallpaper"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        app:url="@{vm.detail.user.profile_image_urls.medium}"
+                        app:placeHolder="@{@drawable/no_profile}"
+                        app:blur="@{true}"
                         />
-                </RelativeLayout>
-            </android.support.v7.widget.Toolbar>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/wallpaper_overlay"
+                        />
+                </FrameLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="0dp"
+                    android:layout_height="?actionBarSize"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:elevation="0dp"
+                    >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_toStartOf="@+id/follow"
+                            android:orientation="horizontal"
+                            android:onClick="@{() -> vm.goUserDetail()}"
+                            >
+
+                            <ImageView
+                                android:id="@+id/toolbar_avatar"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:layout_gravity="center"
+                                app:url="@{vm.detail.user.profile_image_urls.medium}"
+                                app:placeHolder="@{@drawable/no_profile}"
+                                app:circle="@{true}"
+                                />
+
+                            <TextView
+                                android:id="@+id/nickName"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingEnd="8dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="8dp"
+                                android:maxLines="2"
+                                android:text="@{vm.detail.user.name}"
+                                android:textColor="@color/font_color_white"
+                                android:textSize="18.0sp"
+                                />
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/follow"
+                            style="@style/follow_button"
+                            android:textColor="@color/white"
+                            android:onClick="@{() -> vm.follow()}"
+                            android:text="@{vm.detail.user._followed?@string/followed:@string/follow}"
+                            android:background="@{vm.detail.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_white}"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:enabled="@{!(vm.followState instanceof LoadState.Loading)}"
+                            android:layout_marginEnd="4dp"
+                            android:visibility="gone"
+                            app:visible="@{vm.loadState instanceof LoadState.Succeed}"
+                            />
+                    </RelativeLayout>
+                </android.support.v7.widget.Toolbar>
+            </android.support.constraint.ConstraintLayout>
         </android.support.design.widget.AppBarLayout>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"

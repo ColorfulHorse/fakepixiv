@@ -7,6 +7,7 @@ import android.util.SparseIntArray
 import android.view.View
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.entity.MultiItemEntity
+import com.lyj.fakepivix.BR
 
 /**
  * @author greensun
@@ -76,6 +77,7 @@ open class BaseMultiBindingAdapter<T : MultiItemEntity>(data: MutableList<T>) : 
         if (id != -1) {
             helper.binding?.setVariable(id, item)
         }
+        helper.binding?.setVariable(BR.position, helper.adapterPosition - headerLayoutCount)
     }
 
     override fun createBaseViewHolder(view: View): BaseBindingViewHolder<ViewDataBinding> {

@@ -1,5 +1,9 @@
 package com.lyj.fakepivix.app.data.model.response
 
+import android.support.annotation.ColorInt
+import android.support.v4.content.ContextCompat
+import com.lyj.fakepivix.R
+import com.lyj.fakepivix.app.App
 import com.squareup.moshi.JsonClass
 
 /**
@@ -34,5 +38,22 @@ data class SpotlightArticle(
         val subcategory_label: String = "",
         val thumbnail: String = "",
         val title: String = ""
-)
+) {
+
+    companion object {
+        const val SPOTLIGHT = "spotlight"
+        const val INSPIRATION = "inspiration"
+        const val TUTORIAL = "tutorial"
+    }
+
+    @ColorInt
+    fun color(): Int {
+        return when(category) {
+            SPOTLIGHT -> ContextCompat.getColor(App.context, R.color.pixivision_category_spotlight)
+            INSPIRATION -> ContextCompat.getColor(App.context, R.color.pixivision_category_inspiration)
+            TUTORIAL -> ContextCompat.getColor(App.context, R.color.pixivision_category_tutorial)
+            else -> ContextCompat.getColor(App.context, R.color.pixivision_category_spotlight)
+        }
+    }
+}
 

@@ -7,6 +7,7 @@ import android.databinding.ObservableList
 import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
+import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.NovelSeriesDetail
 import com.lyj.fakepivix.app.data.model.response.SeriesDetail
@@ -63,6 +64,9 @@ class NovelSeriesViewModel : BaseViewModel<IModel?>() {
             val resp = withContext(Dispatchers.IO) {
                 IllustRepository.instance.getNovelSeriesDetail(seriesId)
             }
+            resp.first.type = IllustCategory.NOVEL
+            resp.last.type = IllustCategory.NOVEL
+            resp.novels.forEach { it.type = IllustCategory.NOVEL }
             detail = resp.novel_series_detail
             first.set(resp.first)
             last.set(resp.last)

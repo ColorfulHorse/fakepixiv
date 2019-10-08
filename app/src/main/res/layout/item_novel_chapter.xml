@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
     <data>
         <variable
             name="data"
@@ -23,7 +24,8 @@
             android:paddingBottom="48dp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:visibility="gone"                     app:visible="@{position > 0}">
+            android:visibility="gone"
+            app:visible="@{position > 0}">
 
             <View
                 android:layout_width="0dp"

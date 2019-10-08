@@ -32,7 +32,8 @@
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:visibility="gone"                     app:visible="@{vm.loadState instanceof LoadState.Succeed}"
+                        android:visibility="gone"
+                        app:visible="@{vm.loadState instanceof LoadState.Succeed}"
                         >
                         <ImageView
                             android:id="@+id/wallpaper"

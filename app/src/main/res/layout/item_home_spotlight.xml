@@ -23,7 +23,7 @@
                 android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:background="@color/colorPrimary"
+                android:background="@{data.color()}"
                 />
             <ImageView
                 android:id="@+id/image"
@@ -49,7 +49,7 @@
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:background="@color/colorPrimary"
+                    android:background="@{data.color()}"
                     android:padding="5dp"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
@@ -60,7 +60,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:visibility="gone"                     app:visible="@{DateUtil.isNew(data.publish_date)}"
+                    android:visibility="gone"
+                    app:visible="@{DateUtil.isNew(data.publish_date)}"
                     >
                     <View
                         android:id="@+id/tag"

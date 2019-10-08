@@ -1,5 +1,7 @@
 package com.lyj.fakepivix.app.constant
 
+import com.lyj.fakepivix.module.pixivision.PixivisionFragment
+
 /**
  * @author 19930
  *
