@@ -248,6 +248,9 @@ interface ApiService {
     fun getMoreComment(@Url nextUrl: String): Observable<CommentListResp>
 
 
+    // /v1/illust/detail?filter=for_android&illust_id=4094064
+    // /v1/spotlight/articles?filter=for_android&category=all&offset=10
+
     /**
      * 获取收藏详情
      */
