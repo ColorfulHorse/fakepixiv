@@ -1,19 +1,29 @@
 package com.lyj.fakepivix.module.illust.detail
 
 import android.os.Bundle
+import android.support.design.widget.CoordinatorLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
+import com.bumptech.glide.manager.SupportRequestManagerFragment
+import com.lyj.fakepivix.GlideApp
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.FragmentationFragment
+import com.lyj.fakepivix.app.constant.EXTRA_ID
+import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
+import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.FragmentIllustDetailBinding
 import com.lyj.fakepivix.module.illust.detail.items.*
 import com.lyj.fakepivix.widget.DetailItemDecoration
+import me.yokeyword.fragmentation.anim.DefaultVerticalAnimator
+import me.yokeyword.fragmentation.anim.FragmentAnimator
+import kotlin.system.measureTimeMillis
 
 /**
  * @author greensun
@@ -29,11 +39,12 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
     companion object {
         private const val EXTRA_POSITION = "EXTRA_POSITION"
         private const val EXTRA_KEY = "EXTRA_KEY"
-        fun newInstance(position: Int, key: Int): IllustDetailFragment {
+        fun newInstance(position: Int = 0, key: Int = -1, illustId: Long = -1): IllustDetailFragment {
             return IllustDetailFragment().apply {
                 arguments = Bundle().apply {
                     putInt(EXTRA_POSITION, position)
                     putInt(EXTRA_KEY, key)
+                    putLong(EXTRA_ID, illustId)
                 }
             }
         }
@@ -43,16 +54,38 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
     private lateinit var mAdapter: IllustDetailAdapter
     private var captionHeight = 0
     private var showCaption = false
+    private var illustId = -1L
+    private var position = 0
+    private var key = -1
 
+    override fun onEnterAnimationEnd(savedInstanceState: Bundle?) {
+        super.onEnterAnimationEnd(savedInstanceState)
+        //GlideApp.with(this).resumeRequestsRecursive()
+//        if (illustId == -1L) {
+//            initItem()
+//        }else {
+//            mViewModel.detailState.addOnPropertyChangedCallback(onPropertyChangedCallback { observable, i ->
+//                if (mViewModel.detailState.get() is LoadState.Succeed) {
+//                    resetCaption()
+//                    mAdapter.refreshStart()
+//                    initItem()
+//                }
+//            })
+//        }
+//        mAdapter.bindToRecyclerView(mBinding.recyclerView)
+//        mViewModel.loadDetail()
+    }
 
     override fun init(savedInstanceState: Bundle?) {
         arguments?.let {
-            val position = it.getInt(EXTRA_POSITION, -1)
-            val key = it.getInt(EXTRA_KEY, -1)
-            mViewModel.setData(key, position)
-            val show = mViewModel.captionVisibility.get()
-            if (show != null) {
-                showCaption = show
+            position = it.getInt(EXTRA_POSITION, 0)
+            key = it.getInt(EXTRA_KEY, -1)
+            illustId = it.getLong(EXTRA_ID, -1)
+            if (key == -1) {
+                mViewModel.illustId = illustId
+            }else {
+                mViewModel.setData(key, position)
+                resetCaption()
             }
         }
         mViewModel.let {
@@ -78,16 +111,42 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
                     }
                     dialog.show(childFragmentManager, "BottomDialogFragment")
                 }
-                //initBottomSheet()
+                recyclerView.layoutManager = layoutManager
+                if (illustId == -1L) {
+                    initItem()
+                }else {
+                    mViewModel.detailState.addOnPropertyChangedCallback(onPropertyChangedCallback { observable, i ->
+                        if (mViewModel.detailState.get() is LoadState.Succeed) {
+                            resetCaption()
+                            mAdapter.refreshStart()
+                            initItem()
+                        }
+                    })
+                }
+                mAdapter.bindToRecyclerView(recyclerView)
             }
         }
     }
+
+
+    override fun onLazyInitView(savedInstanceState: Bundle?) {
+        super.onLazyInitView(savedInstanceState)
+        mViewModel.loadDetail()
+    }
+
+    private fun resetCaption() {
+        val show = mViewModel.captionVisibility.get()
+        if (show != null) {
+            showCaption = show
+        }
+    }
+
 
     /**
      * 监听滑动是否显示页数，fab等
      */
     private fun calculateVisibility(dy: Int, recyclerView: RecyclerView) {
-        mViewModel?.let {
+        mViewModel.let {
             val first = layoutManager.findFirstVisibleItemPosition()
             val total = it.total.get()
             val current = it.current
@@ -176,16 +235,6 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
             }
         }
     }
-
-    override fun onLazyInitView(savedInstanceState: Bundle?) {
-        super.onLazyInitView(savedInstanceState)
-        with(mBinding) {
-            recyclerView.layoutManager = layoutManager
-            mAdapter.bindToRecyclerView(recyclerView)
-            initItem()
-        }
-    }
-
 
 
     /**

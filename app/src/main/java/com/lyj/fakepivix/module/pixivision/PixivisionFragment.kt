@@ -59,17 +59,23 @@ class PixivisionFragment : BackFragment<FragmentPixivisionBinding, BaseViewModel
                 override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler, error: SslError?) {
                     handler.proceed()
                 }
-                //https://www.pixiv.net/member.php?id=113939  https://www.pixiv.net/artworks/73059720
+
                 override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest): Boolean {
                     val uri = request.url
                     uri.path?.let {
-                        if (it.contains("artworks")) {
-                            //Router.goDetail(0, listOf())
-                            return true
-                        }else if (it.contains("member")) {
-                            val userId = uri.getQueryParameter("id")
-                            //Router.goUserDetail()
-                            return true
+                        when {
+                            it.contains("artworks") -> uri.lastPathSegment?.let { id ->
+                                Router.goDetail(id.toLong())
+                                return true
+                            }
+                            it.contains("member") -> {
+                                val userId = uri.getQueryParameter("id")
+                                if (userId != null) {
+                                    Router.goUserDetail(userId = userId)
+                                }
+                                return true
+                            }
+                            else -> return false
                         }
                     }
                     return super.shouldOverrideUrlLoading(view, request)

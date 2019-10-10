@@ -3,12 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <import type="com.lyj.fakepivix.module.illust.detail.IllustDetailViewModel"/>
+        <import type="com.lyj.fakepivix.app.network.LoadState"/>
         <variable
             name="vm"
             type="com.lyj.fakepivix.module.illust.detail.IllustDetailViewModel"/>
     </data>
 
     <RelativeLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.v4.view.ViewPager
@@ -19,8 +21,8 @@
             android:id="@+id/toolbarWrapper"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-
-            android:visibility="gone"                     app:visible="@{vm.toolbarVisibility}"
+            android:visibility="gone"
+            app:visible="@{vm.toolbarVisibility}"
             >
             <!--android:background="@drawable/gradient_toolbar"-->
             <android.support.v7.widget.Toolbar
@@ -34,7 +36,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="gone"                     app:visible="@{vm.total > 1}"
+                    android:visibility="visible"
+                    app:visible="@{vm.total > 1}"
                     >
                     <TextView
                         android:id="@+id/pageNum"
@@ -50,5 +53,21 @@
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
         </RelativeLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include
+                android:id="@+id/errorView"
+                layout="@layout/layout_error"
+                android:visibility="gone"
+                app:visible="@{vm.detailState instanceof LoadState.Failed}"
+                />
+            <include
+                android:id="@+id/loading"
+                layout="@layout/layout_common_loading_white"
+                android:visibility="gone"
+                app:visible="@{vm.detailState instanceof LoadState.Loading}"
+                />
+        </FrameLayout>
     </RelativeLayout>
 </layout>

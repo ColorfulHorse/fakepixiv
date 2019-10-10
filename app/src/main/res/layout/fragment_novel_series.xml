@@ -40,6 +40,7 @@
                         app:url="@{vm.detail.user.profile_image_urls.medium}"
                         app:placeHolder="@{@drawable/no_profile}"
                         app:blur="@{true}"
+                        app:fade="@{true}"
                         />
                     <View
                         android:layout_width="match_parent"
@@ -80,6 +81,8 @@
                                 app:url="@{vm.detail.user.profile_image_urls.medium}"
                                 app:placeHolder="@{@drawable/no_profile}"
                                 app:circle="@{true}"
+                                app:fade="@{true}"
+                                app:fadeIn="@{vm.loadState instanceof LoadState.Succeed}"
                                 />
 
                             <TextView
@@ -103,7 +106,7 @@
                             android:textColor="@color/white"
                             android:onClick="@{() -> vm.follow()}"
                             android:text="@{vm.detail.user._followed?@string/followed:@string/follow}"
-                            android:background="@{vm.detail.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_white}"
+                            android:background="@{vm.detail.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_solid_translucent}"
                             android:layout_centerVertical="true"
                             android:layout_alignParentEnd="true"
                             android:enabled="@{!(vm.followState instanceof LoadState.Loading)}"

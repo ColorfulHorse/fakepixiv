@@ -247,8 +247,13 @@ interface ApiService {
     @GET
     fun getMoreComment(@Url nextUrl: String): Observable<CommentListResp>
 
+    /**
+     * 获取插画详情
+     */
+    @GET("/v1/illust/detail")
+    suspend fun getIllustDetail(@Query("illust_id")illustId: String): IllustResp
 
-    // /v1/illust/detail?filter=for_android&illust_id=4094064
+
     // /v1/spotlight/articles?filter=for_android&category=all&offset=10
 
     /**

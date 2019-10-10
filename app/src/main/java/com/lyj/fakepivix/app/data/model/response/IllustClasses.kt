@@ -47,13 +47,16 @@ data class IllustListResp(
         }
 }
 
+@JsonClass(generateAdapter = true)
+data class IllustResp(val illust: Illust = Illust())
+
 
 //@JsonClass(generateAdapter = true)
 data class Illust(
         var caption: String = "",
         var create_date: String = "",
         val height: Int = 0,
-        var id: Long = 0,
+        var id: Long = -1,
         var image_urls: ImageUrls = ImageUrls(),
         //var is_bookmarked: Boolean = false,
         val is_muted: Boolean = false,

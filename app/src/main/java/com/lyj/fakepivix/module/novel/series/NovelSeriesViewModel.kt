@@ -4,7 +4,9 @@ import android.databinding.Bindable
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import android.databinding.ObservableList
+import android.widget.TextView
 import com.lyj.fakepivix.BR
+import com.lyj.fakepivix.app.App
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.constant.IllustCategory
@@ -39,6 +41,13 @@ class NovelSeriesViewModel : BaseViewModel<IModel?>() {
     var followState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
     var seriesId: String = ""
+
+    @get:Bindable
+    var captionLines = 0
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.captionLines)
+        }
 
     @get:Bindable
     var detail: NovelSeriesDetail = NovelSeriesDetail()

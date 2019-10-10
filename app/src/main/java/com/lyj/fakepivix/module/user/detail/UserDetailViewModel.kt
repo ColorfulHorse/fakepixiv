@@ -41,8 +41,10 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
     var user: User? = null
     set(value) {
         field = value
-        value?.let { relatedUserViewModel.user = it }
-        notifyPropertyChanged(BR.user)
+        value?.let {
+            relatedUserViewModel.user = it
+            notifyPropertyChanged(BR.user)
+        }
     }
 
     val loadState = ObservableField<LoadState>(LoadState.Idle)
@@ -112,6 +114,9 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
                         .instance.getUserInfo(userId)
             }
             userInfo = resp
+            if (user == null) {
+                user = userInfo.user
+            }
             workspace.addAll(resp.workspace.getTextList())
             loadState.set(LoadState.Succeed)
             if (resp.user.comment.isBlank()) {

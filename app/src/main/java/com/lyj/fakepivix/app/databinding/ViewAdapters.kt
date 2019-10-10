@@ -139,7 +139,6 @@ fun ImageView.url(url: String?, placeHolder: Drawable?, placeHolderRatio: String
         options.transform(BlurTransformation(15, 2))
     }
     req.apply(options).into(this)
-
 }
 
 @BindingAdapter(value = ["liked"])

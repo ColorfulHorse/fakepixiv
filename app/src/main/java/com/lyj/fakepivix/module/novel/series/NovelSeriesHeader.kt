@@ -25,6 +25,13 @@ class NovelSeriesHeader(val context: Context, val viewModel: NovelSeriesViewMode
 
         mBinding?.let {
             it.vm = viewModel
+            it.caption.post {
+                viewModel.captionLines = it.caption.lineCount
+            }
+            it.readMoreTextView.setOnClickListener { _ ->
+                it.caption.maxLines = 999
+                it.readMoreTextView.visibility = View.GONE
+            }
         }
     }
 }

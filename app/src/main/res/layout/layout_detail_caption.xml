@@ -12,7 +12,6 @@
             type="Boolean"
             />
     </data>
-    <!--android:visibility="gone"                     app:visible="@{(vm.illustWorksState instanceof LoadState.Idle) || (vm.userInfo.profile.total_illusts > 0)}"-->
     <RelativeLayout
         android:id="@+id/container"
         android:layout_width="match_parent"

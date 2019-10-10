@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data class="HeaderNovelSeries">
         <import type="com.lyj.fakepivix.app.utils.StringUtil"/>
         <variable
@@ -60,7 +61,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@id/series_title"
+            android:id="@+id/series_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -98,13 +99,15 @@
             android:layout_marginRight="16dp">
 
             <TextView
-                android:id="@id/caption"
+                android:id="@+id/caption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="4sp"
                 android:maxLines="10"
                 android:textColor="@color/font_color_main"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:text="@{vm.detail.caption}"
+                />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -118,7 +121,7 @@
                     android:background="@drawable/bg_read_more" />
 
                 <TextView
-                    android:id="@id/read_more_text_view"
+                    android:id="@+id/read_more_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/bg_general_new"
@@ -130,7 +133,10 @@
                     android:paddingRight="0dp"
                     android:text="@string/novel_series_expand"
                     android:textColor="@color/primary"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    app:visible="@{vm.captionLines > 10}"
+                    />
             </LinearLayout>
         </FrameLayout>
 

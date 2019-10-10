@@ -29,8 +29,16 @@ open class DetailViewModel : BaseViewModel<IModel?>() {
 
     override val mModel: IModel? = null
 
+    @get: Bindable
     var liveData = Illust()
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.liveData)
+        }
 
+    /**
+     * 由于小说的每个章节相当于独立作品，所以不能改变liveData的一些值，而是要单独copy变量来操作
+     */
     @get: Bindable
     var illust = Illust()
     set(value) {
@@ -65,11 +73,18 @@ open class DetailViewModel : BaseViewModel<IModel?>() {
 
     open val seriesItemViewModel: SeriesItemViewModel? = null
 
-    open fun setData(key: Int, position: Int) {
+    /**
+     * 初始化作品信息
+     */
+    fun setData(key: Int, position: Int) {
         this.key = key
         this.position = position
-        liveData = IllustRepository.instance[key][position]
-        illust = liveData.copy()
+        setData(IllustRepository.instance[key][position])
+    }
+
+    open fun setData(data: Illust) {
+        liveData = data
+        illust = data.copy()
     }
 
     init {

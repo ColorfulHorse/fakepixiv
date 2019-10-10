@@ -187,6 +187,11 @@ class IllustRepository private constructor() {
                 .getNovelSeries(seriesId)
     }
 
+    suspend fun getIllustDetail(illustId: String): IllustResp =
+            RetrofitManager
+            .instance.apiService
+            .getIllustDetail(illustId)
+
 
     /**
      * 按顺序搜索

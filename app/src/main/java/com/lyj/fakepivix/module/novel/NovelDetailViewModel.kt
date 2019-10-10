@@ -24,6 +24,9 @@ import timber.log.Timber
  */
 class NovelDetailViewModel : DetailViewModel() {
 
+    /**
+     * 当前章节信息
+     */
     var novelChapter: NovelChapter? = null
     set(value) {
         field = value

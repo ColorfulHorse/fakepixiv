@@ -11,6 +11,7 @@ import com.lyj.fakepivix.module.pixivision.PixivisionFragment
  */
 
 const val EXTRA_CATEGORY = "EXTRA_CATEGORY"
+const val EXTRA_ID = "EXTRA_ID"
 
 interface Constant {
 

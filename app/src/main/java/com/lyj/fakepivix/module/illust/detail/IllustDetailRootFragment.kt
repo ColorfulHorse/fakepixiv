@@ -1,14 +1,23 @@
 package com.lyj.fakepivix.module.illust.detail
 
+import android.app.Fragment
 import android.os.Bundle
 import android.support.v4.view.ViewPager
+import android.util.Log
+import android.view.ViewGroup
 import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.BackFragment
 import com.lyj.fakepivix.app.base.BaseViewModel
+import com.lyj.fakepivix.app.constant.EXTRA_CATEGORY
+import com.lyj.fakepivix.app.constant.EXTRA_ID
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.databinding.FragmentIllustDetailRootBinding
+import kotlinx.android.synthetic.main.layout_error.view.*
+import me.yokeyword.fragmentation.anim.DefaultVerticalAnimator
+import me.yokeyword.fragmentation.anim.FragmentAnimator
+import kotlin.system.measureTimeMillis
 
 /**
  * @author greensun
@@ -17,23 +26,25 @@ import com.lyj.fakepivix.databinding.FragmentIllustDetailRootBinding
  *
  * @desc 作品详情
  */
-class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, BaseViewModel<*>?>() {
+class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, IllustDetailViewModel?>() {
 
-    override var mViewModel: BaseViewModel<*>? = null
+    override var mViewModel: IllustDetailViewModel? = null
 
     var position = -1
     var key = -1
 
-    var data : List<Illust> = listOf()
+    var data: List<Illust> = listOf()
+    lateinit var adapter: IllustPagerAdapter
 
     companion object {
         private const val EXTRA_POSITION = "EXTRA_POSITION"
         private const val EXTRA_KEY = "EXTRA_KEY"
-        fun newInstance(position: Int, key: Int): IllustDetailRootFragment {
+        fun newInstance(position: Int = 0, key: Int = -1, illustId: Long = -1): IllustDetailRootFragment {
             return IllustDetailRootFragment().apply {
                 arguments = Bundle().apply {
                     putInt(EXTRA_POSITION, position)
                     putInt(EXTRA_KEY, key)
+                    putLong(EXTRA_ID, illustId)
                 }
             }
         }
@@ -42,26 +53,38 @@ class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, B
     override fun init(savedInstanceState: Bundle?) {
         arguments?.let {
             key = it.getInt(EXTRA_KEY, -1)
-            position = it.getInt(EXTRA_POSITION, -1)
-            data = IllustRepository.instance[key]
+            position = it.getInt(EXTRA_POSITION, 0)
+            val illustId = it.getLong(EXTRA_ID, -1)
+            if (key != -1) {
+                data = IllustRepository.instance[key]
+            } else {
+                data = mutableListOf(Illust(id = illustId))
+            }
         }
         mToolbar?.let {
             //it.overflowIcon = ContextCompat.getDrawable(mActivity, R.drawable.ic_more)
             it.inflateMenu(R.menu.menu_detail_illust)
             it.setOnMenuItemClickListener { menu ->
                 when (menu.itemId) {
-                    R.id.share -> {}
-                    R.id.filter -> {}
-                    else -> {}
+                    R.id.share -> {
+                    }
+                    R.id.filter -> {
+                    }
+                    else -> {
+                    }
                 }
                 true
             }
         }
-        val adapter = IllustPagerAdapter(data, childFragmentManager, key)
+        adapter = IllustPagerAdapter(data, childFragmentManager, key)
         with(mBinding) {
+            val viewPager = ViewPager(mActivity)
+            viewPager.id = R.id.viewPager
+            viewPager.layoutParams = ViewGroup.LayoutParams(-1, -1)
+            container.addView(viewPager, 0)
             viewPager.adapter = adapter
-            viewPager.offscreenPageLimit = 2
             viewPager.setCurrentItem(position, false)
+            viewPager.offscreenPageLimit = 1
             //viewPager.currentItem = position
             viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
                 override fun onPageScrollStateChanged(p0: Int) {
@@ -75,24 +98,33 @@ class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, B
                 override fun onPageSelected(position: Int) {
                     val fragment = adapter.getFragment(position)
                     vm = fragment?.mViewModel
+                    mViewModel = vm
                 }
 
             })
             val fragment = adapter.getFragment(position)
             if (fragment != null) {
                 vm = fragment.mViewModel
-            }else {
+                mViewModel = vm
+            } else {
                 // 未初始化则没办法马上拿到
                 adapter.getFragment(position) {
                     vm = it.mViewModel
+                    mViewModel = vm
                 }
+            }
+
+            errorView.reload.setOnClickListener {
+                mViewModel?.loadDetail()
             }
         }
     }
 
     override fun onDestroyView() {
         if (!diffOrientation) {
-            IllustRepository.instance - key
+            if (key != -1) {
+                IllustRepository.instance - key
+            }
         }
         super.onDestroyView()
     }

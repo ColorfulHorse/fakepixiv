@@ -50,6 +50,14 @@ object Router {
         }
     }
 
+    fun goDetail(illustId: Long) {
+        closeDialog()
+        getTopFragment()?.let {
+            val fragment = IllustDetailRootFragment.newInstance(illustId = illustId)
+            it.start(fragment)
+        }
+    }
+
     /**
      * 排行榜
      */
@@ -69,9 +77,13 @@ object Router {
     /**
      * 用户详情页
      */
-    fun goUserDetail(user: User) {
-        UserRepository.instance[user.id] = user
-        val fragment = UserDetailFragment.newInstance(user.id)
+    fun goUserDetail(user: User? = null, userId: String = "") {
+        var id = userId
+        if (user != null) {
+            UserRepository.instance[user.id] = user
+            id = user.id
+        }
+        val fragment = UserDetailFragment.newInstance(id)
         getTopFragment()?.start(fragment)
     }
 

@@ -104,12 +104,13 @@
                                 android:textColor="@color/white"
                                 android:onClick="@{() -> vm.follow()}"
                                 android:text="@{vm.user._followed?@string/followed:@string/follow}"
-                                android:background="@{vm.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_white}"
+                                android:background="@{vm.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_solid_translucent}"
                                 android:layout_centerVertical="true"
                                 android:layout_alignParentEnd="true"
                                 android:enabled="@{!(vm.followState instanceof LoadState.Loading)}"
                                 android:layout_marginEnd="4dp"
-                                android:visibility="gone"                     app:visible="@{vm.loadState instanceof LoadState.Succeed}"
+                                android:visibility="gone"
+                                app:visible="@{vm.loadState instanceof LoadState.Succeed}"
                                 />
                         </RelativeLayout>
                     </android.support.v7.widget.Toolbar>

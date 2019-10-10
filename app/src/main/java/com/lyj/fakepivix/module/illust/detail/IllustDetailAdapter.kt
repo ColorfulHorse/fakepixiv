@@ -2,6 +2,7 @@ package com.lyj.fakepivix.module.illust.detail
 
 import android.databinding.ViewDataBinding
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.ViewGroup
 import com.bumptech.glide.RequestBuilder
 import com.lyj.fakepivix.BR
@@ -17,6 +18,7 @@ import com.lyj.fakepivix.module.illust.detail.items.DetailItem.Companion.LAYOUT_
 import com.lyj.fakepivix.module.illust.detail.items.DetailItem.Companion.LAYOUT_RELATED_CAPTION
 import com.lyj.fakepivix.module.illust.detail.items.DetailItem.Companion.LAYOUT_SERIES
 import com.lyj.fakepivix.module.illust.detail.items.DetailItem.Companion.LAYOUT_USER
+import timber.log.Timber
 
 
 /**
@@ -47,6 +49,10 @@ class IllustDetailAdapter(val viewModel: IllustDetailViewModel) : IllustAdapter(
                 Router.goDetail(position - items.size, data)
             }
         }
+    }
+
+    fun refreshStart() {
+        start = data.size
     }
 
     fun addItem(item: DetailItem) {
@@ -95,6 +101,7 @@ class IllustDetailAdapter(val viewModel: IllustDetailViewModel) : IllustAdapter(
             }
             LAYOUT_USER -> {
                 val item = items.find { it.type == LAYOUT_USER } as UserFooter
+                Log.e("adapter", "${this} load item")
                 item.viewModel.load()
                 return BaseBindingViewHolder(item.rootView)
             }

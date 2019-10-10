@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
+import com.lyj.fakepivix.app.fragmentation.HorizontalAnimator
 import com.lyj.fakepivix.app.network.ApiException
 import com.lyj.fakepivix.app.network.LoadState
 import com.lyj.fakepivix.app.utils.ToastUtil
@@ -13,6 +14,7 @@ import com.lyj.fakepivix.databinding.FragmentLoginBinding
 import com.lyj.fakepivix.module.login.register.RegisterFragment
 import com.lyj.fakepivix.module.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_login.*
+import me.yokeyword.fragmentation.anim.FragmentAnimator
 
 /**
  * @author greensun
