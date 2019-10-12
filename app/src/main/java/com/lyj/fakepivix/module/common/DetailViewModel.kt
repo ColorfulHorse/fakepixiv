@@ -10,6 +10,7 @@ import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
 import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
+import com.lyj.fakepivix.app.utils.Router
 import com.lyj.fakepivix.module.illust.detail.items.CommentFooterViewModel
 import com.lyj.fakepivix.module.illust.detail.RelatedIllustDialogViewModel
 import com.lyj.fakepivix.module.illust.detail.RelatedUserDialogViewModel
@@ -132,6 +133,10 @@ open class DetailViewModel : BaseViewModel<IModel?>() {
         disposable?.let {
             addDisposable(it)
         }
+    }
+
+    fun goUserDetail() {
+        Router.goUserDetail(illust.user)
     }
 
 }

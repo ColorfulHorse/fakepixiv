@@ -9,6 +9,7 @@ import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.BackFragment
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.databinding.attachLoadMore
+import com.lyj.fakepivix.app.utils.Router
 import com.lyj.fakepivix.app.utils.bindState
 import com.lyj.fakepivix.databinding.FragmentComicSeriseBinding
 import com.lyj.fakepivix.databinding.FragmentNovelDetailBinding
@@ -51,12 +52,15 @@ class NovelSeriesFragment : BackFragment<FragmentNovelSeriesBinding, NovelSeries
                 addItemType(Illust.TYPE_NOVEL, R.layout.item_series_novel, BR.data)
                 addItemType(Illust.TYPE_ILLUST, R.layout.item_series_novel, BR.data)
             }
+            adapter.setOnItemClickListener { _, _, position ->
+                Router.goNovelDetail(position, adapter.data)
+            }
             val header = NovelSeriesHeader(mActivity, mViewModel)
             adapter.addHeaderView(header.rootView)
             adapter.bindState(mViewModel.loadState) {
                 mViewModel.load()
             }
-            recyclerView.attachLoadMore {
+            recyclerView.attachLoadMore(mViewModel.loadMoreState) {
                 mViewModel.loadMore()
             }
             val layoutManager = LinearLayoutManager(mActivity)

@@ -14,6 +14,8 @@ import com.lyj.fakepivix.app.base.BackFragment
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.base.IModel
+import com.lyj.fakepivix.app.constant.EXTRA_CATEGORY
+import com.lyj.fakepivix.app.constant.EXTRA_ID
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.Restrict
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
@@ -60,39 +62,51 @@ class BookmarkFragment : BackFragment<FragmentBookmarkBinding, BaseViewModel<IMo
 //    } }
 
     companion object {
-        const val TAG_PUBLIC = "TAG_PUBLIC"
-        const val TAG_PRIVATE = "TAG_PRIVATE"
 
-        fun newInstance() = BookmarkFragment()
+        fun newInstance(userId: String = "", @IllustCategory category: String = IllustCategory.ILLUST) = BookmarkFragment().apply {
+            arguments = Bundle().apply {
+                putString(EXTRA_ID, userId)
+                putString(EXTRA_CATEGORY, category)
+            }
+        }
     }
 
     override fun init(savedInstanceState: Bundle?) {
-        userId = UserRepository.instance.loginData?.user?.id.toString()
+        arguments?.let {
+            userId = it.getString(EXTRA_ID, "")
+            category = it.getString(EXTRA_CATEGORY, IllustCategory.ILLUST)
+        }
+        if (userId.isEmpty()) {
+            // 自己
+            userId = UserRepository.instance.loginData?.user?.id.toString()
+        }
         mToolbar?.let {
             it.title = getString(R.string.bookmark)
             it.inflateMenu(R.menu.menu_bookmark)
-            val icon = ContextCompat.getDrawable(mActivity, R.drawable.ic_search_filter)
-            icon?.let { drawable ->
-                DrawableCompat.setTint(drawable, Color.WHITE)
-                it.menu.findItem(R.id.restrict).setIcon(drawable)
-            }
-            it.setOnMenuItemClickListener { menu ->
-                val filterDialog = FilterDialog.newInstance(category, restrict, publicTag, privateTag) { restrict, tag ->
-                    filterTag = tag
-                    this.restrict = restrict
-                    if (restrict == Restrict.PUBLIC) {
-                        publicTag = tag
-                    }else {
-                        privateTag = tag
-                    }
-                    if (mBinding.viewPager.currentItem == 0) {
-                        illustVm.load()
-                    }else {
-                        novelVm.load()
-                    }
+            if (userId != UserRepository.instance.loginData?.user?.id.toString()) {
+                val icon = ContextCompat.getDrawable(mActivity, R.drawable.ic_search_filter)
+                icon?.let { drawable ->
+                    DrawableCompat.setTint(drawable, Color.WHITE)
+                    it.menu.findItem(R.id.restrict).setIcon(drawable)
                 }
-                filterDialog.show(childFragmentManager, "FilterDialog")
-                true
+                it.setOnMenuItemClickListener { menu ->
+                    val filterDialog = FilterDialog.newInstance(category, restrict, publicTag, privateTag) { restrict, tag ->
+                        filterTag = tag
+                        this.restrict = restrict
+                        if (restrict == Restrict.PUBLIC) {
+                            publicTag = tag
+                        }else {
+                            privateTag = tag
+                        }
+                        if (mBinding.viewPager.currentItem == 0) {
+                            illustVm.load()
+                        }else {
+                            novelVm.load()
+                        }
+                    }
+                    filterDialog.show(childFragmentManager, "FilterDialog")
+                    true
+                }
             }
         }
         initFragment()
@@ -101,7 +115,6 @@ class BookmarkFragment : BackFragment<FragmentBookmarkBinding, BaseViewModel<IMo
 
 
     private fun initFragment() {
-
         val illustListFragment = IllustListFragment.newInstance(IllustCategory.ILLUST).apply {
             illustVm = IllustListViewModel {
                 IllustRepository.instance
@@ -122,7 +135,7 @@ class BookmarkFragment : BackFragment<FragmentBookmarkBinding, BaseViewModel<IMo
         with(mBinding) {
             viewPager.adapter = adapter
             segmentLayout.setViewPager(viewPager)
-            segmentLayout.currentTab = 0
+            segmentLayout.currentTab = if (category == IllustCategory.ILLUST) 0 else 1
             segmentLayout.setOnTabSelectListener(object : OnTabSelectListener {
                 override fun onTabSelect(position: Int) {
                     category = if (position == 0) IllustCategory.ILLUST else IllustCategory.NOVEL

@@ -240,7 +240,7 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
             userAdapter.bindState(mViewModel.userViewModel.loadState) {
                 mViewModel.userViewModel.load()
             }
-            rvUser.attachLoadMore { mViewModel.userViewModel.loadMore() }
+            rvUser.attachLoadMore(mViewModel.userViewModel.loadMoreState) { mViewModel.userViewModel.loadMore() }
             rvUser.addItemDecoration(CommonItemDecoration.Builder()
                     .dividerWidth(12.dp2px(), 0)
                     .build())
@@ -280,7 +280,7 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
                 .titleBarMarginTop(mBinding.contentView)
                 .statusBarDarkFont(true)
                 .statusBarColor(R.color.white, R.color.transparent_white, 0.7f)
-                .keyboardEnable(true, WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE or WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+                .keyboardEnable(true, WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
                 .setOnKeyboardListener(keyboardListener)
                 .init()
     }

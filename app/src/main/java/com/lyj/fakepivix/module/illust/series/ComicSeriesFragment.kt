@@ -61,7 +61,7 @@ class ComicSeriesFragment : BackFragment<FragmentComicSeriseBinding, ComicSeries
             adapter.bindState(mViewModel.loadState) {
                 mViewModel.load()
             }
-            recyclerView.attachLoadMore {
+            recyclerView.attachLoadMore(mViewModel.loadMoreState) {
                 mViewModel.loadMore()
             }
             val layoutManager = GridLayoutManager(mActivity, 2)

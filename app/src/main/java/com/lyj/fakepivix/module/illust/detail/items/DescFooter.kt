@@ -11,6 +11,7 @@ import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.App
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.data.model.response.Illust
+import com.lyj.fakepivix.app.utils.Router
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.LayoutFooterDescBinding
 import com.lyj.fakepivix.module.common.adapter.IllustTagAdapter
@@ -35,11 +36,6 @@ class DescFooter(val context: Context, val data: Illust, var mBinding: LayoutFoo
         }
 
         mBinding?.let {
-//            val illust = data.get()
-//            data.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
-//                val data = data.get()
-//                initData(data, it)
-//            })
             initData(it)
         }
     }
@@ -55,5 +51,11 @@ class DescFooter(val context: Context, val data: Illust, var mBinding: LayoutFoo
                 .setOrientation(ChipsLayoutManager.HORIZONTAL)
                 .build()
         binding.recyclerView.addItemDecoration(SpacingItemDecoration(1.dp2px(), 6.dp2px()))
+        binding.avatar.setOnClickListener {
+            Router.goUserDetail(data.user)
+        }
+        binding.nickName.setOnClickListener {
+            Router.goUserDetail(data.user)
+        }
     }
 }

@@ -141,10 +141,12 @@ fun BaseQuickAdapter<*, *>.bindState(loadState: ObservableField<LoadState>,
                 if (headerLayoutCount + footerLayoutCount > 0) {
                     notifyDataSetChanged()
                 }
+//                refreshLayout?.isRefreshing = false
                 refreshLayout?.isEnabled = true
                 onFailed?.invoke((loadState.get() as LoadState.Failed).error)
             }
             else -> {
+//                refreshLayout?.isRefreshing = false
                 refreshLayout?.isEnabled = true
                 onSucceed?.invoke()
             }

@@ -11,15 +11,21 @@ import com.lyj.fakepivix.BR
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.adapter.BaseBindingAdapter
 import com.lyj.fakepivix.app.base.BackFragment
+import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.source.remote.UserRepository
+import com.lyj.fakepivix.app.utils.Router
 import com.lyj.fakepivix.app.utils.bindState
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.FragmentUserDetailBinding
 import com.lyj.fakepivix.databinding.ItemWorkspaceBinding
 import com.lyj.fakepivix.databinding.ItemWorkspaceBindingImpl
 import com.lyj.fakepivix.module.common.adapter.IllustAdapter
+import com.lyj.fakepivix.module.illust.bookmark.BookmarkFragment
+import com.lyj.fakepivix.module.illust.works.WorksFragment
 import com.lyj.fakepivix.widget.CommonItemDecoration
+import kotlinx.android.synthetic.main.item_works.*
+import kotlin.math.abs
 
 /**
  * @author greensun
@@ -62,7 +68,7 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
     private fun initBar() {
         mBinding.appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, offset ->
             val range = appBarLayout.totalScrollRange
-            val distance = Math.abs(offset)
+            val distance = abs(offset)
             mViewModel.collapsed.set(distance >= range)
             var scaleRatio = (range - distance) * 1f / range
             var alphaRatio = (range / 2f - distance) / (range / 2f)
@@ -85,6 +91,9 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
 
     private fun initIllust() {
         with(mBinding) {
+            illustWorks.more.setOnClickListener {
+                goWorks(IllustCategory.ILLUST)
+            }
             val adapter = IllustAdapter(mViewModel.illustWorks).apply {
                 addItemType(Illust.TYPE_ILLUST, R.layout.item_illust_related, BR.illust)
             }
@@ -102,6 +111,9 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
 
     private fun initComic() {
         with(mBinding) {
+            comicWorks.more.setOnClickListener {
+                goWorks(IllustCategory.COMIC)
+            }
             val adapter = IllustAdapter(mViewModel.comicWorks, false).apply {
                 addItemType(Illust.TYPE_COMIC, R.layout.item_home_comic, BR.data)
                 addItemType(Illust.TYPE_ILLUST, R.layout.item_home_comic, BR.data)
@@ -120,6 +132,9 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
 
     private fun initNovel() {
         with(mBinding) {
+            novelWorks.more.setOnClickListener {
+                goWorks(IllustCategory.NOVEL)
+            }
             val adapter = IllustAdapter(mViewModel.novelWorks, false).apply {
                 addItemType(Illust.TYPE_NOVEL, R.layout.item_home_novel, BR.data)
                 addItemType(Illust.TYPE_ILLUST, R.layout.item_home_novel, BR.data)
@@ -136,8 +151,14 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
         }
     }
 
+    /**
+     * 插画漫画 小说收藏
+     */
     private fun initBookMark() {
         with(mBinding) {
+            illustBookmarks.more.setOnClickListener {
+                start(BookmarkFragment.newInstance(mViewModel.userId))
+            }
             val adapter = IllustAdapter(mViewModel.illustBookmarks).apply {
                 addItemType(Illust.TYPE_ILLUST, R.layout.item_illust_related, BR.illust)
                 addItemType(Illust.TYPE_COMIC, R.layout.item_illust_related, BR.illust)
@@ -152,6 +173,10 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
             }
             illustBookmarks.recyclerView.addItemDecoration(CommonItemDecoration.Builder().dividerWidth(1.dp2px(), 1.dp2px()).draw(false).build())
 
+
+            novelBookmarks.more.setOnClickListener {
+                start(BookmarkFragment.newInstance(mViewModel.userId, IllustCategory.NOVEL))
+            }
             val novelAdapter = IllustAdapter(mViewModel.novelBookmarks, false).apply {
                 addItemType(Illust.TYPE_NOVEL, R.layout.item_home_novel, BR.data)
                 addItemType(Illust.TYPE_ILLUST, R.layout.item_home_novel, BR.data)
@@ -165,6 +190,10 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
             }
             novelBookmarks.recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         }
+    }
+
+    private fun goWorks(@IllustCategory category: String) {
+        start(WorksFragment.newInstance(mViewModel.userInfo.profile.total_illusts, mViewModel.userInfo.profile.total_manga, mViewModel.userInfo.profile.total_novels, mViewModel.userId, category))
     }
 
     override fun initImmersionBar() {

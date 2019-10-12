@@ -129,6 +129,13 @@
     <string name="novel_series_desc">%1$d作品&#8195;%2$s个字&#8195;看完需要%3$s&#8195;</string>
     <string name="watch_series_last">阅读最新一话(#%1$d)</string>
     <string name="novel_length">%s个字</string>
+    <string name="profile_that_looks_from_you">已设置为私人的项目不会显示在公开信息中。</string>
+    <string name="novel_series_content_count">%1$,3d作品</string>
+    <string name="novel_series_content_is_muted">已被屏蔽</string>
+    <string name="novel_series_content_is_mypixiv">是好P友限定作品</string>
+    <string name="novel_series_content_is_restricted">该作品有浏览限制暂不能查看</string>
+    <string name="novel_series_content_is_x_restricted">是R-18作品</string>
+    <string name="works">作品</string>
 
     <string-array name="illust_rank_modes">
         <item>每日</item>

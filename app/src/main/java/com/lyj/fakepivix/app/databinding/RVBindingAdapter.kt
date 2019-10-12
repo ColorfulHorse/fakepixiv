@@ -14,7 +14,7 @@ import android.support.v7.widget.RecyclerView
 
 @BindingAdapter(value = ["loadMore"], requireAll = false)
 fun RecyclerView.config(loadMore: () -> Unit) {
-    attachLoadMore{loadMore()}
+    attachLoadMore{ loadMore() }
 }
 
 /*@BindingAdapter(value = ["adapter", "items"], requireAll = true)

@@ -44,8 +44,16 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
         value?.let {
             relatedUserViewModel.user = it
             notifyPropertyChanged(BR.user)
+            isSelf = it.id == UserRepository.instance.loginData?.user?.id
         }
     }
+
+    @get:Bindable
+    var isSelf = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.self)
+        }
 
     val loadState = ObservableField<LoadState>(LoadState.Idle)
 
@@ -56,6 +64,9 @@ class UserDetailViewModel : BaseViewModel<IModel?>() {
         notifyPropertyChanged(BR.userInfo)
     }
 
+    /**
+     * 用户介绍是否显示完整
+     */
     @get:Bindable
     var showMore = false
         set(value) {

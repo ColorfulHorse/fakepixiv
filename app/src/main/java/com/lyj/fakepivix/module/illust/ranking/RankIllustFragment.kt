@@ -128,7 +128,7 @@ class RankIllustFragment : FragmentationFragment<CommonList, RankIllustViewModel
             adapter.bindState(it.loadState) {
                 it.load()
             }
-            mBinding.recyclerView.attachLoadMore {
+            mBinding.recyclerView.attachLoadMore(it.loadMoreState) {
                 it.loadMore()
             }
         }

@@ -23,7 +23,7 @@
             android:descendantFocusability="blocksDescendants" />
         <include layout="@layout/layout_detail_caption"
             android:id="@+id/caption"
-            app:data="@{vm.illust}"
+            app:vm="@{vm}"
             app:showCaption="@{vm.captionVisibility}"
             />
 

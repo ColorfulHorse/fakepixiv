@@ -12,6 +12,7 @@ import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.FragmentationActivity
+import com.lyj.fakepivix.app.utils.Router
 import com.lyj.fakepivix.databinding.ActivityMainBinding
 import com.lyj.fakepivix.databinding.MainNavHeader
 import com.lyj.fakepivix.module.illust.bookmark.BookmarkFragment
@@ -73,6 +74,14 @@ class MainActivity : FragmentationActivity<ActivityMainBinding, MainViewModel>()
             val headerBinding = DataBindingUtil.bind<MainNavHeader>(headerView)
             mViewModel.user?.let {
                 headerBinding?.user = mViewModel.user
+                headerBinding?.avatar?.setOnClickListener {
+                    drawerLayout.closeDrawers()
+                    Router.goUserDetail(mViewModel.user)
+                }
+                headerBinding?.nickName?.setOnClickListener {
+                    drawerLayout.closeDrawers()
+                    Router.goUserDetail(mViewModel.user)
+                }
             }
             nav.nav.setNavigationItemSelectedListener {
                 drawerLayout.closeDrawer(Gravity.START)

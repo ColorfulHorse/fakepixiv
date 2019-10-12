@@ -5,6 +5,7 @@
     <data>
         <import type="com.lyj.fakepivix.module.user.detail.UserDetailViewModel"/>
         <import type="com.lyj.fakepivix.app.network.LoadState"/>
+        <import type="android.text.TextUtils"/>
         <variable
             name="vm"
             type="UserDetailViewModel"/>
@@ -40,7 +41,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            app:url="@{vm.userInfo.profile.background_image_url==null ? vm.userInfo.profile.background_image_url : vm.user.profile_image_urls.medium}"
+                            app:url="@{!TextUtils.isEmpty(vm.userInfo.profile.background_image_url) ? vm.userInfo.profile.background_image_url : vm.userInfo.user.profile_image_urls.medium}"
                             app:placeHolder="@{@drawable/no_profile}"
                             app:blur="@{true}"
                             app:fade="@{true}"
@@ -110,14 +111,12 @@
                                 android:enabled="@{!(vm.followState instanceof LoadState.Loading)}"
                                 android:layout_marginEnd="4dp"
                                 android:visibility="gone"
-                                app:visible="@{vm.loadState instanceof LoadState.Succeed}"
+                                app:visible="@{(vm.loadState instanceof LoadState.Succeed) &amp;&amp; !vm.isSelf}"
                                 />
                         </RelativeLayout>
                     </android.support.v7.widget.Toolbar>
                 </android.support.design.widget.CollapsingToolbarLayout>
             </android.support.design.widget.AppBarLayout>
-
-            <!-- app:circle="@{true}"-->
 
             <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
@@ -129,6 +128,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:descendantFocusability="blocksDescendants"
+                    android:focusableInTouchMode="true"
                     android:orientation="vertical"
                     android:background="@color/white"
                     >
@@ -174,7 +175,6 @@
                         />
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>
-
 
             <ImageView
                 android:id="@+id/avatar"

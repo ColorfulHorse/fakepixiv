@@ -1,6 +1,7 @@
 package com.lyj.fakepivix.app.base
 
 import android.databinding.ViewDataBinding
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.annotation.DrawableRes
@@ -35,6 +36,13 @@ abstract class BackFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
     open fun bindBackIcon(): Drawable {
         return resources.getDrawable(R.drawable.ic_arrow_back_white)
     }
+
+    fun createDefaultBack() =
+        DrawerArrowDrawable(mActivity).apply {
+            progress = 1F
+            color = Color.WHITE
+        }
+
 
     open fun back() {
         if (keyboardOpen) {

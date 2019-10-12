@@ -6,6 +6,7 @@ import com.lyj.fakepivix.app.base.BaseViewModel
 import com.lyj.fakepivix.app.base.IModel
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.data.model.response.IllustListResp
+import com.lyj.fakepivix.app.data.model.response.IllustResp
 import com.lyj.fakepivix.app.data.source.remote.IllustRepository
 import com.lyj.fakepivix.app.data.source.remote.checkEmpty
 import com.lyj.fakepivix.app.network.LoadState
@@ -22,7 +23,7 @@ import kotlinx.coroutines.withContext
  *
  * @desc
  */
-open class IllustListViewModel(val allowEmpty: Boolean = false, var action: (suspend () -> IllustListResp)? = null) : BaseViewModel<IModel?>() {
+open class IllustListViewModel(var action: (suspend () -> IllustListResp)? = null) : BaseViewModel<IModel?>() {
 
     override var mModel: IModel? = null
 
@@ -43,6 +44,7 @@ open class IllustListViewModel(val allowEmpty: Boolean = false, var action: (sus
                     val resp = withContext(Dispatchers.IO) {
                         it()
                     }
+                    resp.illusts.filter { it.visible }
                     resp.checkEmpty()
                     nextUrl = resp.next_url
                     data.clear()
@@ -61,9 +63,10 @@ open class IllustListViewModel(val allowEmpty: Boolean = false, var action: (sus
                 .loadMore(nextUrl)
                 .doOnSubscribe { loadMoreState.set(LoadState.Loading) }
                 .subscribeBy(onNext = {
-                    loadMoreState.set(LoadState.Succeed)
                     nextUrl = it.next_url
+                    it.illusts.filter { res -> res.visible }
                     data.addAll(it.illusts)
+                    loadMoreState.set(LoadState.Succeed)
                 }, onError = {
                     loadMoreState.set(LoadState.Failed(it))
                 })

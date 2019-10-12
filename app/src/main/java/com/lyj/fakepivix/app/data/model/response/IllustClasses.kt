@@ -6,10 +6,12 @@ import android.databinding.Bindable
 import android.text.TextUtils
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.lyj.fakepivix.BR
+import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.App
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.constant.IllustCategory.*
 import com.lyj.fakepivix.app.utils.StringUtil
+import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 /**
@@ -76,6 +78,8 @@ data class Illust(
         val user: User = User(),
         val visible: Boolean = true,
         val width: Int = 0,
+        val is_mypixiv_only: Boolean = false,
+        val is_x_restricted: Boolean = false,
         val x_restrict: Int = 0
 ) : MultiItemEntity, BaseObservable() {
     // 收藏
@@ -111,9 +115,7 @@ data class Illust(
 
     fun getTagsText(): String {
         val sb = StringBuilder()
-        tags.map {
-            if (it.translated_name.isNotEmpty()) it.translated_name else it.name
-        }.forEach {
+        tags.filter { it.byUser }.map { it.name }.forEach {
             sb.append("  #$it")
         }
         return sb.toString()
@@ -130,6 +132,17 @@ data class Illust(
         }
         list
     }.toMutableList()
+
+    fun isUnReadable(): Boolean {
+        return is_x_restricted or is_muted or is_mypixiv_only
+    }
+
+    fun getUnReadableMsg(): String = when {
+        is_muted -> App.context.getString(R.string.novel_series_content_is_muted)
+        is_mypixiv_only -> App.context.getString(R.string.novel_series_content_is_mypixiv)
+        is_x_restricted -> App.context.getString(R.string.novel_series_content_is_x_restricted)
+        else -> ""
+    }
 }
 
 @JsonClass(generateAdapter = true)
@@ -145,14 +158,16 @@ data class MetaPage(
 data class Tag constructor(
         val name: String = "",
         val translated_name: String = "",
+        @Json(name = "added_by_uploaded_user")
+        val byUser: Boolean = false,
         var isTranslated: Boolean = false
-): BaseObservable() {
-     @get:Bindable
-     var is_registered: Boolean = false
-     set(value) {
-         field = value
-         notifyPropertyChanged(BR._registered)
-     }
+) : BaseObservable() {
+    @get:Bindable
+    var is_registered: Boolean = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR._registered)
+        }
 }
 
 @JsonClass(generateAdapter = true)

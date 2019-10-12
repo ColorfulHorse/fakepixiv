@@ -3,10 +3,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.lyj.fakepivix.app.data.model.response.Illust"/>
+        <import type="com.lyj.fakepivix.module.common.DetailViewModel"/>
         <variable
-            name="data"
-            type="Illust"/>
+            name="vm"
+            type="DetailViewModel"/>
         <variable
             name="showCaption"
             type="Boolean"
@@ -56,9 +56,10 @@
                 android:layout_gravity="center"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                app:url="@{data.user.profile_image_urls.medium}"
+                app:url="@{vm.illust.user.profile_image_urls.medium}"
                 app:placeHolder="@{@drawable/no_profile}"
                 app:circle="@{true}"
+                android:onClick="@{() -> vm.goUserDetail()}"
                 />
 
             <LinearLayout
@@ -76,7 +77,7 @@
                     android:textColor="@color/renewal_font_black"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:text="@{data.title}"
+                    android:text="@{vm.illust.title}"
                     />
 
                 <TextView
@@ -86,7 +87,8 @@
                     android:layout_marginTop="4dp"
                     android:textColor="@color/renewal_font_gray"
                     android:textSize="10sp"
-                    android:text="@{data.user.name}"
+                    android:text="@{vm.illust.user.name}"
+                    android:onClick="@{() -> vm.goUserDetail()}"
                     />
             </LinearLayout>
         </LinearLayout>

@@ -143,7 +143,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:layout_toEndOf="@id/cover_image_container"
-            android:textColor="@color/renewal_font_black"
+            android:textColor="@color/renewal_font_gray"
             android:textSize="14.0sp"
             android:text="@{StringUtil.formatLength(data.text_length) + @string/text_length + data.getTagsText()}"
             />

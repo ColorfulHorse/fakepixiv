@@ -25,7 +25,7 @@
                 <android.support.design.widget.CollapsingToolbarLayout
                     android:id="@+id/collapse"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="250dp"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     android:elevation="0dp"
                     >

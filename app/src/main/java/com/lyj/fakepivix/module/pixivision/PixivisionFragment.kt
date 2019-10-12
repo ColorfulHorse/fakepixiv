@@ -1,8 +1,11 @@
 package com.lyj.fakepivix.module.pixivision
 
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.net.http.SslError
 import android.nfc.NfcAdapter.EXTRA_ID
 import android.os.Bundle
+import android.support.v7.graphics.drawable.DrawerArrowDrawable
 import android.webkit.*
 import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepivix.R
@@ -16,6 +19,7 @@ import com.lyj.fakepivix.databinding.FragmentPixivisionBinding
 import com.lyj.fakepivix.module.illust.bookmark.FilterDialog
 import kotlinx.android.synthetic.main.fragment_pixivision.*
 import kotlinx.android.synthetic.main.item_comment.view.*
+import timber.log.Timber
 
 /**
  * @author green sun
@@ -62,6 +66,7 @@ class PixivisionFragment : BackFragment<FragmentPixivisionBinding, BaseViewModel
 
                 override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest): Boolean {
                     val uri = request.url
+                    Timber.e(uri.path)
                     uri.path?.let {
                         when {
                             it.contains("artworks") -> uri.lastPathSegment?.let { id ->
@@ -111,6 +116,10 @@ class PixivisionFragment : BackFragment<FragmentPixivisionBinding, BaseViewModel
                 .statusBarColorTransform(R.color.black)
                 .statusBarAlpha(0.25f)
                 .init()
+    }
+
+    override fun bindBackIcon(): Drawable {
+        return createDefaultBack()
     }
 
     override fun onDestroyView() {

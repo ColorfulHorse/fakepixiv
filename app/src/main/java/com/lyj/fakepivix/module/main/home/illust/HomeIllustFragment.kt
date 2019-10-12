@@ -65,7 +65,7 @@ class HomeIllustFragment : FragmentationFragment<CommonRefreshList, HomeIllustVi
                     .dividerWidth(0, 3.5f.dp2px())
                     .build())
             // 加载更多
-            recyclerView.attachLoadMore { mViewModel.loadMore() }
+            recyclerView.attachLoadMore(mViewModel.loadMoreState){ mViewModel.loadMore() }
 
             recyclerView.setRecyclerListener {
                 if (it is BaseBindingViewHolder<*>) {

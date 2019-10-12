@@ -84,7 +84,7 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
                 vm ->
                 transformAdapter()
                 // 加载更多
-                recyclerView.attachLoadMore { vm.loadMore() }
+                recyclerView.attachLoadMore(vm.loadMoreState) { vm.loadMore() }
                 refreshLayout.setOnRefreshListener {
                     vm.load()
                 }

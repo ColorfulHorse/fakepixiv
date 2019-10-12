@@ -62,7 +62,7 @@ fun ImageView.url(url: String?, placeHolder: Drawable?, placeHolderRatio: String
         options.circleCrop()
     }
     if (topCrop) {
-        options.transform(PositionedCrop(0f, 0f))
+        options.transform(PositionedCrop(0.5f, 0f))
     }
     placeHolder?.let {
         var drawable = placeHolder

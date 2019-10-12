@@ -11,6 +11,7 @@ import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.data.model.response.Illust
 import com.lyj.fakepivix.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepivix.app.network.LoadState
+import com.lyj.fakepivix.app.utils.Router
 import com.lyj.fakepivix.app.utils.dp2px
 import com.lyj.fakepivix.databinding.LayoutFooterUserBinding
 import com.lyj.fakepivix.module.common.adapter.IllustAdapter
@@ -50,6 +51,12 @@ class UserFooter(val context: Context, val viewModel: UserFooterViewModel, var m
             it.recyclerView.layoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
             it.recyclerView.addItemDecoration(CommonItemDecoration.Builder().dividerWidth(1.dp2px(), 0).draw(false).build())
             mAdapter.bindToRecyclerView(it.recyclerView)
+            it.avatar.setOnClickListener {
+                Router.goUserDetail(viewModel.parent.illust.user)
+            }
+            it.nickName.setOnClickListener {
+                Router.goUserDetail(viewModel.parent.illust.user)
+            }
         }
         errorView.reload.setOnClickListener {
             viewModel.reLoad()

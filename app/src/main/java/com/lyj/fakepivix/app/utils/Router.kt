@@ -1,8 +1,7 @@
 package com.lyj.fakepivix.app.utils
 
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
+import android.support.v4.app.*
+import com.bumptech.glide.manager.SupportRequestManagerFragment
 import com.lyj.fakepivix.app.base.FragmentationFragment
 import com.lyj.fakepivix.app.constant.IllustCategory
 import com.lyj.fakepivix.app.data.model.response.Illust
@@ -17,7 +16,9 @@ import com.lyj.fakepivix.module.main.search.main.SearchMainFragment
 import com.lyj.fakepivix.module.novel.NovelDetailFragment
 import com.lyj.fakepivix.module.novel.NovelDialogFragment
 import com.lyj.fakepivix.module.user.detail.UserDetailFragment
+import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportHelper
+import me.yokeyword.fragmentation.SupportHelper.getTopFragment
 
 /**
  * @author greensun
@@ -29,7 +30,7 @@ import me.yokeyword.fragmentation.SupportHelper
 object Router {
 
     /**
-     *
+     *  跳转到详情页
      */
     fun goDetail(position: Int, data: List<Illust>) {
         closeDialog()
@@ -50,6 +51,9 @@ object Router {
         }
     }
 
+    /**
+     * 不带数据跳转到详情页
+     */
     fun goDetail(illustId: Long) {
         closeDialog()
         getTopFragment()?.let {
@@ -59,18 +63,30 @@ object Router {
     }
 
     /**
-     * 排行榜
-     */
-    fun goRank(@IllustCategory category: String) {
-        val fragment = RankIllustRootFragment.newInstance(category)
-        getTopFragment()?.start(fragment)
-    }
-
-    /**
      * 小说详情页
      */
     fun goNovelDetail(key: Int, position: Int) {
         val fragment = NovelDetailFragment.newInstance(position, key)
+        getTopFragment()?.start(fragment)
+    }
+
+    /**
+     * 列表直接跳转到小说详情页
+     */
+    fun goNovelDetail(position: Int, data: List<Illust>) {
+        if (data.isNotEmpty()) {
+            val key = (System.currentTimeMillis()/1000).toInt()
+            IllustRepository.instance[key] = data.filter { it.id != 0L }
+            val fragment = NovelDetailFragment.newInstance(position, key)
+            getTopFragment()?.start(fragment)
+        }
+    }
+
+    /**
+     * 排行榜
+     */
+    fun goRank(@IllustCategory category: String) {
+        val fragment = RankIllustRootFragment.newInstance(category)
         getTopFragment()?.start(fragment)
     }
 
@@ -106,9 +122,15 @@ object Router {
     }
 
     private fun closeDialog() {
-        getActiveFragment()?.childFragmentManager?.fragments?.forEach {
+        getRealActiveFragment()?.let {
             if (it is DialogFragment) {
                 it.dismiss()
+            }else {
+                it.childFragmentManager.fragments.forEach {
+                    if (it is DialogFragment) {
+                        it.dismiss()
+                    }
+                }
             }
         }
     }
@@ -126,6 +148,9 @@ object Router {
         }
     }
 
+    /**
+     * 获取顶部活动的 support fragment
+     */
     fun getActiveFragment(): FragmentationFragment<*, *>? {
         AppManager.instance.top?.let {
             val f = SupportHelper.getActiveFragment((it as FragmentActivity).supportFragmentManager)
@@ -136,6 +161,32 @@ object Router {
         return null
     }
 
+    /**
+     * 获取顶部活动的fragment
+     */
+    fun getRealActiveFragment(): Fragment? {
+        AppManager.instance.top?.let {
+            if (it is FragmentActivity) {
+                return getRealActiveFragment(it.supportFragmentManager)
+            }
+        }
+        return null
+    }
 
+    fun getRealActiveFragment(fm: FragmentManager, parent: Fragment? = null): Fragment? {
+        val fragmentList = FragmentationMagician.getActiveFragments(fm)
+        if (fragmentList.isEmpty())
+            return parent
+        for (i in fragmentList.indices.reversed()) {
+            val fragment = fragmentList[i] ?: continue
+            if (fragment is SupportRequestManagerFragment) {
+                continue
+            }
+            if (fragment.isResumed && !fragment.isHidden && fragment.userVisibleHint) {
+                return getRealActiveFragment(fragment.childFragmentManager, fragment)
+            }
+        }
+        return parent
+    }
 
 }

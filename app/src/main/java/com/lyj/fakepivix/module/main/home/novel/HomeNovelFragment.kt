@@ -68,7 +68,7 @@ class HomeNovelFragment : FragmentationFragment<CommonRefreshList, HomeNovelView
             mAdapter.bindToRecyclerView(recyclerView)
             recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
             // 加载更多
-            recyclerView.attachLoadMore { mViewModel.loadMore() }
+            recyclerView.attachLoadMore(mViewModel.loadMoreState) { mViewModel.loadMore() }
 
             recyclerView.setRecyclerListener {
                 if (it is BaseViewHolder) {

@@ -537,7 +537,6 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         updateTabStyles();
         this.mCurrentTab = currentTab;
         mViewPager.setCurrentItem(currentTab);
-
     }
 
     public void setCurrentTab(int currentTab, boolean smoothScroll) {

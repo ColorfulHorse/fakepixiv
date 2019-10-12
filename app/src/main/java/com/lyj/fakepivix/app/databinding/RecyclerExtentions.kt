@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.lyj.fakepivix.R
 import com.lyj.fakepivix.app.network.LoadState
+import timber.log.Timber
 
 /**
  * @author greensun
@@ -18,7 +19,15 @@ import com.lyj.fakepivix.app.network.LoadState
 /**
  * 滑动到阈值以后自动加载更多，阈值：[threshold]
  */
-fun RecyclerView.attachLoadMore(threshold: Int = 12, loadMore: () -> Unit) {
+fun RecyclerView.attachLoadMore(state: ObservableField<LoadState>? = null, threshold: Int = 12, loadMore: () -> Unit) {
+    state?.let {
+        state.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
+            if (state.get() is LoadState.Failed) {
+                Timber.tag("recyclerViewExt").e("加载更多失败....")
+                setTag(R.id.tag_recyclerView_loadMore, false)
+            }
+        })
+    }
     addOnScrollListener(object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
@@ -39,6 +48,7 @@ fun RecyclerView.attachLoadMore(threshold: Int = 12, loadMore: () -> Unit) {
                                     }
                                 }
                                 if (!loading) {
+                                    Timber.tag("recyclerViewExt").e("加载更多中....")
                                     recyclerView.setTag(R.id.tag_recyclerView_loadMore, true)
                                     loadMore()
                                 }

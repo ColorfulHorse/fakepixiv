@@ -59,7 +59,7 @@ class UserListFragment : FragmentationFragment<CommonRefreshList, UserListViewMo
                         .color(ContextCompat.getColor(mActivity, R.color.bg_general))
                         .build())
                 // 加载更多
-                recyclerView.attachLoadMore { vm.loadMore() }
+                recyclerView.attachLoadMore(vm.loadMoreState) { vm.loadMore() }
 //                refreshLayout.setOnRefreshListener {
 //                    vm.load()
 //                }

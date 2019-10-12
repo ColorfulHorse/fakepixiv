@@ -54,7 +54,7 @@
 
         <include layout="@layout/layout_detail_caption"
             android:id="@+id/caption"
-            app:data="@{vm.illust}"
+            app:vm="@{vm}"
             app:showCaption="@{(vm.loadState instanceof LoadState.Succeed) &amp;&amp; vm.showOverlay}"
             />
         <!--(vm.loadState instanceof LoadState.Succeed &amp;&amp; vm.showOverlay)-->
