@@ -3,6 +3,8 @@
 # IntelliJ Idea
 .idea/
 *.iml
+*.jks
+**/output.json
 
 # Gradle & Java build
 .gradle/
