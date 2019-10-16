@@ -25,7 +25,7 @@
                     style="@style/base_toolbar"
                     app:layout_scrollFlags="scroll|enterAlways|snap"
                     />
-                <com.lyj.fakepivix.widget.CommonTabLayout
+                <com.lyj.fakepixiv.widget.CommonTabLayout
                     android:id="@+id/segmentLayout"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/tab_height"

@@ -44,31 +44,27 @@
                 </android.support.v7.widget.Toolbar>
             </android.support.design.widget.AppBarLayout>
 
-            <android.support.v4.widget.NestedScrollView
+            <LinearLayout
+                android:id="@+id/container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="vertical"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 >
-                <LinearLayout
-                    android:id="@+id/container"
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    style="?android:progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:maxHeight="3dp"
+                    android:visibility="gone"
+                    />
+                <WebView
+                    android:id="@+id/webView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    >
-                    <ProgressBar
-                        android:id="@+id/progress_bar"
-                        style="?android:progressBarStyleHorizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="3dp"
-                        android:maxHeight="3dp"
-                        />
-                    <WebView
-                        android:id="@+id/webView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        />
-                </LinearLayout>
-            </android.support.v4.widget.NestedScrollView>
+                    />
+            </LinearLayout>
         </android.support.design.widget.CoordinatorLayout>
     </FrameLayout>
 </layout>

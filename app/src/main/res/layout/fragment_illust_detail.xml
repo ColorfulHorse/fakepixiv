@@ -3,52 +3,74 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.lyj.fakepivix.module.illust.detail.IllustDetailViewModel"/>
-        <import type="com.lyj.fakepivix.app.network.LoadState"/>
+        <import type="com.lyj.fakepixiv.module.illust.detail.IllustDetailViewModel"/>
+        <import type="com.lyj.fakepixiv.app.network.LoadState"/>
         <variable
             name="vm"
-            type="com.lyj.fakepivix.module.illust.detail.IllustDetailViewModel"/>
+            type="com.lyj.fakepixiv.module.illust.detail.IllustDetailViewModel"/>
     </data>
 
-    <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/container"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:descendantFocusability="blocksDescendants" />
-        <include layout="@layout/layout_detail_caption"
-            android:id="@+id/caption"
-            app:vm="@{vm}"
-            app:showCaption="@{vm.captionVisibility}"
-            />
+            android:layout_height="match_parent">
 
-        <!--<include layout="@layout/dialog_detail_bottom"-->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:descendantFocusability="blocksDescendants" />
+            <include layout="@layout/layout_detail_caption"
+                android:id="@+id/caption"
+                app:vm="@{vm}"
+                app:showCaption="@{vm.captionVisibility}"
+                />
+
+            <!--<include layout="@layout/dialog_detail_bottom"-->
             <!--android:id="@+id/bottom_sheet"-->
             <!--app:vm="@{vm}"-->
             <!--/>-->
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            >
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:onClick="@{() -> vm.star()}"
-                android:src="@{vm.liveData._bookmarked?@drawable/ic_fab_liked:@drawable/ic_fab_like}"
-                android:enabled="@{!(vm.starState instanceof LoadState.Loading)}"
-                app:backgroundTint="@color/fab_background_tint"
+                android:layout_gravity="bottom"
+                >
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:onClick="@{() -> vm.star()}"
+                    android:src="@{vm.liveData._bookmarked?@drawable/ic_fab_liked:@drawable/ic_fab_like}"
+                    android:enabled="@{!(vm.starState instanceof LoadState.Loading)}"
+                    app:backgroundTint="@color/fab_background_tint"
+                    />
+            </RelativeLayout>
+        </android.support.design.widget.CoordinatorLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.lyj.fakepixiv.widget.ErrorView
+                android:id="@+id/errorView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                app:visible="@{vm.detailState instanceof LoadState.Failed}"
                 />
-        </RelativeLayout>
-    </android.support.design.widget.CoordinatorLayout>
+            <include
+                android:id="@+id/loading"
+                layout="@layout/layout_common_loading_white"
+                android:visibility="gone"
+                app:visible="@{vm.detailState instanceof LoadState.Loading}"
+                />
+        </FrameLayout>
+    </FrameLayout>
 </layout>

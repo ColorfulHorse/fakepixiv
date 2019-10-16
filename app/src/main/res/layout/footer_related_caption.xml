@@ -2,11 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.lyj.fakepivix.module.illust.detail.items.RelatedCaptionViewModel"/>
-        <import type="com.lyj.fakepivix.app.network.LoadState"/>
+        <import type="com.lyj.fakepixiv.module.illust.detail.items.RelatedCaptionViewModel"/>
+        <import type="com.lyj.fakepixiv.app.network.LoadState"/>
         <variable
             name="vm"
-            type="com.lyj.fakepivix.module.illust.detail.items.RelatedCaptionViewModel"/>
+            type="com.lyj.fakepixiv.module.illust.detail.items.RelatedCaptionViewModel"/>
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,7 +45,7 @@
 
                 <ProgressBar
                     android:id="@+id/loading"
-                    style="?android:progressBarStyle"
+                    style="@style/progress_bar"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_centerInParent="true"

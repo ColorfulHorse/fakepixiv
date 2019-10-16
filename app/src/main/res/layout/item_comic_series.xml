@@ -7,7 +7,7 @@
             type="Integer"/>
         <variable
             name="data"
-            type="com.lyj.fakepivix.app.data.model.response.Illust"/>
+            type="com.lyj.fakepixiv.app.data.model.response.Illust"/>
     </data>
 
     <LinearLayout

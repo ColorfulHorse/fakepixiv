@@ -1,71 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- pvision header -->
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data>
-        <variable
-            name="loadFailed"
-            type="Boolean"
-            />
-    </data>
-    <RelativeLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/logo_pixivision" />
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        >
-        <RelativeLayout
-            android:id="@+id/read_more"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="8dp"
-            >
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_home_pixivision"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:textSize="12sp"
-                    android:text="@string/read_more"
-                    android:textColor="@color/more_button_text"
-                    android:drawableEnd="@drawable/icon_next"
-                    android:drawablePadding="10dp"
-                    />
-            </RelativeLayout>
-        </RelativeLayout>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/read_more"
-            android:minHeight="200dp"
-            />
-<!--        android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"-->
-        <include
-            android:id="@+id/errorView"
-            layout="@layout/layout_error_small"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/read_more"
-            android:layout_alignBottom="@id/recyclerView"
-            android:visibility="gone"
-            app:visible="@{loadFailed??false}"
-            />
-    </RelativeLayout>
-</layout>
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:lineSpacingExtra="4.0sp"
+        android:text="@string/pixivision_summary"
+        android:textColor="@color/renewal_font_black"
+        android:textSize="14.0sp" />
+</LinearLayout>

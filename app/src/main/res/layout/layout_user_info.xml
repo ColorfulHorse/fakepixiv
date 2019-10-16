@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.lyj.fakepivix.module.user.detail.UserDetailViewModel"/>
+        <import type="com.lyj.fakepixiv.module.user.detail.UserDetailViewModel"/>
         <import type="android.text.TextUtils"/>
         <variable
             name="vm"

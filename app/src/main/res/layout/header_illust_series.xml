@@ -3,7 +3,7 @@
     <data>
         <variable
             name="vm"
-            type="com.lyj.fakepivix.module.illust.series.ComicSeriesViewModel"/>
+            type="com.lyj.fakepixiv.module.illust.series.ComicSeriesViewModel"/>
     </data>
 
     <LinearLayout

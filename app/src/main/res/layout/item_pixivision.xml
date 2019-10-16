@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+        <import type="com.lyj.fakepixiv.app.data.model.response.SpotlightArticle"/>
+        <import type="com.lyj.fakepixiv.app.utils.DateUtil"/>
+        <variable
+            name="data"
+            type="SpotlightArticle"/>
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="4dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:selectableItemBackground"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:background="@{data.color()}"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@id/image_view"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintDimensionRatio="h,1:0.65"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:url="@{data.thumbnail}"
+                        app:fade="@{true}"
+                        app:placeHolder="@{@drawable/common_placeholder}"
+                        />
+                </android.support.constraint.ConstraintLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:visible="@{DateUtil.isNew(data.publish_date)}"
+                    >
+
+                    <ImageView
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/bg_new_tag"
+                        android:translationX="24dp"
+                        android:translationY="-48dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginRight="12dp"
+                        android:text="@string/tag_new"
+                        android:gravity="center"
+                        android:textColor="@android:color/white"
+                        android:textSize="16.0sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:minWidth="120dp"
+                    android:padding="8dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="14.0sp"
+                    android:textStyle="bold"
+                    android:background="@{data.color()}"
+                    android:text="@{data.subcategory_label}"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="6.0sp"
+                android:padding="16dp"
+                android:textSize="16.0sp"
+                android:textStyle="bold"
+                android:textColor="#ff676767"
+                android:maxLines="2"
+                android:text="@{data.title}"
+                />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</layout>

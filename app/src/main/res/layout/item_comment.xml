@@ -4,13 +4,13 @@
 
     <data>
 
-        <import type="com.lyj.fakepivix.app.data.model.response.Comment" />
+        <import type="com.lyj.fakepixiv.app.data.model.response.Comment" />
 
-        <import type="com.lyj.fakepivix.app.utils.DateUtil" />
+        <import type="com.lyj.fakepixiv.app.utils.DateUtil" />
 
         <import type="android.text.TextUtils" />
 
-        <import type="com.lyj.fakepivix.app.data.source.remote.UserRepository" />
+        <import type="com.lyj.fakepixiv.app.data.source.remote.UserRepository" />
 
         <variable
             name="data"

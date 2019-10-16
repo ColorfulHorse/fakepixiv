@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.lyj.fakepivix.app.data.model.response.Illust" />
-        <import type="com.lyj.fakepivix.app.utils.StringUtil" />
+        <import type="com.lyj.fakepixiv.app.data.model.response.Illust" />
+        <import type="com.lyj.fakepixiv.app.utils.StringUtil" />
 
         <variable
             name="data"
@@ -166,7 +166,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <com.lyj.fakepivix.widget.LikeButton
+            <com.lyj.fakepixiv.widget.LikeButton
                 android:id="@+id/like"
                 android:layout_width="@dimen/like_button_size"
                 android:layout_height="@dimen/like_button_size"

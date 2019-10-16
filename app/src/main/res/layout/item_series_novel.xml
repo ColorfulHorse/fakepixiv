@@ -2,14 +2,14 @@
 <layout   xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android" >
     <data>
-        <import type="com.lyj.fakepivix.app.utils.DateUtil"/>
-        <import type="com.lyj.fakepivix.app.utils.StringUtil"/>
+        <import type="com.lyj.fakepixiv.app.utils.DateUtil"/>
+        <import type="com.lyj.fakepixiv.app.utils.StringUtil"/>
         <variable
             name="position"
             type="Integer"/>
         <variable
             name="data"
-            type="com.lyj.fakepivix.app.data.model.response.Illust"/>
+            type="com.lyj.fakepixiv.app.data.model.response.Illust"/>
     </data>
 
     <FrameLayout
@@ -26,7 +26,7 @@
             app:show="@{!data.unReadable}"
             >
 
-            <com.lyj.fakepivix.widget.LikeButton
+            <com.lyj.fakepixiv.widget.LikeButton
                 android:id="@+id/like_button"
                 android:layout_width="@dimen/like_button_size"
                 android:layout_height="@dimen/like_button_size"

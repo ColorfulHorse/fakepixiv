@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data class = "HeaderSearchTagItem">
         <import type="android.text.TextUtils"/>
-        <import type="com.lyj.fakepivix.app.data.model.response.TrendTag"/>
+        <import type="com.lyj.fakepixiv.app.data.model.response.TrendTag"/>
         <variable
             name="tag"
             type="TrendTag"/>

@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.lyj.fakepivix.module.novel.NovelDialogViewModel"/>
-        <import type="com.lyj.fakepivix.app.utils.DateUtil"/>
-        <import type="com.lyj.fakepivix.app.utils.StringUtil"/>
+        <import type="com.lyj.fakepixiv.module.novel.NovelDialogViewModel"/>
+        <import type="com.lyj.fakepixiv.app.utils.DateUtil"/>
+        <import type="com.lyj.fakepixiv.app.utils.StringUtil"/>
         <variable
             name="vm"
-            type="com.lyj.fakepivix.module.novel.NovelDialogViewModel"/>
+            type="com.lyj.fakepixiv.module.novel.NovelDialogViewModel"/>
     </data>
 
     <RelativeLayout
@@ -192,7 +192,7 @@
                     android:background="@drawable/button_novel_dialog"
                     android:paddingBottom="8dp">
 
-                    <com.lyj.fakepivix.widget.LikeButton
+                    <com.lyj.fakepixiv.widget.LikeButton
                         android:id="@+id/like_button"
                         android:layout_width="42dp"
                         android:layout_height="42dp"

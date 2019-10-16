@@ -4,7 +4,7 @@
 
     <data>
 
-        <import type="com.lyj.fakepivix.module.login.WallpaperViewModel" />
+        <import type="com.lyj.fakepixiv.module.login.WallpaperViewModel" />
 
         <variable
             name="vm"

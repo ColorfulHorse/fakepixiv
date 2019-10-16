@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data class="NovelChapterFooter">
-        <import type="com.lyj.fakepivix.app.data.model.response.NovelText"/>
+        <import type="com.lyj.fakepixiv.app.data.model.response.NovelText"/>
         <variable
             name="data"
             type="NovelText"/>

@@ -2,11 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.lyj.fakepivix.module.illust.detail.IllustDetailViewModel"/>
-        <import type="com.lyj.fakepivix.app.network.LoadState"/>
+        <import type="com.lyj.fakepixiv.module.illust.detail.IllustDetailViewModel"/>
+        <import type="com.lyj.fakepixiv.app.network.LoadState"/>
         <variable
             name="vm"
-            type="com.lyj.fakepivix.module.illust.detail.IllustDetailViewModel"/>
+            type="com.lyj.fakepixiv.module.illust.detail.IllustDetailViewModel"/>
     </data>
 
     <RelativeLayout
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:visibility="gone"
-            app:visible="@{vm.toolbarVisibility}"
+            app:visible="@{vm.toolbarVisibility &amp;&amp; !(vm.detailState instanceof LoadState.Loading)}"
             >
             <!--android:background="@drawable/gradient_toolbar"-->
             <android.support.v7.widget.Toolbar
@@ -53,21 +53,5 @@
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
         </RelativeLayout>
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <include
-                android:id="@+id/errorView"
-                layout="@layout/layout_error"
-                android:visibility="gone"
-                app:visible="@{vm.detailState instanceof LoadState.Failed}"
-                />
-            <include
-                android:id="@+id/loading"
-                layout="@layout/layout_common_loading_white"
-                android:visibility="gone"
-                app:visible="@{vm.detailState instanceof LoadState.Loading}"
-                />
-        </FrameLayout>
     </RelativeLayout>
 </layout>

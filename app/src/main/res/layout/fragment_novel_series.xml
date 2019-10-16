@@ -2,10 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.lyj.fakepivix.app.network.LoadState"/>
+        <import type="com.lyj.fakepixiv.app.network.LoadState"/>
         <variable
             name="vm"
-            type="com.lyj.fakepivix.module.novel.series.NovelSeriesViewModel"/>
+            type="com.lyj.fakepixiv.module.novel.series.NovelSeriesViewModel"/>
     </data>
     
     <android.support.design.widget.CoordinatorLayout

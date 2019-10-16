@@ -3,11 +3,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.lyj.fakepivix.module.illust.detail.items.UserFooterViewModel"/>
-        <import type="com.lyj.fakepivix.app.network.LoadState"/>
+        <import type="com.lyj.fakepixiv.module.illust.detail.items.UserFooterViewModel"/>
+        <import type="com.lyj.fakepixiv.app.network.LoadState"/>
         <variable
             name="vm"
-            type="com.lyj.fakepivix.module.illust.detail.items.UserFooterViewModel"/>
+            type="com.lyj.fakepixiv.module.illust.detail.items.UserFooterViewModel"/>
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,7 +68,6 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:minHeight="100dp"
                 />
         </android.support.v7.widget.CardView>
         <!--<android.support.constraint.ConstraintLayout-->

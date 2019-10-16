@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.lyj.fakepivix.module.main.search.main.SearchMainViewModel"/>
+        <import type="com.lyj.fakepixiv.module.main.search.main.SearchMainViewModel"/>
         <variable
             name="vm"
             type="SearchMainViewModel"/>

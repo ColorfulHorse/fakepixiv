@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">fakepivix</string>
+    <string name="app_name">fakepixiv</string>
     <string name="login_hint_id">ID或邮箱</string>
     <string name="login_hint_psw">密码</string>
     <string name="btn_login">登录</string>
@@ -136,6 +136,9 @@
     <string name="novel_series_content_is_restricted">该作品有浏览限制暂不能查看</string>
     <string name="novel_series_content_is_x_restricted">是R-18作品</string>
     <string name="works">作品</string>
+    <string name="pixivision_summary">pixiv為不甘於沉悶生活的人提供的創作型媒體！</string>
+    <string name="title_pixivision">专题</string>
+    <string name="not_visible">抱歉，作品不存在</string>
 
     <string-array name="illust_rank_modes">
         <item>每日</item>

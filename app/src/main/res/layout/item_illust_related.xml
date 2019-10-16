@@ -4,7 +4,7 @@
 
     <data>
 
-        <import type="com.lyj.fakepivix.app.data.model.response.Illust" />
+        <import type="com.lyj.fakepixiv.app.data.model.response.Illust" />
 
         <variable
             name="illust"
@@ -19,7 +19,7 @@
             app:fade="@{true}"
             app:placeHolder="@{@drawable/common_border_placeholder}"
         -->
-        <com.lyj.fakepivix.widget.RecImageView
+        <com.lyj.fakepixiv.widget.RecImageView
             android:id="@+id/image"
             android:layout_width="150dp"
             android:layout_height="150dp"
@@ -50,7 +50,7 @@
             android:visibility="gone"
             app:visible="@{illust.page_count>1}" />
 
-        <com.lyj.fakepivix.widget.SeriesView
+        <com.lyj.fakepixiv.widget.SeriesView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"

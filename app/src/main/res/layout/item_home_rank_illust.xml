@@ -4,7 +4,7 @@
 
     <data>
 
-        <import type="com.lyj.fakepivix.app.data.model.response.Illust" />
+        <import type="com.lyj.fakepixiv.app.data.model.response.Illust" />
 
         <variable
             name="data"
@@ -85,14 +85,14 @@
             android:visibility="gone"
             app:visible="@{data.page_count>1}" />
 
-        <com.lyj.fakepivix.widget.LikeButton
+        <com.lyj.fakepixiv.widget.LikeButton
             android:id="@+id/like"
             android:layout_width="@dimen/like_button_size"
             android:layout_height="@dimen/like_button_size"
             android:layout_gravity="end|bottom"
             app:liked="@{data._bookmarked}" />
 
-        <com.lyj.fakepivix.widget.SeriesView
+        <com.lyj.fakepixiv.widget.SeriesView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"

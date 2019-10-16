@@ -2,7 +2,7 @@
 <!-- 相关用户 -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-        <import type="com.lyj.fakepivix.app.data.model.response.UserPreview"/>
+        <import type="com.lyj.fakepixiv.app.data.model.response.UserPreview"/>
         <variable
             name="data"
             type="UserPreview"/>

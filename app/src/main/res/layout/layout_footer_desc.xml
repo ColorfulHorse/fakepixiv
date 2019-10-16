@@ -4,9 +4,9 @@
 
     <data>
 
-        <import type="com.lyj.fakepivix.app.data.model.response.Illust" />
-        <import type="com.lyj.fakepivix.app.utils.DateUtil"/>
-        <import type="com.lyj.fakepivix.app.utils.StringUtil"/>
+        <import type="com.lyj.fakepixiv.app.data.model.response.Illust" />
+        <import type="com.lyj.fakepixiv.app.utils.DateUtil"/>
+        <import type="com.lyj.fakepixiv.app.utils.StringUtil"/>
         <variable
             name="data"
             type="Illust" />

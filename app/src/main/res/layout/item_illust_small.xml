@@ -3,7 +3,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.lyj.fakepivix.app.data.model.response.Illust"/>
+        <import type="com.lyj.fakepixiv.app.data.model.response.Illust"/>
         <variable
             name="illust"
             type="Illust"/>
@@ -17,7 +17,7 @@
             app:fade="@{true}"
             app:placeHolder="@{@drawable/common_border_placeholder}"
         -->
-        <com.lyj.fakepivix.widget.RecImageView
+        <com.lyj.fakepixiv.widget.RecImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

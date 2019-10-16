@@ -5,9 +5,9 @@
 
     <data>
 
-        <import type="com.lyj.fakepivix.module.common.UserItemViewModel" />
+        <import type="com.lyj.fakepixiv.module.common.UserItemViewModel" />
 
-        <import type="com.lyj.fakepivix.app.network.LoadState" />
+        <import type="com.lyj.fakepixiv.app.network.LoadState" />
 
         <variable
             name="vm"

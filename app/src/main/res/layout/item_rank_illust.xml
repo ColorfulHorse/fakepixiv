@@ -5,8 +5,8 @@
 
     <data>
 
-        <import type="com.lyj.fakepivix.app.data.model.response.Illust" />
-        <import type="com.lyj.fakepivix.app.utils.StringUtil"/>
+        <import type="com.lyj.fakepixiv.app.data.model.response.Illust" />
+        <import type="com.lyj.fakepixiv.app.utils.StringUtil"/>
 
         <variable
             name="data"
@@ -38,7 +38,7 @@
                     app:fade="@{true}"
                     />
 
-                <com.lyj.fakepivix.widget.SeriesView
+                <com.lyj.fakepixiv.widget.SeriesView
                     android:id="@+id/series"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

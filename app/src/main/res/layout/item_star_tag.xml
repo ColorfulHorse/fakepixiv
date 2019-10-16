@@ -3,7 +3,7 @@
     <data>
         <variable
             name="data"
-            type="com.lyj.fakepivix.app.data.model.response.Tag"/>
+            type="com.lyj.fakepixiv.app.data.model.response.Tag"/>
     </data>
     <RelativeLayout
         android:layout_width="fill_parent"

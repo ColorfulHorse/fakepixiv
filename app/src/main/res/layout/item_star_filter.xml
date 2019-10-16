@@ -4,7 +4,7 @@
     <data>
         <variable
             name="data"
-            type="com.lyj.fakepivix.app.data.model.response.BookmarkTag"/>
+            type="com.lyj.fakepixiv.app.data.model.response.BookmarkTag"/>
     </data>
 
     <FrameLayout
