@@ -1,4 +1,4 @@
-package com.lyj.fakepixiv.module.login;
+package com.lyj.fakepixiv.module.login
 
 import com.lyj.fakepixiv.app.base.BaseModel
 import com.lyj.fakepixiv.app.data.model.response.Illust
