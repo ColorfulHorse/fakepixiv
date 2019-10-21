@@ -5,13 +5,13 @@ import android.content.res.Configuration
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
+import android.support.annotation.LayoutRes
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import androidx.annotation.LayoutRes
 import com.gyf.barlibrary.ImmersionBar
 import com.gyf.barlibrary.ImmersionFragment
 import com.lyj.fakepixiv.BR

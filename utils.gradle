@@ -131,8 +131,68 @@ def kapts(Project project, Object... groups) {
     }
 }
 
+def addDep(Project project, Object key, Object dep) {
+    switch (key) {
+        case "implementation":
+            project.dependencies {
+                println("implementation:$dep")
+                implementation dep
+            }
+            break
+        case "compileOnly":
+            project.dependencies {
+                compileOnly dep
+            }
+            break
+        case "api":
+            project.dependencies {
+                api dep
+            }
+            break
+        case "annotationProcessor":
+            project.dependencies {
+                annotationProcessor dep
+            }
+            break
+        case "kapt":
+            project.dependencies {
+                println("kapt:$dep")
+                kapt dep
+            }
+            break
+    }
+}
 
-
+/**
+ * 依赖分组拓展方法
+ * @param project
+ * @param dependencies
+ * @return
+ */
+def deps(Project project, dependencies) {
+    def methods = ['implementation', 'compileOnly', 'annotationProcessor', 'kapt', 'api']
+    if (dependencies instanceof Map) {
+        dependencies.each {
+            if (methods.contains(it.key)) {
+                def value = it.value
+                if (value instanceof Map) {
+                    value.each { dep ->
+                        addDep(project, it.key, dep.value)
+                    }
+                }else if (value instanceof Iterable) {
+                    value.each { dep ->
+                        addDep(project, it.key, dep)
+                    }
+                }else if (value instanceof Object) {
+                    addDep(project, it.key, value)
+                }
+            }else {
+                println("map:${it.key}=========")
+                deps(project, it.value)
+            }
+        }
+    }
+}
 
 
 
@@ -141,4 +201,5 @@ ext {
     apis = this.&apis
     annotationProcessors = this.&annotationProcessors
     kapts = this.&kapts
+    deps = this.&deps
 }

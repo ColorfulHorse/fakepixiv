@@ -1,8 +1,8 @@
 package com.lyj.fakepixiv.app.utils
 
+import android.support.annotation.Nullable
 import com.squareup.moshi.ToJson
 import com.squareup.moshi.FromJson
-import javax.annotation.Nullable
 
 
 /**

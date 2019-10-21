@@ -6,7 +6,7 @@ import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import androidx.annotation.LayoutRes
+import android.support.annotation.LayoutRes
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.R
 

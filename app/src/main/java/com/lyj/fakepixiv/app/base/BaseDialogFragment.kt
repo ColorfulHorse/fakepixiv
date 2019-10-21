@@ -8,7 +8,7 @@ import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
+import android.support.annotation.LayoutRes
 import com.lyj.fakepixiv.BR
 
 /**

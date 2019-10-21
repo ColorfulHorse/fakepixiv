@@ -1,7 +1,7 @@
 package com.lyj.fakepixiv.module.common.adapter
 
 import android.databinding.ViewDataBinding
-import androidx.annotation.LayoutRes
+import android.support.annotation.LayoutRes
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.app.adapter.BaseBindingAdapter
 import com.lyj.fakepixiv.app.constant.IllustCategory
