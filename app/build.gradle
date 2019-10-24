@@ -65,7 +65,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     deps(project, dependenceGroup)
-    DependenciesKt.implementationAndKapt(project, Deps)
+    //DependenciesKt.implementationAndKapt(project, Deps)
     //implementationAndKapt()
     implementation project(':ChipsLayoutManager')
     testImplementation 'junit:junit:4.12'

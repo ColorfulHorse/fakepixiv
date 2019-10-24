@@ -1,6 +1,7 @@
 import jdk.internal.dynalink.linker.LinkerServices
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.*
 import kotlin.reflect.full.declaredMemberProperties
 
 /**
@@ -155,8 +156,8 @@ fun implementationAndKapt(project: Project, dependencies: Any) {
                 if (it.superclass == Dep::class.java) {
                     val dep = it.getField("INSTANCE").get(null) as Dep
                     project.dependencies {
-//                        LinkerServices.Implementation(dep.core)
-//                        kapt(dep.complier)
+                        dep.core?.let { core -> add("implementation", core) }
+                        dep.complier?.let { core -> add("kapt", core) }
                     }
                 }else if (it.superclass == DepGroup::class.java) {
                     implementationAndKapt(project, it)
