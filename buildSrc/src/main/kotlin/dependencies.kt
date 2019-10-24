@@ -155,7 +155,6 @@ fun implementationAndKapt(project: Project, dependencies: Any) {
                 if (it.superclass == Dep::class.java) {
                     val dep = it.getField("INSTANCE").get(null) as Dep
                     project.dependencies {
-
 //                        LinkerServices.Implementation(dep.core)
 //                        kapt(dep.complier)
                     }
