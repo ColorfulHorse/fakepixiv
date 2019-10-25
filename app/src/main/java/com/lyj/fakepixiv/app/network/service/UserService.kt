@@ -28,8 +28,8 @@ interface UserService {
     @Headers("SWITCH-HEADER:TAG_AUTH")
     @POST("/auth/token")
     @FormUrlEncoded
-    fun login(@Field("client_id") clientId: String = "",
-              @Field("client_secret")clientSecret: String = "",
+    fun login(@Field("client_id") clientId: String = "MOBrBDS8blbauoSck0ZfDbtuzpyT",
+              @Field("client_secret")clientSecret: String = "lsACyCD94FhDUtGTXi3QzcFE2uU1hqtDaKeqrdwj",
               @Field("get_secure_url")get_secure_url: Boolean = true,
               @Field("include_policy")include_policy: Boolean = true,
               @Field("grant_type")grantType: String = Constant.Net.GRANT_TYPE_PWD,

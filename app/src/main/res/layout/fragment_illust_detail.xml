@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
-                android:descendantFocusability="blocksDescendants" />
+                />
             <include layout="@layout/layout_detail_caption"
                 android:id="@+id/caption"
                 app:vm="@{vm}"

@@ -23,6 +23,9 @@
 #### 2019-10-16
 - 改变列表刷新时ui，改变errorView，拆分apiService
 
+#### 2019-10-24
+- gradle脚本替换为kotlin，改变依赖管理方式
+
 #### todo list
 - pixivision webView 完善
 - 详情页评论

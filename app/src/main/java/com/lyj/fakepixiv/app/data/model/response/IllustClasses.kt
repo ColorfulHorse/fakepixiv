@@ -156,7 +156,7 @@ data class MetaPage(
 
 data class Tag constructor(
         val name: String = "",
-        val translated_name: String = "",
+        val translated_name: String? = "",
         @Json(name = "added_by_uploaded_user")
         val byUser: Boolean = false,
         var isTranslated: Boolean = false

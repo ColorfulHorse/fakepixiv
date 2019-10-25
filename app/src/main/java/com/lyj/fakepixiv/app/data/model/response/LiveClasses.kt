@@ -44,7 +44,7 @@ data class Live(
     val performers: List<Any> = listOf(),
     val publicity: String = "",
     val server: String = "",
-    val thumbnail_image_url: String = "",
+    val thumbnail_image_url: String? = "",
     val total_audience_count: Int = 0
 )
 
