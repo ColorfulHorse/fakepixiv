@@ -28,9 +28,9 @@ import java.util.concurrent.TimeUnit
  *
  * @desc
  */
-class SplashActivity : FragmentationActivity<ActivitySplashBinding, BaseViewModel<*>?>() {
+class SplashActivity : FragmentationActivity<ActivitySplashBinding, BaseViewModel?>() {
 
-    override val mViewModel: BaseViewModel<*>? = null
+    override val mViewModel: BaseViewModel? = null
     private var disposable: Disposable? = null
     private lateinit var permissionDisposable: Disposable
 

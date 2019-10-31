@@ -100,7 +100,7 @@ dependencies {
 
 
 
-if (TINKER_ENABLE) {
+if (TinkerConfig.TINKER_ENABLE) {
     apply<TinkerPatchPlugin>()
     configure<TinkerPatchExtension> {
         // 基准包路径
@@ -112,7 +112,7 @@ if (TINKER_ENABLE) {
 
         useSign = true
 
-        tinkerEnable = TINKER_ENABLE
+        tinkerEnable = TinkerConfig.TINKER_ENABLE
 
         allowLoaderInAnyDex = true
 

@@ -18,9 +18,7 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc
  */
-class HomeIllustViewModel : BaseViewModel<IHomeIllustModel>() {
-
-    override var mModel: IHomeIllustModel = HomeIllustModel()
+class HomeIllustViewModel : BaseViewModel() {
 
     val rankViewModel: RankViewModel = RankViewModel()
     val liveViewModel: LiveViewModel = LiveViewModel()

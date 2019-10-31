@@ -23,9 +23,9 @@ import com.lyj.fakepixiv.module.common.IllustListViewModel
  *
  * @desc 最新-好P友
  */
-class NewsFriendFragment : FragmentationFragment<FragmentNewsNewsBinding, BaseViewModel<*>?>() {
+class NewsFriendFragment : FragmentationFragment<FragmentNewsNewsBinding, BaseViewModel?>() {
 
-    override var mViewModel: BaseViewModel<*>? = null
+    override var mViewModel: BaseViewModel? = null
 
     lateinit var illustViewModel: IllustListViewModel
     lateinit var novelViewModel: IllustListViewModel

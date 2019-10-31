@@ -3,7 +3,7 @@ package com.lyj.fakepixiv.module.main.home.illust
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.constant.IllustCategory
 import com.lyj.fakepixiv.app.data.model.response.SpotlightArticle
 import com.lyj.fakepixiv.app.data.source.remote.PixivisionRepository
@@ -20,8 +20,8 @@ import kotlinx.coroutines.withContext
  *
  * @desc 特辑
  */
-class PixivisionViewModel : BaseViewModel<IModel?>() {
-    override val mModel: IModel? = null
+class PixivisionViewModel : BaseViewModel() {
+
 
     var category = IllustCategory.ILLUST
 

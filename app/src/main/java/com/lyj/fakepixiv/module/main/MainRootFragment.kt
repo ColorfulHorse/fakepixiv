@@ -26,7 +26,7 @@ import com.lyj.fakepixiv.module.main.search.illust.SearchTagFragment
  *
  * @desc 主页root fragment
  */
-class MainRootFragment : FragmentationFragment<MainRoot, BaseViewModel<*>?>() {
+class MainRootFragment : FragmentationFragment<MainRoot, BaseViewModel?>() {
     companion object {
         const val EXTRA_SWITCH_TAB = "EXTRA_SWITCH_TAB"
 
@@ -38,7 +38,7 @@ class MainRootFragment : FragmentationFragment<MainRoot, BaseViewModel<*>?>() {
         }
     }
 
-    override var mViewModel: BaseViewModel<*>? = null
+    override var mViewModel: BaseViewModel? = null
 
     private val fragments = mutableListOf<FragmentationFragment<*, *>>()
 

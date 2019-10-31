@@ -13,7 +13,7 @@ import com.lyj.fakepixiv.app.adapter.CommonFragmentAdapter
 import com.lyj.fakepixiv.app.base.BackFragment
 import com.lyj.fakepixiv.app.base.BaseViewModel
 import com.lyj.fakepixiv.app.base.FragmentationFragment
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.constant.EXTRA_CATEGORY
 import com.lyj.fakepixiv.app.constant.EXTRA_ID
 import com.lyj.fakepixiv.app.constant.IllustCategory
@@ -31,8 +31,8 @@ import com.lyj.fakepixiv.module.common.IllustListViewModel
  *
  * @desc 用户收藏页
  */
-class BookmarkFragment : BackFragment<FragmentBookmarkBinding, BaseViewModel<IModel?>?>() {
-    override var mViewModel: BaseViewModel<IModel?>? = null
+class BookmarkFragment : BackFragment<FragmentBookmarkBinding, BaseViewModel?>() {
+    override var mViewModel: BaseViewModel? = null
 
     private val fragments = mutableListOf<FragmentationFragment<*,*>>()
     var userId = ""

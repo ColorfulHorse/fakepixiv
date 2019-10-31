@@ -1,7 +1,7 @@
 package com.lyj.fakepixiv.module.main.news.follow
 
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.base.IModel
+
 
 /**
  * @author greensun
@@ -10,9 +10,9 @@ import com.lyj.fakepixiv.app.base.IModel
  *
  * @desc
  */
-class NewsFollowViewModel : BaseViewModel<IModel?>() {
+class NewsFollowViewModel : BaseViewModel() {
 
-    override var mModel: IModel? = null
+
 
     val userViewModel = UserHeaderViewModel()
 

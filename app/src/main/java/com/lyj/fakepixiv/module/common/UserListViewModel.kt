@@ -4,7 +4,7 @@ import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import android.databinding.ObservableList
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.data.model.response.UserPreviewListResp
 import com.lyj.fakepixiv.app.data.source.remote.UserRepository
 import com.lyj.fakepixiv.app.network.ApiException
@@ -21,8 +21,8 @@ import kotlinx.coroutines.withContext
  *
  * @desc 用户预览列表
  */
-class UserListViewModel(var action: (suspend () -> UserPreviewListResp)) : BaseViewModel<IModel?>() {
-    override val mModel: IModel? = null
+class UserListViewModel(var action: (suspend () -> UserPreviewListResp)) : BaseViewModel() {
+
 
     val data: ObservableList<UserItemViewModel> = ObservableArrayList()
 

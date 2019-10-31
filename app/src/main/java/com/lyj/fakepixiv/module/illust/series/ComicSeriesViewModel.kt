@@ -6,7 +6,7 @@ import android.databinding.ObservableField
 import android.databinding.ObservableList
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.data.model.response.Illust
 import com.lyj.fakepixiv.app.data.model.response.SeriesDetail
 import com.lyj.fakepixiv.app.data.source.remote.IllustRepository
@@ -24,9 +24,9 @@ import kotlinx.coroutines.withContext
  *
  * @desc
  */
-class ComicSeriesViewModel : BaseViewModel<IModel?>() {
+class ComicSeriesViewModel : BaseViewModel() {
 
-    override var mModel: IModel? = null
+
 
     var loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 

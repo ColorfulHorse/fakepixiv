@@ -4,7 +4,7 @@ import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import android.util.SparseBooleanArray
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.data.model.response.User
 import com.lyj.fakepixiv.app.data.model.response.UserPreview
 import com.lyj.fakepixiv.app.data.source.remote.UserRepository
@@ -19,8 +19,8 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc 相关用户
  */
-class RelatedUserDialogViewModel(var user: User = User()) : BaseViewModel<IModel?>() {
-    override val mModel: IModel? = null
+class RelatedUserDialogViewModel(var user: User = User()) : BaseViewModel() {
+
 
     var data = ObservableArrayList<UserPreview>()
 

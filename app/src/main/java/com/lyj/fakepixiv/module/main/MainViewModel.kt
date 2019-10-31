@@ -1,7 +1,7 @@
 package com.lyj.fakepixiv.module.main
 
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.data.source.remote.UserRepository
 
 /**
@@ -11,9 +11,9 @@ import com.lyj.fakepixiv.app.data.source.remote.UserRepository
  *
  * @desc
  */
-class MainViewModel : BaseViewModel<IModel?>() {
+class MainViewModel : BaseViewModel() {
 
-    override val mModel: IModel? = null
+
 
     val user = UserRepository.instance.loginData?.user
 }

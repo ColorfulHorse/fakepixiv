@@ -3,7 +3,7 @@ package com.lyj.fakepixiv.module.common
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.data.model.response.Illust
 import com.lyj.fakepixiv.app.data.model.response.IllustListResp
 import com.lyj.fakepixiv.app.data.source.remote.IllustRepository
@@ -22,9 +22,9 @@ import kotlinx.coroutines.withContext
  *
  * @desc
  */
-open class IllustListViewModel(var action: (suspend () -> IllustListResp)? = null) : BaseViewModel<IModel?>() {
+open class IllustListViewModel(var action: (suspend () -> IllustListResp)? = null) : BaseViewModel() {
 
-    override var mModel: IModel? = null
+
 
     val data = ObservableArrayList<Illust>()
     var loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)

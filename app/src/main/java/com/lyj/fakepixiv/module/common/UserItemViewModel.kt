@@ -3,7 +3,7 @@ package com.lyj.fakepixiv.module.common
 import android.databinding.ObservableField
 import com.lyj.fakepixiv.app.adapter.PreloadModel
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.data.model.response.UserPreview
 import com.lyj.fakepixiv.app.data.source.remote.UserRepository
 import com.lyj.fakepixiv.app.network.LoadState
@@ -16,8 +16,8 @@ import com.lyj.fakepixiv.app.utils.Router
  *
  * @desc
  */
-class UserItemViewModel(val parent: BaseViewModel<*>, val data: UserPreview) : BaseViewModel<IModel?>(), PreloadModel by data {
-    override val mModel: IModel? = null
+class UserItemViewModel(val parent: BaseViewModel, val data: UserPreview) : BaseViewModel(), PreloadModel by data {
+
 
     var followState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 

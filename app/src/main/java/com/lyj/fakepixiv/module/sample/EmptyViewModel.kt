@@ -2,8 +2,6 @@ package com.lyj.fakepixiv.module.sample
 
 import android.arch.lifecycle.LifecycleOwner
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.module.login.register.IRegisterModel
-import com.lyj.fakepixiv.module.login.register.RegisterModel
 
 /**
  * @author greensun
@@ -12,9 +10,7 @@ import com.lyj.fakepixiv.module.login.register.RegisterModel
  *
  * @desc 登录
  */
-class EmptyViewModel : BaseViewModel<IRegisterModel>() {
-
-    override var mModel: IRegisterModel = RegisterModel()
+class EmptyViewModel : BaseViewModel() {
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)

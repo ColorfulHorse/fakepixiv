@@ -4,7 +4,7 @@ import android.databinding.Bindable
 import android.databinding.ObservableField
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.data.model.response.SeriesContext
 import com.lyj.fakepixiv.app.data.source.remote.IllustRepository
 import com.lyj.fakepixiv.app.network.LoadState
@@ -22,8 +22,8 @@ import kotlinx.coroutines.withContext
  *
  * @desc 漫画系列item
  */
-class SeriesItemViewModel(val parent: IllustDetailViewModel) : BaseViewModel<IModel?>() {
-    override val mModel: IModel? = null
+class SeriesItemViewModel(val parent: IllustDetailViewModel) : BaseViewModel() {
+
 
     var loadState = ObservableField<LoadState>(LoadState.Idle)
 

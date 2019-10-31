@@ -8,13 +8,13 @@ package com.lyj.fakepixiv.app.base
  * @desc
  */
 object ViewModelProvider {
-    val data = hashMapOf<Int, BaseViewModel<*>>()
+    val data = hashMapOf<Int, BaseViewModel>()
 
-    operator fun <T: BaseViewModel<*>> get(key: Any): T {
+    operator fun <T: BaseViewModel> get(key: Any): T {
         return data[key.hashCode()] as T
     }
 
-    operator fun <T : BaseViewModel<*>> set(hash: Int, vm: T) {
+    operator fun <T : BaseViewModel> set(hash: Int, vm: T) {
         data[hash] = vm
     }
 

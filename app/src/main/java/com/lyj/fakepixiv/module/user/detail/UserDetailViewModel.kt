@@ -5,7 +5,7 @@ import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.constant.IllustCategory
 import com.lyj.fakepixiv.app.data.model.response.Illust
 import com.lyj.fakepixiv.app.data.model.response.User
@@ -27,9 +27,9 @@ import kotlinx.coroutines.withContext
  *
  * @desc 登录
  */
-class UserDetailViewModel : BaseViewModel<IModel?>() {
+class UserDetailViewModel : BaseViewModel() {
 
-    override var mModel: IModel? = null
+
 
     var userId: String = ""
     set(value) {

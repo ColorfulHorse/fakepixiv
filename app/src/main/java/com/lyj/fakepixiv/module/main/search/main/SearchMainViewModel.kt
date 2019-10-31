@@ -29,7 +29,7 @@ import java.util.regex.Pattern
  *
  * @desc 搜索
  */
-class SearchMainViewModel constructor(@IllustCategory c: String = IllustCategory.ILLUST) : BaseViewModel<ISearchMainModel>() {
+class SearchMainViewModel constructor(@IllustCategory c: String = IllustCategory.ILLUST) : BaseViewModel() {
 
     var category: String = IllustCategory.ILLUST
     set(value) {
@@ -40,8 +40,6 @@ class SearchMainViewModel constructor(@IllustCategory c: String = IllustCategory
             showUser.set(false)
         }
     }
-
-    override var mModel: ISearchMainModel = SearchMainModel()
 
     var newVm: IllustListViewModel
     var polularVm: IllustListViewModel

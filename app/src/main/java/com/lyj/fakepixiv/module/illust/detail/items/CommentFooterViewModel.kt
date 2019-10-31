@@ -3,7 +3,7 @@ package com.lyj.fakepixiv.module.illust.detail.items
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.data.model.response.Comment
 import com.lyj.fakepixiv.app.data.source.remote.IllustRepository
 import com.lyj.fakepixiv.app.network.LoadState
@@ -17,8 +17,8 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc 详情页用户评论
  */
-class CommentFooterViewModel(val parent: DetailViewModel) : BaseViewModel<IModel?>() {
-    override val mModel: IModel? = null
+class CommentFooterViewModel(val parent: DetailViewModel) : BaseViewModel() {
+
 
     //var illust = ObservableField<Illust>()
 

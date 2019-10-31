@@ -2,7 +2,7 @@ package com.lyj.fakepixiv.module.illust.detail.items
 
 import android.databinding.ObservableField
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.module.illust.detail.IllustDetailViewModel
 
 /**
@@ -12,7 +12,7 @@ import com.lyj.fakepixiv.module.illust.detail.IllustDetailViewModel
  *
  * @desc 详情页用户item
  */
-class RelatedCaptionViewModel(val parent: IllustDetailViewModel) : BaseViewModel<IModel?>() {
-    override val mModel: IModel? = null
+class RelatedCaptionViewModel(val parent: IllustDetailViewModel) : BaseViewModel() {
+
     var loading = ObservableField<Boolean>(false)
 }

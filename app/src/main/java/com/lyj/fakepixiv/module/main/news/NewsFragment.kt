@@ -19,9 +19,9 @@ import com.lyj.fakepixiv.module.main.news.news.NewsNewsFragment
  *
  * @desc
  */
-class NewsFragment : FragmentationFragment<FragmentNewsBinding, BaseViewModel<*>?>() {
+class NewsFragment : FragmentationFragment<FragmentNewsBinding, BaseViewModel?>() {
 
-    override var mViewModel: BaseViewModel<*>? = null
+    override var mViewModel: BaseViewModel? = null
 
     companion object {
         fun newInstance() = NewsFragment()

@@ -18,7 +18,7 @@ import com.lyj.fakepixiv.BR
  *
  * @desc
  */
-abstract class BaseDialogFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>?> : DialogFragment() {
+abstract class BaseDialogFragment<V : ViewDataBinding, VM : BaseViewModel?> : DialogFragment() {
 
     protected lateinit var mBinding: V
 

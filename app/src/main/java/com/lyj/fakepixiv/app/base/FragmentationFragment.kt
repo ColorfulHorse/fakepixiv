@@ -19,7 +19,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator
  *
  * @desc
  */
-abstract class FragmentationFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>?> : BaseFragment<V, VM>(), ISupportFragment {
+abstract class FragmentationFragment<V : ViewDataBinding, VM : BaseViewModel?> : BaseFragment<V, VM>(), ISupportFragment {
     private val mDelegate = SupportFragmentDelegate(this)
     protected lateinit var mActivity: FragmentActivity
 

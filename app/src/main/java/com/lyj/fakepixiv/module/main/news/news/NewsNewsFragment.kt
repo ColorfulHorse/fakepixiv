@@ -24,9 +24,9 @@ import me.yokeyword.fragmentation.ISupportFragment
  *
  * @desc 最新-最新
  */
-class NewsNewsFragment : FragmentationFragment<FragmentNewsNewsBinding, BaseViewModel<*>?>() {
+class NewsNewsFragment : FragmentationFragment<FragmentNewsNewsBinding, BaseViewModel?>() {
 
-    override var mViewModel: BaseViewModel<*>? = null
+    override var mViewModel: BaseViewModel? = null
 
     private lateinit var illustViewModel: IllustListViewModel
     private lateinit var comicViewModel: IllustListViewModel

@@ -3,7 +3,7 @@ package com.lyj.fakepixiv.module.main.home.comic
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.constant.IllustCategory
 import com.lyj.fakepixiv.app.constant.IllustCategory.*
 import com.lyj.fakepixiv.app.data.model.response.Illust
@@ -19,9 +19,7 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc 登录
  */
-class HomeComicViewModel : BaseViewModel<IModel?>() {
-
-    override var mModel: IModel? = null
+class HomeComicViewModel : BaseViewModel() {
 
     val rankViewModel: RankViewModel = RankViewModel()
     val pixivisionViewModel: PixivisionViewModel = PixivisionViewModel().apply {

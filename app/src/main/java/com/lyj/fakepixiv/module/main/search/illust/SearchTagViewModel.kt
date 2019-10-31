@@ -3,7 +3,7 @@ package com.lyj.fakepixiv.module.main.search.illust
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.constant.IllustCategory
 import com.lyj.fakepixiv.app.constant.IllustCategory.ILLUST
 
@@ -19,9 +19,9 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc
  */
-class SearchTagViewModel(@IllustCategory var category: String = ILLUST) : BaseViewModel<IModel?>() {
+class SearchTagViewModel(@IllustCategory var category: String = ILLUST) : BaseViewModel() {
 
-    override var mModel: IModel? = null
+
 
     val data = ObservableArrayList<TrendTag>()
     var loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)

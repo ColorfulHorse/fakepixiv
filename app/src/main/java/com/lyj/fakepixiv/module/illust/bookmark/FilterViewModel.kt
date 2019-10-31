@@ -7,7 +7,7 @@ import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.application.ApplicationLike
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.constant.IllustCategory
 import com.lyj.fakepixiv.app.constant.Restrict
 import com.lyj.fakepixiv.app.data.model.response.BookmarkTag
@@ -25,8 +25,8 @@ import kotlinx.coroutines.withContext
  *
  * @desc
  */
-class FilterViewModel : BaseViewModel<IModel?>() {
-    override val mModel: IModel? = null
+class FilterViewModel : BaseViewModel() {
+
 
     var category: String = IllustCategory.ILLUST
 

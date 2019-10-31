@@ -3,7 +3,7 @@ package com.lyj.fakepixiv.module.main.home.illust
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.data.model.response.Live
 import com.lyj.fakepixiv.app.data.source.remote.LiveRepository
 import com.lyj.fakepixiv.app.network.LoadState
@@ -16,8 +16,7 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc
  */
-class LiveViewModel : BaseViewModel<IModel?>() {
-    override val mModel: IModel? = null
+class LiveViewModel : BaseViewModel() {
 
     val data = ObservableArrayList<Live>()
 

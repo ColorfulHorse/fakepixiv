@@ -26,7 +26,7 @@ import com.lyj.fakepixiv.app.application.ApplicationLike
  *
  * @desc
  */
-abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>?> : ImmersionFragment() {
+abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel?> : ImmersionFragment() {
 
     protected lateinit var mBinding: V
     abstract var mViewModel: VM

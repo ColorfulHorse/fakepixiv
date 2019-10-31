@@ -5,6 +5,7 @@ import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import com.lyj.fakepixiv.app.base.BaseViewModel
 import com.lyj.fakepixiv.app.data.model.response.Illust
+import com.lyj.fakepixiv.app.data.source.remote.IllustRepository
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
 
@@ -15,9 +16,7 @@ import timber.log.Timber
  *
  * @desc 登录页滚动背景
  */
-class WallpaperViewModel : BaseViewModel<IWallpaperModel>() {
-
-    override val mModel: IWallpaperModel = WallpaperModel()
+class WallpaperViewModel : BaseViewModel() {
 
     val data = ObservableArrayList<Illust>()
 
@@ -26,9 +25,10 @@ class WallpaperViewModel : BaseViewModel<IWallpaperModel>() {
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
-        val disposable = mModel.getData()
+        val disposable = IllustRepository.instance
+                .getWallPaperData()
                 .subscribeBy(onNext = {
-                    data.addAll(it)
+                    data.addAll(it.illusts)
                 }, onError = {
                     Timber.e(it.message)
                 })

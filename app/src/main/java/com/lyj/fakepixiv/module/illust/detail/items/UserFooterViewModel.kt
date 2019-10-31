@@ -3,7 +3,7 @@ package com.lyj.fakepixiv.module.illust.detail.items
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.constant.IllustCategory
 import com.lyj.fakepixiv.app.data.model.response.Illust
 import com.lyj.fakepixiv.app.data.source.remote.IllustRepository
@@ -18,8 +18,8 @@ import kotlinx.coroutines.*
  *
  * @desc 详情页用户item
  */
-class UserFooterViewModel(val parent: DetailViewModel) : BaseViewModel<IModel?>() {
-    override val mModel: IModel? = null
+class UserFooterViewModel(val parent: DetailViewModel) : BaseViewModel() {
+
 
     var data = ObservableArrayList<Illust>()
 

@@ -16,7 +16,7 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc 登录
  */
-class LoginViewModel : BaseViewModel<ILoginModel>() {
+class LoginViewModel : BaseViewModel() {
 
     var keyboardOpened = ObservableField(false)
 
@@ -42,7 +42,6 @@ class LoginViewModel : BaseViewModel<ILoginModel>() {
             notifyPropertyChanged(BR.password)
         }
 
-    override var mModel: ILoginModel = LoginModel()
 
     init {
         addOnPropertyChangedCallback(onPropertyChangedCallback {

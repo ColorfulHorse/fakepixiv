@@ -9,7 +9,7 @@ import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.BackFragment
 import com.lyj.fakepixiv.app.base.BaseViewModel
 import com.lyj.fakepixiv.app.base.FragmentationFragment
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.constant.EXTRA_CATEGORY
 import com.lyj.fakepixiv.app.constant.EXTRA_ID
 import com.lyj.fakepixiv.app.constant.IllustCategory
@@ -27,8 +27,8 @@ import com.lyj.fakepixiv.module.common.IllustListViewModel
  *
  * @desc 用户作品列表页
  */
-class WorksFragment : BackFragment<FragmentWorksBinding, BaseViewModel<IModel?>?>() {
-    override var mViewModel: BaseViewModel<IModel?>? = null
+class WorksFragment : BackFragment<FragmentWorksBinding, BaseViewModel?>() {
+    override var mViewModel: BaseViewModel? = null
 
     private val fragments = mutableListOf<FragmentationFragment<*, *>>()
     private var prePosition = 0

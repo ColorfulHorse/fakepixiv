@@ -3,7 +3,7 @@ package com.lyj.fakepixiv.module.main.home.novel
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.constant.IllustCategory.NOVEL
 
 import com.lyj.fakepixiv.app.data.model.response.Illust
@@ -19,9 +19,9 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc 主页小说vm
  */
-class HomeNovelViewModel : BaseViewModel<IModel?>() {
+class HomeNovelViewModel : BaseViewModel() {
 
-    override var mModel: IModel? = null
+
 
     val rankViewModel: RankViewModel = RankViewModel()
 

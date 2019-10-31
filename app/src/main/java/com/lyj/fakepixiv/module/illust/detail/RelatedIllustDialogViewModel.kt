@@ -3,7 +3,7 @@ package com.lyj.fakepixiv.module.illust.detail
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.data.model.response.Illust
 import com.lyj.fakepixiv.app.data.source.remote.IllustRepository
 import com.lyj.fakepixiv.app.network.LoadState
@@ -18,8 +18,8 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc 相关作品
  */
-class RelatedIllustDialogViewModel(val parent: DetailViewModel) : BaseViewModel<IModel?>() {
-    override val mModel: IModel? = null
+class RelatedIllustDialogViewModel(val parent: DetailViewModel) : BaseViewModel() {
+
 
     var data = ObservableArrayList<Illust>()
 

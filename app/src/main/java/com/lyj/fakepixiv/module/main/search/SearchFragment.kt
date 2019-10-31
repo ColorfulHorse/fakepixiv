@@ -23,9 +23,9 @@ import me.yokeyword.fragmentation.ISupportFragment
  *
  * @desc
  */
-class SearchFragment : FragmentationFragment<FragmentSearchBinding, BaseViewModel<*>?>() {
+class SearchFragment : FragmentationFragment<FragmentSearchBinding, BaseViewModel?>() {
 
-    override var mViewModel: BaseViewModel<*>? = null
+    override var mViewModel: BaseViewModel? = null
 
     companion object {
         fun newInstance() = SearchFragment()

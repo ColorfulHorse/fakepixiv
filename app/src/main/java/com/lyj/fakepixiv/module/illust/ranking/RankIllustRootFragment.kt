@@ -10,7 +10,7 @@ import com.lyj.fakepixiv.app.adapter.CommonFragmentAdapter
 import com.lyj.fakepixiv.app.base.BackFragment
 import com.lyj.fakepixiv.app.base.BaseViewModel
 import com.lyj.fakepixiv.app.base.FragmentationFragment
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.constant.Constant
 import com.lyj.fakepixiv.app.constant.IllustCategory
 import com.lyj.fakepixiv.databinding.FragmentRootRankIllustBinding
@@ -23,8 +23,8 @@ import java.util.*
  *
  * @desc 排行榜根页面
  */
-class RankIllustRootFragment : BackFragment<FragmentRootRankIllustBinding, BaseViewModel<IModel?>?>() {
-    override var mViewModel: BaseViewModel<IModel?>? = null
+class RankIllustRootFragment : BackFragment<FragmentRootRankIllustBinding, BaseViewModel?>() {
+    override var mViewModel: BaseViewModel? = null
 
     private val fragments = mutableListOf<FragmentationFragment<*,*>>()
     var category = IllustCategory.ILLUST

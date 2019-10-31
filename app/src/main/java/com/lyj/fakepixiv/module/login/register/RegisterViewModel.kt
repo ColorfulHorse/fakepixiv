@@ -11,11 +11,9 @@ import com.lyj.fakepixiv.app.base.BaseViewModel
  *
  * @desc 登录
  */
-class RegisterViewModel : BaseViewModel<IRegisterModel>() {
+class RegisterViewModel : BaseViewModel() {
 
     val keyboardOpened: ObservableField<Boolean> = ObservableField(false)
-
-    override var mModel: IRegisterModel = RegisterModel()
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)

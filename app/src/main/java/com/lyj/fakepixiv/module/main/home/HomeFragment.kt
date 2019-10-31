@@ -20,9 +20,9 @@ import com.lyj.fakepixiv.module.main.home.novel.HomeNovelFragment
  *
  * @desc 主页fragment
  */
-class HomeFragment : FragmentationFragment<FragmentHomeBinding, BaseViewModel<*>?>() {
+class HomeFragment : FragmentationFragment<FragmentHomeBinding, BaseViewModel?>() {
 
-    override var mViewModel: BaseViewModel<*>? = null
+    override var mViewModel: BaseViewModel? = null
 
     companion object {
         fun newInstance() = HomeFragment()

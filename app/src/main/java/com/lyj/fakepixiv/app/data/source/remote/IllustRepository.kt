@@ -54,6 +54,14 @@ class IllustRepository private constructor() {
     /**
      * 获取推荐
      */
+    fun getWallPaperData(): Observable<IllustListResp> {
+        return service.getWallPaperData()
+                .schedulerTransform()
+    }
+
+    /**
+     * 获取推荐
+     */
     fun loadRecommendIllust(@IllustCategory category: String): Observable<IllustListResp> {
         return service.getRecommendIllust(category)
                 .schedulerTransform()

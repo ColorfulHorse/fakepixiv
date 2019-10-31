@@ -17,7 +17,7 @@ import com.lyj.fakepixiv.R
  *
  * @desc
  */
-abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<out IModel?>?> : AppCompatActivity() {
+abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel?> : AppCompatActivity() {
     protected lateinit var mBinding: V
     protected abstract val mViewModel: VM
     protected var mToolbar: Toolbar? = null

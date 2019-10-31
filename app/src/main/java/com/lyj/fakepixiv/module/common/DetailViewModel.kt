@@ -4,7 +4,7 @@ import android.databinding.Bindable
 import android.databinding.ObservableField
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.data.model.response.Illust
 import com.lyj.fakepixiv.app.data.source.remote.IllustRepository
 import com.lyj.fakepixiv.app.data.source.remote.UserRepository
@@ -24,11 +24,11 @@ import com.lyj.fakepixiv.module.illust.detail.items.UserFooterViewModel
  *
  * @desc 小说插画详情
  */
-open class DetailViewModel : BaseViewModel<IModel?>() {
+open class DetailViewModel : BaseViewModel() {
     var key: Int = -1
     var position: Int = -1
 
-    override val mModel: IModel? = null
+
 
     @get: Bindable
     var liveData = Illust()

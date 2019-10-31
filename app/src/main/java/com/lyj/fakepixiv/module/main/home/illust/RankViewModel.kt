@@ -2,7 +2,7 @@ package com.lyj.fakepixiv.module.main.home.illust
 
 import android.databinding.ObservableArrayList
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.data.model.response.Illust
 
 /**
@@ -12,8 +12,8 @@ import com.lyj.fakepixiv.app.data.model.response.Illust
  *
  * @desc
  */
-class RankViewModel : BaseViewModel<IModel?>() {
-    override val mModel: IModel? = null
+class RankViewModel : BaseViewModel() {
+
 
     val data = ObservableArrayList<Illust>()
 

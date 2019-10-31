@@ -10,7 +10,7 @@ import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.BackFragment
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.constant.Constant
 import com.lyj.fakepixiv.app.network.ApiService
 import com.lyj.fakepixiv.app.utils.AppManager
@@ -27,9 +27,9 @@ import timber.log.Timber
  *
  * @desc 特辑webView
  */
-class PixivisionFragment : BackFragment<FragmentPixivisionBinding, BaseViewModel<IModel?>?>() {
+class PixivisionFragment : BackFragment<FragmentPixivisionBinding, BaseViewModel?>() {
 
-    override var mViewModel: BaseViewModel<IModel?>? = null
+    override var mViewModel: BaseViewModel? = null
 
     companion object {
         const val EXTRA_URL = "EXTRA_URL"

@@ -4,7 +4,7 @@ import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import android.databinding.ObservableList
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.base.IModel
+
 import com.lyj.fakepixiv.app.data.model.response.UserPreview
 import com.lyj.fakepixiv.app.data.source.remote.UserRepository
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -19,8 +19,8 @@ import kotlinx.coroutines.withContext
  *
  * @desc
  */
-class UserHeaderViewModel : BaseViewModel<IModel?>() {
-    override val mModel: IModel? = null
+class UserHeaderViewModel : BaseViewModel() {
+
 
     val data: ObservableList<UserPreview> = ObservableArrayList()
 
