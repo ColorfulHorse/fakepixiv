@@ -13,7 +13,7 @@ import com.bumptech.glide.load.engine.cache.DiskLruCacheFactory
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.module.AppGlideModule
 import com.bumptech.glide.request.RequestOptions
-import com.lyj.fakepixiv.app.App
+import com.lyj.fakepixiv.app.application.ApplicationLike
 import com.lyj.fakepixiv.app.network.retrofit.RetrofitManager
 import com.lyj.fakepixiv.app.network.retrofit.interceptors.LoggerInterceptor
 import com.lyj.fakepixiv.app.utils.DefaultFormatPrinter
@@ -54,7 +54,7 @@ class GlideConfigModule : AppGlideModule() {
         super.applyOptions(context,    builder)
         builder
                 .setDiskCache {
-                    DiskLruCacheFactory(App.context.externalCacheDir.absolutePath+File.separator+"glide_image", DiskLruCacheFactory.DEFAULT_DISK_CACHE_SIZE.toLong())
+                    DiskLruCacheFactory(ApplicationLike.context.externalCacheDir.absolutePath+File.separator+"glide_image", DiskLruCacheFactory.DEFAULT_DISK_CACHE_SIZE.toLong())
                             .build()
                 }
                 .setLogLevel(Log.DEBUG)

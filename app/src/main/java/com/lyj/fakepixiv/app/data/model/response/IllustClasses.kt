@@ -7,7 +7,7 @@ import android.text.TextUtils
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.R
-import com.lyj.fakepixiv.app.App
+import com.lyj.fakepixiv.app.application.ApplicationLike
 import com.lyj.fakepixiv.app.constant.IllustCategory
 import com.lyj.fakepixiv.app.constant.IllustCategory.*
 import com.squareup.moshi.Json
@@ -137,9 +137,9 @@ data class Illust(
     }
 
     fun getUnReadableMsg(): String = when {
-        is_muted -> App.context.getString(R.string.novel_series_content_is_muted)
-        is_mypixiv_only -> App.context.getString(R.string.novel_series_content_is_mypixiv)
-        is_x_restricted -> App.context.getString(R.string.novel_series_content_is_x_restricted)
+        is_muted -> ApplicationLike.context.getString(R.string.novel_series_content_is_muted)
+        is_mypixiv_only -> ApplicationLike.context.getString(R.string.novel_series_content_is_mypixiv)
+        is_x_restricted -> ApplicationLike.context.getString(R.string.novel_series_content_is_x_restricted)
         else -> ""
     }
 }

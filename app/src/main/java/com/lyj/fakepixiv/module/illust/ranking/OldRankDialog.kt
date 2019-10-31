@@ -102,8 +102,8 @@ class OldRankDialog : DialogFragment() {
 //        super.onResume()
 //        dialog.setCancelable(true)
 //        val lp = dialog.window.attributes
-//        //lp.height = App.context.resources.displayMetrics.heightPixels/2
-//        lp.width = App.context.resources.displayMetrics.widthPixels*2 / 3
+//        //lp.height = ApplicationLike.context.resources.displayMetrics.heightPixels/2
+//        lp.width = ApplicationLike.context.resources.displayMetrics.widthPixels*2 / 3
 //        dialog.window.attributes = lp
 //    }
 }

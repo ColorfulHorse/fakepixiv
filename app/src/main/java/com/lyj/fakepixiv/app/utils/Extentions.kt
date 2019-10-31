@@ -13,7 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import android.view.WindowManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.lyj.fakepixiv.R
-import com.lyj.fakepixiv.app.App
+import com.lyj.fakepixiv.app.application.ApplicationLike
 import com.lyj.fakepixiv.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepixiv.app.network.LoadState
 import com.lyj.fakepixiv.widget.ErrorView
@@ -28,21 +28,21 @@ import kotlinx.coroutines.*
  * @desc
  */
 fun Number.px2dp(): Int {
-    val scale =  App.context.resources.displayMetrics.density
+    val scale =  ApplicationLike.context.resources.displayMetrics.density
     return (toFloat()/scale+0.5f).toInt()
 }
 
 fun Number.dp2px(): Int {
-    val scale =  App.context.resources.displayMetrics.density
+    val scale =  ApplicationLike.context.resources.displayMetrics.density
     return (toFloat()*scale+0.5f).toInt()
 }
 
 fun screenWidth(): Int {
-    return App.context.resources.displayMetrics.widthPixels
+    return ApplicationLike.context.resources.displayMetrics.widthPixels
 }
 
 fun screenHeight(): Int {
-    return App.context.resources.displayMetrics.heightPixels
+    return ApplicationLike.context.resources.displayMetrics.heightPixels
 }
 
 fun Activity.statusBarColor(color: Int) {
@@ -102,8 +102,8 @@ fun BaseQuickAdapter<*, *>.bindState(loadState: ObservableField<LoadState>,
                                      onLoading: (() -> Unit)? = null, refreshLayout: SwipeRefreshLayout? = null,
                                      reload: (() -> Unit)? = null) {
 
-    val loadingView: View = LayoutInflater.from(App.context).inflate(loadingRes, null)
-    val errorView = ErrorView(App.context)
+    val loadingView: View = LayoutInflater.from(ApplicationLike.context).inflate(loadingRes, null)
+    val errorView = ErrorView(ApplicationLike.context)
     errorView.setView(errorRes)
     errorView.reload = {
         reload?.invoke()

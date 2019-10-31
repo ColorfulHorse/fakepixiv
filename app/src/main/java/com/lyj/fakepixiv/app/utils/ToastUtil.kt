@@ -3,7 +3,7 @@ package com.lyj.fakepixiv.app.utils
 import android.os.Handler
 import android.support.annotation.StringRes
 import android.widget.Toast
-import com.lyj.fakepixiv.app.App
+import com.lyj.fakepixiv.app.application.ApplicationLike
 
 /**
  * @author greensun
@@ -21,7 +21,7 @@ object ToastUtil {
             if (mToast != null) {
                 mToast?.setText(content)
             } else {
-                mToast = Toast.makeText(App.context, content, Toast.LENGTH_SHORT)
+                mToast = Toast.makeText(ApplicationLike.context, content, Toast.LENGTH_SHORT)
             }
             mToast?.show()
         }
@@ -29,9 +29,9 @@ object ToastUtil {
 
      fun showToast(@StringRes resId: Int, vararg args:Any = emptyArray()) {
         if (args.isEmpty()) {
-            showToast(App.context.getString(resId))
+            showToast(ApplicationLike.context.getString(resId))
         }else {
-            showToast(App.context.getString(resId, args))
+            showToast(ApplicationLike.context.getString(resId, args))
         }
     }
 }

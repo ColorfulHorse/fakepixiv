@@ -8,7 +8,7 @@ import android.view.View
 import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager
 import com.beloo.widget.chipslayoutmanager.SpacingItemDecoration
 import com.lyj.fakepixiv.R
-import com.lyj.fakepixiv.app.App
+import com.lyj.fakepixiv.app.application.ApplicationLike
 import com.lyj.fakepixiv.app.constant.IllustCategory
 import com.lyj.fakepixiv.app.data.model.response.Illust
 import com.lyj.fakepixiv.app.utils.Router
@@ -47,7 +47,7 @@ class DescFooter(val context: Context, val data: Illust, var mBinding: LayoutFoo
         val tags = data.getTranslateTags()
         val adapter = IllustTagAdapter(IllustCategory.ILLUST, R.layout.item_tag, tags)
         adapter.bindToRecyclerView(binding.recyclerView)
-        binding.recyclerView.layoutManager = ChipsLayoutManager.newBuilder(App.context)
+        binding.recyclerView.layoutManager = ChipsLayoutManager.newBuilder(ApplicationLike.context)
                 .setOrientation(ChipsLayoutManager.HORIZONTAL)
                 .build()
         binding.recyclerView.addItemDecoration(SpacingItemDecoration(1.dp2px(), 6.dp2px()))

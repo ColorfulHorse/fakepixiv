@@ -26,9 +26,11 @@
 #### 2019-10-24
 - gradle脚本替换为kotlin，改变依赖管理方式
 
+#### 2019-10-31
+- 集成tinker
+
 #### todo list
 - pixivision webView 完善
 - 详情页评论
 - 用户页关注人列表
 - 加入屏蔽设置
-- native化专题页

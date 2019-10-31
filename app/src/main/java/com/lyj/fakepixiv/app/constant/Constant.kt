@@ -1,5 +1,7 @@
 package com.lyj.fakepixiv.app.constant
 
+import android.os.Environment
+
 /**
  * @author 19930
  *
@@ -12,6 +14,10 @@ const val EXTRA_CATEGORY = "EXTRA_CATEGORY"
 const val EXTRA_ID = "EXTRA_ID"
 
 interface Constant {
+
+    object File {
+        val PATCH_PATH = "${Environment.getExternalStorageDirectory().absolutePath}/fakepixiv/patch_signed_7zip.apk"
+    }
 
     object Net {
         // 排行榜类型

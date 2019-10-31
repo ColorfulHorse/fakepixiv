@@ -5,7 +5,7 @@ import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.R
-import com.lyj.fakepixiv.app.App
+import com.lyj.fakepixiv.app.application.ApplicationLike
 import com.lyj.fakepixiv.app.base.BaseViewModel
 import com.lyj.fakepixiv.app.base.IModel
 import com.lyj.fakepixiv.app.constant.IllustCategory
@@ -66,7 +66,7 @@ class FilterViewModel : BaseViewModel<IModel?>() {
                 IllustRepository.instance
                         .getBookMarkTags(category)
             }
-            val tags = listOf(BookmarkTag(App.context.getString(R.string.all)), BookmarkTag(App.context.getString(R.string.other))) + resp.bookmark_tags
+            val tags = listOf(BookmarkTag(ApplicationLike.context.getString(R.string.all)), BookmarkTag(ApplicationLike.context.getString(R.string.other))) + resp.bookmark_tags
             tags.first { it.name == publicTag }.selected = true
             publicTags.addAll(tags)
             publicLoadState.set(LoadState.Succeed)
@@ -85,7 +85,7 @@ class FilterViewModel : BaseViewModel<IModel?>() {
                 IllustRepository.instance
                         .getBookMarkTags(category, Restrict.PRIVATE)
             }
-            val tags = listOf(BookmarkTag(App.context.getString(R.string.all)), BookmarkTag(App.context.getString(R.string.other))) + resp.bookmark_tags
+            val tags = listOf(BookmarkTag(ApplicationLike.context.getString(R.string.all)), BookmarkTag(ApplicationLike.context.getString(R.string.other))) + resp.bookmark_tags
             tags.first { it.name == privateTag }.selected = true
             privateTags.addAll(tags)
             privateLoadState.set(LoadState.Succeed)

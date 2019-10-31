@@ -2,7 +2,7 @@ package com.lyj.fakepixiv.app.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.lyj.fakepixiv.app.App
+import com.lyj.fakepixiv.app.application.ApplicationLike
 import com.lyj.fakepixiv.app.constant.Constant
 import com.lyj.fakepixiv.app.data.model.response.LoginData
 
@@ -16,7 +16,7 @@ import com.lyj.fakepixiv.app.data.model.response.LoginData
 object SPUtil {
     private const val DEFAULT_SP = "DEFAULT_SP"
     private const val KEY_SEARCH = "KEY_SEARCH"
-    private val sp: SharedPreferences by lazy { App.context.getSharedPreferences(DEFAULT_SP, Context.MODE_PRIVATE) }
+    private val sp: SharedPreferences by lazy { ApplicationLike.context.getSharedPreferences(DEFAULT_SP, Context.MODE_PRIVATE) }
 
 
     fun saveLoginData(loginData: LoginData) {

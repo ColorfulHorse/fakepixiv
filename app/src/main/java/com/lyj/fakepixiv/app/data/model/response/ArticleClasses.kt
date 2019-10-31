@@ -3,7 +3,7 @@ package com.lyj.fakepixiv.app.data.model.response
 import android.support.annotation.ColorInt
 import android.support.v4.content.ContextCompat
 import com.lyj.fakepixiv.R
-import com.lyj.fakepixiv.app.App
+import com.lyj.fakepixiv.app.application.ApplicationLike
 import com.squareup.moshi.JsonClass
 
 /**
@@ -49,10 +49,10 @@ data class SpotlightArticle(
     @ColorInt
     fun color(): Int {
         return when(category) {
-            SPOTLIGHT -> ContextCompat.getColor(App.context, R.color.pixivision_category_spotlight)
-            INSPIRATION -> ContextCompat.getColor(App.context, R.color.pixivision_category_inspiration)
-            TUTORIAL -> ContextCompat.getColor(App.context, R.color.pixivision_category_tutorial)
-            else -> ContextCompat.getColor(App.context, R.color.pixivision_category_spotlight)
+            SPOTLIGHT -> ContextCompat.getColor(ApplicationLike.context, R.color.pixivision_category_spotlight)
+            INSPIRATION -> ContextCompat.getColor(ApplicationLike.context, R.color.pixivision_category_inspiration)
+            TUTORIAL -> ContextCompat.getColor(ApplicationLike.context, R.color.pixivision_category_tutorial)
+            else -> ContextCompat.getColor(ApplicationLike.context, R.color.pixivision_category_spotlight)
         }
     }
 }

@@ -16,7 +16,7 @@ import com.gyf.barlibrary.ImmersionBar
 import com.gyf.barlibrary.ImmersionFragment
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.R
-import com.lyj.fakepixiv.app.App
+import com.lyj.fakepixiv.app.application.ApplicationLike
 
 
 /**
@@ -56,7 +56,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<out IModel?>
             mBinding.setVariable(bindViewModel(), it)
         }
         mToolbar = mBinding.root.findViewById(bindToolbar())
-        mToolbar?.overflowIcon = ContextCompat.getDrawable(App.context, R.drawable.ic_more)
+        mToolbar?.overflowIcon = ContextCompat.getDrawable(ApplicationLike.context, R.drawable.ic_more)
         mBinding.root.isClickable = true
         onCreated = true
         return mBinding.root

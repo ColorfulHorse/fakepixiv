@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lyj.fakepixiv.R
-import com.lyj.fakepixiv.app.App
+import com.lyj.fakepixiv.app.application.ApplicationLike
 import com.lyj.fakepixiv.app.constant.Constant
 import com.lyj.fakepixiv.app.constant.IllustCategory
 import com.lyj.fakepixiv.app.constant.Restrict
@@ -62,8 +62,8 @@ class RestrictDialog : DialogFragment() {
         super.onResume()
         dialog.setCancelable(true)
         val lp = dialog.window.attributes
-        //lp.height = App.context.resources.displayMetrics.heightPixels/2
-        lp.width = App.context.resources.displayMetrics.widthPixels*2/3
+        //lp.height = ApplicationLike.context.resources.displayMetrics.heightPixels/2
+        lp.width = ApplicationLike.context.resources.displayMetrics.widthPixels*2/3
         dialog.window.attributes = lp
     }
 }

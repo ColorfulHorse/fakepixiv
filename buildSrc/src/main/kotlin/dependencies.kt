@@ -34,9 +34,13 @@ object Vers {
 
 @Target(AnnotationTarget.PROPERTY, AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class Mode(val value: String) {
+annotation class DepMode(val value: String)
 
-}
+const val IMPLEMENTATION = "implementation"
+const val API = "api"
+const val COMPILE_ONLY = "compileOnly"
+const val KAPT = "kapt"
+const val APT = "annotationProcessor"
 
 open class DepGroup
 open class Dep(val core: String? = null, val complier: String? = null)
@@ -112,12 +116,16 @@ object Deps : DepGroup() {
         const val transformations = "jp.wasabeef:glide-transformations:4.1.0"
     }
 
-//    object Tinker : DepGroup() {
-//        @Mode(DepMode.COMPILE_ONLY)
-//        const val anno = "com.tencent.tinker:tinker-android-anno:${Vers.tinker_version}"
-//
-//        const val lib = "com.tencent.tinker:tinker-android-lib:${Vers.tinker_version}"
-//    }
+    object Tinker : DepGroup() {
+
+        @DepMode(APT)
+        const val apt = "com.tencent.tinker:tinker-android-anno:${Vers.tinker_version}"
+
+        @DepMode(COMPILE_ONLY)
+        const val anno = "com.tencent.tinker:tinker-android-anno:${Vers.tinker_version}"
+
+        const val lib = "com.tencent.tinker:tinker-android-lib:${Vers.tinker_version}"
+    }
 
     object Tools : DepGroup() {
 
@@ -133,15 +141,6 @@ object Deps : DepGroup() {
     }
 }
 
-/**
- * 以哪种方式添加依赖
- */
-object DepMode {
-    const val IMPLEMENTATION = "implementation"
-    const val API = "api"
-    const val COMPILE_ONLY = "compileOnly"
-    const val KAPT = "kapt"
-}
 
 /**
  * 添加依赖组
@@ -167,7 +166,7 @@ fun addDeps(project: Project, dependencies: Any) {
         }
 
         groupCls.memberProperties.forEach {
-            val mode = it.findAnnotation<Mode>()
+            val mode = it.findAnnotation<DepMode>()
             val field = it.getter.call()
             if (field is String) {
                 addDep(project, field, mode?.value)
@@ -177,33 +176,33 @@ fun addDeps(project: Project, dependencies: Any) {
 }
 
 private fun addDep(project: Project, dep: Any, mode: String? = null) {
-    println("addDep: $dep")
     project.dependencies {
         if (dep is Dep) {
             val cls = dep::class
             dep.core?.let { core ->
                 val field = cls.memberProperties.find { it.name == "core" }
-                val depMode = field?.findAnnotation<Mode>()
+                val depMode = field?.findAnnotation<DepMode>()
                 if (depMode != null) {
                     add(depMode.value, core)
                 }else {
-                    add(DepMode.IMPLEMENTATION, core)
+                    add(IMPLEMENTATION, core)
                 }
             }
             dep.complier?.let { complier ->
                 val field = cls.memberProperties.find { it.name == "complier" }
-                val depMode = field?.findAnnotation<Mode>()
+                val depMode = field?.findAnnotation<DepMode>()
                 if (depMode != null) {
                     add(depMode.value, complier)
                 }else {
-                    add(DepMode.KAPT, complier)
+                    add(KAPT, complier)
                 }
             }
         } else if (dep is String) {
             if (mode != null) {
+                println("addDep: mode:$mode==========$dep")
                 add(mode, dep)
             }else {
-                add(DepMode.IMPLEMENTATION, dep)
+                add(IMPLEMENTATION, dep)
             }
         }
     }

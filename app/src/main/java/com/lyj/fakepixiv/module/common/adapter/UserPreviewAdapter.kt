@@ -8,7 +8,7 @@ import android.widget.ImageView
 import com.bumptech.glide.ListPreloader
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.R
-import com.lyj.fakepixiv.app.App.Companion.context
+import com.lyj.fakepixiv.app.application.ApplicationLike.Companion.context
 import com.lyj.fakepixiv.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepixiv.app.adapter.PreloadBindingAdapter
 import com.lyj.fakepixiv.app.adapter.UserSizeProvider

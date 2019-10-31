@@ -8,7 +8,7 @@ import com.beloo.widget.chipslayoutmanager.SpacingItemDecoration
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.R
-import com.lyj.fakepixiv.app.App.Companion.context
+import com.lyj.fakepixiv.app.application.ApplicationLike.Companion.context
 import com.lyj.fakepixiv.app.adapter.BaseBindingAdapter
 import com.lyj.fakepixiv.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepixiv.app.data.model.response.Illust

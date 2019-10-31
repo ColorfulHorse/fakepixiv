@@ -11,7 +11,7 @@ import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager
 import com.beloo.widget.chipslayoutmanager.SpacingItemDecoration
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.R
-import com.lyj.fakepixiv.app.App
+import com.lyj.fakepixiv.app.application.ApplicationLike
 import com.lyj.fakepixiv.app.constant.IllustCategory
 import com.lyj.fakepixiv.app.databinding.bindAction
 import com.lyj.fakepixiv.app.utils.Router
@@ -62,7 +62,7 @@ class NovelDialogFragment : DialogFragment() {
         with(mBinding) {
             val adapter = IllustTagAdapter(IllustCategory.NOVEL, R.layout.item_tag, mViewModel.data.getTranslateTags())
             adapter.bindToRecyclerView(recyclerView)
-            recyclerView.layoutManager = ChipsLayoutManager.newBuilder(App.context)
+            recyclerView.layoutManager = ChipsLayoutManager.newBuilder(ApplicationLike.context)
                     .setOrientation(ChipsLayoutManager.HORIZONTAL)
                     .build()
             recyclerView.addItemDecoration(SpacingItemDecoration(1.dp2px(), 6.dp2px()))
