@@ -23,6 +23,10 @@ data class CommentListResp(
     val next_url: String = ""
 )
 
+data class CommentResp(
+    val comment: Comment = Comment()
+)
+
 @JsonClass(generateAdapter = true)
 data class Comment(
     val comment: String = "",

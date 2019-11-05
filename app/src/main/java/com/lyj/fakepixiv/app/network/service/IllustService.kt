@@ -249,4 +249,11 @@ interface IllustService {
      */
     @GET
     fun getMoreIllust(@Url nextUrl: String): Observable<IllustListResp>
+
+    // https://app-api.pixiv.net/v1/emoji HTTP/1.1
+    // https://app-api.pixiv.net/v1/illust/comment/delete  comment_id=93773576
+    /**
+     * POST https://app-api.pixiv.net/v1/illust/comment/add HTTP/1.1  illust_id=77619699&comment=%28star%29  parent_comment_id=93741538
+     */
+    // https://app-api.pixiv.net/v1/illust/comment/replies?comment_id=93741538   commentlistresp
 }
