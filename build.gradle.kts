@@ -21,7 +21,7 @@ buildscript {
         classpath ("com.android.tools.build:gradle:$gradleVer")
         classpath (kotlin("gradle-plugin", Vers.kotlin_version))
         classpath (kotlin("android-extensions", Vers.kotlin_version))
-        classpath ("com.tencent.tinker:tinker-patch-gradle-plugin:${Vers.tinker_version}")
+        //classpath ("com.tencent.tinker:tinker-patch-gradle-plugin:${Vers.tinker_version}")
 
     }
 }

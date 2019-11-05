@@ -112,12 +112,12 @@ object Deps : DepGroup() {
         const val transformations = "jp.wasabeef:glide-transformations:4.1.0"
     }
 
-    object Tinker : DepGroup() {
-        @Mode(DepMode.COMPILE_ONLY)
-        const val anno = "com.tencent.tinker:tinker-android-anno:${Vers.tinker_version}"
-
-        const val lib = "com.tencent.tinker:tinker-android-lib:${Vers.tinker_version}"
-    }
+//    object Tinker : DepGroup() {
+//        @Mode(DepMode.COMPILE_ONLY)
+//        const val anno = "com.tencent.tinker:tinker-android-anno:${Vers.tinker_version}"
+//
+//        const val lib = "com.tencent.tinker:tinker-android-lib:${Vers.tinker_version}"
+//    }
 
     object Tools : DepGroup() {
 
