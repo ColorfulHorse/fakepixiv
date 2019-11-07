@@ -38,8 +38,16 @@ interface UserService {
               @Field("device_token")deviceToken: String = "",
               @Field("refresh_token")refreshToken: String = ""): Observable<LoginResp>
 
-    // https://accounts.pixiv.net/api/provisional-accounts/create
-    // user_name=%E5%8C%97%E9%87%8E%E9%9D%92%E9%98%B3&ref=pixiv_android_app_provisional_account
+
+    /**
+     * 注册，创建临时账户
+     */
+    @Headers("SWITCH-HEADER:TAG_ACCOUNT")
+    @POST("/provisional-accounts/create")
+    @FormUrlEncoded
+    suspend fun register(@Field("user_name")userName: String,
+                         @Field("ref")ref: String = "pixiv_android_app_provisional_account"): Any
+
 
     // https://accounts.pixiv.net/api/account/edit
     // new_mail_address=812194178%40qq.com&new_user_account=liaoyijian&current_password=3jeaTcVEUB&new_password=liaolove1314  new_user_account=beiyeqingyang&current_password=liaolove1314

@@ -1,13 +1,15 @@
 package com.lyj.fakepixiv.module.illust.detail.items
 
+import android.databinding.Bindable
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
+import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.app.base.BaseViewModel
-
 import com.lyj.fakepixiv.app.data.model.response.Comment
+import com.lyj.fakepixiv.app.data.model.response.Illust
 import com.lyj.fakepixiv.app.data.source.remote.IllustRepository
 import com.lyj.fakepixiv.app.network.LoadState
-import com.lyj.fakepixiv.module.common.DetailViewModel
+import com.lyj.fakepixiv.module.illust.detail.comment.CommentViewModel
 import io.reactivex.rxkotlin.subscribeBy
 
 /**
@@ -17,16 +19,28 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc 详情页用户评论
  */
-class CommentFooterViewModel(val parent: DetailViewModel) : BaseViewModel() {
+class CommentListViewModel : BaseViewModel() {
 
+    @get:Bindable
+    var illust = Illust()
+    set(value) {
+        field = value
+        notifyPropertyChanged(BR.illust)
+    }
 
-    //var illust = ObservableField<Illust>()
+    // 展示部分
+    val piece = ObservableArrayList<CommentViewModel>()
 
-    var data = ObservableArrayList<Comment>()
+    val data = ObservableArrayList<CommentViewModel>()
+
+    // 空数据
     var noneData = ObservableField(false)
+    // 两条以上
     var showMore = ObservableField(false)
 
     var loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
+
+    var loadMoreState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
     var nextUrl = ""
 
@@ -34,29 +48,34 @@ class CommentFooterViewModel(val parent: DetailViewModel) : BaseViewModel() {
      * 由于共用了viewModel，需要限制初次加载
      */
     fun load() {
-        if (loadState.get() is LoadState.Idle) {
+        if (loadState.get() !is LoadState.Succeed && data.isEmpty()) {
             reLoad()
         }
     }
 
     fun reLoad() {
-        val illust = parent.illust
         val disposable = IllustRepository.instance
                 .loadIllustComment(illust.id.toString())
                 .doOnSubscribe { loadState.set(LoadState.Loading) }
-                .subscribeBy(onNext = {
+                .subscribeBy(onNext = { resp ->
                     loadState.set(LoadState.Succeed)
-                    nextUrl = it.next_url
-                    if (it.comments.isEmpty()) {
+                    nextUrl = resp.next_url
+                    if (resp.comments.isEmpty()) {
                         noneData.set(true)
                     }else{
-                        showMore.set(it.comments.size > 2)
+                        showMore.set(resp.comments.size > 2)
                         data.clear()
-                        data.addAll(it.comments.take(2))
+                        data.addAll(resp.comments.map { CommentViewModel(it) })
+                        piece.clear()
+                        piece.addAll(data.take(2))
                     }
                 }, onError = {
                     loadState.set(LoadState.Failed(it))
                 })
         addDisposable(disposable)
+    }
+
+    fun loadMore() {
+
     }
 }

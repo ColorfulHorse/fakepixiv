@@ -19,6 +19,9 @@ object SPUtil {
     private val sp: SharedPreferences by lazy { ApplicationLike.context.getSharedPreferences(DEFAULT_SP, Context.MODE_PRIVATE) }
 
 
+    /**
+     * 保存登录信息
+     */
     fun saveLoginData(loginData: LoginData) {
         val str = JsonUtil.bean2Json(loginData)
         sp.edit().putString(Constant.SP.KEY_LOGIN_CACHE, str)
@@ -33,6 +36,11 @@ object SPUtil {
             }
         }
         return null
+    }
+
+    fun clearLoginData() {
+        sp.edit().putString(Constant.SP.KEY_LOGIN_CACHE, "")
+                .apply()
     }
 
     fun saveSearchHistory(value: String) {

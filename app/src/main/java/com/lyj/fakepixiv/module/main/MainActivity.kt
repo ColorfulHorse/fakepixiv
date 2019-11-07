@@ -13,6 +13,7 @@ import com.lyj.fakepixiv.app.utils.Router
 import com.lyj.fakepixiv.databinding.ActivityMainBinding
 import com.lyj.fakepixiv.databinding.MainNavHeader
 import com.lyj.fakepixiv.module.illust.bookmark.BookmarkFragment
+import com.lyj.fakepixiv.module.setting.SettingsFragment
 import com.lyj.fakepixiv.module.user.following.FollowingFragment
 import me.yokeyword.fragmentation.ISupportFragment
 
@@ -106,6 +107,11 @@ class MainActivity : FragmentationActivity<ActivityMainBinding, MainViewModel>()
                     }
                     R.id.nav_collection -> {
                         start(BookmarkFragment.newInstance())
+                        false
+                    }
+
+                    R.id.nav_setting -> {
+                        start(SettingsFragment.newInstance())
                         false
                     }
 

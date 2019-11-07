@@ -11,7 +11,7 @@ import com.lyj.fakepixiv.app.data.source.remote.UserRepository
 import com.lyj.fakepixiv.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepixiv.app.network.LoadState
 import com.lyj.fakepixiv.app.utils.Router
-import com.lyj.fakepixiv.module.illust.detail.items.CommentFooterViewModel
+import com.lyj.fakepixiv.module.illust.detail.items.CommentListViewModel
 import com.lyj.fakepixiv.module.illust.detail.RelatedIllustDialogViewModel
 import com.lyj.fakepixiv.module.illust.detail.RelatedUserDialogViewModel
 import com.lyj.fakepixiv.module.illust.detail.items.SeriesItemViewModel
@@ -45,6 +45,7 @@ open class DetailViewModel : BaseViewModel() {
     set(value) {
         field = value
         relatedUserViewModel.user = value.user
+        commentFooterViewModel.illust = value
         notifyPropertyChanged(BR.illust)
     }
 
@@ -68,7 +69,7 @@ open class DetailViewModel : BaseViewModel() {
     //var starIllust = ObservableField(false)
 
     val userFooterViewModel = UserFooterViewModel(this)
-    val commentFooterViewModel = CommentFooterViewModel(this)
+    val commentFooterViewModel = CommentListViewModel()
     val relatedIllustViewModel = RelatedIllustDialogViewModel(this)
     val relatedUserViewModel = RelatedUserDialogViewModel(illust.user)
 

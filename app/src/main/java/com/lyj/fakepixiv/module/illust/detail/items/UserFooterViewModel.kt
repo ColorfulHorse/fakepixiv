@@ -27,7 +27,7 @@ class UserFooterViewModel(val parent: DetailViewModel) : BaseViewModel() {
 
 
     fun load() {
-        if (loadState.get() is LoadState.Idle) {
+        if (loadState.get() !is LoadState.Succeed) {
             reLoad()
         }
     }

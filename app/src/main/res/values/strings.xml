@@ -140,6 +140,74 @@
     <string name="title_pixivision">专题</string>
     <string name="not_visible">抱歉，作品不存在</string>
 
+    <string name="settings">设置</string>
+    <string name="settings_account">帐号设置</string>
+    <string name="settings_account_doesnt_have_email">没有邮箱的用户请点击这里</string>
+    <string name="settings_account_has_email">拥有邮箱的用户请点击这里</string>
+    <string name="settings_account_mail_address_confirm">验证</string>
+    <string name="settings_account_pixiv_id_after_premium_change">确定</string>
+    <string name="settings_account_pixiv_id_after_premium_description">pixiv ID一经设置将不能再修改。确定设置吗？</string>
+    <string name="settings_account_pixiv_id_after_premium_title">设置您的pixiv ID</string>
+    <string name="settings_advanced">详细设定</string>
+    <string name="settings_current_password">现在的密码</string>
+    <string name="settings_current_password_description">请输入密码</string>
+    <string name="settings_current_password_title">输入密码</string>
+    <string name="settings_edit_account">设置帐号信息</string>
+    <string name="settings_input_account">注册帐号</string>
+    <string name="settings_logout_confirm_details">当前帐号没有设置邮箱或者密码，直接退出会导致账号信息丢失。确定要退出吗？</string>
+    <string name="settings_logout_confirm_title">确定要退出账号吗？</string>
+    <string name="settings_mail_address">邮箱地址</string>
+    <string name="settings_new_password">新密码</string>
+    <string name="settings_new_password_description">请设定密码。</string>
+    <string name="settings_new_password_title">设定密码</string>
+    <string name="settings_notification">通知设置</string>
+    <string name="settings_open_notification_settings">打开Android设定</string>
+    <string name="settings_optout">不显示行为定向广告</string>
+    <string name="settings_optout_footer">详情请参阅此项</string>
+    <string name="settings_optout_footer_link">此项</string>
+    <string name="settings_pawoo">显示Pawoo账号链接</string>
+    <string name="settings_pawoo_info">Pawoo与pixiv关联时，您可以设置将Pawoo账号链接显示于pixiv个人主页。</string>
+    <string name="settings_pawoo_private">不显示</string>
+    <string name="settings_pawoo_public">显示</string>
+    <string name="settings_pixiv_id_change">变更</string>
+    <string name="settings_pixiv_id_description">您只能变更一次，且无法恢复到变更前的pixiv ID。</string>
+    <string name="settings_pixiv_id_dont_change">取消变更</string>
+    <string name="settings_pixiv_id_title">变更pixiv ID</string>
+    <string name="settings_please_enable_notifications">若您希望接收pixiv发送的消息，请在Android系统的设定中开启通知选项。</string>
+    <string name="settings_profile">个人资料设置</string>
+    <string name="settings_profile_address">地址</string>
+    <string name="settings_profile_comment_placeholder">自我介绍</string>
+    <string name="settings_profile_image">个人头像</string>
+    <string name="settings_profile_image_delete">删除</string>
+    <string name="settings_profile_image_select">选择</string>
+    <string name="settings_profile_job">职业</string>
+    <string name="settings_profile_publicity_mypixiv">仅好P友可见</string>
+    <string name="settings_profile_publicity_private">私人</string>
+    <string name="settings_profile_publicity_public">向所有人公开</string>
+    <string name="settings_profile_twitter_account_placeholder">Twitter ID</string>
+    <string name="settings_profile_webpage_placeholder">主页</string>
+    <string name="settings_register_account">注册帐号</string>
+    <string name="settings_register_premium">注册成为高级会员</string>
+    <string name="settings_update_account">更新帐号信息</string>
+    <string name="settings_update_notification_settings">更新通知设置</string>
+    <string name="settings_update_profile">更新个人资料</string>
+    <string name="settings_workspace">我的作业环境</string>
+    <string name="settings_workspace_chair_placeholder">椅子</string>
+    <string name="settings_workspace_comment_placeholder">其他问题</string>
+    <string name="settings_workspace_desk_placeholder">桌子</string>
+    <string name="settings_workspace_desktop_placeholder">桌子上的东西</string>
+    <string name="settings_workspace_monitor_placeholder">显示器</string>
+    <string name="settings_workspace_mouse_placeholder">鼠标</string>
+    <string name="settings_workspace_music_placeholder">画图时听的音乐</string>
+    <string name="settings_workspace_pc_placeholder">电脑</string>
+    <string name="settings_workspace_printer_placeholder">打印机</string>
+    <string name="settings_workspace_scanner_placeholder">扫描仪</string>
+    <string name="settings_workspace_tablet_placeholder">数位板</string>
+    <string name="settings_workspace_tool_placeholder">软件</string>
+
+
+
+
     <string-array name="illust_rank_modes">
         <item>每日</item>
         <item>男性向</item>
@@ -167,4 +235,79 @@
         <item>每周</item>
         <item>过去</item>
     </string-array>
+
+
+    <string name="preference_key_act_on_settlement">act_on_settlement</string>
+    <string name="preference_key_browsing_history_illusts_last_sync_time_millis">browsing_history_illusts_last_sync_time_millis</string>
+    <string name="preference_key_browsing_history_novels_last_sync_time_millis">browsing_history_novels_last_sync_time_millis</string>
+    <string name="preference_key_checked_app_version">checked_app_version</string>
+    <string name="preference_key_delete_likes">delete_likes</string>
+    <string name="preference_key_device_token">device_token</string>
+    <string name="preference_key_fetched_user_topic">fetched_user_topic</string>
+    <string name="preference_key_first_launch_time_millis">first_launch_time_millis</string>
+    <string name="preference_key_first_liked">first_liked</string>
+    <string name="preference_key_first_logged_in">first_logged_in</string>
+    <string name="preference_key_follow_work_filter_restrict">follow_work_filter_restrict</string>
+    <string name="preference_key_force_liked">force_liked</string>
+    <string name="preference_key_force_liked_illust_ids">force_liked_illust_ids</string>
+    <string name="preference_key_has_logged_in">has_logged_in</string>
+    <string name="preference_key_has_pending_premium_registration">has_pending_premium_registration</string>
+    <string name="preference_key_last_get_emoji_time_millis">last_get_emoji_time_millis</string>
+    <string name="preference_key_last_login_time_millis">last_login_time_millis</string>
+    <string name="preference_key_latest_nps_id">latest_nps_id</string>
+    <string name="preference_key_launch_count">launch_count</string>
+    <string name="preference_key_launch_count_after_renewal">launch_count_after_renewal</string>
+    <string name="preference_key_like_count">like_count</string>
+    <string name="preference_key_live_heart_request_sent_placeholder">preference_key_live_heart_request_sent:%s</string>
+    <string name="preference_key_logged_in_from_old_app">logged_in_from_old_app</string>
+    <string name="preference_key_logged_in_from_signup">logged_in_from_signup</string>
+    <string name="preference_key_new_from_following_last_notified_date">new_from_following_last_notified_date</string>
+    <string name="preference_key_new_from_following_latest_seen_illust_id">new_from_following_latest_seen_illust_id</string>
+    <string name="preference_key_new_from_following_latest_seen_novel_id">new_from_following_latest_seen_novel_id</string>
+    <string name="preference_key_notification_notify">notification_notify</string>
+    <string name="preference_key_novel_background_color_name">novel_background_color_name</string>
+    <string name="preference_key_novel_font_name">novel_font_name</string>
+    <string name="preference_key_novel_font_size">novel_font_size</string>
+    <string name="preference_key_novel_line_space">novel_line_space</string>
+    <string name="preference_key_preview_message_id">preview_message_id</string>
+    <string name="preference_key_selected_work_type">selected_work_type</string>
+    <string name="preference_key_setting_account">setting_account</string>
+    <string name="preference_key_setting_logout">logout</string>
+    <string name="preference_key_setting_optout">setting_optout</string>
+    <string name="preference_key_setting_point">setting_point</string>
+    <string name="preference_key_setting_profile">setting_profile</string>
+    <string name="preference_key_setting_register_premium">setting_register_premium</string>
+    <string name="preference_key_setting_workspace">setting_workspace</string>
+    <string name="preference_key_should_be_shown_registering_email_address_and_password">should_be_shown_registering_email_address_and_password</string>
+    <string name="preference_key_shown_live_tutorial_yell">shown_live_tutorial_yell</string>
+    <string name="preference_key_shown_live_tutorial_zoom">shown_live_tutorial_zoom</string>
+    <string name="preference_key_shown_rate">shown_rate</string>
+    <string name="preference_key_startup_screen">starup_screen</string>
+    <string name="preference_key_support_copyright">support_copyright</string>
+    <string name="preference_key_support_help">support_help</string>
+    <string name="preference_key_support_law">support_law</string>
+    <string name="preference_key_support_privacy_policy">support_privacy_policy</string>
+    <string name="preference_key_support_terms">support_terms</string>
+    <string name="preference_key_user_topic">user_topic</string>
+    <string name="preference_key_uuid">uuid</string>
+    <string name="preference_key_viewed_confirm_home_scroll_navigation">viewed_confirm_home_scroll_navigation</string>
+    <string name="preference_key_viewed_detail_follow_navigation">viewed_detail_follow_navigation</string>
+    <string name="preference_key_viewed_detail_like_navigation">viewed_detail_like_navigation</string>
+    <string name="preference_key_viewed_first_like_navigation">viewed_first_like_navigation</string>
+    <string name="preference_key_viewed_upload_guideline_dialog">upload_guideline_dialog_showed</string>
+    <string name="preference_key_viewed_walkthrough">viewed_walkthrough</string>
+
+    <string name="point_name">积分</string>
+    <string name="logout">退出</string>
+    <string name="support">客服中心</string>
+    <string name="help">常见问题</string>
+    <string name="terms">服务条款</string>
+    <string name="privacy_policy">隐私政策</string>
+    <string name="copy_right">许可证</string>
+    <string name="act_on_specified_commercial_transactions">关于特定商品交易法</string>
+    <string name="point_label_act_on_settlement">依据资金支付法显示</string>
+
+    <string name="logout_confirm">确定要退出吗？</string>
+    <string name="cancel">取消</string>
+    <string name="set_account_info">设置账号信息</string>
 </resources>

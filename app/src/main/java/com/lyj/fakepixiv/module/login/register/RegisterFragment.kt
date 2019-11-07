@@ -15,12 +15,7 @@ import com.lyj.fakepixiv.databinding.FragmentRegisterBinding
 class RegisterFragment : BackFragment<FragmentRegisterBinding, RegisterViewModel>() {
 
     companion object {
-        fun newInstance(): RegisterFragment {
-            val args = Bundle()
-            val fragment = RegisterFragment()
-            fragment.arguments = args
-            return fragment
-        }
+        fun newInstance() = RegisterFragment()
     }
 
     override var mViewModel: RegisterViewModel = RegisterViewModel()

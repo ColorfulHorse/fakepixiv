@@ -1,11 +1,18 @@
 package com.lyj.fakepixiv.app.adapter
 
+import android.databinding.ViewDataBinding
+import android.support.annotation.IdRes
 import android.support.v7.widget.RecyclerView
+import android.view.ViewGroup
+import android.widget.ImageView
 import com.bumptech.glide.ListPreloader
+import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader
 import com.bumptech.glide.util.ViewPreloadSizeProvider
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.lyj.fakepixiv.GlideApp
+import com.lyj.fakepixiv.R
+import com.lyj.fakepixiv.app.data.model.bean.MultiPreloadItem
 
 /**
  * @author greensun
@@ -14,15 +21,33 @@ import com.lyj.fakepixiv.GlideApp
  *
  * @desc 预加载adapter
  */
-abstract class PreloadMultiBindingAdapter<T : MultiItemEntity>(data: MutableList<T>) : BaseMultiBindingAdapter<T>(data), ListPreloader.PreloadModelProvider<T> {
-    protected val sizeProvider = ViewPreloadSizeProvider<T>()
+abstract class PreloadMultiBindingAdapter<T : MultiPreloadItem>(data: MutableList<T>) : BaseMultiBindingAdapter<T>(data), ListPreloader.PreloadModelProvider<String> {
+    protected val sizeProvider: ListPreloader.PreloadSizeProvider<String> = ViewPreloadSizeProvider<String>()
     // 最大预加载数量
     open protected var maxPreLoad = 10
 
+    open @IdRes val preloadId = R.id.image
+
+    // 是否开启预加载
+    open var usePreload = true
+
     override fun bindToRecyclerView(recyclerView: RecyclerView) {
         super.bindToRecyclerView(recyclerView)
-        val preloader = RecyclerViewPreloader<T>(GlideApp.with(recyclerView),   this, sizeProvider, maxPreLoad)
-        recyclerView.addOnScrollListener(preloader)
+        val preloader = RecyclerViewPreloader<String>(GlideApp.with(recyclerView), this, sizeProvider, maxPreLoad)
+        if (usePreload) {
+            recyclerView.addOnScrollListener(preloader)
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseBindingViewHolder<ViewDataBinding> {
+        val vh = super.onCreateViewHolder(parent, viewType)
+        if (sizeProvider is ViewPreloadSizeProvider) {
+            val image = vh.getView<ImageView>(preloadId)
+            image?.let {
+                sizeProvider.setView(it)
+            }
+        }
+        return vh
     }
 
     /**
@@ -32,17 +57,18 @@ abstract class PreloadMultiBindingAdapter<T : MultiItemEntity>(data: MutableList
         return position
     }
 
-    override fun getPreloadItems(position: Int): MutableList<T> {
-        val realPos = getRealPosition(position);
+    override fun getPreloadItems(position: Int): List<String> {
         if (data.isNotEmpty()) {
-            var end = realPos + 1
-            if (end >= data.size) {
-                end = data.size - 1
-            }
-            if (end > position) {
-                return data.subList(realPos, end)
+            val realPos = getRealPosition(position)
+            if (realPos < data.size - 1) {
+                return data[realPos + 1].getPreloadUrls()
             }
         }
-        return mutableListOf()
+        return listOf()
+    }
+
+    override fun getPreloadRequestBuilder(item: String): RequestBuilder<*>? {
+        return GlideApp.with(mContext)
+                .load(item)
     }
 }

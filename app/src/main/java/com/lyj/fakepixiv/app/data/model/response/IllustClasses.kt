@@ -7,9 +7,11 @@ import android.text.TextUtils
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.R
+import com.lyj.fakepixiv.app.adapter.PreloadModel
 import com.lyj.fakepixiv.app.application.ApplicationLike
 import com.lyj.fakepixiv.app.constant.IllustCategory
 import com.lyj.fakepixiv.app.constant.IllustCategory.*
+import com.lyj.fakepixiv.app.data.model.bean.MultiPreloadItem
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -51,7 +53,9 @@ data class IllustListResp(
 @JsonClass(generateAdapter = true)
 data class IllustResp(val illust: Illust = Illust())
 
-
+/**
+ * 作品
+ */
 //@JsonClass(generateAdapter = true)
 data class Illust(
         var caption: String = "",
@@ -80,7 +84,10 @@ data class Illust(
         val is_mypixiv_only: Boolean = false,
         val is_x_restricted: Boolean = false,
         val x_restrict: Int = 0 // 1 r-18
-) : MultiItemEntity, BaseObservable() {
+) : MultiPreloadItem, BaseObservable() {
+
+    override fun getPreloadUrls(): List<String> = listOf(image_urls.large)
+
     // 收藏
     @get:Bindable
     var is_bookmarked: Boolean = false

@@ -17,6 +17,7 @@ import com.lyj.fakepixiv.GlideApp
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.adapter.BaseBindingAdapter
 import com.lyj.fakepixiv.app.adapter.BaseBindingViewHolder
+import com.lyj.fakepixiv.app.adapter.PreloadBindingAdapter
 import com.lyj.fakepixiv.app.data.model.response.Illust
 import com.lyj.fakepixiv.databinding.ItemHomeIllustBinding
 import com.lyj.fakepixiv.databinding.ItemWallpaperBinding
@@ -28,11 +29,10 @@ import com.lyj.fakepixiv.databinding.ItemWallpaperBinding
  *
  * @desc 登录页图片墙adapter
  */
-class WallpaperAdapter(data: ObservableList<Illust>, val readyCallback: (() -> Unit)) : BaseBindingAdapter<Illust, ItemWallpaperBinding>(R.layout.item_wallpaper, data, BR.illust), ListPreloader.PreloadModelProvider<Illust> {
+class WallpaperAdapter(data: ObservableList<Illust>, val readyCallback: (() -> Unit)) : PreloadBindingAdapter<Illust, ItemWallpaperBinding>(R.layout.item_wallpaper, data, BR.illust) {
     var start = -1
     var end = -1
     private val map = mutableMapOf<Int, Boolean>()
-    var sizeProvider: ViewPreloadSizeProvider<Illust>? = null
 
     override fun convert(helper: BaseBindingViewHolder<ItemWallpaperBinding>, item: Illust) {
 
@@ -68,33 +68,5 @@ class WallpaperAdapter(data: ObservableList<Illust>, val readyCallback: (() -> U
 
             request.into(helper.binding.img)
         }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseBindingViewHolder<ItemWallpaperBinding> {
-        val vh = super.onCreateViewHolder(parent, viewType)
-        sizeProvider?.let {
-            vh.binding?.let {
-                binding -> it.setView(binding.img)
-            }
-        }
-        return vh
-    }
-
-    override fun getPreloadItems(position: Int): MutableList<Illust> {
-        if (data.isNotEmpty()) {
-            var end = position + 1
-            if (end >= data.size) {
-                end = data.size - 1
-            }
-            if (end > position) {
-                return data.subList(position, end)
-            }
-        }
-        return mutableListOf()
-    }
-
-    override fun getPreloadRequestBuilder(item: Illust): RequestBuilder<*>? {
-        val url = item.image_urls.square_medium
-        return Glide.with(mContext).load(url)
     }
 }

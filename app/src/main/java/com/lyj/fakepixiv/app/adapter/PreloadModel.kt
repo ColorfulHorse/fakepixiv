@@ -5,7 +5,7 @@ package com.lyj.fakepixiv.app.adapter
  *
  * @date 2019/8/6
  *
- * @desc
+ * @desc 预加载模型
  */
 interface PreloadModel {
     fun getPreloadUrls(): List<String>

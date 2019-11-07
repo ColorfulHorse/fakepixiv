@@ -72,6 +72,10 @@ fun Fragment.finish() {
     this.activity?.finish()
 }
 
+fun <T> Fragment.startActivity(cls: Class<T>) {
+    this.startActivity(Intent(activity, cls))
+}
+
 /**
  * 简单封装请求网络
  */

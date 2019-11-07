@@ -49,6 +49,7 @@ class NovelSeriesFragment : BackFragment<FragmentNovelSeriesBinding, NovelSeries
 
         with(mBinding) {
             val adapter = IllustAdapter(mViewModel.data, true).apply {
+                usePreload = false
                 addItemType(Illust.TYPE_NOVEL, R.layout.item_series_novel, BR.data)
                 addItemType(Illust.TYPE_ILLUST, R.layout.item_series_novel, BR.data)
             }
@@ -65,7 +66,7 @@ class NovelSeriesFragment : BackFragment<FragmentNovelSeriesBinding, NovelSeries
             }
             val layoutManager = LinearLayoutManager(mActivity)
             recyclerView.layoutManager = layoutManager
-            recyclerView.adapter = adapter
+            adapter.bindToRecyclerView(recyclerView)
             recyclerView.addItemDecoration(DividerItemDecoration(mActivity, LinearLayoutManager.VERTICAL))
         }
         mViewModel.load()

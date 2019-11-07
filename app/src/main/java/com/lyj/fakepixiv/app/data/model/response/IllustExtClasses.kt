@@ -3,6 +3,7 @@ package com.lyj.fakepixiv.app.data.model.response
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.lyj.fakepixiv.BR
+import com.lyj.fakepixiv.app.data.model.bean.MultiPreloadItem
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -23,18 +24,32 @@ data class CommentListResp(
     val next_url: String = ""
 )
 
+@JsonClass(generateAdapter = true)
 data class CommentResp(
     val comment: Comment = Comment()
 )
 
-@JsonClass(generateAdapter = true)
+//@JsonClass(generateAdapter = true)
 data class Comment(
     val comment: String = "",
     val date: String = "",
     val has_replies: Boolean = false,
     val id: Int = 0,
-    val user: User = User()
-)
+    val user: User = User(),
+    val type: Int = 0
+): MultiPreloadItem {
+
+    companion object {
+        // 回复
+        const val COMMENT = 0
+        // 评论
+        const val APPLY = 1
+    }
+    override fun getItemType(): Int = type
+
+    override fun getPreloadUrls(): List<String> = listOf(user.profile_image_urls.medium)
+
+}
 
 @JsonClass(generateAdapter = true)
 data class BookMarkResp(

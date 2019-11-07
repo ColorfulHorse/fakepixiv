@@ -3,6 +3,7 @@ package com.lyj.fakepixiv.app.data.model.response
 import android.support.annotation.ColorInt
 import android.support.v4.content.ContextCompat
 import com.lyj.fakepixiv.R
+import com.lyj.fakepixiv.app.adapter.PreloadModel
 import com.lyj.fakepixiv.app.application.ApplicationLike
 import com.squareup.moshi.JsonClass
 
@@ -38,7 +39,8 @@ data class SpotlightArticle(
         val subcategory_label: String = "",
         val thumbnail: String = "",
         val title: String = ""
-) {
+): PreloadModel {
+    override fun getPreloadUrls(): List<String> = listOf(thumbnail)
 
     companion object {
         const val SPOTLIGHT = "spotlight"

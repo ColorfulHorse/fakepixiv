@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.lyj.fakepixiv.module.illust.detail.items.CommentFooterViewModel"/>
+        <import type="com.lyj.fakepixiv.module.illust.detail.items.CommentListViewModel"/>
         <variable
             name="vm"
-            type="com.lyj.fakepixiv.module.illust.detail.items.CommentFooterViewModel"/>
+            type="com.lyj.fakepixiv.module.illust.detail.items.CommentListViewModel"/>
     </data>
 
     <LinearLayout
@@ -37,7 +37,7 @@
                 android:id="@+id/avatar"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                app:url="@{vm.parent.illust.user.profile_image_urls.medium}"
+                app:url="@{vm.illust.user.profile_image_urls.medium}"
                 app:placeHolder="@{@drawable/no_profile}"
                 app:circle="@{true}"
                 />
@@ -58,7 +58,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="false"
-            android:visibility="gone"                     app:visible="@{!vm.noneData}"
+            android:visibility="gone"
+            app:visible="@{!vm.noneData}"
             />
 
         <TextView
@@ -71,20 +72,23 @@
             android:paddingBottom="16dp"
             android:text="@string/no_comment"
             android:textColor="@color/font_color_gray"
-            android:visibility="gone"                     app:visible="@{vm.noneData}" />
+            android:visibility="gone"
+            app:visible="@{vm.noneData}" />
 
         <View
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:background="@color/bg_item"
-            android:visibility="gone"                     app:visible="@{vm.showMore}" />
+            android:visibility="gone"
+            app:visible="@{vm.showMore}" />
 
         <LinearLayout
             android:id="@+id/more"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:visibility="gone"                     app:visible="@{vm.showMore}">
+            android:visibility="gone"
+            app:visible="@{vm.showMore}">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

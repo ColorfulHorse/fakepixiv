@@ -16,7 +16,7 @@ import kotlin.reflect.full.memberProperties
 object Vers {
     const val kotlin_version = "1.3.30"
     const val gradle_version = "3.2.1"
-    const val support_version = "28.0.0"
+    const val support_version = "28.0.0-alpha1"
     const val rxJava_version = "2.2.4"
     const val rxKt_version = "2.3.0"
     const val coroutine_version = "1.3.0-M2"
@@ -29,6 +29,7 @@ object Vers {
     const val butterKnife_version = "9.0.0-rc3"
     const val fragmentation_version = "1.3.6"
     const val tinker_version = "1.9.14.3"
+    const val dialogs_version = "3.1.1"
 }
 
 
@@ -39,6 +40,7 @@ annotation class DepMode(val value: String)
 const val IMPLEMENTATION = "implementation"
 const val API = "api"
 const val COMPILE_ONLY = "compileOnly"
+const val DEBUG_IMPLEMENTATION = "debugImplementation"
 const val KAPT = "kapt"
 const val APT = "annotationProcessor"
 
@@ -49,9 +51,11 @@ object Deps : DepGroup() {
 
     object Support : DepGroup() {
 
-        const val v7 = "com.android.support:support-annotations:${Vers.support_version}"
+        const val preference = "com.android.support:preference-v7:${Vers.support_version}"
 
-        const val annotation = "com.android.support:appcompat-v7:${Vers.support_version}"
+        const val annotation = "com.android.support:support-annotations:${Vers.support_version}"
+
+        const val v7 = "com.android.support:appcompat-v7:${Vers.support_version}"
 
         const val lifecycle = "android.arch.lifecycle:extensions:1.1.1"
 
@@ -69,6 +73,10 @@ object Deps : DepGroup() {
         const val adapter = "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46"
 
         const val flyco = "com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar"
+
+        object MDDialogs : DepGroup() {
+            const val core = "com.afollestad.material-dialogs:core:${Vers.dialogs_version}"
+        }
     }
 
     object Reactive : DepGroup() {
@@ -134,6 +142,9 @@ object Deps : DepGroup() {
         const val immersionbar = "com.gyf.immersionbar:immersionbar:2.3.2"
 
         const val fragmentation_core = "me.yokeyword:fragmentation-core:${Vers.fragmentation_version}"
+
+        @DepMode(DEBUG_IMPLEMENTATION)
+        const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.0-beta-3"
 
         object moshiKotlin : Dep("com.squareup.moshi:moshi-kotlin:${Vers.moshi_version}",
                 "com.squareup.moshi:moshi-kotlin-codegen:${Vers.moshi_version}")

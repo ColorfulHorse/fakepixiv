@@ -23,6 +23,7 @@ class SwitchBaseUrlInterceptor : Interceptor {
             if (header!= null) {
                 val urlStr = when (header[0]) {
                     Constant.Net.TAG_AUTH -> Constant.Net.AUTH_URL
+                    Constant.Net.TAG_ACCOUNT -> Constant.Net.AUTH_URL
                     else -> Constant.Net.BASE_URL
                 }
                 val url = HttpUrl.parse(urlStr)

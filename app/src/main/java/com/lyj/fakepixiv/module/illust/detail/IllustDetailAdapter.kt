@@ -130,9 +130,4 @@ class IllustDetailAdapter(val viewModel: IllustDetailViewModel) : IllustAdapter(
         return super.isFixedViewType(type) or (type == Illust.TYPE_META) or (type == LAYOUT_DESC) or (type == LAYOUT_SERIES) or (type == LAYOUT_USER) or (type == LAYOUT_COMMENT) or (type == LAYOUT_RELATED_CAPTION)
     }
 
-
-    override fun getPreloadRequestBuilder(item: Illust): RequestBuilder<Drawable>? =
-            GlideApp.with(mContext)
-                    .load(item.image_urls.large)
-
 }

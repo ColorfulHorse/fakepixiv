@@ -1,6 +1,8 @@
 package com.lyj.fakepixiv.module.login.login
 
 import android.os.Bundle
+import android.preference.PreferenceFragment
+import android.support.v7.preference.PreferenceFragmentCompat
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.FragmentationFragment
 import com.lyj.fakepixiv.app.databinding.onPropertyChangedCallback
@@ -38,7 +40,6 @@ class LoginFragment : FragmentationFragment<FragmentLoginBinding, LoginViewModel
         btn_register.setOnClickListener {
             start(RegisterFragment.newInstance())
         }
-
         with(mViewModel) {
             loginState.addOnPropertyChangedCallback(onPropertyChangedCallback {
                 _, _ ->
@@ -46,7 +47,7 @@ class LoginFragment : FragmentationFragment<FragmentLoginBinding, LoginViewModel
                     is LoadState.Loading -> showLoadingDialog()
                     is LoadState.Succeed -> {
                         hideLoadingDialog()
-                        mActivity.startActivity(MainActivity::class.java)
+                        startActivity(MainActivity::class.java)
                         finish()
                     }
                     is LoadState.Failed -> {

@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <import type="com.lyj.fakepixiv.module.login.register.RegisterViewModel"/>
+        <import type="com.lyj.fakepixiv.app.network.LoadState"/>
+        <import type="android.text.TextUtils"/>
         <variable
             name="vm"
             type="RegisterViewModel"/>
@@ -46,6 +48,8 @@
                     android:hint="@string/login_hint_nick"
                     android:maxLines="1"
                     android:inputType="text"
+                    android:text="@={vm.userName}"
+                    android:enabled="@{!(vm.loadState instanceof LoadState.Loading)}"
                     />
             </android.support.design.widget.TextInputLayout>
 
@@ -53,13 +57,15 @@
                 android:id="@+id/btn_register"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="@drawable/shape_btn_disable"
+                android:background="@drawable/selector_btn_primary"
                 android:text="@string/btn_start"
                 android:gravity="center"
                 android:textSize="14sp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:layout_marginTop="16dp"
+                android:enabled="@{!TextUtils.isEmpty(vm.userName) &amp;&amp; !(vm.loadState instanceof LoadState.Loading)}"
+                android:onClick="@{() -> vm.load()}"
                 />
 
         </LinearLayout>
@@ -101,7 +107,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
-            android:visibility="gone"                     app:visible="@{!vm.keyboardOpened}"
+            android:visibility="gone"
+            app:visible="@{!vm.keyboardOpened}"
             />
     </android.support.constraint.ConstraintLayout>
 </layout>

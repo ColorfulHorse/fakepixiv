@@ -83,10 +83,6 @@ class LoginActivity : FragmentationActivity<ActivityLoginBinding, WallpaperViewM
                                 .dividerWidth(3.5f.dp2px(), 3.5f.dp2px())
                                 .build())
                 mAdapter.bindToRecyclerView(recyclerView)
-                val sizeProvider = ViewPreloadSizeProvider<Illust>()
-                mAdapter.sizeProvider = sizeProvider
-                val recyPreloader = RecyclerViewPreloader(this@LoginActivity, mAdapter, sizeProvider, 10)
-                recyclerView.addOnScrollListener(recyPreloader)
             }
         }
     }

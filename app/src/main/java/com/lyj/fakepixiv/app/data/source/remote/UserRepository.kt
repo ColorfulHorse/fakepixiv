@@ -79,6 +79,10 @@ class UserRepository private constructor(){
         }
     }
 
+    suspend fun register(userName: String): Any {
+        return service.register(userName)
+    }
+
     suspend fun getRecommendUsers(): UserPreviewListResp {
         return service
                 .getUserRecommend()

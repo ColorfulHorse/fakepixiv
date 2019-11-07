@@ -2,8 +2,13 @@ package com.lyj.fakepixiv.module.pixivision
 
 import android.databinding.ViewDataBinding
 import android.support.annotation.LayoutRes
+import android.widget.ImageView
+import com.bumptech.glide.util.ViewPreloadSizeProvider
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.adapter.BaseBindingAdapter
+import com.lyj.fakepixiv.app.adapter.BaseBindingViewHolder
+import com.lyj.fakepixiv.app.adapter.PreloadBindingAdapter
+import com.lyj.fakepixiv.app.adapter.UserSizeProvider
 import com.lyj.fakepixiv.app.data.model.response.SpotlightArticle
 import com.lyj.fakepixiv.app.utils.Router
 
@@ -14,7 +19,7 @@ import com.lyj.fakepixiv.app.utils.Router
  *
  * @desc
  */
-class PixivisionAdapter(@LayoutRes layoutId: Int, data: MutableList<SpotlightArticle>, itemBindId: Int) : BaseBindingAdapter<SpotlightArticle, ViewDataBinding>(layoutId, data, itemBindId) {
+class PixivisionAdapter(@LayoutRes layoutId: Int, data: MutableList<SpotlightArticle>, itemBindId: Int) : PreloadBindingAdapter<SpotlightArticle, ViewDataBinding>(layoutId, data, itemBindId) {
     init {
         setOnItemClickListener { adapter, view, position ->
             val item = data[position]

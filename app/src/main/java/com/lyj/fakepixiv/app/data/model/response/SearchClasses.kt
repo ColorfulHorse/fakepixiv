@@ -1,6 +1,7 @@
 package com.lyj.fakepixiv.app.data.model.response
 
 import com.chad.library.adapter.base.entity.MultiItemEntity
+import com.lyj.fakepixiv.app.data.model.bean.MultiPreloadItem
 import com.squareup.moshi.JsonClass
 
 /**
@@ -21,7 +22,9 @@ data class TrendTag(
     val tag: String = "",
     val translated_name: String = "",
     var type: Int = TYPE_NORMAL
-): MultiItemEntity {
+): MultiPreloadItem {
+    override fun getPreloadUrls(): List<String> = listOf(illust.image_urls.large)
+
     companion object {
         const val TYPE_NORMAL = 0
         const val TYPE_HEADER = 1

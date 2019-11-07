@@ -9,7 +9,22 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:progressBarStyle">@style/progress_bar</item>
+
+<!--        <item name="android:icon">@drawable/ic_logo</item>-->
+        <item name="android:colorForeground">#ffe0e0e0</item>
+        <item name="android:textColorPrimary">@color/renewal_font_black</item>
+        <item name="android:textColorSecondary">@color/renewal_font_gray</item>
+        <item name="colorSwitchThumbNormal">#ffd6d6d6</item>
+        <item name="preferenceTheme">@style/preferenceStyle</item>
+
+        <item name="md_corner_radius">4dp</item>
     </style>
+
+    <style name="preferenceStyle" parent="@style/PreferenceThemeOverlay.v14.Material">
+<!--        <item name="android:textColorPrimary">@color/renewal_font_black</item>-->
+<!--        <item name="android:textColorSecondary">@color/renewal_font_gray</item>-->
+    </style>
+
 
     <style name="FullScreen" parent="AppTheme">
         <item name="android:windowFullscreen">true</item>

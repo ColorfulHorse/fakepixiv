@@ -10,11 +10,11 @@
 buildscript {
     val gradleVer by extra("3.2.1")
     repositories {
-        //maven{ url 'http://maven.aliyun.com/nexus/content/repositories/central/'}
+        google()
+        //maven("http://maven.aliyun.com/nexus/content/repositories/central/")
         maven ("https://jitpack.io")
         jcenter()
-        mavenCentral()
-        google()
+        // mavenCentral()
         //maven { url 'https://dl.bintary.com/objectbox/objectbox' }
     }
     dependencies {
@@ -28,12 +28,11 @@ buildscript {
 
 allprojects {
     repositories {
-        //maven{ url 'http://maven.aliyun.com/nexus/content/repositories/central/'}
+        google()
+        //maven("http://maven.aliyun.com/nexus/content/repositories/central/")
         maven ("https://jitpack.io" )
         jcenter()
-        mavenCentral()
-        google()
-        maven ("https://maven.google.com" )
+        //mavenCentral()
     }
 }
 

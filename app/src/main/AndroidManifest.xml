@@ -27,6 +27,7 @@
      <activity android:name="com.lyj.fakepixiv.module.login.LoginActivity"
          android:screenOrientation="portrait"
          android:configChanges="orientation|screenSize"
+         android:launchMode="singleTask"
          />
         <activity
             android:name="com.lyj.fakepixiv.module.main.MainActivity"

@@ -4,6 +4,7 @@
 
     <data>
 
+        <import type="com.lyj.fakepixiv.module.illust.detail.comment.CommentViewModel" />
         <import type="com.lyj.fakepixiv.app.data.model.response.Comment" />
 
         <import type="com.lyj.fakepixiv.app.utils.DateUtil" />
@@ -13,15 +14,18 @@
         <import type="com.lyj.fakepixiv.app.data.source.remote.UserRepository" />
 
         <variable
-            name="data"
-            type="Comment" />
+            name="vm"
+            type="CommentViewModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/bg_general_new"
-        android:tag="layout/view_comment_item_0">
+        android:tag="layout/view_comment_item_0"
+        android:paddingStart='@{(Comment.APPLY == vm.data.type)? 48f : 0f }'
+        android:paddingEnd="0dp"
+        >
 
         <ImageView
             android:id="@+id/avatar"
@@ -31,7 +35,7 @@
             android:layout_marginRight="8dp"
             app:circle="@{true}"
             app:placeHolder="@{@drawable/no_profile}"
-            app:url="@{data.user.profile_image_urls.medium}" />
+            app:url="@{vm.data.user.profile_image_urls.medium}" />
 
         <LinearLayout
             android:id="@+id/container"
@@ -50,7 +54,7 @@
                     android:id="@+id/nickName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{data.user.name}"
+                    android:text="@{vm.data.user.name}"
                     android:textColor="@color/detail_title_black"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -78,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="4sp"
                 android:lineSpacingMultiplier="1.0"
-                android:text="@{data.comment}"
+                android:text="@{vm.data.comment}"
                 android:textColor="@color/renewal_font_black"
                 android:textSize="12sp" />
 
@@ -94,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:text="@{DateUtil.format(data.date)}"
+                    android:text="@{DateUtil.format(vm.data.date)}"
                     android:textColor="@color/gray_text"
                     android:textSize="12sp" />
 
@@ -122,7 +126,7 @@
                     android:textColor="@color/gray_text"
                     android:textSize="12sp"
                     android:visibility="gone"
-                    app:visible="@{TextUtils.equals(UserRepository.instance.loginData.user.id, data.user.id)}" />
+                    app:visible="@{TextUtils.equals(UserRepository.instance.loginData.user.id, vm.data.user.id)}" />
 
                 <TextView
                     android:id="@+id/remove"
@@ -133,7 +137,7 @@
                     android:textColor="@color/blue_text"
                     android:textSize="12sp"
                     android:visibility="gone"
-                    app:visible="@{TextUtils.equals(UserRepository.instance.loginData.user.id, data.user.id)}" />
+                    app:visible="@{TextUtils.equals(UserRepository.instance.loginData.user.id, vm.data.user.id)}" />
             </LinearLayout>
         </LinearLayout>
 
@@ -153,7 +157,7 @@
             android:paddingBottom="10dp"
             android:text="@string/see_reply"
             android:visibility="gone"
-            app:visible="@{data.has_replies}"
+            app:visible="@{vm.data.has_replies}"
             />
     </RelativeLayout>
 </layout>

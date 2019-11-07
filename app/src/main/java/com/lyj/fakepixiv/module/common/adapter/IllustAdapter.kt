@@ -31,15 +31,6 @@ open class IllustAdapter(data: MutableList<Illust>, val likeButton: Boolean = tr
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseBindingViewHolder<ViewDataBinding> {
-        val vh = super.onCreateViewHolder(parent, viewType)
-        val image = vh.getView<ImageView>(R.id.image)
-        image?.let {
-            sizeProvider.setView(it)
-        }
-        return vh
-    }
-
     override fun convert(helper: BaseBindingViewHolder<ViewDataBinding>, item: Illust) {
         super.convert(helper, item)
         val button = helper.getView<LikeButton>(R.id.like)
@@ -68,9 +59,4 @@ open class IllustAdapter(data: MutableList<Illust>, val likeButton: Boolean = tr
     override fun isFixedViewType(type: Int): Boolean {
         return super.isFixedViewType(type) or (type == Illust.TYPE_META)
     }
-
-
-    override fun getPreloadRequestBuilder(item: Illust): RequestBuilder<Drawable>? =
-            GlideApp.with(mContext)
-            .load(item.image_urls.medium)
 }

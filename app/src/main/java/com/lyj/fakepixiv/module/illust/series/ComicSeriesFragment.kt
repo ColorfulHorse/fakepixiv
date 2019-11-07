@@ -66,7 +66,7 @@ class ComicSeriesFragment : BackFragment<FragmentComicSeriseBinding, ComicSeries
             }
             val layoutManager = GridLayoutManager(mActivity, 2)
             recyclerView.layoutManager = layoutManager
-            recyclerView.adapter = adapter
+            adapter.bindToRecyclerView(recyclerView)
             recyclerView.addItemDecoration(CommonItemDecoration.Builder()
                     .dividerWidth(10.dp2px(), 10.dp2px())
                     .edge(0, 16.dp2px())
