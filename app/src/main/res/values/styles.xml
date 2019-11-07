@@ -17,7 +17,7 @@
         <item name="colorSwitchThumbNormal">#ffd6d6d6</item>
         <item name="preferenceTheme">@style/preferenceStyle</item>
 
-        <item name="md_corner_radius">4dp</item>
+<!--        <item name="md_corner_radius">4dp</item>-->
     </style>
 
     <style name="preferenceStyle" parent="@style/PreferenceThemeOverlay.v14.Material">

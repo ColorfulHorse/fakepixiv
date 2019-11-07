@@ -74,9 +74,9 @@ object Deps : DepGroup() {
 
         const val flyco = "com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar"
 
-        object MDDialogs : DepGroup() {
-            const val core = "com.afollestad.material-dialogs:core:${Vers.dialogs_version}"
-        }
+//        object MDDialogs : DepGroup() {
+//            const val core = "com.afollestad.material-dialogs:core:${Vers.dialogs_version}"
+//        }
     }
 
     object Reactive : DepGroup() {
