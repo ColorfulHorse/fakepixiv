@@ -18,8 +18,8 @@ import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.BasePreferenceFragment
 import com.lyj.fakepixiv.app.utils.SPUtil
 import com.lyj.fakepixiv.module.login.LoginActivity
-import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_settings.view.*
+import kotlinx.android.synthetic.main.fragment_settings.*
 
 /**
  * @author green sun

@@ -14,7 +14,7 @@ import kotlin.reflect.full.memberProperties
  */
 
 object Vers {
-    const val kotlin_version = "1.3.30"
+    const val kotlin_version = "1.3.50"
     const val gradle_version = "3.2.1"
     const val support_version = "28.0.0-alpha1"
     const val rxJava_version = "2.2.4"

@@ -14,7 +14,7 @@ buildscript {
         //maven("http://maven.aliyun.com/nexus/content/repositories/central/")
         maven ("https://jitpack.io")
         jcenter()
-        // mavenCentral()
+         mavenCentral()
         //maven { url 'https://dl.bintary.com/objectbox/objectbox' }
     }
     dependencies {
@@ -32,7 +32,7 @@ allprojects {
         //maven("http://maven.aliyun.com/nexus/content/repositories/central/")
         maven ("https://jitpack.io" )
         jcenter()
-        //mavenCentral()
+        mavenCentral()
     }
 }
 
