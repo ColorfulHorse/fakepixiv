@@ -1,6 +1,6 @@
 package com.beloo.widget.chipslayoutmanager.layouter.placer;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 class DisappearingPlacerFactory implements IPlacerFactory {
 

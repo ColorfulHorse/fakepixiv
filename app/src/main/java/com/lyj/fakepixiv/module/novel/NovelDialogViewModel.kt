@@ -1,6 +1,6 @@
 package com.lyj.fakepixiv.module.novel
 
-import android.databinding.Bindable
+import androidx.databinding.Bindable
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.app.base.BaseViewModel
 

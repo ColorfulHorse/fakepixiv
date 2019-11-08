@@ -1,11 +1,11 @@
 package com.lyj.fakepixiv.app.base
 
 import android.app.Activity
-import android.databinding.ViewDataBinding
+import androidx.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
 import android.view.View
 import android.view.animation.Animation
+import androidx.fragment.app.FragmentActivity
 import me.yokeyword.fragmentation.ExtraTransaction
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragmentDelegate

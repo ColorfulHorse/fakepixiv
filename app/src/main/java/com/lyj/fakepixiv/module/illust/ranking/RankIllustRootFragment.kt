@@ -3,8 +3,8 @@ package com.lyj.fakepixiv.module.illust.ranking
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.support.v7.graphics.drawable.DrawerArrowDrawable
-import com.gyf.barlibrary.ImmersionBar
+import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
+import com.gyf.immersionbar.ImmersionBar
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.adapter.CommonFragmentAdapter
 import com.lyj.fakepixiv.app.base.BackFragment

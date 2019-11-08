@@ -3,10 +3,10 @@ package com.lyj.fakepixiv.module.user.following
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.support.v7.graphics.drawable.DrawerArrowDrawable
+import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
-import com.gyf.barlibrary.ImmersionBar
+import com.gyf.immersionbar.ImmersionBar
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.BackFragment
 import com.lyj.fakepixiv.app.base.BaseViewModel

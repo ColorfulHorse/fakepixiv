@@ -9,12 +9,12 @@
             name="vm"
             type="RegisterViewModel"/>
     </data>
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#4d000000"
         >
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
@@ -36,11 +36,11 @@
             android:background="@drawable/shape_login_panel"
             android:padding="14dp"
             >
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.tabs.TabLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 >
-                <android.support.design.widget.TextInputEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_userName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -51,7 +51,7 @@
                     android:text="@={vm.userName}"
                     android:enabled="@{!(vm.loadState instanceof LoadState.Loading)}"
                     />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.tabs.TabLayout>
 
             <Button
                 android:id="@+id/btn_register"
@@ -110,5 +110,5 @@
             android:visibility="gone"
             app:visible="@{!vm.keyboardOpened}"
             />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

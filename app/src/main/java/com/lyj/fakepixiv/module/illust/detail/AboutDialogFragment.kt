@@ -1,13 +1,14 @@
 package com.lyj.fakepixiv.module.illust.detail
 
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.design.widget.BottomSheetBehavior
-import android.support.design.widget.BottomSheetDialogFragment
+
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.utils.screenHeight
 import com.lyj.fakepixiv.databinding.DialogDetailBottomBinding
@@ -78,7 +79,7 @@ class AboutDialogFragment : BottomSheetDialogFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        dialog.setOnKeyListener { dialog, keyCode, event ->
+        dialog?.setOnKeyListener { dialog, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_BACK) {
                 if (event.action == KeyEvent.ACTION_DOWN) {
                     bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
@@ -87,7 +88,7 @@ class AboutDialogFragment : BottomSheetDialogFragment() {
             }
             false
         }
-        val view = dialog.window.findViewById<View>(android.support.design.R.id.design_bottom_sheet)
+        val view = dialog?.window?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
         (view as ViewGroup).let {
             it.descendantFocusability = ViewGroup.FOCUS_BLOCK_DESCENDANTS
             it.isFocusable = true

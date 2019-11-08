@@ -3,7 +3,7 @@
     <data>
 
     </data>
-    <android.support.v4.widget.DrawerLayout
+    <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,5 +17,5 @@
             android:id="@+id/nav"
             layout="@layout/include_main_nav"
             />
-    </android.support.v4.widget.DrawerLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

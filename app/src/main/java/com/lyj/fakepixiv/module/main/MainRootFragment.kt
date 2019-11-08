@@ -1,12 +1,12 @@
 package com.lyj.fakepixiv.module.main
 
 import android.os.Bundle
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.ActionBarDrawerToggle
+import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.View
+import androidx.drawerlayout.widget.DrawerLayout
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
-import com.gyf.barlibrary.ImmersionBar
+import com.gyf.immersionbar.ImmersionBar
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.BaseViewModel
 import com.lyj.fakepixiv.app.base.FragmentationFragment
@@ -87,6 +87,9 @@ class MainRootFragment : FragmentationFragment<MainRoot, BaseViewModel?>() {
         newsFragment?.let { fragments.add(it) }
         searchFragment?.let { fragments.add(it) }
 
+//        with(mBinding) {
+//
+//        }
         mBinding.tabLayout.setTabData(tabs)
         (0 until fragments.size).filterNot {
             it == prePosition

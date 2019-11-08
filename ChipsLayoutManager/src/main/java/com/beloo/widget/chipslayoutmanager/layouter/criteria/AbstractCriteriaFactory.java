@@ -1,6 +1,6 @@
 package com.beloo.widget.chipslayoutmanager.layouter.criteria;
 
-import android.support.annotation.IntRange;
+import androidx.annotation.IntRange;
 
 public abstract class AbstractCriteriaFactory implements ICriteriaFactory {
     int additionalLength;

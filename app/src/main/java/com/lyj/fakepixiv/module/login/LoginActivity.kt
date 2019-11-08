@@ -1,13 +1,13 @@
 package com.lyj.fakepixiv.module.login
 
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.animation.LinearInterpolator
 import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader
 import com.bumptech.glide.util.ViewPreloadSizeProvider
-import com.gyf.barlibrary.ImmersionBar
+import com.gyf.immersionbar.ImmersionBar
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.FragmentationActivity
 import com.lyj.fakepixiv.app.data.model.response.Illust
@@ -92,6 +92,5 @@ class LoginActivity : FragmentationActivity<ActivityLoginBinding, WallpaperViewM
 
     override fun onDestroy() {
         super.onDestroy()
-        ImmersionBar.with(this).destroy()
     }
 }

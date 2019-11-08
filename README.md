@@ -29,6 +29,9 @@
 #### 2019-10-31
 - 集成tinker
 
+#### 2019-11-8
+- 升级到AndroidX
+
 #### todo list
 - pixivision webView 完善
 - 详情页评论

@@ -1,6 +1,6 @@
 package com.beloo.widget.chipslayoutmanager.layouter;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 public interface IMeasureSupporter {
     void onItemsRemoved(RecyclerView recyclerView);

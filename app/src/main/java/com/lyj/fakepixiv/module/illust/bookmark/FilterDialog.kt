@@ -1,8 +1,8 @@
 package com.lyj.fakepixiv.module.illust.bookmark
 
-import android.databinding.ViewDataBinding
+import androidx.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.WindowManager
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.lyj.fakepixiv.BR
@@ -52,10 +52,10 @@ class FilterDialog : BaseDialogFragment<DialogStarFilterBinding, FilterViewModel
     }
 
     override fun init(savedInstanceState: Bundle?) {
-        val lp = dialog.window.attributes
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
-        dialog.window.attributes = lp
+        val lp = dialog?.window?.attributes
+        lp?.width = WindowManager.LayoutParams.MATCH_PARENT
+        lp?.height = WindowManager.LayoutParams.WRAP_CONTENT
+        dialog?.window?.attributes = lp
         arguments?.let {
             val category = it.getString(EXTRA_CATEGORY, IllustCategory.ILLUST)
             var publicTag = it.getString(EXTRA_PUBLIC_TAG, "")

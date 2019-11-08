@@ -1,7 +1,7 @@
 package com.lyj.fakepixiv.module.common.adapter
 
-import android.databinding.ObservableList
-import android.databinding.ViewDataBinding
+import androidx.databinding.ObservableList
+import androidx.databinding.ViewDataBinding
 import android.graphics.drawable.Drawable
 import android.view.ViewGroup
 import com.bumptech.glide.RequestBuilder

@@ -15,17 +15,17 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
             />
-        <android.support.design.widget.CoordinatorLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/contentView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
-            <android.support.design.widget.AppBarLayout
+            <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 >
-                <android.support.v7.widget.Toolbar
+                <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     style="@style/base_toolbar"
                     app:layout_scrollFlags="scroll|enterAlways|snap"
@@ -41,8 +41,8 @@
                         android:maxLines="1"
                         android:ellipsize="end"
                         />
-                </android.support.v7.widget.Toolbar>
-            </android.support.design.widget.AppBarLayout>
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.AppBarLayout>
 
             <LinearLayout
                 android:id="@+id/container"
@@ -65,6 +65,6 @@
                     android:layout_height="match_parent"
                     />
             </LinearLayout>
-        </android.support.design.widget.CoordinatorLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </FrameLayout>
 </layout>

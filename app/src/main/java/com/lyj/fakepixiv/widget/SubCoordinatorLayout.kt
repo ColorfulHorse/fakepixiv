@@ -1,13 +1,13 @@
 package com.lyj.fakepixiv.widget
 
 import android.content.Context
-import android.support.annotation.AttrRes
-import android.support.design.widget.CoordinatorLayout
-import android.support.v4.view.NestedScrollingChild2
-import android.support.v4.view.NestedScrollingChildHelper
-import android.support.v4.view.ViewCompat
+import androidx.annotation.AttrRes
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.view.NestedScrollingChild2
+import androidx.core.view.NestedScrollingChildHelper
+import androidx.core.view.ViewCompat
 
 /**
  * @author greensun

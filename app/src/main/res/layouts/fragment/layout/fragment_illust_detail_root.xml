@@ -13,7 +13,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
@@ -25,7 +25,7 @@
             app:visible="@{vm.toolbarVisibility &amp;&amp; !(vm.detailState instanceof LoadState.Loading)}"
             >
             <!--android:background="@drawable/gradient_toolbar"-->
-            <android.support.v7.widget.Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -51,7 +51,7 @@
                         android:text='@{vm.current+"/"+vm.total}'
                         />
                 </RelativeLayout>
-            </android.support.v7.widget.Toolbar>
+            </androidx.appcompat.widget.Toolbar>
         </RelativeLayout>
     </RelativeLayout>
 </layout>

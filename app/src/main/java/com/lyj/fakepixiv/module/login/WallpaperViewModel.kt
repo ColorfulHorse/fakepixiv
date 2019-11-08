@@ -1,8 +1,8 @@
 package com.lyj.fakepixiv.module.login
 
-import android.arch.lifecycle.LifecycleOwner
-import android.databinding.ObservableArrayList
-import android.databinding.ObservableField
+import androidx.lifecycle.LifecycleOwner
+import androidx.databinding.ObservableArrayList
+import androidx.databinding.ObservableField
 import com.lyj.fakepixiv.app.base.BaseViewModel
 import com.lyj.fakepixiv.app.data.model.response.Illust
 import com.lyj.fakepixiv.app.data.source.remote.IllustRepository

@@ -1,7 +1,7 @@
 package com.lyj.fakepixiv.app.base
 
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
+import androidx.fragment.app.DialogFragment
 import android.view.Gravity
 import android.view.WindowManager
 import com.lyj.fakepixiv.R
@@ -22,14 +22,16 @@ open class BottomDialogFragment : DialogFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        dialog.setCanceledOnTouchOutside(true)
-        dialog.window.setBackgroundDrawableResource(R.color.transparent)
-        val lp = dialog.window.attributes as WindowManager.LayoutParams
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
-        lp.gravity = Gravity.BOTTOM
-        lp.dimAmount = 0f
-        lp.windowAnimations = R.style.bottom_sheet_anim
-        dialog.window.attributes = lp
+        dialog?.let {
+            it.setCanceledOnTouchOutside(true)
+            it.window?.setBackgroundDrawableResource(R.color.transparent)
+            val lp = it.window?.attributes as WindowManager.LayoutParams
+            lp.width = WindowManager.LayoutParams.MATCH_PARENT
+            lp.height = WindowManager.LayoutParams.WRAP_CONTENT
+            lp.gravity = Gravity.BOTTOM
+            lp.dimAmount = 0f
+            lp.windowAnimations = R.style.bottom_sheet_anim
+            it.window?.attributes = lp
+        }
     }
 }

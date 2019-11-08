@@ -57,25 +57,25 @@
                 />
         </RelativeLayout>
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="4dp"
             app:cardElevation="0dp"
             android:layout_marginTop="12dp"
             >
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 />
-        </android.support.v7.widget.CardView>
-        <!--<android.support.constraint.ConstraintLayout-->
+        </androidx.cardview.widget.CardView>
+        <!--<androidx.constraintlayout.widget.ConstraintLayout-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="wrap_content"-->
             <!--android:layout_marginTop="12dp"-->
             <!--&gt;-->
-            <!--<android.support.v7.widget.CardView-->
+            <!--<androidx.cardview.widget.CardView-->
                 <!--android:layout_width="0dp"-->
                 <!--android:layout_height="0dp"-->
                 <!--app:layout_constraintStart_toStartOf="parent"-->
@@ -86,13 +86,13 @@
                 <!--app:cardCornerRadius="4dp"-->
                 <!--app:cardElevation="0dp"-->
                 <!--&gt;-->
-                <!--<android.support.v7.widget.RecyclerView-->
+                <!--<androidx.recyclerview.widget.RecyclerView-->
                     <!--android:id="@+id/recyclerView"-->
                     <!--android:layout_width="match_parent"-->
                     <!--android:layout_height="match_parent"-->
                     <!--/>-->
-            <!--</android.support.v7.widget.CardView>-->
-        <!--</android.support.constraint.ConstraintLayout>-->
+            <!--</androidx.cardview.widget.CardView>-->
+        <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
         <TextView
             android:id="@+id/userPreview"
             android:layout_width="wrap_content"

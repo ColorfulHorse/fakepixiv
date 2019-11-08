@@ -1,9 +1,9 @@
 package com.lyj.fakepixiv.module.illust.detail
 
 import android.os.Bundle
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 import android.view.ViewGroup
-import com.gyf.barlibrary.ImmersionBar
+import com.gyf.immersionbar.ImmersionBar
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.BackFragment
 import com.lyj.fakepixiv.app.constant.EXTRA_ID

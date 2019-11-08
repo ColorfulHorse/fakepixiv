@@ -6,7 +6,7 @@ import android.net.http.SslError
 import android.os.Bundle
 import android.view.View
 import android.webkit.*
-import com.gyf.barlibrary.ImmersionBar
+import com.gyf.immersionbar.ImmersionBar
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.BackFragment
 import com.lyj.fakepixiv.app.base.BaseViewModel

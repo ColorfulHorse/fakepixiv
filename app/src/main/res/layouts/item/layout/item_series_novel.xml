@@ -18,7 +18,7 @@
         android:background="@android:color/white"
         android:foreground="?selectableItemBackground">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
@@ -114,7 +114,7 @@
                 app:layout_constraintTop_toBottomOf="@id/novel_info"
                 android:text="@{data.tagsText}"
                 />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <FrameLayout
             android:layout_width="match_parent"

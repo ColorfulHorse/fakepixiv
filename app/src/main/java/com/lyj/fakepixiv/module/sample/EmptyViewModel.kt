@@ -1,6 +1,6 @@
 package com.lyj.fakepixiv.module.sample
 
-import android.arch.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleOwner
 import com.lyj.fakepixiv.app.base.BaseViewModel
 
 /**

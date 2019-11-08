@@ -1,9 +1,9 @@
 package com.lyj.fakepixiv.app.adapter
 
-import android.databinding.ObservableList
-import android.databinding.ViewDataBinding
-import android.support.annotation.LayoutRes
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.ObservableList
+import androidx.databinding.ViewDataBinding
+import androidx.annotation.LayoutRes
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.lyj.fakepixiv.BR

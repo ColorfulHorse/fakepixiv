@@ -7,7 +7,7 @@
             name="vm"
             type="LoginViewModel"/>
     </data>
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#4d000000"
@@ -30,12 +30,12 @@
                 android:background="@drawable/shape_login_panel"
                 android:padding="10dp"
                 >
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.tabs.TabLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="@{!vm.loading}"
                     >
-                    <android.support.design.widget.TextInputEditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_userName"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -45,15 +45,15 @@
                         android:inputType="text"
                         android:text="@={vm.userName}"
                         />
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.tabs.TabLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.tabs.TabLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:enabled="@{!vm.loading}"
                     >
-                    <android.support.design.widget.TextInputEditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_password"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -63,7 +63,7 @@
                         android:inputType="textPassword"
                         android:text="@={vm.password}"
                         />
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.tabs.TabLayout>
             </LinearLayout>
 
             <Button
@@ -126,5 +126,5 @@
             android:visibility="gone"                     app:visible="@{!vm.keyboardOpened}"
             android:enabled="@{!vm.loading}"
             />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

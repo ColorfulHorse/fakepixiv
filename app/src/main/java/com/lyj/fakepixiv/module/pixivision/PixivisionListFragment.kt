@@ -2,8 +2,8 @@ package com.lyj.fakepixiv.module.pixivision
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import com.gyf.barlibrary.ImmersionBar
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.gyf.immersionbar.ImmersionBar
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.BackFragment

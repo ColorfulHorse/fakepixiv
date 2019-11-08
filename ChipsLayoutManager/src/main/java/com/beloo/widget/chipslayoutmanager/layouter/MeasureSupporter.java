@@ -1,7 +1,7 @@
 package com.beloo.widget.chipslayoutmanager.layouter;
 
-import android.support.annotation.CallSuper;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.CallSuper;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MeasureSupporter extends RecyclerView.AdapterDataObserver implements IMeasureSupporter {
 

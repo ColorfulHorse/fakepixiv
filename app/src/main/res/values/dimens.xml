@@ -13,4 +13,6 @@
     <dimen name="corners_small">4dp</dimen>
     <dimen name="indicator_width">58dp</dimen>
     <dimen name="avatar_small">32dp</dimen>
+    <dimen name="md_action_button_frame_padding">16dp</dimen>
+<!--    <dimen name="md_action_button_frame_padding_first_child">12dp</dimen>-->
 </resources>

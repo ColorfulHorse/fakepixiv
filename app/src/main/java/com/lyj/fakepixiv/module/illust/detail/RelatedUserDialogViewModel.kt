@@ -1,7 +1,7 @@
 package com.lyj.fakepixiv.module.illust.detail
 
-import android.databinding.ObservableArrayList
-import android.databinding.ObservableField
+import androidx.databinding.ObservableArrayList
+import androidx.databinding.ObservableField
 import android.util.SparseBooleanArray
 import com.lyj.fakepixiv.app.base.BaseViewModel
 

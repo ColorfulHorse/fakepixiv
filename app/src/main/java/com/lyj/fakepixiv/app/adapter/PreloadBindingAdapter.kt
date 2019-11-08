@@ -1,9 +1,9 @@
 package com.lyj.fakepixiv.app.adapter
 
-import android.databinding.ViewDataBinding
-import android.support.annotation.IdRes
-import android.support.annotation.LayoutRes
-import android.support.v7.widget.RecyclerView;
+import androidx.databinding.ViewDataBinding
+import androidx.annotation.IdRes
+import androidx.annotation.LayoutRes
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.ListPreloader

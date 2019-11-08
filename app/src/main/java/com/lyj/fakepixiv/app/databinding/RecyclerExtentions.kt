@@ -1,8 +1,8 @@
 package com.lyj.fakepixiv.app.databinding
 
-import android.databinding.ObservableField
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.ObservableField
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.network.LoadState

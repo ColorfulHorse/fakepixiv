@@ -1,6 +1,6 @@
 package com.lyj.fakepixiv.app.data.source.remote
 
-import android.databinding.ObservableField
+import androidx.databinding.ObservableField
 import android.util.SparseArray
 import com.lyj.fakepixiv.app.constant.Constant
 import com.lyj.fakepixiv.app.constant.IllustCategory

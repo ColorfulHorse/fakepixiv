@@ -1,6 +1,6 @@
 package com.beloo.widget.chipslayoutmanager.util.log;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.SparseArray;
 import android.view.View;
 

@@ -77,14 +77,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="300dp">
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_public"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/white"
                 android:visibility="@{vm.pub}"
                 />
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_private"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

@@ -1,27 +1,25 @@
 package com.lyj.fakepixiv.module.setting
 
+
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.graphics.drawable.DrawerArrowDrawable
-import android.support.v7.preference.Preference
-import android.support.v7.preference.PreferenceCategory
-import android.support.v7.preference.PreferenceScreen
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
-import androidx.core.content.ContextCompat.startActivity
+import androidx.core.content.ContextCompat
+import androidx.preference.Preference
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.WhichButton
 import com.afollestad.materialdialogs.actions.getActionButton
-import com.gyf.barlibrary.ImmersionBar
+import com.gyf.immersionbar.ImmersionBar
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.BasePreferenceFragment
 import com.lyj.fakepixiv.app.utils.SPUtil
 import com.lyj.fakepixiv.module.login.LoginActivity
-import kotlinx.android.synthetic.main.fragment_settings.view.*
 import kotlinx.android.synthetic.main.fragment_settings.*
+import kotlinx.android.synthetic.main.fragment_settings.view.*
 
 /**
  * @author green sun
@@ -35,10 +33,9 @@ class SettingsFragment : BasePreferenceFragment() {
     companion object {
         fun newInstance() = SettingsFragment()
     }
-    
+
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.settings_preferences)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -67,18 +64,23 @@ class SettingsFragment : BasePreferenceFragment() {
             }
 
             getString(R.string.preference_key_setting_logout) -> {
-                MaterialDialog(mActivity).show {
-                    getActionButton(WhichButton.NEUTRAL).updateTextColor(R.color.font_color_alert)
-                    negativeButton(R.string.cancel) {
+               MaterialDialog(mActivity).show {
+                    title(R.string.logout_confirm)
+                    message(R.string.message_logout)
+                    negativeButton(R.string.set_account_info) {
 
                     }
-                    neutralButton(R.string.set_account_info) {
+                    neutralButton(R.string.cancel) {
 
                     }
 
                     positiveButton(R.string.logout) {
                         SPUtil.clearLoginData()
                         startActivity(Intent(mActivity, LoginActivity::class.java))
+                    }
+
+                    setOnShowListener {
+                        getActionButton(WhichButton.POSITIVE).updateTextColor(ContextCompat.getColor(mActivity, R.color.font_color_alert))
                     }
                 }
             }

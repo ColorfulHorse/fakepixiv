@@ -1,7 +1,7 @@
 package com.lyj.fakepixiv.app.adapter
 
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import android.view.View
 import com.chad.library.adapter.base.BaseViewHolder
 

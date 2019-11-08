@@ -1,6 +1,6 @@
 package com.lyj.fakepixiv.app.databinding
 
-import android.databinding.Observable
+import androidx.databinding.Observable
 
 /**
  * @author greensun

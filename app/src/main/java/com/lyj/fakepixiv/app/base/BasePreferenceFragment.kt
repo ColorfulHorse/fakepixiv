@@ -3,12 +3,12 @@ package com.lyj.fakepixiv.app.base
 import android.app.Activity
 import android.content.res.Configuration
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
-import android.support.v7.preference.PreferenceFragmentCompat
 import android.view.View
 import android.view.animation.Animation
-import com.gyf.barlibrary.ImmersionOwner
-import com.gyf.barlibrary.ImmersionProxy
+import androidx.fragment.app.FragmentActivity
+import androidx.preference.PreferenceFragmentCompat
+import com.gyf.immersionbar.components.ImmersionOwner
+import com.gyf.immersionbar.components.ImmersionProxy
 import me.yokeyword.fragmentation.ExtraTransaction
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragmentDelegate
@@ -53,6 +53,7 @@ abstract class BasePreferenceFragment: PreferenceFragmentCompat(), ImmersionOwne
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mDelegate.onCreate(savedInstanceState)
+        immersionProxy.onCreate(savedInstanceState)
     }
 
     override fun onCreateAnimation(transit: Int, enter: Boolean, nextAnim: Int): Animation? {
@@ -62,6 +63,7 @@ abstract class BasePreferenceFragment: PreferenceFragmentCompat(), ImmersionOwne
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mDelegate.onActivityCreated(savedInstanceState)
+        immersionProxy.onActivityCreated(savedInstanceState)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -71,8 +73,8 @@ abstract class BasePreferenceFragment: PreferenceFragmentCompat(), ImmersionOwne
 
     override fun onResume() {
         super.onResume()
-        mDelegate.onResume()
         immersionProxy.onResume()
+        mDelegate.onResume()
     }
 
     override fun onPause() {
@@ -92,16 +94,24 @@ abstract class BasePreferenceFragment: PreferenceFragmentCompat(), ImmersionOwne
         super.onDestroy()
     }
 
+    override fun onLazyAfterView() {
+
+    }
+
+    override fun onLazyBeforeView() {
+
+    }
+
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
-        mDelegate.onHiddenChanged(hidden)
         immersionProxy.onHiddenChanged(hidden)
+        mDelegate.onHiddenChanged(hidden)
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
+        immersionProxy.isUserVisibleHint = isVisibleToUser
         mDelegate.setUserVisibleHint(isVisibleToUser)
-        immersionProxy.setUserVisibleHint(isVisibleToUser)
     }
 
     /**
@@ -451,7 +461,7 @@ abstract class BasePreferenceFragment: PreferenceFragmentCompat(), ImmersionOwne
         return SupportHelper.findFragment(childFragmentManager, fragmentClass)
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration?) {
+    override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         immersionProxy.onConfigurationChanged(newConfig)
     }

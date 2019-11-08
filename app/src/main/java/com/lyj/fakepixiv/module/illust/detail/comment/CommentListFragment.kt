@@ -2,7 +2,7 @@ package com.lyj.fakepixiv.module.illust.detail.comment
 
 import android.graphics.ColorSpace
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.BackFragment

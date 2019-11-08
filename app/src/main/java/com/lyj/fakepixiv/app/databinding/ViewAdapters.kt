@@ -1,12 +1,12 @@
 package com.lyj.fakepixiv.app.databinding
 
-import android.databinding.BindingAdapter
-import android.databinding.BindingConversion
-import android.databinding.ObservableField
+import androidx.databinding.BindingAdapter
+import androidx.databinding.BindingConversion
+import androidx.databinding.ObservableField
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
-import android.support.constraint.ConstraintLayout
-import android.support.design.widget.FloatingActionButton
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.text.Html
 import android.view.View
 import android.view.ViewGroup

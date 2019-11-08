@@ -1,7 +1,7 @@
 package com.beloo.widget.chipslayoutmanager.gravity;
 
 import android.graphics.Rect;
-import android.support.annotation.IntRange;
+import androidx.annotation.IntRange;
 
 public interface IGravityModifier {
     /** @return created rect based on modified input rect due to concrete gravity modifier.

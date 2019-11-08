@@ -77,6 +77,8 @@
     <color name="exo_edit_mode_background_color">#fff4f3f0</color>
     <color name="exo_error_message_background_color">#aa000000</color>
     <color name="fab_background_tint">@android:color/white</color>
+    <color name="ripple_dark">#33ffffff</color>
+    <color name="ripple_light">#1f000000</color>
     <color name="font_color_alert">#ffed4838</color>
     <color name="font_color_blue">@color/primary</color>
     <color name="font_color_gray">#ff747474</color>

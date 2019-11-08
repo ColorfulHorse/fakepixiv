@@ -9,7 +9,7 @@
             name="data"
             type="SpotlightArticle"/>
     </data>
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         app:cardPreventCornerOverlap="true"
@@ -101,5 +101,5 @@
                 android:text="@{data.title}"
                 />
         </RelativeLayout>
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 </layout>

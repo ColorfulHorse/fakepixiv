@@ -1,6 +1,6 @@
 package com.lyj.fakepixiv.app.utils
 
-import android.support.v4.app.*
+import androidx.fragment.app.*
 import com.bumptech.glide.manager.SupportRequestManagerFragment
 import com.lyj.fakepixiv.app.base.FragmentationFragment
 import com.lyj.fakepixiv.app.constant.IllustCategory

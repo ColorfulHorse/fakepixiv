@@ -1,7 +1,11 @@
 package com.beloo.widget.chipslayoutmanager;
 
-import android.support.annotation.IntDef;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
 
 @IntDef({ChipsLayoutManager.HORIZONTAL, ChipsLayoutManager.VERTICAL})
+@Retention(RetentionPolicy.SOURCE)
 @interface Orientation {
 }

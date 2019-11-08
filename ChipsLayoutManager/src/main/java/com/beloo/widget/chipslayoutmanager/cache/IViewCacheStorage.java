@@ -2,7 +2,7 @@ package com.beloo.widget.chipslayoutmanager.cache;
 
 import android.graphics.Rect;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Pair;
 import android.view.View;
 

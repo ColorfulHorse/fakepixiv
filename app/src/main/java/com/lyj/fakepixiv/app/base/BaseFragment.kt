@@ -1,19 +1,19 @@
 package com.lyj.fakepixiv.app.base
 
-import android.arch.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleObserver
 import android.content.res.Configuration
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.Toolbar
+import androidx.annotation.LayoutRes
+import androidx.appcompat.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import com.gyf.barlibrary.ImmersionBar
-import com.gyf.barlibrary.ImmersionFragment
+import androidx.core.content.ContextCompat
+import com.gyf.immersionbar.ImmersionBar
+import com.gyf.immersionbar.components.ImmersionFragment
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.application.ApplicationLike
@@ -64,6 +64,9 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel?> : Immersio
 
     override fun onDestroyView() {
         super.onDestroyView()
+        if (immersionBarEnabled()) {
+            ImmersionBar.destroy(this)
+        }
         bindingList.forEach { it.unbind() }
         mBinding.unbind()
     }
@@ -96,7 +99,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel?> : Immersio
         bindingList.add(binding)
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration?) {
+    override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         diffOrientation = !diffOrientation
     }

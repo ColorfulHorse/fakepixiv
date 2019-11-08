@@ -1,14 +1,14 @@
 package com.lyj.fakepixiv.app.base
 
-import android.databinding.ViewDataBinding
+import androidx.databinding.ViewDataBinding
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.support.v7.graphics.drawable.DrawerArrowDrawable
+import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.gyf.barlibrary.ImmersionBar
+import com.gyf.immersionbar.ImmersionBar
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.adapter.BaseBindingAdapter
 import com.lyj.fakepixiv.app.adapter.BaseMultiBindingAdapter

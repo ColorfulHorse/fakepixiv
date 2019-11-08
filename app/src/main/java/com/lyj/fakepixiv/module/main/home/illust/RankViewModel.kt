@@ -1,6 +1,6 @@
 package com.lyj.fakepixiv.module.main.home.illust
 
-import android.databinding.ObservableArrayList
+import androidx.databinding.ObservableArrayList
 import com.lyj.fakepixiv.app.base.BaseViewModel
 
 import com.lyj.fakepixiv.app.data.model.response.Illust
