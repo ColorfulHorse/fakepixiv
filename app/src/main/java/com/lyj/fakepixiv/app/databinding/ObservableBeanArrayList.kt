@@ -1,9 +1,9 @@
 package com.lyj.fakepixiv.app.databinding
 
-import android.databinding.BaseObservable
-import android.databinding.ListChangeRegistry
-import android.databinding.Observable
-import android.databinding.ObservableList
+import androidx.databinding.BaseObservable
+import androidx.databinding.ListChangeRegistry
+import androidx.databinding.Observable
+import androidx.databinding.ObservableList
 import java.util.ArrayList
 
 /**

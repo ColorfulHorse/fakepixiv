@@ -1,13 +1,5 @@
-import Deps.Tinker.lib
-import com.android.build.api.dsl.extension.AndroidExtension
-import com.android.build.gradle.api.AndroidBasePlugin
-import com.android.tools.build.bundletool.model.SigningConfiguration
-import com.android.tools.lint.gradle.api.DelegatingClassLoader
-import com.android.tools.lint.gradle.api.ReflectiveLintRunner
 import com.tencent.tinker.build.gradle.TinkerPatchPlugin
 import com.tencent.tinker.build.gradle.extension.*
-import org.jetbrains.kotlin.cli.js.internal.main
-import java.net.URL
 
 plugins {
     id("com.android.application")

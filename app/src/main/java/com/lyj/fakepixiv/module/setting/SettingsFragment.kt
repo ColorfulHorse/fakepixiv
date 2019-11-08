@@ -2,11 +2,11 @@ package com.lyj.fakepixiv.module.setting
 
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.graphics.drawable.DrawerArrowDrawable
-import android.support.v7.preference.Preference
+import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.preference.Preference
 import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.BasePreferenceFragment
@@ -28,7 +28,6 @@ class SettingsFragment : BasePreferenceFragment() {
     
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.settings_preferences)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

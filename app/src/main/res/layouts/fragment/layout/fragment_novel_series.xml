@@ -8,16 +8,16 @@
             type="com.lyj.fakepixiv.module.novel.series.NovelSeriesViewModel"/>
     </data>
     
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.design.widget.AppBarLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@{vm.loadState instanceof LoadState.Succeed ? @color/transparent : @color/colorPrimary}"
             >
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/toolbar_wrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
                         />
                 </FrameLayout>
 
-                <android.support.v7.widget.Toolbar
+                <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="0dp"
                     android:layout_height="?actionBarSize"
@@ -115,14 +115,14 @@
                             app:visible="@{vm.loadState instanceof LoadState.Succeed}"
                             />
                     </RelativeLayout>
-                </android.support.v7.widget.Toolbar>
-            </android.support.constraint.ConstraintLayout>
-        </android.support.design.widget.AppBarLayout>
-        <android.support.v7.widget.RecyclerView
+                </androidx.appcompat.widget.Toolbar>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             />
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

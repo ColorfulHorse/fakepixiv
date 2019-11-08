@@ -1,7 +1,7 @@
 package com.lyj.fakepixiv.app.data.model.response
 
-import android.databinding.BaseObservable
-import android.databinding.Bindable
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.app.data.model.bean.MultiPreloadItem
 import com.squareup.moshi.Json

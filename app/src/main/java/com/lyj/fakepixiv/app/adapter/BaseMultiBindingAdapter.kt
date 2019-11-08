@@ -1,8 +1,8 @@
 package com.lyj.fakepixiv.app.adapter
 
-import android.databinding.ObservableList
-import android.databinding.ViewDataBinding
-import android.support.annotation.LayoutRes
+import androidx.databinding.ObservableList
+import androidx.databinding.ViewDataBinding
+import androidx.annotation.LayoutRes
 import android.util.SparseIntArray
 import android.view.View
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter

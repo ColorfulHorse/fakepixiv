@@ -1,8 +1,8 @@
 package com.lyj.fakepixiv.module.novel
 
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
+import androidx.fragment.app.DialogFragment
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -93,7 +93,7 @@ class NovelDialogFragment : DialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        dialog.window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-        dialog.window.setGravity(Gravity.CENTER)
+        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        dialog?.window?.setGravity(Gravity.CENTER)
     }
 }

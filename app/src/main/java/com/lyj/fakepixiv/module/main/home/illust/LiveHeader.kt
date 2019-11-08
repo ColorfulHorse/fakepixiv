@@ -1,9 +1,9 @@
 package com.lyj.fakepixiv.module.main.home.illust
 
 import android.content.Context
-import android.databinding.DataBindingUtil
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.PagerSnapHelper
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import android.view.LayoutInflater
 import android.view.View
 import com.lyj.fakepixiv.BR

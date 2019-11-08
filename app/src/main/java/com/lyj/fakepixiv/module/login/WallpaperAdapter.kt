@@ -1,8 +1,8 @@
 package com.lyj.fakepixiv.module.login
 
-import android.databinding.ObservableList
+import androidx.databinding.ObservableList
 import android.graphics.drawable.Drawable
-import android.support.v7.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.ListPreloader

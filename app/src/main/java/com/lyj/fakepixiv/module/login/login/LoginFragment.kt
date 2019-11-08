@@ -1,8 +1,6 @@
 package com.lyj.fakepixiv.module.login.login
 
 import android.os.Bundle
-import android.preference.PreferenceFragment
-import android.support.v7.preference.PreferenceFragmentCompat
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.FragmentationFragment
 import com.lyj.fakepixiv.app.databinding.onPropertyChangedCallback

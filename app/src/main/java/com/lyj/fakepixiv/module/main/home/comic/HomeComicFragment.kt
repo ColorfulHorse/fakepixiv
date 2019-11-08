@@ -1,8 +1,8 @@
 package com.lyj.fakepixiv.module.main.home.comic
 
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
 import com.lyj.fakepixiv.GlideApp
 import com.lyj.fakepixiv.R

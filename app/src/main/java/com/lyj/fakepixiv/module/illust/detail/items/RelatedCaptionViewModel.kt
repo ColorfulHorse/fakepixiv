@@ -1,6 +1,6 @@
 package com.lyj.fakepixiv.module.illust.detail.items
 
-import android.databinding.ObservableField
+import androidx.databinding.ObservableField
 import com.lyj.fakepixiv.app.base.BaseViewModel
 
 import com.lyj.fakepixiv.module.illust.detail.IllustDetailViewModel

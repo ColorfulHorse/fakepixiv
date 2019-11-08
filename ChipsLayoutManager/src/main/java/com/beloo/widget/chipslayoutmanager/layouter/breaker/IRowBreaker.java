@@ -1,6 +1,6 @@
 package com.beloo.widget.chipslayoutmanager.layouter.breaker;
 
-import android.support.annotation.IntRange;
+import androidx.annotation.IntRange;
 
 /** determines whether LM should break row from view position  */
 public interface IRowBreaker {

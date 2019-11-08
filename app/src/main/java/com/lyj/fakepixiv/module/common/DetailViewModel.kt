@@ -1,7 +1,7 @@
 package com.lyj.fakepixiv.module.common
 
-import android.databinding.Bindable
-import android.databinding.ObservableField
+import androidx.databinding.Bindable
+import androidx.databinding.ObservableField
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.app.base.BaseViewModel
 

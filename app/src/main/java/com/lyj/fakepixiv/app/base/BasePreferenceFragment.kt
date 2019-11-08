@@ -3,10 +3,10 @@ package com.lyj.fakepixiv.app.base
 import android.app.Activity
 import android.content.res.Configuration
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
-import android.support.v7.preference.PreferenceFragmentCompat
 import android.view.View
 import android.view.animation.Animation
+import androidx.fragment.app.FragmentActivity
+import androidx.preference.PreferenceFragmentCompat
 import com.gyf.barlibrary.ImmersionOwner
 import com.gyf.barlibrary.ImmersionProxy
 import me.yokeyword.fragmentation.ExtraTransaction
@@ -451,7 +451,7 @@ abstract class BasePreferenceFragment: PreferenceFragmentCompat(), ImmersionOwne
         return SupportHelper.findFragment(childFragmentManager, fragmentClass)
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration?) {
+    override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         immersionProxy.onConfigurationChanged(newConfig)
     }

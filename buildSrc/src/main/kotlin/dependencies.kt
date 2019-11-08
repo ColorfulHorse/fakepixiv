@@ -22,14 +22,16 @@ object Vers {
     const val coroutine_version = "1.3.0-M2"
     const val autoDispose_version = "1.1.0"
     const val retrofit_version = "2.6.0"
-    const val glide_version = "4.9.0"
+    const val glide_version = "4.10.0"
     const val gson_version = "2.8.5"
     const val moshi_version = "1.8.0"
+    const val permission_version = "4.5.0"
     const val objectbox_version = "2.2.0"
     const val butterKnife_version = "9.0.0-rc3"
-    const val fragmentation_version = "1.3.6"
+    const val fragmentation_version = "1.0.1"
     const val tinker_version = "1.9.14.3"
     const val dialogs_version = "3.1.1"
+    const val appcompat_version = "1.1.0"
 }
 
 
@@ -49,30 +51,53 @@ open class Dep(val core: String? = null, val complier: String? = null)
 
 object Deps : DepGroup() {
 
-    object Support : DepGroup() {
+    object AndroidX : DepGroup() {
 
-        const val preference = "com.android.support:preference-v7:${Vers.support_version}"
+        const val appcompat = "androidx.appcompat:appcompat:${Vers.appcompat_version}"
 
-        const val annotation = "com.android.support:support-annotations:${Vers.support_version}"
+        const val annotation = "androidx.annotation:annotation:${Vers.appcompat_version}"
 
-        const val v7 = "com.android.support:appcompat-v7:${Vers.support_version}"
+        const val preference = "androidx.preference:preference:${Vers.appcompat_version}"
 
-        const val lifecycle = "android.arch.lifecycle:extensions:1.1.1"
+        const val lifecycle = "androidx.lifecycle:lifecycle-extensions:2.1.0"
 
-        const val constraintLayout = "com.android.support.constraint:constraint-layout:1.1.3"
+        const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-alpha5"
+
+        const val cardView = "androidx.cardview:cardview:1.0.0"
+
+        const val recyclerView = "androidx.recyclerview:recyclerview:1.1.0-rc01"
+
+        const val design = "com.google.android.material:material:1.1.0-beta01"
     }
+
+//    object Support : DepGroup() {
+//
+//        const val preference = "com.android.support:preference-v7:${Vers.support_version}"
+//
+//        const val annotation = "com.android.support:support-annotations:${Vers.support_version}"
+//
+//        const val v7 = "com.android.support:appcompat-v7:${Vers.support_version}"
+//
+//        const val lifecycle = "androidx.lifecycle:extensions:1.1.1"
+//
+//        const val constraintLayout = "com.android.support.constraint:constraint-layout:1.1.3"
+//
+//        const val cardView = "com.android.support:cardview-v7:${Vers.support_version}"
+//
+//        const val recyclerView = "com.android.support:recyclerview-v7:${Vers.support_version}"
+//
+//        const val design = "com.android.support:design:${Vers.support_version}"
+//    }
 
     object View : DepGroup() {
 
-        const val cardView = "com.android.support:cardview-v7:${Vers.support_version}"
+        const val adapter = "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.49-androidx"
 
-        const val recyclerView = "com.android.support:recyclerview-v7:${Vers.support_version}"
+        const val flyco = "com.flyco.tablayout:FlycoTabLayout_Lib:3.0.0"
 
-        const val design = "com.android.support:design:${Vers.support_version}"
+                //"com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar"
 
-        const val adapter = "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46"
-
-        const val flyco = "com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar"
+        //const val smarttablayout = "com.ogaclejapan.smarttablayout:library:2.0.0@aar"
 
 //        object MDDialogs : DepGroup() {
 //            const val core = "com.afollestad.material-dialogs:core:${Vers.dialogs_version}"
@@ -86,8 +111,6 @@ object Deps : DepGroup() {
         const val rxkotlin = "io.reactivex.rxjava2:rxkotlin:${Vers.rxKt_version}"
 
         const val rxandroid = "io.reactivex.rxjava2:rxandroid:2.1.0"
-
-        const val rxpermissions = "com.github.tbruyelle:rxpermissions:0.10.2"
 
     }
 
@@ -141,13 +164,16 @@ object Deps : DepGroup() {
 
         const val immersionbar = "com.gyf.immersionbar:immersionbar:2.3.2"
 
-        const val fragmentation_core = "me.yokeyword:fragmentation-core:${Vers.fragmentation_version}"
+        const val fragmentation_core = "me.yokeyword:fragmentationx:${Vers.fragmentation_version}"
 
         @DepMode(DEBUG_IMPLEMENTATION)
         const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.0-beta-3"
 
         object moshiKotlin : Dep("com.squareup.moshi:moshi-kotlin:${Vers.moshi_version}",
                 "com.squareup.moshi:moshi-kotlin-codegen:${Vers.moshi_version}")
+
+        object permissionsdispatcher : Dep("org.permissionsdispatcher:permissionsdispatcher:${Vers.permission_version}",
+                "org.permissionsdispatcher:permissionsdispatcher-processor:${Vers.permission_version}")
 
     }
 }

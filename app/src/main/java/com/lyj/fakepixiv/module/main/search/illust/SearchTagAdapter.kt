@@ -1,7 +1,7 @@
 package com.lyj.fakepixiv.module.main.search.illust
 
-import android.databinding.ObservableList
-import android.databinding.ViewDataBinding
+import androidx.databinding.ObservableList
+import androidx.databinding.ViewDataBinding
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.RequestBuilder

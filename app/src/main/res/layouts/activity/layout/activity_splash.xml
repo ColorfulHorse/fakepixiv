@@ -4,7 +4,7 @@
     <data>
 
     </data>
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
@@ -28,5 +28,5 @@
 <!--            android:textSize="18sp"-->
 <!--            android:text="测试热更新"-->
 <!--            />-->
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

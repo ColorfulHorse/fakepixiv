@@ -13,16 +13,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.CoordinatorLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <android.support.design.widget.AppBarLayout
+            <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@{vm.loadState instanceof LoadState.Succeed ? @color/transparent : @color/colorPrimary}"
                 >
-                <android.support.design.widget.CollapsingToolbarLayout
+                <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:id="@+id/collapse"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
@@ -50,7 +50,7 @@
                             android:background="@drawable/wallpaper_overlay"
                             />
                     </FrameLayout>
-                    <android.support.v7.widget.Toolbar
+                    <androidx.appcompat.widget.Toolbar
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
@@ -93,17 +93,17 @@
                                 />
                         </LinearLayout>
 
-                    </android.support.v7.widget.Toolbar>
-                </android.support.design.widget.CollapsingToolbarLayout>
-            </android.support.design.widget.AppBarLayout>
-            <android.support.v7.widget.RecyclerView
+                    </androidx.appcompat.widget.Toolbar>
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+            </com.google.android.material.appbar.AppBarLayout>
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 />
-        </android.support.design.widget.CoordinatorLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <!--<include-->
             <!--android:id="@+id/errorView"-->

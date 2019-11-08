@@ -1,11 +1,11 @@
 package com.lyj.fakepixiv.module.user.detail
 
-import android.databinding.ViewDataBinding
+import androidx.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
+import com.google.android.material.appbar.AppBarLayout
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.R

@@ -1,6 +1,6 @@
 package com.lyj.fakepixiv.widget
 
-import android.support.design.widget.AppBarLayout
+import com.google.android.material.appbar.AppBarLayout
 
 /**
  * @author greensun

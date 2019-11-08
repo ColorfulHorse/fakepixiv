@@ -1,6 +1,6 @@
 package com.lyj.fakepixiv.app.utils
 
-import android.support.annotation.Nullable
+import androidx.annotation.Nullable
 import com.squareup.moshi.ToJson
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.JsonReader

@@ -1,7 +1,7 @@
 package com.lyj.fakepixiv.module.common
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.WindowManager
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.R
@@ -37,10 +37,12 @@ class StarDialog : BaseDialogFragment<DialogStarBinding, StarDialogViewModel>() 
     }
 
     override fun init(savedInstanceState: Bundle?) {
-        val lp = dialog.window.attributes
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
-        dialog.window.attributes = lp
+        dialog?.let {
+            val lp = it.window?.attributes
+            lp?.width = WindowManager.LayoutParams.MATCH_PARENT
+            lp?.height = WindowManager.LayoutParams.WRAP_CONTENT
+            dialog?.window?.attributes = lp
+        }
         with(mBinding) {
             val adapter = object : BaseBindingAdapter<Tag, ItemStarTagBinding>(R.layout.item_star_tag, mViewModel.tags, BR.data) {
                 override fun convert(helper: BaseBindingViewHolder<ItemStarTagBinding>, item: Tag) {

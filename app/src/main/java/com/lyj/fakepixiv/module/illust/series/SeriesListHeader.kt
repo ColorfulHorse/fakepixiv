@@ -1,7 +1,7 @@
 package com.lyj.fakepixiv.module.illust.series
 
 import android.content.Context
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.view.LayoutInflater
 import android.view.View
 import com.lyj.fakepixiv.R

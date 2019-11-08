@@ -73,7 +73,7 @@ class NewsFollowFragment : FragmentationFragment<FragmentNewsFollowBinding, News
                     }
                     vm?.load()
                 }
-                dialog.show(fragmentManager, "RestrictDialog")
+                fragmentManager?.let { fm -> dialog.show(fm, "RestrictDialog") }
             }
             userHeader.vm = mViewModel.userViewModel
         }

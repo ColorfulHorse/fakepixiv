@@ -1,7 +1,7 @@
 package com.lyj.fakepixiv.app.utils
 
 import android.os.Handler
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 import android.widget.Toast
 import com.lyj.fakepixiv.app.application.ApplicationLike
 

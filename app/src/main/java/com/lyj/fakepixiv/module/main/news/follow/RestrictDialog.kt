@@ -1,7 +1,7 @@
 package com.lyj.fakepixiv.module.main.news.follow
 
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
+import androidx.fragment.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,10 +60,10 @@ class RestrictDialog : DialogFragment() {
 
     override fun onResume() {
         super.onResume()
-        dialog.setCancelable(true)
-        val lp = dialog.window.attributes
+        dialog?.setCancelable(true)
+        val lp = dialog?.window?.attributes
         //lp.height = ApplicationLike.context.resources.displayMetrics.heightPixels/2
-        lp.width = ApplicationLike.context.resources.displayMetrics.widthPixels*2/3
-        dialog.window.attributes = lp
+        lp?.width = ApplicationLike.context.resources.displayMetrics.widthPixels*2/3
+        dialog?.window?.attributes = lp
     }
 }

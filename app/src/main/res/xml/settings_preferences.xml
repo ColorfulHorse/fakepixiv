@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:key="preference_screen_settings"
     android:title="settings">
-    <android.support.v7.preference.PreferenceCategory
+    <PreferenceCategory
         android:icon="@null"
         android:key="setting"
         android:title="@string/settings"
         app:allowDividerAbove="false"
         app:allowDividerBelow="true"
         >
-        <android.support.v7.preference.Preference
+        <Preference
             android:icon="@null"
             android:key="@string/preference_key_setting_account"
             android:title="@string/settings_account"
             app:allowDividerAbove="false"
             app:allowDividerBelow="false"
             app:iconSpaceReserved="false" />
-        <android.support.v7.preference.Preference
+        <Preference
             android:icon="@null"
             android:key="@string/preference_key_setting_profile"
             android:title="@string/settings_profile"
@@ -27,7 +27,7 @@
             app:allowDividerAbove="false"
             app:allowDividerBelow="false"
             />
-        <android.support.v7.preference.Preference
+        <Preference
             android:icon="@null"
             android:key="@string/preference_key_setting_workspace"
             android:title="@string/settings_workspace"
@@ -35,7 +35,7 @@
             app:allowDividerAbove="false"
             app:allowDividerBelow="false"
             />
-        <android.support.v7.preference.Preference
+        <Preference
             android:icon="@null"
             android:key="@string/preference_key_notification_notify"
             android:title="@string/settings_notification"
@@ -43,7 +43,7 @@
             app:allowDividerAbove="false"
             app:allowDividerBelow="false"
             />
-        <android.support.v7.preference.Preference
+        <Preference
             android:icon="@null"
             android:key="@string/preference_key_setting_point"
             android:title="@string/point_name"
@@ -51,7 +51,7 @@
             app:allowDividerAbove="false"
             app:allowDividerBelow="false"
             />
-        <android.support.v7.preference.Preference
+        <Preference
             android:icon="@null"
             android:key="@string/preference_key_setting_optout"
             android:title="@string/settings_optout"
@@ -59,7 +59,7 @@
             app:allowDividerAbove="false"
             app:allowDividerBelow="false"
             />
-        <android.support.v7.preference.Preference
+        <Preference
             android:icon="@null"
             android:key="@string/preference_key_setting_register_premium"
             android:title="@string/settings_register_premium"
@@ -67,7 +67,7 @@
             app:allowDividerAbove="false"
             app:allowDividerBelow="false"
             />
-        <android.support.v7.preference.Preference
+        <Preference
             android:icon="@null"
             android:key="@string/preference_key_setting_logout"
             android:title="@string/logout"
@@ -75,16 +75,16 @@
             app:allowDividerAbove="false"
             app:allowDividerBelow="true"
             />
-    </android.support.v7.preference.PreferenceCategory>
+    </PreferenceCategory>
 
-    <android.support.v7.preference.PreferenceCategory
+    <PreferenceCategory
         android:icon="@null"
         android:key="support"
         android:title="@string/support"
         app:allowDividerAbove="true"
         app:allowDividerBelow="false"
         >
-        <android.support.v7.preference.Preference
+        <Preference
             android:icon="@null"
             android:key="@string/preference_key_support_help"
             android:title="@string/help"
@@ -92,7 +92,7 @@
             app:allowDividerAbove="true"
             app:allowDividerBelow="false"
             />
-        <android.support.v7.preference.Preference
+        <Preference
             android:icon="@null"
             android:key="@string/preference_key_support_terms"
             android:title="@string/terms"
@@ -100,7 +100,7 @@
             app:allowDividerAbove="false"
             app:allowDividerBelow="false"
             />
-        <android.support.v7.preference.Preference
+        <Preference
             android:icon="@null"
             android:key="@string/preference_key_support_privacy_policy"
             android:title="@string/privacy_policy"
@@ -108,7 +108,7 @@
             app:allowDividerAbove="false"
             app:allowDividerBelow="false"
             />
-        <android.support.v7.preference.Preference
+        <Preference
             android:icon="@null"
             android:key="@string/preference_key_support_copyright"
             android:title="@string/copy_right"
@@ -116,7 +116,7 @@
             app:allowDividerAbove="false"
             app:allowDividerBelow="false"
             />
-        <android.support.v7.preference.Preference
+        <Preference
             android:icon="@null"
             android:key="@string/preference_key_support_law"
             android:title="@string/act_on_specified_commercial_transactions"
@@ -124,7 +124,7 @@
             app:allowDividerAbove="false"
             app:allowDividerBelow="false"
             />
-        <android.support.v7.preference.Preference
+        <Preference
             android:icon="@null"
             android:key="@string/preference_key_act_on_settlement"
             android:title="@string/point_label_act_on_settlement"
@@ -132,5 +132,5 @@
             app:allowDividerAbove="false"
             app:allowDividerBelow="false"
             />
-    </android.support.v7.preference.PreferenceCategory>
-</android.support.v7.preference.PreferenceScreen>
+    </PreferenceCategory>
+</PreferenceScreen>

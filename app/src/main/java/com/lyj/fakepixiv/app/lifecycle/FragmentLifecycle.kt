@@ -1,8 +1,8 @@
 package com.lyj.fakepixiv.app.lifecycle
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import android.view.View
 import com.lyj.fakepixiv.app.base.BaseFragment
 import com.lyj.fakepixiv.app.base.ViewModelProvider

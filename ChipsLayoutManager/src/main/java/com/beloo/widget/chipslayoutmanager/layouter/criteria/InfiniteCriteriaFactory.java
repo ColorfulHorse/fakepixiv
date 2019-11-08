@@ -1,6 +1,6 @@
 package com.beloo.widget.chipslayoutmanager.layouter.criteria;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class InfiniteCriteriaFactory extends AbstractCriteriaFactory implements ICriteriaFactory {
     @NonNull

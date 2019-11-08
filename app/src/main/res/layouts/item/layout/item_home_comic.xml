@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -58,7 +58,7 @@
                     android:layout_alignBottom="@id/image"
                     app:liked="@{data._bookmarked}" />
             </RelativeLayout>
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.lyj.fakepixiv.widget.SeriesView
             android:layout_width="wrap_content"

@@ -1,17 +1,17 @@
 package com.lyj.fakepixiv.app.base
 
-import android.arch.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleObserver
 import android.content.res.Configuration
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.Toolbar
+import androidx.annotation.LayoutRes
+import androidx.appcompat.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import com.gyf.barlibrary.ImmersionBar
 import com.gyf.barlibrary.ImmersionFragment
 import com.lyj.fakepixiv.BR
@@ -96,7 +96,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel?> : Immersio
         bindingList.add(binding)
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration?) {
+    override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         diffOrientation = !diffOrientation
     }

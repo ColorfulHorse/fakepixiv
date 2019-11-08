@@ -1,8 +1,8 @@
 package com.lyj.fakepixiv.module.common.adapter
 
-import android.databinding.ViewDataBinding
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.ListPreloader

@@ -1,6 +1,6 @@
 package com.lyj.fakepixiv.module.common.adapter
 
-import android.databinding.ViewDataBinding
+import androidx.databinding.ViewDataBinding
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup

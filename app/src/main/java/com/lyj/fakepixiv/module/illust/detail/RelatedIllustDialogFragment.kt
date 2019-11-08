@@ -1,9 +1,9 @@
 package com.lyj.fakepixiv.module.illust.detail
 
-import android.databinding.DataBindingUtil
-import android.databinding.ObservableArrayList
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ObservableArrayList
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.*
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.R

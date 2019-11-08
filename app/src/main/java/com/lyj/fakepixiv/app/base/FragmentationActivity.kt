@@ -1,8 +1,8 @@
 package com.lyj.fakepixiv.app.base
 
-import android.databinding.ViewDataBinding
+import androidx.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.annotation.DrawableRes
+import androidx.annotation.DrawableRes
 import android.view.MotionEvent
 import me.yokeyword.fragmentation.*
 import me.yokeyword.fragmentation.anim.DefaultVerticalAnimator

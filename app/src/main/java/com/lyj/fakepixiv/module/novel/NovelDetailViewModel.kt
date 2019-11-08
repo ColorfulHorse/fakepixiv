@@ -1,9 +1,9 @@
 package com.lyj.fakepixiv.module.novel
 
-import android.databinding.Bindable
-import android.databinding.ObservableArrayList
-import android.databinding.ObservableField
-import android.databinding.ObservableList
+import androidx.databinding.Bindable
+import androidx.databinding.ObservableArrayList
+import androidx.databinding.ObservableField
+import androidx.databinding.ObservableList
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.data.model.response.NovelChapter

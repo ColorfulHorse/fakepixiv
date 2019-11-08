@@ -1,14 +1,14 @@
 package com.lyj.fakepixiv.app.base
 
-import android.arch.lifecycle.LifecycleObserver
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
+import androidx.lifecycle.LifecycleObserver
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.support.annotation.LayoutRes
+import androidx.annotation.LayoutRes
+import androidx.fragment.app.DialogFragment
 import com.lyj.fakepixiv.BR
 
 /**

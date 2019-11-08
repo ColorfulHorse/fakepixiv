@@ -15,17 +15,17 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
             />
-        <android.support.design.widget.CoordinatorLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/contentView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <android.support.design.widget.AppBarLayout
+            <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:elevation="0dp"
                 >
-                <android.support.v7.widget.Toolbar
+                <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
@@ -85,9 +85,21 @@
                             app:tl_textUnselectColor="#C4FFFFFF"
                             app:tl_textSelectColor="@color/white"
                             />
+<!--                        <com.ogaclejapan.smarttablayout.SmartTabLayout-->
+<!--                            android:id="@+id/tabLayout"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            app:stl_distributeEvenly="true"-->
+<!--                            app:stl_dividerColor="@color/transparent"-->
+<!--                            app:stl_dividerThickness="0dp"-->
+<!--                            app:stl_indicatorColor="@color/transparent"-->
+<!--                            app:stl_indicatorThickness="0dp"-->
+<!--                            app:stl_underlineColor="@color/transparent"-->
+<!--                            app:stl_underlineThickness="0dp"-->
+<!--                            />-->
                     </LinearLayout>
-                </android.support.v7.widget.Toolbar>
-            </android.support.design.widget.AppBarLayout>
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.AppBarLayout>
 
             <FrameLayout
                 android:id="@+id/fragmentContainer"
@@ -96,6 +108,6 @@
                 android:background="@color/white"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 />
-        </android.support.design.widget.CoordinatorLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </FrameLayout>
 </layout>

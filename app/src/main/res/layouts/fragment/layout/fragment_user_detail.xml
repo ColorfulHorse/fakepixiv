@@ -14,16 +14,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.CoordinatorLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <android.support.design.widget.AppBarLayout
+            <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@{vm.loadState instanceof LoadState.Succeed ? @color/transparent : @color/colorPrimary}"
                 >
-                <android.support.design.widget.CollapsingToolbarLayout
+                <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:id="@+id/collapse"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
@@ -52,7 +52,7 @@
                             android:background="@drawable/wallpaper_overlay"
                             />
                     </FrameLayout>
-                    <android.support.v7.widget.Toolbar
+                    <androidx.appcompat.widget.Toolbar
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
@@ -114,11 +114,11 @@
                                 app:visible="@{(vm.loadState instanceof LoadState.Succeed) &amp;&amp; !vm.isSelf}"
                                 />
                         </RelativeLayout>
-                    </android.support.v7.widget.Toolbar>
-                </android.support.design.widget.CollapsingToolbarLayout>
-            </android.support.design.widget.AppBarLayout>
+                    </androidx.appcompat.widget.Toolbar>
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+            </com.google.android.material.appbar.AppBarLayout>
 
-            <android.support.v4.widget.NestedScrollView
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
@@ -174,7 +174,7 @@
                         app:show="@{!(vm.novelBookmarksState instanceof LoadState.Succeed) || (vm.novelBookmarks.size() > 0)}"
                         />
                 </LinearLayout>
-            </android.support.v4.widget.NestedScrollView>
+            </androidx.core.widget.NestedScrollView>
 
             <ImageView
                 android:id="@+id/avatar"
@@ -192,7 +192,7 @@
                 android:visibility="gone"
                 app:visible="@{vm.loadState instanceof LoadState.Succeed}"
                 />
-        </android.support.design.widget.CoordinatorLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <include
             android:id="@+id/errorView"

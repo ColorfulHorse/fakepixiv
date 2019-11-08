@@ -121,13 +121,13 @@
                 />
         </RelativeLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@android:color/white" />
 
-        <android.support.v7.widget.SwitchCompat
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/restrict_switch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

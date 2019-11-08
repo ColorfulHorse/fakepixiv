@@ -10,7 +10,7 @@
             type="Illust"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
@@ -34,5 +34,5 @@
         <!--app:placeHolder="@{@drawable/linear_placeholder}"-->
         <!--app:placeHolderRatio='@{"w," + String.valueOf(data.width) + ":" + String.valueOf(data.height)}'-->
         <!--app:dimensionRatio='@{"w," + String.valueOf(data.width) + ":" + String.valueOf(data.height)}'-->
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

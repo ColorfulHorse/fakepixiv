@@ -1,9 +1,9 @@
 package com.lyj.fakepixiv.module.main.home.novel
 
 import android.os.Bundle
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.widget.ImageView
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.chad.library.adapter.base.BaseViewHolder
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.GlideApp

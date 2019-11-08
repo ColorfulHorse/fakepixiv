@@ -1,7 +1,7 @@
 package com.beloo.widget.chipslayoutmanager;
 
 import android.content.res.Configuration;
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

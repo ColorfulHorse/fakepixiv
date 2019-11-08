@@ -1,6 +1,6 @@
 package com.beloo.widget.chipslayoutmanager.layouter;
 
-import android.support.annotation.IntRange;
+import androidx.annotation.IntRange;
 
 class IncrementalPositionIterator extends AbstractPositionIterator {
 

@@ -1,7 +1,7 @@
 package com.lyj.fakepixiv.module.pixivision
 
-import android.databinding.ViewDataBinding
-import android.support.annotation.LayoutRes
+import androidx.databinding.ViewDataBinding
+import androidx.annotation.LayoutRes
 import android.widget.ImageView
 import com.bumptech.glide.util.ViewPreloadSizeProvider
 import com.lyj.fakepixiv.R

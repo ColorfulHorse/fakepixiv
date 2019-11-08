@@ -14,7 +14,7 @@ buildscript {
         //maven("http://maven.aliyun.com/nexus/content/repositories/central/")
         maven ("https://jitpack.io")
         jcenter()
-        // mavenCentral()
+        mavenCentral()
         //maven { url 'https://dl.bintary.com/objectbox/objectbox' }
     }
     dependencies {
@@ -29,10 +29,11 @@ buildscript {
 allprojects {
     repositories {
         google()
+        maven ("https://dl.bintray.com/relish-wang/maven/")
         //maven("http://maven.aliyun.com/nexus/content/repositories/central/")
         maven ("https://jitpack.io" )
         jcenter()
-        //mavenCentral()
+        mavenCentral()
     }
 }
 

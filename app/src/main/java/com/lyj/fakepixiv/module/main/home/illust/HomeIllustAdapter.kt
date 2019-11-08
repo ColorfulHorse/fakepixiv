@@ -1,7 +1,7 @@
 package com.lyj.fakepixiv.module.main.home.illust
 
-import android.databinding.ObservableList
-import android.databinding.ViewDataBinding
+import androidx.databinding.ObservableList
+import androidx.databinding.ViewDataBinding
 import android.view.ViewGroup
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.R

@@ -3,7 +3,7 @@ package com.lyj.fakepixiv.app.utils
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.FragmentActivity
 import com.lyj.fakepixiv.app.base.BaseFragment
 import com.lyj.fakepixiv.app.base.ViewModelProvider
 import com.lyj.fakepixiv.app.lifecycle.FragmentLifecycle

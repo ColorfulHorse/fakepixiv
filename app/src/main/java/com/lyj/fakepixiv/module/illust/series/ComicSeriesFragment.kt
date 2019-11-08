@@ -1,8 +1,8 @@
 package com.lyj.fakepixiv.module.illust.series
 
-import android.databinding.ViewDataBinding
+import androidx.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.gyf.barlibrary.ImmersionBar
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.R
