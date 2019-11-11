@@ -30,7 +30,7 @@
                 android:background="@drawable/shape_login_panel"
                 android:padding="10dp"
                 >
-                <com.google.android.material.tabs.TabLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="@{!vm.loading}"
@@ -45,9 +45,9 @@
                         android:inputType="text"
                         android:text="@={vm.userName}"
                         />
-                </com.google.android.material.tabs.TabLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.tabs.TabLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -63,7 +63,7 @@
                         android:inputType="textPassword"
                         android:text="@={vm.password}"
                         />
-                </com.google.android.material.tabs.TabLayout>
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
             <Button

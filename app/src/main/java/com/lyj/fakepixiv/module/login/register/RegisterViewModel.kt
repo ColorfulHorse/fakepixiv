@@ -7,7 +7,10 @@ import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.app.base.BaseViewModel
 import com.lyj.fakepixiv.app.data.source.remote.UserRepository
 import com.lyj.fakepixiv.app.network.LoadState
+import com.lyj.fakepixiv.app.utils.ToastUtil
+import com.lyj.fakepixiv.app.utils.ToastUtil.toast
 import kotlinx.coroutines.*
+import timber.log.Timber
 
 /**
  * @author greensun
@@ -35,18 +38,11 @@ class RegisterViewModel : BaseViewModel() {
             loadState.set(LoadState.Failed(err))
         }) {
             loadState.set(LoadState.Loading)
-            register()
+            val resp = withContext(Dispatchers.IO) {
+                UserRepository.instance
+                        .register(userName)
+            }
             loadState.set(LoadState.Succeed)
         }
-    }
-
-    suspend fun register(): Any {
-        val resp = withContext(Dispatchers.IO + CoroutineExceptionHandler { _, err ->
-            loadState.set(LoadState.Failed(err))
-        }) {
-            UserRepository.instance
-                    .register(userName)
-        }
-        return resp
     }
 }

@@ -43,7 +43,7 @@ interface UserService {
      * 注册，创建临时账户
      */
     @Headers("SWITCH-HEADER:TAG_ACCOUNT")
-    @POST("/provisional-accounts/create")
+    @POST("/api/provisional-accounts/create")
     @FormUrlEncoded
     suspend fun register(@Field("user_name")userName: String,
                          @Field("ref")ref: String = "pixiv_android_app_provisional_account"): Any
