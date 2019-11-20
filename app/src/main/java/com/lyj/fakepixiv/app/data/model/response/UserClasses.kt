@@ -1,5 +1,7 @@
 package com.lyj.fakepixiv.app.data.model.response
 
+import android.databinding.BaseObservable
+import android.databinding.Bindable
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.lyj.fakepixiv.BR
@@ -198,4 +200,17 @@ data class Account(
     val device_token: String,
     val password: String,
     val user_account: String
+)
+
+/**
+ * 账户信息
+ */
+data class UserStateResp(
+    val user_state: UserState = UserState()
+)
+
+data class UserState(
+    val is_mail_authorized: Boolean = false,
+    val has_changed_pixiv_id: Boolean = false,
+    val can_change_pixiv_id: Boolean = false
 )

@@ -1,13 +1,15 @@
 package com.lyj.fakepixiv.app.data.source.remote
 
-import androidx.databinding.ObservableField
+import android.databinding.ObservableField
 import android.util.ArrayMap
 import com.lyj.fakepixiv.app.constant.Constant
 import com.lyj.fakepixiv.app.constant.Restrict
-import com.lyj.fakepixiv.app.data.model.response.*
+import com.lyj.fakepixiv.app.data.model.response.LoginData
+import com.lyj.fakepixiv.app.data.model.response.User
+import com.lyj.fakepixiv.app.data.model.response.UserInfo
+import com.lyj.fakepixiv.app.data.model.response.UserPreviewListResp
 import com.lyj.fakepixiv.app.network.LoadState
 import com.lyj.fakepixiv.app.network.retrofit.RetrofitManager
-import com.lyj.fakepixiv.app.network.service.PixivisionService
 import com.lyj.fakepixiv.app.network.service.UserService
 import com.lyj.fakepixiv.app.reactivex.schedulerTransform
 import com.lyj.fakepixiv.app.utils.SPUtil

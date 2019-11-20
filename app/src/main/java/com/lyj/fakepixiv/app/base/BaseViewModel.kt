@@ -1,5 +1,6 @@
 package com.lyj.fakepixiv.app.base;
 
+import android.databinding.BaseObservable
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.databinding.BaseObservable
