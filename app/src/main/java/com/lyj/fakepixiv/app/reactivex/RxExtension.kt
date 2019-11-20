@@ -22,17 +22,17 @@ fun <T> Observable<T>.schedulerTransform(): Observable<T> = this.compose {
  * 用于刷新token
  */
 
-@Deprecated("更改为ApiExceptionInterceptor实现")
-fun <T> Observable<T>.retryWhenTokenInvalid(): Observable<T> = this.retryWhen {
-    it.flatMap { err ->
-        if (err is ApiException) {
-            if (err.code == ApiException.CODE_TOKEN_INVALID) {
-                val loginData = SPUtil.getLoginData()
-                loginData?.let {
-                    return@flatMap UserRepository.instance.reLogin(loginData)
-                }
-            }
-        }
-        return@flatMap Observable.error<T>(err)
-    }
-}
+//@Deprecated("更改为ApiExceptionInterceptor实现")
+//fun <T> Observable<T>.retryWhenTokenInvalid(): Observable<T> = this.retryWhen {
+//    it.flatMap { err ->
+//        if (err is ApiException) {
+//            if (err.code == ApiException.CODE_TOKEN_INVALID) {
+//                val loginData = SPUtil.getLoginData()
+//                loginData?.let {
+//                    return@flatMap UserRepository.instance.reLogin(loginData)
+//                }
+//            }
+//        }
+//        return@flatMap Observable.error<T>(err)
+//    }
+//}

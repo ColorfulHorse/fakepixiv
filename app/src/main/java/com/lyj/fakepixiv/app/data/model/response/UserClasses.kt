@@ -185,3 +185,17 @@ data class Workspace(
     }
 }
 
+/**
+ * 创建的临时用户
+ */
+data class ProvisionAccountResp(
+    val body: Account,
+    val error: Boolean,
+    val message: String
+)
+
+data class Account(
+    val device_token: String,
+    val password: String,
+    val user_account: String
+)

@@ -260,7 +260,7 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
             add(descFragment)
         }
 
-        val span = ImageSpan(context, R.drawable.ic_profile_premium)
+        val span = ImageSpan(mActivity, R.drawable.ic_profile_premium)
         val sstr = SpannableString("    ${getString(R.string.tab_popular)}")
         sstr.setSpan(span, 0, 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
         val titles = arrayOf(

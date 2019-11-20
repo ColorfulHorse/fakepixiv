@@ -22,6 +22,8 @@ import com.lyj.fakepixiv.module.login.LoginActivity
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_settings.view.*
 
+
+
 /**
  * @author green sun
  *
@@ -36,12 +38,12 @@ class SettingsFragment : BasePreferenceFragment() {
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        addPreferencesFromResource(R.xml.settings_preferences)
+        addPreferencesFromResource(com.lyj.fakepixiv.R.xml.settings_preferences)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
-        val root = inflater.inflate(R.layout.fragment_settings, container, false)
+        val root = inflater.inflate(com.lyj.fakepixiv.R.layout.fragment_settings, container, false)
         root.container.addView(view)
         return root
     }
@@ -52,7 +54,7 @@ class SettingsFragment : BasePreferenceFragment() {
             progress = 1F
             color = Color.WHITE
         }
-        toolbar.title = getString(R.string.settings)
+        toolbar.title = getString(com.lyj.fakepixiv.R.string.settings)
         toolbar.setNavigationOnClickListener {
             pop()
         }
@@ -60,14 +62,23 @@ class SettingsFragment : BasePreferenceFragment() {
 
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
         when (preference.key) {
-            getString(R.string.preference_key_setting_account) -> {
+            getString(com.lyj.fakepixiv.R.string.preference_key_setting_account) -> {
 
             }
 
-            getString(R.string.preference_key_setting_logout) -> {
-               MaterialDialog(mActivity).show {
+            getString(com.lyj.fakepixiv.R.string.preference_key_setting_logout) -> {
+                logout()
+            }
+        }
+        return super.onPreferenceTreeClick(preference)
+    }
+
+    private fun logout() {
+        SPUtil.getLoginData()?.let {
+            if (it.provisional) {
+                MaterialDialog(mActivity).show {
                     title(R.string.logout_confirm)
-                    message(R.string.message_logout)
+                    message(R.string.message_provisional_logout)
                     negativeButton(R.string.set_account_info) {
 
                     }
@@ -77,23 +88,38 @@ class SettingsFragment : BasePreferenceFragment() {
 
                     positiveButton(R.string.logout) {
                         SPUtil.clearLoginData()
-                        startActivity(Intent(mActivity, LoginActivity::class.java))
+                        startActivity(Intent(mActivity, LoginActivity::class.java).apply {
+                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                        })
                     }
 
                     setOnShowListener {
-                        getActionButton(WhichButton.POSITIVE).updateTextColor(ContextCompat.getColor(mActivity, R.color.font_color_alert))
+                        getActionButton(WhichButton.POSITIVE).updateTextColor(ContextCompat.getColor(mActivity, com.lyj.fakepixiv.R.color.font_color_alert))
+                    }
+                }
+            }else {
+                MaterialDialog(mActivity).show {
+                    message(R.string.message_logout)
+                    negativeButton(R.string.cancel) {
+
+                    }
+
+                    positiveButton(R.string.logout) {
+                        SPUtil.clearLoginData()
+                        startActivity(Intent(mActivity, LoginActivity::class.java).apply {
+                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                        })
                     }
                 }
             }
         }
-        return super.onPreferenceTreeClick(preference)
     }
 
     override fun initImmersionBar() {
         ImmersionBar.with(this)
                 .titleBarMarginTop(contentView)
-                .statusBarColor(R.color.transparent)
-                .statusBarColorTransform(R.color.black)
+                .statusBarColor(com.lyj.fakepixiv.R.color.transparent)
+                .statusBarColorTransform(com.lyj.fakepixiv.R.color.black)
                 .statusBarAlpha(0.25f)
                 .init()
     }

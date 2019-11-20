@@ -3,14 +3,11 @@ package com.lyj.fakepixiv.module.illust.detail.original
 import android.content.Context
 import android.graphics.Bitmap
 import android.view.LayoutInflater
-import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ObservableField
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.bumptech.glide.request.target.ViewTarget
 import com.lyj.fakepixiv.GlideApp
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.data.model.response.Illust
@@ -30,7 +27,7 @@ class PhotoPage(val context: Context, val data: Illust) {
 
     val mBinding = DataBindingUtil.bind<LayoutPhotoViewBinding>(view)
 
-    val viewModel = PhotoViewModel()
+    val viewModel = PhotoViewModel(data)
 
     init {
         mBinding?.vm = viewModel

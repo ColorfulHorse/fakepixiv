@@ -1,16 +1,19 @@
 package com.lyj.fakepixiv.module.login.register
 
-import androidx.lifecycle.LifecycleOwner
 import androidx.databinding.Bindable
 import androidx.databinding.ObservableField
 import com.lyj.fakepixiv.BR
+import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.BaseViewModel
 import com.lyj.fakepixiv.app.data.source.remote.UserRepository
+import com.lyj.fakepixiv.app.network.ApiException
 import com.lyj.fakepixiv.app.network.LoadState
+import com.lyj.fakepixiv.app.utils.AppManager
+import com.lyj.fakepixiv.app.utils.Router
 import com.lyj.fakepixiv.app.utils.ToastUtil
-import com.lyj.fakepixiv.app.utils.ToastUtil.toast
+import com.lyj.fakepixiv.app.utils.startActivity
+import com.lyj.fakepixiv.module.main.MainActivity
 import kotlinx.coroutines.*
-import timber.log.Timber
 
 /**
  * @author greensun
@@ -36,13 +39,20 @@ class RegisterViewModel : BaseViewModel() {
     fun load() {
         launch(CoroutineExceptionHandler { _, err ->
             loadState.set(LoadState.Failed(err))
+            ToastUtil.showToast(R.string.register_failed)
         }) {
             loadState.set(LoadState.Loading)
             val resp = withContext(Dispatchers.IO) {
-                UserRepository.instance
+                val resp = UserRepository.instance
                         .register(userName)
+                if (resp.error) {
+                    throw ApiException(ApiException.CODE_TOKEN_INVALID)
+                }
+                resp
             }
+            val loginData = UserRepository.instance.login(resp.body.user_account, resp.body.password, resp.body.device_token)
             loadState.set(LoadState.Succeed)
+            AppManager.instance.top?.startActivity(MainActivity::class.java)
         }
     }
 }

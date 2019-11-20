@@ -41,7 +41,20 @@ data class LoginData(
         val refresh_token: String = "",
         val scope: String = "",
         val token_type: String = "",
-        val user: User = User()
-)
+        val user: User = User(),
+        // 避免并发请求重复刷新token
+        var lastRefreshTime: Long = -1,
+        // 是否临时账户
+        var provisional: Boolean = false
+) {
+    fun needRefresh(): Boolean {
+        val current = System.currentTimeMillis()
+        if (current - lastRefreshTime > 5*60*1000 || lastRefreshTime == -1L) {
+            lastRefreshTime = current
+            return true
+        }
+        return false
+    }
+}
 
 

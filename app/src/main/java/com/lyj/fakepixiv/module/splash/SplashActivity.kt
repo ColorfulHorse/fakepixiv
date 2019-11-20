@@ -10,6 +10,7 @@ import com.lyj.fakepixiv.app.base.BaseViewModel
 import com.lyj.fakepixiv.app.base.FragmentationActivity
 import com.lyj.fakepixiv.app.constant.Constant
 import com.lyj.fakepixiv.app.data.source.remote.UserRepository
+import com.lyj.fakepixiv.app.network.ApiException
 import com.lyj.fakepixiv.app.reactivex.schedulerTransform
 import com.lyj.fakepixiv.app.utils.SPUtil
 import com.lyj.fakepixiv.app.utils.ToastUtil
@@ -20,7 +21,9 @@ import com.lyj.fakepixiv.module.login.LoginActivity
 import com.tencent.tinker.lib.tinker.TinkerInstaller
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
+import kotlinx.coroutines.*
 import permissions.dispatcher.*
+import timber.log.Timber
 import java.io.File
 import java.util.concurrent.TimeUnit
 
@@ -36,7 +39,7 @@ import java.util.concurrent.TimeUnit
 class SplashActivity : FragmentationActivity<ActivitySplashBinding, BaseViewModel?>() {
 
     override val mViewModel: BaseViewModel? = null
-    private var disposable: Disposable? = null
+    private var loginJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,17 +53,18 @@ class SplashActivity : FragmentationActivity<ActivitySplashBinding, BaseViewMode
             startActivity(LoginActivity::class.java)
             finish()
         } else {
-            disposable = UserRepository.instance
-                    .reLogin(cacheData)
-                    .timeout(10, TimeUnit.SECONDS)
-                    .schedulerTransform()
-                    .subscribeBy(onError = {
-                        startActivity(MainActivity::class.java)
-                        finish()
-                    },onComplete = {
-                        startActivity(MainActivity::class.java)
-                        finish()
-                    })
+            loginJob = GlobalScope.launch(Dispatchers.Main) {
+                try {
+                    withTimeout(10*1000) {
+                        UserRepository.instance.reLogin(cacheData)
+                    }
+                    startActivity(MainActivity::class.java)
+                    finish()
+                }catch (ex: Exception) {
+                    startActivity(MainActivity::class.java)
+                    finish()
+                }
+            }
         }
         // 测试热更新用
         val patch = File(Constant.File.PATCH_PATH)
@@ -90,7 +94,8 @@ class SplashActivity : FragmentationActivity<ActivitySplashBinding, BaseViewMode
 
     override fun onDestroy() {
         super.onDestroy()
-        disposable?.dispose() }
+        loginJob?.cancel()
+    }
 
     override fun bindLayout(): Int = R.layout.activity_splash
 }

@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lyj.fakepixiv">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".app.application.App"
@@ -15,24 +15,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="com.lyj.fakepixiv.module.splash.SplashActivity"
+        <activity
+            android:name="com.lyj.fakepixiv.module.splash.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/FullScreen"
-            >
+            android:theme="@style/FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-     <activity android:name="com.lyj.fakepixiv.module.login.LoginActivity"
-         android:screenOrientation="portrait"
-         android:configChanges="orientation|screenSize"
-         android:launchMode="singleTask"
-         />
         <activity
-            android:name="com.lyj.fakepixiv.module.main.MainActivity"
-            />
+            android:name="com.lyj.fakepixiv.module.login.LoginActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.lyj.fakepixiv.module.main.MainActivity" />
     </application>
 
 </manifest>

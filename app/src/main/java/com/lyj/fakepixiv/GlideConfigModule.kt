@@ -54,7 +54,8 @@ class GlideConfigModule : AppGlideModule() {
         super.applyOptions(context,    builder)
         builder
                 .setDiskCache {
-                    DiskLruCacheFactory(ApplicationLike.context.externalCacheDir.absolutePath+File.separator+"glide_image", DiskLruCacheFactory.DEFAULT_DISK_CACHE_SIZE.toLong())
+                    val dir = ApplicationLike.context.externalCacheDir?:ApplicationLike.context.filesDir
+                    DiskLruCacheFactory(dir.absolutePath+File.separator+"glide_image", DiskLruCacheFactory.DEFAULT_DISK_CACHE_SIZE.toLong())
                             .build()
                 }
                 .setLogLevel(Log.DEBUG)

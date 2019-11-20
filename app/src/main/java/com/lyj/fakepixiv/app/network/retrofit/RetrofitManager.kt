@@ -1,7 +1,6 @@
 package com.lyj.fakepixiv.app.network.retrofit
 
 import com.lyj.fakepixiv.app.constant.Constant
-import com.lyj.fakepixiv.app.network.ApiService
 import com.lyj.fakepixiv.app.network.retrofit.interceptors.ApiExceptionInterceptor
 import com.lyj.fakepixiv.app.network.retrofit.interceptors.CommonParamsInterceptor
 import com.lyj.fakepixiv.app.network.retrofit.interceptors.LoggerInterceptor
@@ -50,11 +49,13 @@ class RetrofitManager private constructor() {
             .Builder()
             .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
             .readTimeout(TIME_OUT, TimeUnit.SECONDS)
+            .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
             //.sslSocketFactory(getSSLSocketFactory(), getTrustManager())
             .addInterceptor(SwitchBaseUrlInterceptor())
             .addInterceptor(CommonParamsInterceptor())
-            .addInterceptor(LoggerInterceptor())
+//            .addInterceptor(LoggerInterceptor())
             .addInterceptor(ApiExceptionInterceptor())
+            .addInterceptor(LoggerInterceptor())
             .build()
 
     val retrofit: Retrofit = Retrofit.Builder()

@@ -39,7 +39,9 @@ class DefaultFormatPrinter(val tag: String = TAG) : FormatPrinter {
         LogUtils.debugInfo(tag, REQUEST_UP_LINE)
         logLines(tag, arrayOf(URL_TAG + request.url()), false)
         logLines(tag, getRequest(request), true)
-        logLines(tag, requestBody.split(LINE_SEPARATOR.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray(), true)
+        if (LINE_SEPARATOR != null) {
+            logLines(tag, requestBody.split(LINE_SEPARATOR.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray(), true)
+        }
         LogUtils.debugInfo(tag, END_LINE)
     }
 
@@ -115,7 +117,7 @@ class DefaultFormatPrinter(val tag: String = TAG) : FormatPrinter {
 
     companion object {
         private val TAG = "DefaultHttpLog"
-        private val LINE_SEPARATOR = System.getProperty("line.separator")
+        private val LINE_SEPARATOR = System.getProperty("line.separator")?:"\n"
         private val DOUBLE_SEPARATOR = LINE_SEPARATOR!! + LINE_SEPARATOR
 
         private val OMITTED_RESPONSE = arrayOf(LINE_SEPARATOR, "Omitted response body")
@@ -170,10 +172,10 @@ class DefaultFormatPrinter(val tag: String = TAG) : FormatPrinter {
         private val ARMS = arrayOf("-A-", "-R-", "-M-", "-S-")
 
         private fun computeKey(): String {
-            if (last.get() >= 4) {
+            if (last.get()!! >= 4) {
                 last.set(0)
             }
-            val s = ARMS[last.get()]
+            val s = ARMS[last.get()!!]
             last.set(last.get()!! + 1)
             return s
         }

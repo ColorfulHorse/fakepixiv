@@ -12,7 +12,6 @@ import com.lyj.fakepixiv.app.base.BackFragment
 import com.lyj.fakepixiv.app.base.BaseViewModel
 
 import com.lyj.fakepixiv.app.constant.Constant
-import com.lyj.fakepixiv.app.network.ApiService
 import com.lyj.fakepixiv.app.utils.AppManager
 import com.lyj.fakepixiv.app.utils.Router
 import com.lyj.fakepixiv.databinding.FragmentPixivisionBinding

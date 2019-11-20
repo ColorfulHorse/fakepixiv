@@ -14,6 +14,7 @@ import com.lyj.fakepixiv.app.utils.SPUtil
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
+import kotlinx.coroutines.*
 
 /**
  * @author greensun
@@ -22,7 +23,7 @@ import io.reactivex.rxkotlin.subscribeBy
  *
  * @desc
  */
-class UserRepository private constructor(){
+class UserRepository private constructor() {
 
     private val service: UserService by lazy { RetrofitManager.instance.userService }
 
@@ -32,7 +33,6 @@ class UserRepository private constructor(){
     }
 
     var loginData: LoginData? = null
-    var accessToken: String? = null
 
     val users = ArrayMap<String, User>()
 
@@ -48,39 +48,72 @@ class UserRepository private constructor(){
         users.remove(key)
     }
 
-    fun login(userName: String, password: String): Observable<LoginData> {
-        return service
-                //.login(refreshToken = "q3GIjHG94qZamlmGpjoJmUW7mA9ziFN8k9GYmYA44fY", grantType = Constant.Net.GRANT_TYPE_TOKEN)
-                .login(userName = userName, password = password)
-                .map { it.response }
-                .doOnNext {
-                    accessToken = "Bearer ${it.access_token}"
-                    loginData = it
-                    SPUtil.saveLoginData(it)
-                }
-                .schedulerTransform()
+//    fun login(userName: String, password: String, deviceToken: String = ""): Observable<LoginData> {
+//        return service
+//                //.login(refreshToken = "q3GIjHG94qZamlmGpjoJmUW7mA9ziFN8k9GYmYA44fY", grantType = Constant.Net.GRANT_TYPE_TOKEN)
+//                .login(userName = userName, password = password, deviceToken = deviceToken)
+//                .map { it.response }
+//                .doOnNext {
+//                    accessToken = "Bearer ${it.access_token}"
+//                    loginData = it
+//                    SPUtil.saveLoginData(it)
+//                }
+//                .schedulerTransform()
+//
+//    }
 
+    /**
+     * 登录
+     * [provisional]是否临时用户
+     */
+    suspend fun login(userName: String, password: String, deviceToken: String = "", provisional: Boolean = false): LoginData {
+        return withContext(Dispatchers.IO) {
+            val resp = service.login(userName = userName, password = password, deviceToken = deviceToken).response
+            resp.provisional = provisional
+            loginData = resp
+            SPUtil.saveLoginData(resp)
+            resp
+        }
     }
 
     /**
      * 用refreshToken登陆
      */
-    fun reLogin(cache: LoginData): Observable<LoginData> {
-        this.loginData = cache
+    suspend fun reLogin(cache: LoginData): LoginData {
+        //this.loginData = cache
         with(cache) {
-            return service
-                    .login(grantType = Constant.Net.GRANT_TYPE_TOKEN, refreshToken = refresh_token, deviceToken = device_token)
-                    .map { it.response }
-                    .doOnNext {
-                        accessToken = "Bearer ${it.access_token}"
-                        loginData = it
-                        SPUtil.saveLoginData(it)
-                    }
+            return withContext(Dispatchers.IO) {
+                val resp = service
+                        .login(grantType = Constant.Net.GRANT_TYPE_TOKEN, refreshToken = refresh_token, deviceToken = device_token)
+                        .response
+                resp.provisional = cache.provisional
+                loginData = resp
+                SPUtil.saveLoginData(resp)
+                resp
+            }
         }
     }
 
-    suspend fun register(userName: String): Any {
+    suspend fun register(userName: String): ProvisionAccountResp {
         return service.register(userName)
+    }
+
+    /**
+     * 同步刷新token
+     */
+    fun refreshToken(cache: LoginData): LoginData? {
+        with(cache) {
+            val call = service.refreshToken(grantType = Constant.Net.GRANT_TYPE_TOKEN,
+                    refreshToken = refresh_token, deviceToken = device_token)
+            call.execute().body()?.let {
+                it.response.provisional = cache.provisional
+                it.response.lastRefreshTime = cache.lastRefreshTime
+                loginData = it.response
+                SPUtil.saveLoginData(it.response)
+                return it.response
+            }
+            return null
+        }
     }
 
     suspend fun getRecommendUsers(): UserPreviewListResp {
@@ -132,7 +165,7 @@ class UserRepository private constructor(){
 
         if (loadState.get() !is LoadState.Loading) {
             val followed = user.is_followed
-            return  instance
+            return instance
                     .follow(user.id, !followed, restrict)
                     .doOnSubscribe { loadState.set(LoadState.Loading) }
                     .subscribeBy(onNext = {

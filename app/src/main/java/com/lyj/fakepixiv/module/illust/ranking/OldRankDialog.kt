@@ -63,7 +63,7 @@ class OldRankDialog : DialogFragment() {
         mode = modes[0]
         titles = titles.dropLast(1).toTypedArray()
         title = titles[0]
-        spinner.adapter = ArrayAdapter<String>(context, R.layout.item_old_mode, titles)
+        spinner.adapter = context?.let { ArrayAdapter<String>(it, R.layout.item_old_mode, titles) }
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
 

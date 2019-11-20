@@ -76,23 +76,6 @@ fun <T> Fragment.startActivity(cls: Class<T>) {
     this.startActivity(Intent(activity, cls))
 }
 
-/**
- * 简单封装请求网络
- */
-fun <T> CoroutineScope.ioTask(loadState: ObservableField<LoadState>? = null, thenAsync: ((T) -> Unit)? = null, then: ((T) -> Unit)? = null, task: suspend () -> T) {
-    launch(CoroutineExceptionHandler { _, err ->
-        loadState?.set(LoadState.Failed(err))
-    }) {
-        loadState?.set(LoadState.Loading)
-        val res = withContext(Dispatchers.IO) {
-            val result = task()
-            thenAsync?.invoke(result)
-            result
-        }
-        then?.invoke(res)
-        loadState?.set(LoadState.Succeed)
-    }
-}
 
 
 /**

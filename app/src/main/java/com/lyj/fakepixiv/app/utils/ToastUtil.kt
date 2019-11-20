@@ -34,23 +34,4 @@ object ToastUtil {
             showToast(ApplicationLike.context.getString(resId, args))
         }
     }
-
-    fun Any.toast(content: String) {
-        mHandler.post {
-            if (mToast != null) {
-                mToast?.setText(content)
-            } else {
-                mToast = Toast.makeText(ApplicationLike.context, content, Toast.LENGTH_SHORT)
-            }
-            mToast?.show()
-        }
-    }
-
-    fun Any.toast(@StringRes resId: Int, vararg args:Any = emptyArray()) {
-        if (args.isEmpty()) {
-            showToast(ApplicationLike.context.getString(resId))
-        }else {
-            showToast(ApplicationLike.context.getString(resId, args))
-        }
-    }
 }

@@ -37,7 +37,7 @@ class CommonParamsInterceptor : Interceptor {
             oldReq = oldReq.newBuilder()
                     .url(urlBuilder.build())
                     .build()
-        }else if ("POST" == oldReq.method()) {
+        } else if ("POST" == oldReq.method()) {
             val requestBody = oldReq.body()
             if (requestBody is FormBody) {
                 val newBody = FormBody.Builder()
@@ -63,7 +63,11 @@ class CommonParamsInterceptor : Interceptor {
                 .addHeader("X-Client-Hash", hash)
                 .build()
         if (url.contains(Constant.Net.BASE_URL)) {
-            val token = UserRepository.instance.accessToken
+            var token: String? = null
+            UserRepository.instance.loginData?.let {
+//                token = "${it.token_type} ${it.access_token}"
+                token = "Bearer ${it.access_token}"
+            }
             if ("GET" == oldReq.method()) {
                 val urlBuilder = oldReq.url().newBuilder()
                 oldReq = oldReq.newBuilder().url(urlBuilder
@@ -71,10 +75,13 @@ class CommonParamsInterceptor : Interceptor {
                         .build()
                 ).build()
             }
+//            if (token == null) {
+//                token = "Bearer l-f9qZ0ZyqSwRyZs8-MymbtWBbSxmCu1pmbOlyisou8"
+//            }
             token?.let {
                 val newReq = oldReq
                         .newBuilder()
-                        .addHeader(Constant.Net.HEADER_TOKEN, token)
+                        .addHeader(Constant.Net.HEADER_TOKEN, it)
                         .build()
                 return chain.proceed(newReq)
             }
