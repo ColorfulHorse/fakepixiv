@@ -98,6 +98,7 @@ object Deps : DepGroup() {
 
         object MDDialogs : DepGroup() {
             const val core = "com.afollestad.material-dialogs:core:${Vers.dialogs_version}"
+            const val input = "com.afollestad.material-dialogs:input:${Vers.dialogs_version}"
         }
     }
 

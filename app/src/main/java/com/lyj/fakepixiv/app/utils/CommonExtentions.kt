@@ -3,21 +3,18 @@ package com.lyj.fakepixiv.app.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import androidx.databinding.ObservableField
-import androidx.annotation.LayoutRes
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import android.view.LayoutInflater
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+import androidx.annotation.LayoutRes
+import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.application.ApplicationLike
 import com.lyj.fakepixiv.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepixiv.app.network.LoadState
-import com.lyj.fakepixiv.widget.ErrorView
-import kotlinx.coroutines.*
+import com.lyj.fakepixiv.widget.StateView
 
 
 /**
@@ -88,14 +85,16 @@ fun BaseQuickAdapter<*, *>.bindState(loadState: ObservableField<LoadState>,
                                      onSucceed: (() -> Unit)? = null, onFailed: ((err: Throwable) -> Unit)? = null,
                                      onLoading: (() -> Unit)? = null, refreshLayout: SwipeRefreshLayout? = null,
                                      reload: (() -> Unit)? = null) {
+    var firstLoad = true
 
-    val loadingView: View = LayoutInflater.from(ApplicationLike.context).inflate(loadingRes, null)
-    val errorView = ErrorView(ApplicationLike.context)
-    errorView.setView(errorRes)
-    errorView.reload = {
+    val stateView = StateView(ApplicationLike.context)
+    stateView.reload = {
         reload?.invoke()
     }
-    emptyView = loadingView
+    stateView.loadState = loadState
+    stateView.loadingRes = loadingRes
+    stateView.errorRes = errorRes
+    emptyView = stateView
     refreshLayout?.let {
         it.setOnRefreshListener {
             reload?.invoke()
@@ -104,17 +103,17 @@ fun BaseQuickAdapter<*, *>.bindState(loadState: ObservableField<LoadState>,
     loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { observable, i ->
         when (val state = loadState.get()) {
             is LoadState.Loading -> {
-                emptyView = loadingView
                 if (headerLayoutCount + footerLayoutCount > 0) {
                     notifyDataSetChanged()
                  }
                 //refreshLayout?.isRefreshing = false
-                //refreshLayout?.isEnabled = false
+                if (firstLoad) {
+                    // 是第一次加载
+                    refreshLayout?.isEnabled = false
+                }
                 onLoading?.invoke()
             }
             is LoadState.Failed -> {
-                errorView.setError(state.error)
-                emptyView = errorView
                 if (headerLayoutCount + footerLayoutCount > 0) {
                     notifyDataSetChanged()
                 }
@@ -123,6 +122,7 @@ fun BaseQuickAdapter<*, *>.bindState(loadState: ObservableField<LoadState>,
                 onFailed?.invoke(state.error)
             }
             else -> {
+                firstLoad = false
                 refreshLayout?.isRefreshing = false
                 refreshLayout?.isEnabled = true
                 onSucceed?.invoke()

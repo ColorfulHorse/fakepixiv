@@ -50,7 +50,7 @@ class RegisterViewModel : BaseViewModel() {
                 }
                 resp
             }
-            val loginData = UserRepository.instance.login(resp.body.user_account, resp.body.password, resp.body.device_token)
+            val loginData = UserRepository.instance.login(resp.body.user_account, resp.body.password, resp.body.device_token, true)
             loadState.set(LoadState.Succeed)
             AppManager.instance.top?.startActivity(MainActivity::class.java)
         }

@@ -5,4 +5,9 @@
         <attr format="dimension" name="tl_indicator_padding_left"/>
         <attr format="dimension" name="tl_indicator_padding_right"/>
     </declare-styleable>
+
+    <declare-styleable name="StateView">
+        <attr format="reference" name="errorLayout"/>
+        <attr format="reference" name="loadingLayout"/>
+    </declare-styleable>
 </resources>

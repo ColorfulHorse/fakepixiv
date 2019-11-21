@@ -57,4 +57,32 @@ data class LoginData(
     }
 }
 
+/**
+ * 账户信息
+ */
+data class AccountStateResp(
+        val user_state: AccountState = AccountState()
+)
+
+data class AccountState(
+        val is_mail_authorized: Boolean = false,
+        val has_changed_pixiv_id: Boolean = false,
+        val can_change_pixiv_id: Boolean = false
+)
+
+/**
+ * 创建的临时用户
+ */
+data class ProvisionAccountResp(
+        val body: Account,
+        val error: Boolean,
+        val message: String
+)
+
+data class Account(
+        val device_token: String,
+        val password: String,
+        val user_account: String
+)
+
 

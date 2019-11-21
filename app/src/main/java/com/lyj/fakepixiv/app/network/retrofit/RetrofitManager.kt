@@ -45,19 +45,20 @@ class RetrofitManager private constructor() {
 
     val searchService: SearchService by lazy { retrofit.create(SearchService::class.java) }
 
+
     private val client: OkHttpClient = OkHttpClient
             .Builder()
-            .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
-            .readTimeout(TIME_OUT, TimeUnit.SECONDS)
-            .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
+//            .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
+//            .readTimeout(TIME_OUT, TimeUnit.SECONDS)
+//            .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
             //.sslSocketFactory(getSSLSocketFactory(), getTrustManager())
             .addInterceptor(SwitchBaseUrlInterceptor())
             .addInterceptor(CommonParamsInterceptor())
 //            .addInterceptor(LoggerInterceptor())
             .addInterceptor(ApiExceptionInterceptor())
             .addInterceptor(LoggerInterceptor())
+            .callTimeout(TIME_OUT, TimeUnit.SECONDS)
             .build()
-
     val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(Constant.Net.BASE_URL)
             .client(client)

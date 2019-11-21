@@ -1,7 +1,6 @@
 package com.lyj.fakepixiv.app.data.model.response
 
-import android.databinding.BaseObservable
-import android.databinding.Bindable
+
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.lyj.fakepixiv.BR
@@ -21,6 +20,7 @@ import java.util.*
 //@JsonClass(generateAdapter = true)
 data class User(
         val account: String = "",
+        var password: String = "",
         val id: String = "",
         val comment: String = "",
         val is_mail_authorized: Boolean = false,
@@ -186,31 +186,3 @@ data class Workspace(
         ).filterNot { it.second.isBlank() }
     }
 }
-
-/**
- * 创建的临时用户
- */
-data class ProvisionAccountResp(
-    val body: Account,
-    val error: Boolean,
-    val message: String
-)
-
-data class Account(
-    val device_token: String,
-    val password: String,
-    val user_account: String
-)
-
-/**
- * 账户信息
- */
-data class UserStateResp(
-    val user_state: UserState = UserState()
-)
-
-data class UserState(
-    val is_mail_authorized: Boolean = false,
-    val has_changed_pixiv_id: Boolean = false,
-    val can_change_pixiv_id: Boolean = false
-)

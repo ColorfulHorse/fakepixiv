@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <data>
         <import type="com.lyj.fakepixiv.module.illust.detail.IllustDetailViewModel"/>
@@ -12,7 +13,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/container"
@@ -55,22 +57,12 @@
                     />
             </RelativeLayout>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
-        <FrameLayout
+        <com.lyj.fakepixiv.widget.StateView
+            android:id="@+id/stateView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <com.lyj.fakepixiv.widget.ErrorView
-                android:id="@+id/errorView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"
-                app:visible="@{vm.detailState instanceof LoadState.Failed}"
-                />
-            <include
-                android:id="@+id/loading"
-                layout="@layout/layout_common_loading_white"
-                android:visibility="gone"
-                app:visible="@{vm.detailState instanceof LoadState.Loading}"
-                />
-        </FrameLayout>
+            android:layout_height="match_parent"
+            app:state="@{vm.detailState}"
+            app:reload="@{() -> vm.loadDetail()}"
+            />
     </FrameLayout>
 </layout>

@@ -72,7 +72,8 @@ interface UserService {
      * 获取账户信息
      */
     @GET("/v1/user/me/state")
-    suspend fun getAccountState(): Any
+    suspend fun getAccountState(): AccountStateResp
+
 
     /**
      * 修改账户信息
@@ -80,7 +81,16 @@ interface UserService {
     @POST("/api/account/edit")
     @Headers("SWITCH-HEADER:TAG_ACCOUNT")
     @FormUrlEncoded
-    suspend fun editAccount(): Any
+    suspend fun editAccount(@Field("new_mail_address")mail: String = "",
+                            @Field("new_user_account")account: String = "",
+                            @Field("current_password")current_password: String = "",
+                            @Field("new_password")new_password: String = ""): Any
+
+    /**
+     * 最新-推荐用户
+     */
+    @GET("/v1/user/recommended")
+    suspend fun getUserRecommend(): UserPreviewListResp
 
     /**
      * 粉丝

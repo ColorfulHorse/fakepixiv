@@ -19,7 +19,8 @@
 
         <item name="md_corner_radius">4dp</item>
         <item name="md_color_title">@color/black</item>
-        <item name="md_color_content">@color/renewal_font_gray</item>
+        <item name="md_color_content">@color/renewal_font_black</item>
+        <item name="editTextStyle">@style/baseEditText</item>
 <!--        <item name="md_ripple_color">@color/ripple_dark</item>-->
 <!--        <item name="md_color_button_text">@color/your/color</item>-->
 <!--        <item name="md_font_title">@font/your_font</item>-->
@@ -160,4 +161,11 @@
         <item name="colorControlActivated">@color/primary</item>
         <item name="colorSwitchThumbNormal">@android:color/white</item>
     </style>
+
+    <style name="baseEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/renewal_font_gray</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
 </resources>

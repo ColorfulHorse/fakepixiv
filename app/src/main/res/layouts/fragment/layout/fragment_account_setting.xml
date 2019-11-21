@@ -2,6 +2,8 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="com.lyj.fakepixiv.app.network.LoadState"/>
+        <import type="android.text.TextUtils"/>
         <variable
             name="vm"
             type="com.lyj.fakepixiv.module.setting.account.AccountViewModel" />
@@ -24,12 +26,14 @@
             >
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
-                style="@style/base_toolbar" />
+                style="@style/base_toolbar"
+                app:title="@string/settings_account"
+                />
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="16dp"
@@ -37,9 +41,10 @@
                     android:orientation="vertical"
                     >
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:enabled="@{!vm.loading}"
+                        android:enabled="@{!(vm.updateState instanceof LoadState.Loading)}"
                         app:helperText="@string/account_help_id"
                         >
                         <com.google.android.material.textfield.TextInputEditText
@@ -55,15 +60,16 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_id"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:enabled="@{!vm.loading}"
+                        android:layout_below="@+id/input_email"
+                        android:enabled="@{!(vm.updateState instanceof LoadState.Loading) &amp;&amp; vm.data.can_change_pixiv_id}"
                         >
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_id"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="15sp"
                             android:maxLines="1"
                             android:inputType="text"
                             android:text="@={vm.id}"
@@ -72,7 +78,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:enabled="@{!vm.loading}"
+                        android:layout_below="@id/input_id"
+                        android:enabled="@{!(vm.updateState instanceof LoadState.Loading)}"
                         >
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_password"
@@ -81,16 +88,29 @@
                             android:textSize="15sp"
                             android:hint="@string/settings_new_password"
                             android:maxLines="1"
-                            android:inputType="text"
+                            android:inputType="textPassword"
                             android:text="@={vm.password}"
                             />
                     </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
-                <include
 
-                    layout="@layout/layout_common_loading_white"/>
-                <include
-                    layout="@layout/layout_error"/>
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:background="@drawable/selector_btn_primary"
+                        android:text="@string/settings_update_account"
+                        android:layout_alignParentBottom="true"
+                        android:onClick="@{() -> vm.update()}"
+                        android:enabled="@{!(vm.updateState instanceof LoadState.Loading) &amp;&amp; !TextUtils.isEmpty(vm.email) &amp;&amp; !TextUtils.isEmpty(vm.id) &amp;&amp; !TextUtils.isEmpty(vm.password)}"
+                        />
+                </RelativeLayout>
+                <com.lyj.fakepixiv.widget.StateView
+                    android:id="@+id/stateView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:state="@{vm.loadState}"
+                    app:reload="@{() -> vm.loadData()}"
+                    />
             </FrameLayout>
         </LinearLayout>
     </FrameLayout>

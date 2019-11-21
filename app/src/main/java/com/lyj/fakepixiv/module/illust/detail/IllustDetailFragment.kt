@@ -120,15 +120,6 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
             }
             mAdapter.bindToRecyclerView(recyclerView)
         }
-        mViewModel.detailState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
-            val state = mViewModel.detailState.get()
-            if (state is LoadState.Failed) {
-                mBinding.errorView.reload = {
-                    mViewModel.loadDetail()
-                }
-                mBinding.errorView.setError(state.error)
-            }
-        })
     }
 
 

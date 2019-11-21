@@ -1,13 +1,10 @@
 package com.lyj.fakepixiv.app.data.source.remote
 
-import android.databinding.ObservableField
 import android.util.ArrayMap
+import androidx.databinding.ObservableField
 import com.lyj.fakepixiv.app.constant.Constant
 import com.lyj.fakepixiv.app.constant.Restrict
-import com.lyj.fakepixiv.app.data.model.response.LoginData
-import com.lyj.fakepixiv.app.data.model.response.User
-import com.lyj.fakepixiv.app.data.model.response.UserInfo
-import com.lyj.fakepixiv.app.data.model.response.UserPreviewListResp
+import com.lyj.fakepixiv.app.data.model.response.*
 import com.lyj.fakepixiv.app.network.LoadState
 import com.lyj.fakepixiv.app.network.retrofit.RetrofitManager
 import com.lyj.fakepixiv.app.network.service.UserService
@@ -27,7 +24,7 @@ import kotlinx.coroutines.*
  */
 class UserRepository private constructor() {
 
-    private val service: UserService by lazy { RetrofitManager.instance.userService }
+    val service: UserService by lazy { RetrofitManager.instance.userService }
 
     companion object {
         @JvmStatic
@@ -72,6 +69,10 @@ class UserRepository private constructor() {
         return withContext(Dispatchers.IO) {
             val resp = service.login(userName = userName, password = password, deviceToken = deviceToken).response
             resp.provisional = provisional
+            if (provisional) {
+                // 临时用户存密码
+                resp.user.password = password
+            }
             loginData = resp
             SPUtil.saveLoginData(resp)
             resp
@@ -85,10 +86,10 @@ class UserRepository private constructor() {
         //this.loginData = cache
         with(cache) {
             return withContext(Dispatchers.IO) {
-                val resp = service
+                var resp = service
                         .login(grantType = Constant.Net.GRANT_TYPE_TOKEN, refreshToken = refresh_token, deviceToken = device_token)
                         .response
-                resp.provisional = cache.provisional
+                resp = resp.copy(provisional = cache.provisional, user = user.copy(password = cache.user.password))
                 loginData = resp
                 SPUtil.saveLoginData(resp)
                 resp
@@ -96,6 +97,9 @@ class UserRepository private constructor() {
         }
     }
 
+    /**
+     * 创建临时账户
+     */
     suspend fun register(userName: String): ProvisionAccountResp {
         return service.register(userName)
     }
@@ -108,11 +112,12 @@ class UserRepository private constructor() {
             val call = service.refreshToken(grantType = Constant.Net.GRANT_TYPE_TOKEN,
                     refreshToken = refresh_token, deviceToken = device_token)
             call.execute().body()?.let {
-                it.response.provisional = cache.provisional
-                it.response.lastRefreshTime = cache.lastRefreshTime
-                loginData = it.response
-                SPUtil.saveLoginData(it.response)
-                return it.response
+                val resp = it.response.copy(provisional = cache.provisional,
+                        user = user.copy(password = cache.user.password),
+                        lastRefreshTime = cache.lastRefreshTime)
+                loginData = resp
+                SPUtil.saveLoginData(resp)
+                return resp
             }
             return null
         }
@@ -164,7 +169,6 @@ class UserRepository private constructor() {
      *  关注用户
      */
     fun follow(user: User, loadState: ObservableField<LoadState>, @Restrict restrict: String = Restrict.PUBLIC): Disposable? {
-
         if (loadState.get() !is LoadState.Loading) {
             val followed = user.is_followed
             return instance

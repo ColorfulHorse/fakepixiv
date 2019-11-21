@@ -19,6 +19,7 @@ import com.lyj.fakepixiv.app.base.BasePreferenceFragment
 import com.lyj.fakepixiv.app.utils.SPUtil
 import com.lyj.fakepixiv.app.utils.finish
 import com.lyj.fakepixiv.module.login.LoginActivity
+import com.lyj.fakepixiv.module.setting.account.AccountFragment
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_settings.view.*
 
@@ -62,11 +63,12 @@ class SettingsFragment : BasePreferenceFragment() {
 
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
         when (preference.key) {
-            getString(com.lyj.fakepixiv.R.string.preference_key_setting_account) -> {
 
+            getString(R.string.preference_key_setting_account) -> {
+                start(AccountFragment.newInstance())
             }
 
-            getString(com.lyj.fakepixiv.R.string.preference_key_setting_logout) -> {
+            getString(R.string.preference_key_setting_logout) -> {
                 logout()
             }
         }
@@ -80,7 +82,7 @@ class SettingsFragment : BasePreferenceFragment() {
                     title(R.string.logout_confirm)
                     message(R.string.message_provisional_logout)
                     negativeButton(R.string.set_account_info) {
-
+                        start(AccountFragment.newInstance())
                     }
                     neutralButton(R.string.cancel) {
 
@@ -118,8 +120,8 @@ class SettingsFragment : BasePreferenceFragment() {
     override fun initImmersionBar() {
         ImmersionBar.with(this)
                 .titleBarMarginTop(contentView)
-                .statusBarColor(com.lyj.fakepixiv.R.color.transparent)
-                .statusBarColorTransform(com.lyj.fakepixiv.R.color.black)
+                .statusBarColor(R.color.transparent)
+                .statusBarColorTransform(R.color.black)
                 .statusBarAlpha(0.25f)
                 .init()
     }
