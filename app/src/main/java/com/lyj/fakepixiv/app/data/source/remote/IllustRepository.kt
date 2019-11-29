@@ -12,13 +12,19 @@ import com.lyj.fakepixiv.app.network.LoadState
 import com.lyj.fakepixiv.app.network.retrofit.RetrofitManager
 import com.lyj.fakepixiv.app.network.service.IllustService
 import com.lyj.fakepixiv.app.reactivex.schedulerTransform
+import com.lyj.fakepixiv.app.utils.JsonUtil
 import com.lyj.fakepixiv.app.utils.ioTask
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.rx2.awaitSingle
+import kotlinx.coroutines.withContext
+import okhttp3.MediaType
+import okhttp3.RequestBody
 import retrofit2.http.Query
+import java.io.IOException
 import java.lang.StringBuilder
 import java.util.*
 
@@ -311,6 +317,27 @@ class IllustRepository private constructor() {
     }
 
     /**
+     * 保存浏览记录
+     */
+    suspend fun saveHistory(illust: Illust) {
+        val body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), JsonUtil.bean2Json(illust))
+        return service.saveHistory(body)
+    }
+
+    /**
+     * 获取浏览记录
+     */
+    @Throws(IOException::class)
+    suspend fun getBrowserHistory(@IllustCategory category: String): IllustListResp {
+        UserRepository.instance.loginData?.let {
+            return service.getBrowserHistory(it.user.id, category)
+        }
+        return IllustListResp()
+    }
+
+
+
+    /**
      * 加载更多
      */
     fun loadMore(nextUrl: String): Observable<IllustListResp> {
@@ -331,6 +358,7 @@ class IllustRepository private constructor() {
             service.getMoreIllust(nextUrl).awaitSingle()
         }
     }
+
 }
 
 @Throws(ApiException::class)

@@ -62,7 +62,7 @@ class CommonParamsInterceptor : Interceptor {
                 .addHeader("X-Client-Time", timeStr)
                 .addHeader("X-Client-Hash", hash)
                 .build()
-        if (url.contains(Constant.Net.BASE_URL)) {
+        if (!url.contains(Constant.Net.AUTH_URL)) {
             var token: String? = null
             UserRepository.instance.loginData?.let {
 //                token = "${it.token_type} ${it.access_token}"

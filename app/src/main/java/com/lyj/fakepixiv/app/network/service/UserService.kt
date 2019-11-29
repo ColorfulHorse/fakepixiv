@@ -134,7 +134,7 @@ interface UserService {
      */
     @POST("/v1/user/follow/add")
     @FormUrlEncoded
-    fun followUser(@Field("user_id")userId: String,
+    fun followUser(@Field("user_id")userId: Long,
                    @Restrict @Field("restrict") restrict: String = Restrict.PUBLIC): Observable<Any>
 
     @POST("/v1/user/follow/delete")

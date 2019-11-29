@@ -100,7 +100,7 @@ fun BaseQuickAdapter<*, *>.bindState(loadState: ObservableField<LoadState>,
             reload?.invoke()
         }
     }
-    loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { observable, i ->
+    loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
         when (val state = loadState.get()) {
             is LoadState.Loading -> {
                 if (headerLayoutCount + footerLayoutCount > 0) {

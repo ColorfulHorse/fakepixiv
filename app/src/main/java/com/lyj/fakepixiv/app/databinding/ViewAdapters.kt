@@ -22,6 +22,7 @@ import com.lyj.fakepixiv.widget.LikeButton
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.Bitmap
 import com.flyco.tablayout.listener.OnTabSelectListener
+import com.google.android.material.textfield.TextInputLayout
 import com.lyj.fakepixiv.app.data.model.response.Illust
 import com.lyj.fakepixiv.app.data.source.remote.IllustRepository
 import com.lyj.fakepixiv.app.glide.PositionedCrop
@@ -248,6 +249,11 @@ fun CommonTabLayout.onTabListener(onTabSelect: TabSelectListener? = null, onTabR
         }
 
     })
+}
+
+@BindingAdapter(value = ["errorText"], requireAll = false)
+fun TextInputLayout.config(errorText: String? = null) {
+    error = errorText
 }
 
 interface TabSelectListener{

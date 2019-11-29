@@ -86,9 +86,18 @@ class UserRepository private constructor() {
         //this.loginData = cache
         with(cache) {
             return withContext(Dispatchers.IO) {
-                var resp = service
-                        .login(grantType = Constant.Net.GRANT_TYPE_TOKEN, refreshToken = refresh_token, deviceToken = device_token)
-                        .response
+                var resp: LoginData
+                val password = cache.user.password
+                resp = if (password.isNotBlank() && !cache.provisional) {
+                    // 临时账号更改了信息以后需要重新用账号密码登录，并清除掉密码
+                    service.login(userName = cache.user.account, password = password, deviceToken = device_token).response.apply {
+                        cache.user.password = ""
+                    }
+                }else {
+                    service
+                            .login(grantType = Constant.Net.GRANT_TYPE_TOKEN, refreshToken = refresh_token, deviceToken = device_token)
+                            .response
+                }
                 resp = resp.copy(provisional = cache.provisional, user = user.copy(password = cache.user.password))
                 loginData = resp
                 SPUtil.saveLoginData(resp)
@@ -128,6 +137,9 @@ class UserRepository private constructor() {
                 .getUserRecommend()
     }
 
+    /**
+     * 关注的人
+     */
     suspend fun getFollowing(userId: String, @Restrict restrict: String): UserPreviewListResp {
         return service.getFollowing(userId, restrict)
     }
@@ -156,7 +168,7 @@ class UserRepository private constructor() {
     /**
      *  关注用户
      */
-    fun follow(userId: String, follow: Boolean, @Restrict restrict: String = Restrict.PUBLIC): Observable<Any> {
+    fun follow(userId: Long, follow: Boolean, @Restrict restrict: String = Restrict.PUBLIC): Observable<Any> {
         return if (follow) service
                 .followUser(userId, restrict)
                 .schedulerTransform()

@@ -1,21 +1,13 @@
 package com.lyj.fakepixiv.app.network.retrofit.interceptors
 
-import androidx.core.content.ContextCompat.startActivity
 import com.lyj.fakepixiv.app.constant.Constant
 import com.lyj.fakepixiv.app.data.model.response.LoginData
 import com.lyj.fakepixiv.app.data.model.response.LoginError
 import com.lyj.fakepixiv.app.data.source.remote.UserRepository
 import com.lyj.fakepixiv.app.network.ApiException
 import com.lyj.fakepixiv.app.utils.SPUtil
-import com.lyj.fakepixiv.app.utils.startActivity
-import com.lyj.fakepixiv.module.main.MainActivity
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import io.reactivex.rxkotlin.subscribeBy
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withTimeout
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
@@ -45,47 +37,53 @@ class ApiExceptionInterceptor : Interceptor {
         }
         when (response.code()) {
             400 -> {
-                if (req.url().toString().contains(Constant.Net.AUTH_URL)) {
-                    // 登录失败
-                    val errorBody = response.newBuilder().body(response.body()).build().body()?.string()
-                    val adapter = moshi.adapter<LoginError>(LoginError::class.java)
-                    if (errorBody != null) {
-                        val loginError = adapter.fromJson(errorBody)
-                        loginError?.let {
-                            throw ApiException(it.errors.system.code)
+                when {
+                    req.url().toString().contains(Constant.Net.AUTH_URL) -> {
+                        // 登录失败
+                        val errorBody = response.newBuilder().body(response.body()).build().body()?.string()
+                        val adapter = moshi.adapter<LoginError>(LoginError::class.java)
+                        if (errorBody != null) {
+                            val loginError = adapter.fromJson(errorBody)
+                            loginError?.let {
+                                throw ApiException(it.errors.system.code)
+                            }
                         }
+                        throw ApiException()
                     }
-                    throw ApiException()
-                } else {
-                    // token过期同步刷新token
-                    //throw ApiException(ApiException.CODE_TOKEN_INVALID)
-                    var throwable: Throwable = ApiException()
-                    var loginData =  UserRepository.instance.loginData
-                    try {
-                        // 如果别的请求已经刷新了token直接用就可以了
-                        var cacheData: LoginData? = null
-                        // 没有登陆过
-                        if (loginData == null) {
-                            cacheData = SPUtil.getLoginData()
-                        }else if (loginData.needRefresh()) {
-                            // token过期
-                            cacheData = loginData
+//                    req.url().toString().contains(Constant.Net.ACCOUNT_URL) -> return response.newBuilder()
+//                            .code(200)
+//                            .build()
+                    else -> {
+                        // token过期同步刷新token
+                        //throw ApiException(ApiException.CODE_TOKEN_INVALID)
+                        var throwable: Throwable = ApiException()
+                        var loginData =  UserRepository.instance.loginData
+                        try {
+                            // 如果别的请求已经刷新了token直接用就可以了
+                            var cacheData: LoginData? = null
+                            // 没有登陆过
+                            if (loginData == null) {
+                                cacheData = SPUtil.getLoginData()
+                            }else if (loginData.needRefresh()) {
+                                // token过期
+                                cacheData = loginData
+                            }
+                            cacheData?.let {
+                                // 刷新token
+                                loginData = UserRepository.instance.refreshToken(it)
+                            }
+                            // 如果别的请求已经刷新了token直接用就可以了
+                            loginData?.let {
+                                val newReq = req.newBuilder()
+                                        .header(Constant.Net.HEADER_TOKEN, "Bearer ${it.access_token}")
+                                        .build()
+                                return chain.proceed(newReq)
+                            }
+                        }catch (err: IOException) {
+                            throwable = err
                         }
-                        cacheData?.let {
-                            // 刷新token
-                            loginData = UserRepository.instance.refreshToken(it)
-                        }
-                        // 如果别的请求已经刷新了token直接用就可以了
-                        loginData?.let {
-                            val newReq = req.newBuilder()
-                                    .header(Constant.Net.HEADER_TOKEN, "Bearer ${it.access_token}")
-                                    .build()
-                            return chain.proceed(newReq)
-                        }
-                    }catch (err: IOException) {
-                        throwable = err
+                        throw convertException(throwable)
                     }
-                    throw convertException(throwable)
                 }
             }
             else -> return response

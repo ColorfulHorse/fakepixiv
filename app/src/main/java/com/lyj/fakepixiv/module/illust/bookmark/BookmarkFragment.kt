@@ -158,10 +158,7 @@ class BookmarkFragment : BackFragment<FragmentBookmarkBinding, BaseViewModel?>()
     }
 
     override fun bindBackIcon(): Drawable {
-        return DrawerArrowDrawable(mActivity).apply {
-            progress = 1F
-            color = Color.WHITE
-        }
+        return createDefaultBack()
     }
 
     override fun bindLayout(): Int = R.layout.fragment_bookmark

@@ -2,6 +2,7 @@ package com.lyj.fakepixiv.module.common
 
 import androidx.databinding.Bindable
 import androidx.databinding.ObservableField
+import androidx.lifecycle.LifecycleOwner
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.app.base.BaseViewModel
 
@@ -16,6 +17,11 @@ import com.lyj.fakepixiv.module.illust.detail.RelatedIllustDialogViewModel
 import com.lyj.fakepixiv.module.illust.detail.RelatedUserDialogViewModel
 import com.lyj.fakepixiv.module.illust.detail.items.SeriesItemViewModel
 import com.lyj.fakepixiv.module.illust.detail.items.UserFooterViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 /**
  * @author greensun
@@ -112,6 +118,21 @@ open class DetailViewModel : BaseViewModel() {
         })
     }
 
+    override fun lazyInit() {
+        super.lazyInit()
+        createHistory()
+    }
+
+    fun createHistory() {
+        launch(CoroutineExceptionHandler { _, err ->
+            Timber.e(err.toString())
+        }) {
+            withContext(Dispatchers.IO) {
+                IllustRepository.instance
+                        .saveHistory(illust)
+            }
+        }
+    }
 
     /**
      * 收藏/取消收藏

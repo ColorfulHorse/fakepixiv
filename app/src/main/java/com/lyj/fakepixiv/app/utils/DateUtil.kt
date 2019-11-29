@@ -25,6 +25,38 @@ object DateUtil {
         return distance < dayTime
     }
 
+    @JvmStatic fun formatHistory(timestamp: Long): String {
+        if (timestamp > 0) {
+            // 今天0点
+            val t = Calendar.getInstance()
+            t.clear(Calendar.MILLISECOND)
+            t.clear(Calendar.SECOND)
+            t.clear(Calendar.MINUTE)
+            t.clear(Calendar.HOUR_OF_DAY)
+            // 昨天0点
+            val y = Calendar.getInstance()
+            y.add(Calendar.DAY_OF_MONTH, -1)
+            y.clear(Calendar.MILLISECOND)
+            y.clear(Calendar.SECOND)
+            y.clear(Calendar.MINUTE)
+            y.clear(Calendar.HOUR_OF_DAY)
+            val last = Calendar.getInstance()
+            last.timeInMillis = timestamp
+            var sdf = SimpleDateFormat("YYYY-MM-dd HH:mm", Locale.getDefault())
+            if (last.before(t) and last.after(y)) {
+                // 昨天
+                sdf = SimpleDateFormat("昨天 HH:mm", Locale.getDefault())
+            }else if (last.after(t)){
+                // 今天
+                sdf = SimpleDateFormat("今天 HH:mm", Locale.getDefault())
+            }else if (last.get(Calendar.YEAR) == t.get(Calendar.YEAR)) {
+                sdf = SimpleDateFormat("MM-dd HH:mm", Locale.getDefault())
+            }
+            return sdf.format(timestamp)
+        }
+        return ""
+    }
+
     /**
      *
      */

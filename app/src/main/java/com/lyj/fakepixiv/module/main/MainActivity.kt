@@ -6,6 +6,7 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ImageSpan
 import android.view.Gravity
+import androidx.core.view.GravityCompat
 import com.gyf.immersionbar.ImmersionBar
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.FragmentationActivity
@@ -13,6 +14,7 @@ import com.lyj.fakepixiv.app.utils.Router
 import com.lyj.fakepixiv.databinding.ActivityMainBinding
 import com.lyj.fakepixiv.databinding.MainNavHeader
 import com.lyj.fakepixiv.module.illust.bookmark.BookmarkFragment
+import com.lyj.fakepixiv.module.illust.history.HistoryFragment
 import com.lyj.fakepixiv.module.setting.SettingsFragment
 import com.lyj.fakepixiv.module.user.following.FollowingFragment
 import me.yokeyword.fragmentation.ISupportFragment
@@ -82,7 +84,7 @@ class MainActivity : FragmentationActivity<ActivityMainBinding, MainViewModel>()
                 }
             }
             nav.nav.setNavigationItemSelectedListener {
-                drawerLayout.closeDrawer(Gravity.START)
+                drawerLayout.closeDrawer(GravityCompat.START)
                 when (it.itemId) {
                     R.id.nav_home, R.id.nav_news, R.id.nav_search -> {
                         var rootFragment = findFragment(MainRootFragment::class.java)
@@ -115,6 +117,11 @@ class MainActivity : FragmentationActivity<ActivityMainBinding, MainViewModel>()
                         false
                     }
 
+                    R.id.nav_history -> {
+                        start(HistoryFragment.newInstance())
+                        false
+                    }
+
                     else -> false
                 }
             }
@@ -125,7 +132,7 @@ class MainActivity : FragmentationActivity<ActivityMainBinding, MainViewModel>()
 
 
     override fun onBackPressedSupport() {
-        if (mBinding.drawerLayout.isDrawerOpen(Gravity.START)) {
+        if (mBinding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             mBinding.drawerLayout.closeDrawers()
         }else {
             if (supportFragmentManager.backStackEntryCount > 1) {

@@ -40,6 +40,10 @@ abstract class BaseViewModel : BaseObservable(), LifecycleObserver,
 
     }
 
+    open fun lazyInit() {
+        lazyCreated = true
+    }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     open fun onDestroy(@NotNull owner: LifecycleOwner) {
         mSubViewModelList.forEach { it.onDestroy(owner) }
@@ -66,4 +70,5 @@ abstract class BaseViewModel : BaseObservable(), LifecycleObserver,
             mDisposable.add(it)
         }
     }
+
 }

@@ -126,7 +126,7 @@
                     android:textColor="@color/gray_text"
                     android:textSize="12sp"
                     android:visibility="gone"
-                    app:visible="@{TextUtils.equals(UserRepository.instance.loginData.user.id, vm.data.user.id)}" />
+                    app:visible="@{UserRepository.instance.loginData.user.id == vm.data.user.id}" />
 
                 <TextView
                     android:id="@+id/remove"

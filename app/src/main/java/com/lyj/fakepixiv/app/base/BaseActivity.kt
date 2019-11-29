@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.annotation.LayoutRes
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleRegistry
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.R
 

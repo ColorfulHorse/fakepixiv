@@ -31,7 +31,7 @@ class StateView : FrameLayout {
     var loadState: ObservableField<LoadState>? = null
     set(value) {
         field = value
-        value?.addOnPropertyChangedCallback(onPropertyChangedCallback { observable, i ->
+        value?.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
             val state = loadState?.get()
             state?.let {
                 when (it) {
@@ -58,6 +58,7 @@ class StateView : FrameLayout {
                 when(value.code) {
                     ApiException.CODE_EMPTY_DATA -> setView(R.layout.layout_error_no_result)
                     ApiException.CODE_NOT_VISIBLE -> setView(R.layout.layout_error_not_visible)
+                    else -> setView(errorRes)
                 }
             }else {
                 setView(errorRes)

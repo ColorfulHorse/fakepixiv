@@ -19,13 +19,13 @@ import java.util.*
 
 //@JsonClass(generateAdapter = true)
 data class User(
-        val account: String = "",
+        var account: String = "",
         var password: String = "",
-        val id: String = "",
+        var id: Long = -1,
         val comment: String = "",
         val is_mail_authorized: Boolean = false,
         val is_premium: Boolean = false,
-        val mail_address: String = "",
+        var mail_address: String = "",
         val name: String = "",
         //var is_followed: Boolean = false,
         val profile_image_urls: ProfileImageUrls = ProfileImageUrls(),

@@ -53,6 +53,7 @@ class SplashActivity : FragmentationActivity<ActivitySplashBinding, BaseViewMode
             startActivity(LoginActivity::class.java)
             finish()
         } else {
+            UserRepository.instance.loginData = cacheData
             loginJob = GlobalScope.launch(Dispatchers.Main) {
                 try {
                     withTimeout(10*1000) {

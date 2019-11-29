@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.lyj.fakepixiv.app.data.model.response.Illust" />
+        <import type="com.lyj.fakepixiv.app.utils.DateUtil"/>
+
+        <variable
+            name="data"
+            type="Illust" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="w,1:1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:fade="@{true}"
+                    app:placeHolder="@{@drawable/common_border_placeholder}"
+                    app:url="@{data.image_urls.large}"/>
+
+                <TextView
+                    android:id="@+id/count"
+                    style="@style/count_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/image"
+                    android:layout_alignEnd="@id/image"
+                    android:text="@{String.valueOf(data.page_count)}"
+                    android:visibility="gone"
+                    app:visible="@{data.page_count>1}" />
+
+                <com.lyj.fakepixiv.widget.LikeButton
+                    android:id="@+id/like"
+                    android:layout_width="@dimen/like_button_size"
+                    android:layout_height="@dimen/like_button_size"
+                    android:layout_alignEnd="@id/image"
+                    android:layout_alignBottom="@id/image"
+                    app:liked="@{data._bookmarked}" />
+            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.lyj.fakepixiv.widget.SeriesView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:visible="@{data.series != null}"/>
+
+
+        <LinearLayout
+            android:id="@+id/desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/container"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textSize="12sp"
+                android:textColor="@color/renewal_font_black"
+                android:layout_marginBottom="8dp"
+                android:text="@{data.title}" />
+            <LinearLayout
+                android:id="@+id/container_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
+                >
+
+                <ImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="@dimen/small_avatar"
+                    android:layout_height="@dimen/small_avatar"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="centerCrop"
+                    app:circle="@{true}"
+                    app:placeHolder="@{@drawable/no_profile}"
+                    app:url="@{data.user.profile_image_urls.medium}" />
+
+                <TextView
+                    android:id="@+id/userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:text="@{data.user.name}"
+                    android:textColor="@color/renewal_font_light_gray"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:text="@{DateUtil.formatHistory(data.view_time)}"
+                android:textColor="@color/renewal_font_light_gray"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

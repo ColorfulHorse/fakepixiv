@@ -38,7 +38,9 @@ class IllustDetailViewModel : DetailViewModel() {
         this + seriesItemViewModel + relatedCaptionFooterViewModel
     }
 
-
+    /**
+     * 添加作品内多张图片为item
+     */
     override fun setData(data: Illust) {
         super.setData(data)
         if (illust.meta_pages.isNotEmpty()) {

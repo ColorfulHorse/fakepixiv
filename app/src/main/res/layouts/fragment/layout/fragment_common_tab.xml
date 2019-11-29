@@ -23,7 +23,7 @@
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     style="@style/base_toolbar"
-                    app:layout_scrollFlags="scroll|enterAlways|snap"
+                    app:layout_scrollFlags="scroll|enterAlways"
                     />
                 <com.lyj.fakepixiv.widget.CommonTabLayout
                     android:id="@+id/segmentLayout"

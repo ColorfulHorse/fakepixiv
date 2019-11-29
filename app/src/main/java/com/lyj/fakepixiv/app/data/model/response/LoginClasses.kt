@@ -85,4 +85,23 @@ data class Account(
         val user_account: String
 )
 
+data class EditAccountError(
+    val body: Body,
+    val error: Boolean,
+    val message: String
+)
+
+data class Body(
+    val is_succeed: Boolean,
+    val validation_errors: ValidationErrors
+)
+
+data class ValidationErrors(
+    val mail_address:String = "",
+    val pixiv_id: String = "",
+    val old_password:String = "",
+    val password: String = ""
+)
+
+
 

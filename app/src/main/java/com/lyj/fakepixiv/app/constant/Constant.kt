@@ -48,6 +48,7 @@ interface Constant {
         const val BASE_URL = "https://app-api.pixiv.net"
         const val AUTH_URL = "https://oauth.secure.pixiv.net"
         const val ACCOUNT_URL = "https://accounts.pixiv.net"
+        const val EXT_URL = "http://192.168.43.32:8888"
         const val APP_HOST = "www.pixiv.net"
         const val PIXIVISION_HOST = "www.pixivision.net"
 
@@ -55,6 +56,8 @@ interface Constant {
         const val TAG_BASE = "BASE_URL"
         const val TAG_AUTH = "TAG_AUTH"
         const val TAG_ACCOUNT = "TAG_ACCOUNT"
+        // 自己的服务
+        const val TAG_EXT = "TAG_EXT"
 
         const val GRANT_TYPE_PWD = "password"
         const val GRANT_TYPE_TOKEN = "refresh_token"

@@ -45,7 +45,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:enabled="@{!(vm.updateState instanceof LoadState.Loading)}"
-                        app:helperText="@string/account_help_id"
+                        app:errorText="@{vm.validationErrors.mail_address}"
                         >
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_email"
@@ -65,6 +65,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/input_email"
                         android:enabled="@{!(vm.updateState instanceof LoadState.Loading) &amp;&amp; vm.data.can_change_pixiv_id}"
+                        app:errorText="@{vm.validationErrors.pixiv_id}"
                         >
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_id"
@@ -73,6 +74,7 @@
                             android:maxLines="1"
                             android:inputType="text"
                             android:text="@={vm.id}"
+                            android:hint="@string/account_help_id"
                             />
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.textfield.TextInputLayout
@@ -80,6 +82,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/input_id"
                         android:enabled="@{!(vm.updateState instanceof LoadState.Loading)}"
+                        app:errorText="@{vm.validationErrors.password}"
                         >
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_password"

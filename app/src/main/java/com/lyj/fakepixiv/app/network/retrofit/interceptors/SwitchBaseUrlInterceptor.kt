@@ -24,13 +24,16 @@ class SwitchBaseUrlInterceptor : Interceptor {
                 val urlStr = when (header[0]) {
                     Constant.Net.TAG_AUTH -> Constant.Net.AUTH_URL
                     Constant.Net.TAG_ACCOUNT -> Constant.Net.ACCOUNT_URL
+                    Constant.Net.TAG_EXT -> Constant.Net.EXT_URL
                     else -> Constant.Net.BASE_URL
                 }
                 val url = HttpUrl.parse(urlStr)
                 if (url != null) {
                     val newUrl = oldReq.url()
                             .newBuilder()
+                            .scheme(url.scheme())
                             .host(url.host())
+                            .port(url.port())
                             .build()
                     val newReq = oldReq.newBuilder()
                             .removeHeader(Constant.Net.SWITCH_HEADER)

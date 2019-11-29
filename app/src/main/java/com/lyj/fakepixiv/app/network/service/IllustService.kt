@@ -5,7 +5,9 @@ import com.lyj.fakepixiv.app.constant.IllustCategory
 import com.lyj.fakepixiv.app.constant.Restrict
 import com.lyj.fakepixiv.app.data.model.response.*
 import io.reactivex.Observable
+import okhttp3.RequestBody
 import retrofit2.http.*
+import retrofit2.http.Body
 
 /**
  * @author green sun
@@ -243,6 +245,22 @@ interface IllustService {
      */
     @GET("/v1/illust-series/illust")
     suspend fun getSeriesContext(@Query("illust_id")illustId: String): SeriesContextResp
+
+    /**
+     * 浏览记录
+     */
+    @POST("/history/illust/create")
+    @Headers("SWITCH-HEADER:TAG_EXT")
+    suspend fun saveHistory(@Body body: RequestBody)
+
+    /**
+     * 浏览记录
+     */
+    @GET("/illust/browser_history")
+    @Headers("SWITCH-HEADER:TAG_EXT")
+    suspend fun getBrowserHistory(@Query("userId")userId: String,
+                                  @IllustCategory @Query("category")category: String): IllustListResp
+
 
     /**
      * 加载更多

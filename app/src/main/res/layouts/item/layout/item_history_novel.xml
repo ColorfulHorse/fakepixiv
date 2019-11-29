@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 主页排行榜item -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.lyj.fakepixiv.app.data.model.response.Illust" />
+        <import type="com.lyj.fakepixiv.app.utils.StringUtil" />
+        <import type="com.lyj.fakepixiv.app.utils.DateUtil" />
+        <variable
+            name="data"
+            type="Illust" />
+
+        <!--<variable-->
+            <!--name="StringUtil"-->
+            <!--type="com.lyj.fakepivix.app.utils.StringUtil" />-->
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:foreground="?android:selectableItemBackgroundBorderless"
+        android:orientation="horizontal"
+        android:tag="layout/view_novel_item_0">
+
+        <LinearLayout
+            android:id="@+id/cover_image_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="52dp"
+                android:layout_height="64dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                app:fade="@{true}"
+                app:url="@{data.image_urls.large}"
+                />
+
+            <TextView
+                android:id="@+id/like_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
+                android:drawableStart="@drawable/ic_manga_like"
+                android:drawablePadding="4dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/renewal_font_light_gray"
+                android:textSize="12.0sp"
+                android:textStyle="bold"
+                android:text="@{StringUtil.formatCount(data.total_bookmarks)}"
+                />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/button_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:id="@+id/mark_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="4dp"
+                android:background="@null"
+                android:src="@drawable/ic_novel_marker"
+                android:visibility="gone" />
+
+            <com.lyj.fakepixiv.widget.LikeButton
+                android:id="@+id/like"
+                android:layout_width="@dimen/like_button_size"
+                android:layout_height="@dimen/like_button_size"
+                app:liked="@{data._bookmarked}"
+                android:gravity="end"
+                />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/novel_info_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_toStartOf="@id/button_container"
+            android:layout_toLeftOf="@id/button_container"
+            android:layout_toEndOf="@id/cover_image_container"
+            android:layout_toRightOf="@id/cover_image_container"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/series_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:textColor="@color/novel_series"
+                android:textSize="12.0sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:visible="@{data.series != null}"
+                android:text="@{data.series.title}"
+                />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/renewal_font_black"
+                android:textSize="14.0sp"
+                android:textStyle="bold"
+                android:text="@{data.title}"
+                />
+
+            <TextView
+                android:id="@+id/author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/renewal_font_gray"
+                android:textSize="12.0sp"
+                android:text="@{@string/by + data.user.name}"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@id/tags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/novel_info_container"
+            android:layout_toEndOf="@id/cover_image_container"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/renewal_font_gray"
+            android:textSize="14.0sp"
+            android:text='@{StringUtil.formatLength(data.text_length) + @string/text_length + "  " + DateUtil.formatHistory(data.view_time)}'
+            />
+    </RelativeLayout>
+</layout>

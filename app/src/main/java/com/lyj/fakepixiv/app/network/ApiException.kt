@@ -1,6 +1,8 @@
 package com.lyj.fakepixiv.app.network
 
 import java.io.IOException
+import kotlin.Exception
+
 
 /**
  * @author greensun
@@ -9,13 +11,16 @@ import java.io.IOException
  *
  * @desc
  */
-class ApiException constructor(var code: Int) : IOException() {
-
-    constructor() : this(CODE_UNKNOWN)
-
-    override val message: String
-        get() = map.getOrElse(code) {MESSAGE_UNKNOWN}
-
+class ApiException(val code: Int = CODE_UNKNOWN, override val message: String = map.getOrElse(code) {MESSAGE_UNKNOWN}) : IOException() {
+//    {
+//        "has_error": true,
+//        "errors": {
+//        "system": {
+//        "message": "103:pixiv ID、またはメールアドレス、パスワードが正しいかチェックしてください。",
+//        "code": 1508
+//    }
+//    }
+//    }
     companion object {
         const val CODE_SUCCESS = 100
         const val CODE_EMPTY_DATA = 400

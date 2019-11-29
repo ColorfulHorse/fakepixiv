@@ -15,7 +15,7 @@ import com.lyj.fakepixiv.app.base.FragmentationFragment
 import com.lyj.fakepixiv.app.constant.Restrict
 import com.lyj.fakepixiv.app.data.source.remote.UserRepository
 import com.lyj.fakepixiv.app.entity.TabBean
-import com.lyj.fakepixiv.databinding.FragmentFollowingBinding
+import com.lyj.fakepixiv.databinding.FragmentCommonTabBinding
 import com.lyj.fakepixiv.module.common.UserListFragment
 import com.lyj.fakepixiv.module.common.UserListViewModel
 
@@ -26,7 +26,7 @@ import com.lyj.fakepixiv.module.common.UserListViewModel
  *
  * @desc
  */
-class FollowingFragment : BackFragment<FragmentFollowingBinding, BaseViewModel?>() {
+class FollowingFragment : BackFragment<FragmentCommonTabBinding, BaseViewModel?>() {
     override var mViewModel: BaseViewModel? = null
 
     private val fragments = mutableListOf<FragmentationFragment<*,*>>()
@@ -119,5 +119,5 @@ class FollowingFragment : BackFragment<FragmentFollowingBinding, BaseViewModel?>
         }
     }
 
-    override fun bindLayout(): Int = R.layout.fragment_following
+    override fun bindLayout(): Int = R.layout.fragment_common_tab
 }

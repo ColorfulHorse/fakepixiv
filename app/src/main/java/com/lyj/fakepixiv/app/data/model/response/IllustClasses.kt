@@ -4,10 +4,8 @@ package com.lyj.fakepixiv.app.data.model.response
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import android.text.TextUtils
-import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.R
-import com.lyj.fakepixiv.app.adapter.PreloadModel
 import com.lyj.fakepixiv.app.application.ApplicationLike
 import com.lyj.fakepixiv.app.constant.IllustCategory
 import com.lyj.fakepixiv.app.constant.IllustCategory.*
@@ -83,7 +81,8 @@ data class Illust(
         val width: Int = 0,
         val is_mypixiv_only: Boolean = false,
         val is_x_restricted: Boolean = false,
-        val x_restrict: Int = 0 // 1 r-18
+        val x_restrict: Int = 0, // 1 r-18
+        val view_time: Long = -1
 ) : MultiPreloadItem, BaseObservable() {
 
     override fun getPreloadUrls(): List<String> = listOf(image_urls.large)
