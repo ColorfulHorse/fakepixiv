@@ -114,14 +114,14 @@ interface UserService {
      * 获取用户详情
      */
     @GET("/v1/user/detail")
-    suspend fun getUserDetail(@Query("user_id")userId: String): UserInfo
+    suspend fun getUserDetail(@Query("user_id")userId: Long): UserInfo
 
 
     /**
      * 获取相关用户
      */
     @GET("/v1/user/related")
-    fun getRelatedUsers(@Query("seed_user_id")userId: String): Observable<UserPreviewListResp>
+    fun getRelatedUsers(@Query("seed_user_id")userId: Long): Observable<UserPreviewListResp>
 
     /**
      * 搜索用户
@@ -139,7 +139,7 @@ interface UserService {
 
     @POST("/v1/user/follow/delete")
     @FormUrlEncoded
-    fun unFollowUser(@Field("user_id")userId: String): Observable<Any>
+    fun unFollowUser(@Field("user_id")userId: Long): Observable<Any>
 
 
 

@@ -31,7 +31,7 @@ class UserDetailViewModel : BaseViewModel() {
 
 
 
-    var userId: String = ""
+    var userId: Long = -1
     set(value) {
         field = value
         user = UserRepository.instance[userId]

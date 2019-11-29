@@ -35,7 +35,7 @@ class BookmarkFragment : BackFragment<FragmentBookmarkBinding, BaseViewModel?>()
     override var mViewModel: BaseViewModel? = null
 
     private val fragments = mutableListOf<FragmentationFragment<*,*>>()
-    var userId = ""
+    var userId = -1L
     var category = IllustCategory.ILLUST
     // 选中标签
     var publicTag = ""
@@ -63,9 +63,9 @@ class BookmarkFragment : BackFragment<FragmentBookmarkBinding, BaseViewModel?>()
 
     companion object {
 
-        fun newInstance(userId: String = "", @IllustCategory category: String = IllustCategory.ILLUST) = BookmarkFragment().apply {
+        fun newInstance(userId: Long = -1, @IllustCategory category: String = IllustCategory.ILLUST) = BookmarkFragment().apply {
             arguments = Bundle().apply {
-                putString(EXTRA_ID, userId)
+                putLong(EXTRA_ID, userId)
                 putString(EXTRA_CATEGORY, category)
             }
         }
@@ -73,17 +73,17 @@ class BookmarkFragment : BackFragment<FragmentBookmarkBinding, BaseViewModel?>()
 
     override fun init(savedInstanceState: Bundle?) {
         arguments?.let {
-            userId = it.getString(EXTRA_ID, "")
+            userId = it.getLong(EXTRA_ID, -1)
             category = it.getString(EXTRA_CATEGORY, IllustCategory.ILLUST)
         }
-        if (userId.isEmpty()) {
+        if (userId == -1L) {
             // 自己
-            userId = UserRepository.instance.loginData?.user?.id.toString()
+            userId = UserRepository.instance.loginData?.user?.id?:-1L
         }
         mToolbar?.let {
             it.title = getString(R.string.bookmark)
             it.inflateMenu(R.menu.menu_bookmark)
-            if (userId != UserRepository.instance.loginData?.user?.id.toString()) {
+            if (userId != UserRepository.instance.loginData?.user?.id) {
                 val icon = ContextCompat.getDrawable(mActivity, R.drawable.ic_search_filter)
                 icon?.let { drawable ->
                     DrawableCompat.setTint(drawable, Color.WHITE)

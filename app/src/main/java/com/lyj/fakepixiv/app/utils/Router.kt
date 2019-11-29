@@ -91,7 +91,7 @@ object Router {
     /**
      * 用户详情页
      */
-    fun goUserDetail(user: User? = null, userId: String = "") {
+    fun goUserDetail(user: User? = null, userId: Long = -1) {
         var id = userId
         if (user != null) {
             UserRepository.instance[user.id] = user

@@ -33,17 +33,17 @@ class UserRepository private constructor() {
 
     var loginData: LoginData? = null
 
-    val users = ArrayMap<String, User>()
+    val users = ArrayMap<Long, User>()
 
-    operator fun get(key: String): User? {
+    operator fun get(key: Long): User? {
         return users[key]
     }
 
-    operator fun set(key: String, value: User) {
+    operator fun set(key: Long, value: User) {
         users[key] = value
     }
 
-    operator fun minus(key: String) {
+    operator fun minus(key: Long) {
         users.remove(key)
     }
 
@@ -153,13 +153,13 @@ class UserRepository private constructor() {
     /**
      * 用户详情
      */
-    suspend fun getUserInfo(userId: String): UserInfo = service.getUserDetail(userId)
+    suspend fun getUserInfo(userId: Long): UserInfo = service.getUserDetail(userId)
 
 
     /**
      * 获取相关用户
      */
-    fun getRelatedUsers(userId: String): Observable<UserPreviewListResp> {
+    fun getRelatedUsers(userId: Long): Observable<UserPreviewListResp> {
         return service
                 .getRelatedUsers(userId)
                 .schedulerTransform()

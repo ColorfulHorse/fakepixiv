@@ -127,7 +127,7 @@ class IllustRepository private constructor() {
     /**
      * 获取用户作品
      */
-    suspend fun loadUserIllust(userId: String, @IllustCategory category: String = ILLUST): IllustListResp {
+    suspend fun loadUserIllust(userId: Long, @IllustCategory category: String = ILLUST): IllustListResp {
         return service.getUserIllustData(userId, category)
     }
 
@@ -135,14 +135,14 @@ class IllustRepository private constructor() {
     /**
      * 获取用户作品
      */
-    suspend fun loadUserNovels(userId: String): IllustListResp {
+    suspend fun loadUserNovels(userId: Long): IllustListResp {
         return service.getUserNovels(userId)
     }
 
     /**
      * 获取用户收藏
      */
-    suspend fun loadUserBookmarks(@Query("user_id")userId: String, @IllustCategory category: String = ILLUST,
+    suspend fun loadUserBookmarks(@Query("user_id")userId: Long, @IllustCategory category: String = ILLUST,
                                   @Restrict restrict: String = Restrict.PUBLIC, @Query("tag")tag: String = ""): IllustListResp {
         return service.getUserBookmarks(category, userId, restrict, tag)
     }

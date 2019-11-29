@@ -91,7 +91,7 @@ interface IllustService {
      * [userId] 用户id
      */
     @GET("/v1/user/illusts")
-    suspend fun getUserIllustData(@Query("user_id")userId: String,
+    suspend fun getUserIllustData(@Query("user_id")userId: Long,
                                   @IllustCategory @Query("type")category: String = IllustCategory.ILLUST): IllustListResp
 
     /**
@@ -99,7 +99,7 @@ interface IllustService {
      * [userId] 用户id
      */
     @GET("/v1/user/novels")
-    suspend fun getUserNovels(@Query("user_id")userId: String): IllustListResp
+    suspend fun getUserNovels(@Query("user_id")userId: Long): IllustListResp
 
     /**
      * 获取用户收藏
@@ -109,7 +109,7 @@ interface IllustService {
      */
     @GET("/v1/user/bookmarks/{category}")
     suspend fun getUserBookmarks(@IllustCategory @Path("category")category: String,
-                                 @Query("user_id")userId: String,
+                                 @Query("user_id")userId: Long,
                                  @Restrict @Query("restrict")restrict: String = Restrict.PUBLIC,
                                  @Query("tag")tag: String = ""): IllustListResp
 
@@ -172,7 +172,7 @@ interface IllustService {
      */
     @GET("/v1/user/bookmark-tags/{category}")
     suspend fun getBookmarkTag(@IllustCategory @Path("category")category: String,
-                               @Query("user_id")userId: String,
+                               @Query("user_id")userId: Long,
                                @Restrict @Query("restrict") restrict: String = Restrict.PUBLIC): BookmarkTags
 
     /**
@@ -258,7 +258,7 @@ interface IllustService {
      */
     @GET("/illust/browser_history")
     @Headers("SWITCH-HEADER:TAG_EXT")
-    suspend fun getBrowserHistory(@Query("userId")userId: String,
+    suspend fun getBrowserHistory(@Query("userId")userId: Long,
                                   @IllustCategory @Query("category")category: String): IllustListResp
 
 

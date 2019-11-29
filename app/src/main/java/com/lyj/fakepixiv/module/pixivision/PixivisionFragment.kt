@@ -94,7 +94,7 @@ class PixivisionFragment : BackFragment<FragmentPixivisionBinding, BaseViewModel
                             return true
                         }
                         it.contains("member") -> {
-                            val userId = uri.getQueryParameter("id")
+                            val userId = uri.getQueryParameter("id")?.toLong()
                             if (userId != null) {
                                 Router.goUserDetail(userId = userId)
                             }

@@ -35,14 +35,14 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
 
     override var mViewModel: UserDetailViewModel = UserDetailViewModel()
 
-    private var userId: String = ""
+    private var userId: Long = -1
 
     companion object {
         private const val EXTRA_USER_ID = "EXTRA_USER_ID"
-        fun newInstance(userId: String): UserDetailFragment {
+        fun newInstance(userId: Long): UserDetailFragment {
             return UserDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putString(EXTRA_USER_ID, userId)
+                    putLong(EXTRA_USER_ID, userId)
                 }
             }
         }
@@ -50,7 +50,7 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
 
     override fun init(savedInstanceState: Bundle?) {
         arguments?.let {
-            userId = it.getString(EXTRA_USER_ID, "")
+            userId = it.getLong(EXTRA_USER_ID, -1)
             mViewModel.userId = userId
         }
         initBar()
@@ -190,7 +190,10 @@ class UserDetailFragment : BackFragment<FragmentUserDetailBinding, UserDetailVie
     }
 
     private fun goWorks(@IllustCategory category: String) {
-        start(WorksFragment.newInstance(mViewModel.userInfo.profile.total_illusts, mViewModel.userInfo.profile.total_manga, mViewModel.userInfo.profile.total_novels, mViewModel.userId, category))
+        start(WorksFragment.newInstance(mViewModel.userInfo.profile.total_illusts,
+                mViewModel.userInfo.profile.total_manga,
+                mViewModel.userInfo.profile.total_novels,
+                mViewModel.userId, category))
     }
 
     override fun initImmersionBar() {

@@ -32,7 +32,7 @@ class WorksFragment : BackFragment<FragmentWorksBinding, BaseViewModel?>() {
 
     private val fragments = mutableListOf<FragmentationFragment<*, *>>()
     private var prePosition = 0
-    var userId = ""
+    var userId = -1L
     var category = IllustCategory.ILLUST
     var illustCount = 0
     var comicCount = 0
@@ -45,11 +45,11 @@ class WorksFragment : BackFragment<FragmentWorksBinding, BaseViewModel?>() {
         fun newInstance(illustCount: Int = 0,
                         comicCount: Int = 0,
                         novelCount: Int = 0,
-                        userId: String = "",
+                        userId: Long = -1,
                         @IllustCategory category: String = IllustCategory.ILLUST
         ) = WorksFragment().apply {
             arguments = Bundle().apply {
-                putString(EXTRA_ID, userId)
+                putLong(EXTRA_ID, userId)
                 putString(EXTRA_CATEGORY, category)
                 putInt(EXTRA_ILLUST_COUNT, illustCount)
                 putInt(EXTRA_COMIC_COUNT, comicCount)
@@ -60,15 +60,15 @@ class WorksFragment : BackFragment<FragmentWorksBinding, BaseViewModel?>() {
 
     override fun init(savedInstanceState: Bundle?) {
         arguments?.let {
-            userId = it.getString(EXTRA_ID, "")
+            userId = it.getLong(EXTRA_ID, -1)
             category = it.getString(EXTRA_CATEGORY, IllustCategory.ILLUST)
             illustCount = it.getInt(EXTRA_ILLUST_COUNT, 0)
             comicCount = it.getInt(EXTRA_COMIC_COUNT, 0)
             novelCount = it.getInt(EXTRA_NOVEL_COUNT, 0)
         }
-        if (userId.isEmpty()) {
+        if (userId == -1L) {
             // 自己
-            userId = UserRepository.instance.loginData?.user?.id.toString()
+            userId = UserRepository.instance.loginData?.user?.id?:-1L
         }
         mToolbar?.let {
             it.title = getString(R.string.works)
