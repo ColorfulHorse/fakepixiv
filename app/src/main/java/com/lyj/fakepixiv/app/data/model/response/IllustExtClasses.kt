@@ -125,3 +125,9 @@ data class SeriesContext(
     val prev: Illust? = null,
     val next: Illust? = null
 )
+
+/**
+ * 历史记录
+ */
+@JsonClass(generateAdapter = true)
+data class HistoryReq(val userId: Long, val illust: Illust)

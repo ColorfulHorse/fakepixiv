@@ -319,8 +319,10 @@ class IllustRepository private constructor() {
     /**
      * 保存浏览记录
      */
-    suspend fun saveHistory(illust: Illust) {
-        val body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), JsonUtil.bean2Json(illust))
+    suspend fun saveHistory(illust: Illust): Any {
+        val userId = UserRepository.instance.loginData?.user?.id?:-1
+        val body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),
+                JsonUtil.bean2Json(HistoryReq(userId, illust)))
         return service.saveHistory(body)
     }
 
