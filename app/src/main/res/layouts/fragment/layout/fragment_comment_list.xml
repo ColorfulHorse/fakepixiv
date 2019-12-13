@@ -1,50 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <FrameLayout
+
+    <data>
+        <import type="com.lyj.fakepixiv.module.illust.detail.comment.InputViewModel.State"/>
+        <variable
+            name="vm"
+            type="com.lyj.fakepixiv.module.illust.detail.items.CommentListViewModel" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
+
         <View
             android:id="@+id/dummyView"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            />
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:background="@color/colorPrimary" />
+
+        <RelativeLayout
             android:id="@+id/contentView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    style="@style/base_toolbar"
-                    app:layout_scrollFlags="scroll|enterAlways|snap"
-                    />
-            </com.google.android.material.appbar.AppBarLayout>
+            android:layout_height="match_parent">
 
-            <RelativeLayout
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 >
+
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/appBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        style="@style/base_toolbar"
+                        app:layout_scrollFlags="scroll|enterAlways|snap" />
+                </com.google.android.material.appbar.AppBarLayout>
+
+
                 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                     android:id="@+id/refreshLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    >
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        />
+                        android:background="@color/white"
+                        android:clipToPadding="false"
+                        android:padding="16dp" />
                 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-            </RelativeLayout>
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-    </FrameLayout>
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <View
+                android:id="@+id/overlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/overlay"
+                android:visibility="gone"
+                app:visible="@{vm.inputViewModel.state != State.CLOSE}"
+                android:onClick="@{() -> vm.inputViewModel.hide()}"
+                />
+            <include
+                android:id="@+id/input"
+                layout="@layout/comment_input_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                app:vm="@{vm.inputViewModel}" />
+        </RelativeLayout>
+    </RelativeLayout>
 </layout>

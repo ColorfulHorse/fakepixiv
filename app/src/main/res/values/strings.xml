@@ -205,6 +205,8 @@
     <string name="settings_workspace_tablet_placeholder">数位板</string>
     <string name="settings_workspace_tool_placeholder">软件</string>
 
+    <string name="apply_to">回复 %1$s:</string>
+
 
 
 
@@ -323,4 +325,8 @@
     <string name="error_password">密码错误</string>
     <string name="loading_error">连接失败，请稍后再试</string>
     <string name="browser_history">浏览记录</string>
+    <string name="comment_form_placeholder">添加评论…</string>
+    <string name="title_delete_comment">确定删除评论？</string>
+    <string name="delete_comment_failed">刪除失败，请重试</string>
+    <string name="comment_failed">连接失败，请重试</string>
 </resources>

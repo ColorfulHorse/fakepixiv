@@ -9,10 +9,12 @@ import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.adapter.BaseBindingAdapter
 import com.lyj.fakepixiv.app.data.model.response.Comment
+import com.lyj.fakepixiv.app.utils.Router
 import com.lyj.fakepixiv.app.utils.bindState
 import com.lyj.fakepixiv.databinding.ItemCommentBinding
 import com.lyj.fakepixiv.databinding.LayoutFooterCommentBinding
 import com.lyj.fakepixiv.module.illust.detail.comment.CommentListAdapter
+import com.lyj.fakepixiv.module.illust.detail.comment.CommentListFragment
 
 /**
  * @author greensun
@@ -25,7 +27,6 @@ class CommentFooter(val context: Context, val viewModel: CommentListViewModel, v
     override var type: Int = DetailItem.LAYOUT_COMMENT
 
     val rootView: View by lazy { LayoutInflater.from(context).inflate(R.layout.layout_footer_comment, null) }
-
 
     val mAdapter = CommentListAdapter(viewModel.piece).apply {
         addItemType(Comment.COMMENT, R.layout.item_comment, BR.vm)
@@ -43,6 +44,11 @@ class CommentFooter(val context: Context, val viewModel: CommentListViewModel, v
             it.recyclerView.layoutManager = LinearLayoutManager(context)
             mAdapter.bindState(viewModel.loadState, errorRes = R.layout.layout_error_small) {
                 viewModel.load()
+            }
+            it.more.setOnClickListener {
+                val fragment = CommentListFragment.newInstance()
+                fragment.mViewModel = viewModel
+                Router.getTopFragment()?.start(fragment)
             }
         }
     }

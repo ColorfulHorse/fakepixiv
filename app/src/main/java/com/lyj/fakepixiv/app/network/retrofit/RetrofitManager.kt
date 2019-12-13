@@ -45,6 +45,10 @@ class RetrofitManager private constructor() {
 
     val searchService: SearchService by lazy { retrofit.create(SearchService::class.java) }
 
+    val commonService: CommonService by lazy { retrofit.create(CommonService::class.java) }
+
+    val illustExtService: IllustExtService by lazy { retrofit.create(IllustExtService::class.java) }
+
 
     private val client: OkHttpClient = OkHttpClient
             .Builder()

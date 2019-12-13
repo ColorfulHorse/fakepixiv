@@ -62,7 +62,8 @@ class HomeIllustViewModel : BaseViewModel() {
             return
         val disposable = IllustRepository.instance
                 .loadMore(nextUrl)
-                .doOnSubscribe { loadMoreState.set(LoadState.Loading) }
+                .doOnSubscribe {
+                    loadMoreState.set(LoadState.Loading) }
                 .subscribeBy(onNext = {
                     loadMoreState.set(LoadState.Succeed)
                     nextUrl = it.next_url

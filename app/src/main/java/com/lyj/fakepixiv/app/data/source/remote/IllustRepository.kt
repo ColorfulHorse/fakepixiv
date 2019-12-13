@@ -18,9 +18,7 @@ import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.rx2.awaitSingle
-import kotlinx.coroutines.withContext
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import retrofit2.http.Query
@@ -179,21 +177,6 @@ class IllustRepository private constructor() {
                 .schedulerTransform()
     }
 
-    suspend fun getSeriesContext(illustId: String): SeriesContextResp {
-        return service
-                .getSeriesContext(illustId)
-    }
-
-    suspend fun getSeriesDetail(seriesId: String): SeriesExt {
-        return service
-                .getMangaSeries(seriesId)
-    }
-
-    suspend fun getNovelSeriesDetail(seriesId: String): NovelSeries {
-        return service
-                .getNovelSeries(seriesId)
-    }
-
     suspend fun getIllustDetail(illustId: String): IllustResp =
             RetrofitManager
             .instance.illustService
@@ -225,21 +208,6 @@ class IllustRepository private constructor() {
     ): IllustListResp {
         return service
                 .searchPopularIllust(category, keyword, strategy, start, end)
-    }
-
-    /**
-     * 获取作品评论
-     */
-    fun loadIllustComment(illustId: String): Observable<CommentListResp> {
-        return service
-                .getIllustComment(illustId)
-                .schedulerTransform()
-    }
-
-    fun loadMoreComment(nextUrl: String): Observable<CommentListResp> {
-        return service
-                .getIllustComment(nextUrl)
-                .schedulerTransform()
     }
 
     /**
@@ -330,11 +298,11 @@ class IllustRepository private constructor() {
      * 获取浏览记录
      */
     @Throws(IOException::class)
-    suspend fun getBrowserHistory(@IllustCategory category: String): IllustListResp {
+    suspend fun getBrowserHistory(@IllustCategory category: String, pageNo: Int = 1, pageSize: Int = 20): HistoryListResp {
         UserRepository.instance.loginData?.let {
-            return service.getBrowserHistory(it.user.id, category)
+            return service.getBrowserHistory(it.user.id, category, pageNo, pageSize)
         }
-        return IllustListResp()
+        return HistoryListResp()
     }
 
 

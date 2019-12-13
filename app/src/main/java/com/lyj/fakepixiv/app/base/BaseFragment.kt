@@ -40,7 +40,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel?> : Immersio
 
     var initializer: (() -> Unit)? = null
 
-    protected var keyboardListener: ((Boolean, Int) -> Unit)? = { isOpen, height ->
+    protected open var keyboardListener: ((Boolean, Int) -> Unit)? = { isOpen, height ->
         keyboardOpen = isOpen
         onKeyboardChanged(isOpen, height)
     }

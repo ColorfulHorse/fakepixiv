@@ -116,7 +116,9 @@
                     android:padding="8dp"
                     android:text="@string/reply"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:onClick="@{() -> vm.reply()}"
+                    />
 
                 <TextView
                     android:id="@+id/dot_remove"
@@ -126,7 +128,8 @@
                     android:textColor="@color/gray_text"
                     android:textSize="12sp"
                     android:visibility="gone"
-                    app:visible="@{UserRepository.instance.loginData.user.id == vm.data.user.id}" />
+                    app:visible="@{UserRepository.instance.loginData.user.id == vm.data.user.id}"
+                    />
 
                 <TextView
                     android:id="@+id/remove"
@@ -137,7 +140,9 @@
                     android:textColor="@color/blue_text"
                     android:textSize="12sp"
                     android:visibility="gone"
-                    app:visible="@{UserRepository.instance.loginData.user.id == vm.data.user.id}" />
+                    app:visible="@{UserRepository.instance.loginData.user.id == vm.data.user.id}"
+                    android:onClick="@{() -> vm.delete()}"
+                    />
             </LinearLayout>
         </LinearLayout>
 
@@ -157,7 +162,8 @@
             android:paddingBottom="10dp"
             android:text="@string/see_reply"
             android:visibility="gone"
-            app:visible="@{vm.data.has_replies}"
+            app:visible="@{vm.data.has_replies &amp;&amp; !vm.applies_show}"
+            android:onClick="@{() -> vm.loadApplies()}"
             />
     </RelativeLayout>
 </layout>

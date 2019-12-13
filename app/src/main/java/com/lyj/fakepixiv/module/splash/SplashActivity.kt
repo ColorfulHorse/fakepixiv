@@ -67,11 +67,6 @@ class SplashActivity : FragmentationActivity<ActivitySplashBinding, BaseViewMode
                 }
             }
         }
-        // 测试热更新用
-        val patch = File(Constant.File.PATCH_PATH)
-        if (patch.exists()) {
-            TinkerInstaller.onReceiveUpgradePatch(applicationContext, patch.absolutePath)
-        }
     }
 
     @OnShowRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)

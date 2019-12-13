@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textColor="@color/renewal_font_black"
                 android:layout_marginBottom="8dp"
                 android:text="@{data.title}" />
@@ -114,8 +114,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="5dp"
                     android:text="@{data.user.name}"
-                    android:textColor="@color/renewal_font_light_gray"
-                    android:textSize="11sp"
+                    android:textColor="@color/renewal_font_gray"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
             </LinearLayout>
             <TextView
@@ -125,8 +125,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="5dp"
                 android:text="@{DateUtil.formatHistory(data.view_time)}"
-                android:textColor="@color/renewal_font_light_gray"
-                android:textSize="11sp"
+                android:textColor="@color/renewal_font_gray"
+                android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </RelativeLayout>

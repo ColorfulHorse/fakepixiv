@@ -15,6 +15,7 @@ import com.lyj.fakepixiv.app.utils.Router
 import com.lyj.fakepixiv.module.illust.detail.items.CommentListViewModel
 import com.lyj.fakepixiv.module.illust.detail.RelatedIllustDialogViewModel
 import com.lyj.fakepixiv.module.illust.detail.RelatedUserDialogViewModel
+import com.lyj.fakepixiv.module.illust.detail.comment.InputViewModel
 import com.lyj.fakepixiv.module.illust.detail.items.SeriesItemViewModel
 import com.lyj.fakepixiv.module.illust.detail.items.UserFooterViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -76,6 +77,7 @@ open class DetailViewModel : BaseViewModel() {
 
     val userFooterViewModel = UserFooterViewModel(this)
     val commentFooterViewModel = CommentListViewModel()
+    val inputViewModel = InputViewModel(commentFooterViewModel)
     val relatedIllustViewModel = RelatedIllustDialogViewModel(this)
     val relatedUserViewModel = RelatedUserDialogViewModel(illust.user)
 

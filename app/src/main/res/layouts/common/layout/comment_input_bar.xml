@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="com.lyj.fakepixiv.module.illust.detail.comment.InputViewModel.State"/>
+        <variable
+            name="vm"
+            type="com.lyj.fakepixiv.module.illust.detail.comment.InputViewModel" />
+    </data>
+    <LinearLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:orientation="vertical"
+        android:tag="layout/comment_input_bar_0">
+        <TextView
+            android:id="@+id/text_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="8.0dip"
+            android:background="@drawable/bg_comment_count"
+            android:padding="8.0dip"
+            android:textColor="@color/gray_text"
+            android:textSize="12.0sp"
+            android:visibility="gone"
+            android:text='@{vm.comment.length()+"/140"}'
+            />
+        <RelativeLayout
+            android:id="@+id/layout_send"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white">
+
+            <ImageView
+                android:id="@+id/toggle"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerVertical="true"
+                android:layout_margin="8dp"
+                android:src="@{(vm.state == State.EMOJI)?@drawable/ic_emoji_blue:@drawable/ic_emoji}"
+                android:onClick="@{() -> vm.changeState()}"
+                />
+
+            <EditText
+                android:id="@+id/comment_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/send"
+                android:layout_toLeftOf="@+id/send"
+                android:layout_toEndOf="@+id/toggle"
+                android:layout_toRightOf="@+id/toggle"
+                android:background="@android:color/white"
+                android:hint="@{vm.source == null ? @string/comment_form_placeholder : String.format(@string/apply_to, vm.source.user.name)}"
+                android:imeOptions="flagNoFullscreen"
+                android:inputType="textMultiLine"
+                android:maxLength="140"
+                android:maxLines="4"
+                android:textColor="@android:color/black"
+                android:textColorHint="#ffdddddd"
+                android:textSize="14.0sp"
+                android:text="@={vm.comment}"
+                />
+
+            <ImageView
+                android:id="@+id/send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="8dp"
+                android:paddingTop="8dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="8dp"
+                android:src="@drawable/ic_send"
+                android:visibility="gone"
+                app:visible="@{vm.comment.length() > 0}"
+                android:onClick="@{() -> vm.send()}"
+                />
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="216dp"
+            android:background="@android:color/white"
+            android:clipToPadding="false"
+            android:padding="16dp"
+            android:visibility="gone"
+            app:visible="@{vm.state == State.EMOJI}"
+            />
+    </LinearLayout>
+</layout>

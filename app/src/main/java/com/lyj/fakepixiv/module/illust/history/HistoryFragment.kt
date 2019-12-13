@@ -12,6 +12,8 @@ import com.lyj.fakepixiv.app.base.BaseViewModel
 import com.lyj.fakepixiv.app.base.FragmentationFragment
 import com.lyj.fakepixiv.app.constant.IllustCategory
 import com.lyj.fakepixiv.app.data.model.response.Illust
+import com.lyj.fakepixiv.app.data.model.response.IllustListResp
+import com.lyj.fakepixiv.app.data.model.response.IllustResp
 import com.lyj.fakepixiv.app.data.source.remote.IllustRepository
 import com.lyj.fakepixiv.app.entity.TabBean
 import com.lyj.fakepixiv.databinding.FragmentCommonTabBinding
@@ -24,13 +26,10 @@ import me.yokeyword.fragmentation.ISupportFragment
  *
  * @date 2019/3/20
  *
- * @desc 用户收藏页
+ * @desc 浏览历史
  */
 class HistoryFragment : BackFragment<FragmentCommonTabBinding, BaseViewModel?>() {
     override var mViewModel: BaseViewModel? = null
-
-    private val fragments = mutableListOf<FragmentationFragment<*,*>>()
-
     private lateinit var illustViewModel: IllustListViewModel
     private lateinit var novelViewModel: IllustListViewModel
 
@@ -46,17 +45,13 @@ class HistoryFragment : BackFragment<FragmentCommonTabBinding, BaseViewModel?>()
                     addItemType(Illust.TYPE_COMIC, R.layout.item_history_illust, BR.data)
                 }))
         val novelFragment = IllustListFragment.newInstance(IllustCategory.NOVEL,
-                IllustListFragment.Config(IllustCategory.OTHER, adapterConfig = {
+                IllustListFragment.Config(IllustCategory.NOVEL, adapterConfig = {
                     addItemType(Illust.TYPE_ILLUST, R.layout.item_history_novel, BR.data)
-                    addItemType(Illust.TYPE_COMIC, R.layout.item_history_novel, BR.data)
+                    addItemType(Illust.TYPE_NOVEL, R.layout.item_history_novel, BR.data)
                 }))
-        illustViewModel = IllustListViewModel {
-            IllustRepository.instance.getBrowserHistory(IllustCategory.ILLUST)
-        }
+        illustViewModel = HistoryListViewModel(IllustCategory.ILLUST)
 
-        novelViewModel = IllustListViewModel {
-            IllustRepository.instance.getBrowserHistory(IllustCategory.NOVEL)
-        }
+        novelViewModel = HistoryListViewModel(IllustCategory.NOVEL)
         illustFragment.mViewModel = illustViewModel
         novelFragment.mViewModel = novelViewModel
 
@@ -64,7 +59,7 @@ class HistoryFragment : BackFragment<FragmentCommonTabBinding, BaseViewModel?>()
         loadMultipleRootFragment(R.id.fl_container, 0, *fragments)
         val tabs = arrayListOf<CustomTabEntity>(
                 TabBean(title = getString(R.string.tab_pic)),
-                TabBean(title = getString(R.string.tab_comic))
+                TabBean(title = getString(R.string.tab_novel))
         )
         with(mBinding) {
             segmentLayout.setTabData(tabs)

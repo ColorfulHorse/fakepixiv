@@ -20,7 +20,7 @@ object FragmentLifecycle : FragmentManager.FragmentLifecycleCallbacks() {
         super.onFragmentViewCreated(fm, f, v, savedInstanceState)
         if (f is BaseFragment<*,*>) {
             f.mViewModel?.let {
-                ViewModelProvider[f.hashCode()] = it
+                //ViewModelProvider[f.hashCode()] = it
             }
         }
     }
@@ -29,7 +29,7 @@ object FragmentLifecycle : FragmentManager.FragmentLifecycleCallbacks() {
         super.onFragmentViewDestroyed(fm, f)
         if (f is BaseFragment<*,*>) {
             f.mViewModel?.let {
-                ViewModelProvider - f.hashCode()
+                //ViewModelProvider - f.hashCode()
             }
         }
     }

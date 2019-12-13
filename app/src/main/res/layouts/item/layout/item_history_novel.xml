@@ -134,18 +134,33 @@
                 />
         </LinearLayout>
 
-        <TextView
-            android:id="@id/tags"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_below="@id/novel_info_container"
             android:layout_toEndOf="@id/cover_image_container"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:textColor="@color/renewal_font_gray"
-            android:textSize="14.0sp"
-            android:text='@{StringUtil.formatLength(data.text_length) + @string/text_length + "  " + DateUtil.formatHistory(data.view_time)}'
-            />
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/renewal_font_gray"
+                android:textSize="14.0sp"
+                android:text='@{StringUtil.formatLength(data.text_length) + @string/text_length}'
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/renewal_font_gray"
+                android:textSize="14.0sp"
+                android:text='@{DateUtil.formatHistory(data.view_time)}'
+                />
+        </RelativeLayout>
     </RelativeLayout>
 </layout>

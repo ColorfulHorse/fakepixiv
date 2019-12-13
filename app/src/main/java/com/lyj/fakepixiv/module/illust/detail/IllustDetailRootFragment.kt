@@ -3,6 +3,7 @@ package com.lyj.fakepixiv.module.illust.detail
 import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
 import android.view.ViewGroup
+import android.view.WindowManager
 import com.gyf.immersionbar.ImmersionBar
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.BackFragment
@@ -130,12 +131,15 @@ class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, I
         super.onDestroyView()
     }
 
-
     override fun initImmersionBar() {
         ImmersionBar.with(this)
-                .titleBar(mBinding.toolbarWrapper)
+                //.fitsSystemWindows(true)
+                .titleBarMarginTop(mBinding.toolbarWrapper)
                 .statusBarDarkFont(true)
                 .transparentStatusBar()
+                .keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+                .keyboardEnable(true)
+                .setOnKeyboardListener(keyboardListener)
                 .init()
 //        ImmersionBar.with(this)
 //                .titleBarMarginTop(mBinding.toolbarWrapper)

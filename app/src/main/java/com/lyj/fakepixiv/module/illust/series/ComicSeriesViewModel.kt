@@ -9,6 +9,7 @@ import com.lyj.fakepixiv.app.base.BaseViewModel
 
 import com.lyj.fakepixiv.app.data.model.response.Illust
 import com.lyj.fakepixiv.app.data.model.response.SeriesDetail
+import com.lyj.fakepixiv.app.data.source.remote.IllustExtRepository
 import com.lyj.fakepixiv.app.data.source.remote.IllustRepository
 import com.lyj.fakepixiv.app.network.LoadState
 import com.lyj.fakepixiv.app.utils.Router
@@ -54,7 +55,7 @@ class ComicSeriesViewModel : BaseViewModel() {
             loadState.set(LoadState.Loading)
             data.clear()
             val resp = withContext(Dispatchers.IO) {
-                IllustRepository.instance.getSeriesDetail(seriesId)
+                IllustExtRepository.instance.getSeriesDetail(seriesId)
             }
             detail = resp.detail
             first.set(resp.first)

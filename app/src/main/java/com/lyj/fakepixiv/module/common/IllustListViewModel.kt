@@ -32,8 +32,8 @@ open class IllustListViewModel(var action: (suspend () -> IllustListResp)? = nul
 
     var nextUrl = ""
 
-    fun load() {
-        if (loadMoreState.get() !is LoadState.Loading) {
+    open fun load() {
+        //if (loadMoreState.get() !is LoadState.Loading) {
             action?.let {
                 launch(CoroutineExceptionHandler { _, err ->
                     loadState.set(LoadState.Failed(err))
@@ -51,11 +51,11 @@ open class IllustListViewModel(var action: (suspend () -> IllustListResp)? = nul
                     loadState.set(LoadState.Succeed)
                 }
             }
-        }
+        //}
     }
 
 
-    fun loadMore() {
+    open fun loadMore() {
         if (nextUrl.isBlank())
             return
         val disposable = IllustRepository.instance

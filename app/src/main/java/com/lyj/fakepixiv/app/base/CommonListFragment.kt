@@ -8,6 +8,7 @@ import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import com.gyf.immersionbar.ImmersionBar
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.adapter.BaseBindingAdapter
@@ -34,9 +35,14 @@ abstract class CommonListFragment<V : ViewDataBinding, VM: BaseViewModel?> : Bac
                     .statusBarColor(R.color.transparent)
                     .statusBarColorTransform(R.color.black)
                     .statusBarAlpha(0.25f)
+                    .transparentBar()
+                    .keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+                    .keyboardEnable(true)
+                    .setOnKeyboardListener(keyboardListener)
                     .init()
         }
     }
+
 
     override fun bindLayout(): Int = R.layout.fragment_common_list
 }

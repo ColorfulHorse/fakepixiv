@@ -31,7 +31,11 @@
             android:configChanges="orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity android:name="com.lyj.fakepixiv.module.main.MainActivity" />
+        <activity android:name="com.lyj.fakepixiv.module.main.MainActivity"
+            />
+
+        <service android:name=".app.service.WorkerService"/>
+        <service android:name=".app.tinker.TinkerResultService"/>
     </application>
 
 </manifest>

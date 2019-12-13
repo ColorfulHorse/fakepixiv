@@ -15,6 +15,7 @@ import com.lyj.fakepixiv.databinding.ActivityMainBinding
 import com.lyj.fakepixiv.databinding.MainNavHeader
 import com.lyj.fakepixiv.module.illust.bookmark.BookmarkFragment
 import com.lyj.fakepixiv.module.illust.history.HistoryFragment
+import com.lyj.fakepixiv.module.sample.EmptyFragment
 import com.lyj.fakepixiv.module.setting.SettingsFragment
 import com.lyj.fakepixiv.module.user.following.FollowingFragment
 import me.yokeyword.fragmentation.ISupportFragment
@@ -34,6 +35,7 @@ class MainActivity : FragmentationActivity<ActivityMainBinding, MainViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ImmersionBar.with(this).init()
+        //loadRootFragment(R.id.fl_container, EmptyFragment.newInstance())
         var rootFragment = findFragment(MainRootFragment::class.java)
         if(rootFragment == null) {
             rootFragment = MainRootFragment.newInstance()

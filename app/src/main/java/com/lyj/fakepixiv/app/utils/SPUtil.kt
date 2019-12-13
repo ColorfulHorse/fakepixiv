@@ -71,9 +71,16 @@ object SPUtil {
                 .apply()
     }
 
+    fun save(key: String, value: Int) {
+        sp.edit().putInt(key, value)
+                .apply()
+    }
+
     fun get(key: String, defValue: String): String {
         return sp.getString(key, defValue)?:""
     }
 
-
+    fun get(key: String, defValue: Int = -1): Int {
+        return sp.getInt(key, defValue)
+    }
 }

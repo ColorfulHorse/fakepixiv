@@ -31,8 +31,12 @@ class IllustDetailViewModel : DetailViewModel() {
 
     var illustId = -1L
 
+    var nextUrl = ""
+
     override val seriesItemViewModel = SeriesItemViewModel(this)
     val relatedCaptionFooterViewModel = RelatedCaptionViewModel(this)
+
+    val loadMoreState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
     init {
         this + seriesItemViewModel + relatedCaptionFooterViewModel
@@ -69,11 +73,30 @@ class IllustDetailViewModel : DetailViewModel() {
                 .loadRelatedIllust(illust.id.toString())
                 .doOnSubscribe { loadState.set(LoadState.Loading) }
                 .subscribeBy(onNext = {
-                    loadState.set(LoadState.Succeed)
                     //data.clear()
                     data.addAll(it.illusts)
+                    nextUrl = it.next_url
+                    loadState.set(LoadState.Succeed)
                 }, onError = {
                     loadState.set(LoadState.Failed(it))
+                })
+        addDisposable(disposable)
+    }
+
+    fun loadMore() {
+        if (nextUrl.isBlank())
+            return
+        val disposable = IllustRepository.instance
+                .loadMore(nextUrl)
+                .doOnSubscribe {
+                    loadMoreState.set(LoadState.Loading)
+                }
+                .subscribeBy(onNext = {
+                    nextUrl = it.next_url
+                    data.addAll(it.illusts)
+                    loadMoreState.set(LoadState.Succeed)
+                }, onError = {
+                    loadMoreState.set(LoadState.Failed(it))
                 })
         addDisposable(disposable)
     }

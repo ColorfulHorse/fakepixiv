@@ -1,19 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tablayout"
+<layout>
+
+    <com.lyj.fakepixiv.widget.FitRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        app:tabIndicator="@drawable/tab_indicator"
-        app:tabIndicatorGravity="center"
-        app:tabIndicatorFullWidth="true"
-        app:tabPaddingStart="8dp"
-        app:tabPaddingEnd="8dp"
-        app:tabUnboundedRipple="false"
-        app:tabRippleColor="@null"
-        app:tabIndicatorHeight="36dp"
-        />
-</RelativeLayout>
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:fitsSystemWindows="true"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:color/holo_red_dark"/>
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:background="@color/colorPrimary"-->
+<!--            />-->
+<!--        <EditText-->
+<!--            android:id="@+id/et1"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="48dp"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:background="@color/white"-->
+<!--            android:layout_gravity="bottom"-->
+<!--            />-->
+        <include
+            android:id="@+id/input"
+            layout="@layout/comment_input_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" />
+<!--        <FrameLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:fitsSystemWindows="true"-->
+<!--            >-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/et1"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="48dp"-->
+<!--                android:layout_alignParentBottom="true"-->
+<!--                android:background="@color/white"-->
+<!--                android:layout_gravity="bottom"-->
+<!--                />-->
+<!--        </FrameLayout>-->
+        <!--    <EditText-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_above="@+id/et1"-->
+        <!--        />-->
+    </com.lyj.fakepixiv.widget.FitRelativeLayout>
+</layout>

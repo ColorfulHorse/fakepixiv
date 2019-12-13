@@ -4,6 +4,7 @@
     >
 
     <data>
+        <import type="com.lyj.fakepixiv.module.illust.detail.comment.InputViewModel.State"/>
         <import type="com.lyj.fakepixiv.module.illust.detail.IllustDetailViewModel"/>
         <import type="com.lyj.fakepixiv.app.network.LoadState"/>
         <variable
@@ -11,15 +12,15 @@
             type="com.lyj.fakepixiv.module.illust.detail.IllustDetailViewModel"/>
     </data>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
@@ -64,5 +65,20 @@
             app:state="@{vm.detailState}"
             app:reload="@{() -> vm.loadDetail()}"
             />
-    </FrameLayout>
+        <View
+            android:id="@+id/overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/overlay"
+            app:visible="@{vm.inputViewModel.state != State.CLOSE}"
+            android:onClick="@{() -> vm.inputViewModel.hide()}"
+            />
+        <include layout="@layout/comment_input_bar"
+            android:id="@+id/input"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            app:vm="@{vm.inputViewModel}"
+            />
+    </RelativeLayout>
 </layout>

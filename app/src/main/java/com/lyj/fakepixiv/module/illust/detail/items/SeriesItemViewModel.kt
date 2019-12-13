@@ -6,6 +6,7 @@ import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.app.base.BaseViewModel
 
 import com.lyj.fakepixiv.app.data.model.response.SeriesContext
+import com.lyj.fakepixiv.app.data.source.remote.IllustExtRepository
 import com.lyj.fakepixiv.app.data.source.remote.IllustRepository
 import com.lyj.fakepixiv.app.network.LoadState
 import com.lyj.fakepixiv.app.utils.Router
@@ -40,7 +41,7 @@ class SeriesItemViewModel(val parent: IllustDetailViewModel) : BaseViewModel() {
         }) {
             loadState.set(LoadState.Loading)
             val resp = withContext(Dispatchers.IO) {
-                IllustRepository.instance
+                IllustExtRepository.instance
                         .getSeriesContext(parent.illust.id.toString())
             }
             data = resp.context

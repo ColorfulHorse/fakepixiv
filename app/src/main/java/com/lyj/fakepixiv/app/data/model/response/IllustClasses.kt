@@ -82,7 +82,7 @@ data class Illust(
         val is_mypixiv_only: Boolean = false,
         val is_x_restricted: Boolean = false,
         val x_restrict: Int = 0, // 1 r-18
-        val view_time: Long = -1
+        var view_time: Long = -1
 ) : MultiPreloadItem, BaseObservable() {
 
     override fun getPreloadUrls(): List<String> = listOf(image_urls.large)

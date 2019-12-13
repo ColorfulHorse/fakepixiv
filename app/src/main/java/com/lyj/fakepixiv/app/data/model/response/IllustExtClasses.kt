@@ -33,10 +33,13 @@ data class CommentResp(
 data class Comment(
     val comment: String = "",
     val date: String = "",
-    val has_replies: Boolean = false,
-    val id: Int = 0,
+    var has_replies: Boolean = false,
+    val id: Long = 0,
     val user: User = User(),
-    val type: Int = 0
+    var type: Int = 0,
+    var parentId: Long = -1,
+    // 是否为预览
+    var preview: Boolean = false
 ): MultiPreloadItem {
 
     companion object {

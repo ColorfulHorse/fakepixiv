@@ -257,4 +257,5 @@
     <color name="tag_normal">#adadad</color>
     <color name="tag_blue">#3d7699</color>
     <color name="divider">#d4d4d4</color>
+    <color name="overlay">#4D000000</color>
 </resources>

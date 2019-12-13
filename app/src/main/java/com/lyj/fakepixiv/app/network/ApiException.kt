@@ -11,8 +11,8 @@ import kotlin.Exception
  *
  * @desc
  */
-class ApiException(val code: Int = CODE_UNKNOWN, override val message: String = map.getOrElse(code) {MESSAGE_UNKNOWN}) : IOException() {
-//    {
+class ApiException(val code: Int = CODE_UNKNOWN, override val message: String = map.getOrElse(code) { MESSAGE_UNKNOWN }) : IOException() {
+    //    {
 //        "has_error": true,
 //        "errors": {
 //        "system": {
@@ -25,10 +25,12 @@ class ApiException(val code: Int = CODE_UNKNOWN, override val message: String = 
         const val CODE_SUCCESS = 100
         const val CODE_EMPTY_DATA = 400
         const val CODE_UNKNOWN = 9999
-        const val CODE_TIMEOUT = 500
-        const val CODE_CONNECT = 600
+        const val CODE_TIMEOUT = 601
+        const val CODE_CONNECT = 602
+        const val CODE_SERVER_ERR = 501
+        const val CODE_CLIENT_ERR = 502
 
-        const val CODE_TOKEN_INVALID = 500
+        const val CODE_TOKEN_INVALID = 603
 
         const val CODE_ACCOUNT_EERROR = 1508
 
@@ -42,6 +44,8 @@ class ApiException(val code: Int = CODE_UNKNOWN, override val message: String = 
         const val MESSAGE_CONNECT = "无法连接到服务器"
         const val MESSAGE_TOKEN_INVALID = "token无效"
         const val MESSAGE_NOT_VISIBLE = "插画不可见"
+        const val MESSAGE_SERVER_ERR = "服务器异常"
+        const val MESSAGE_CLIENT_ERR = "参数异常"
 
         val map = mapOf(
                 CODE_SUCCESS to MESSAGE_SUCCESS,
@@ -50,7 +54,9 @@ class ApiException(val code: Int = CODE_UNKNOWN, override val message: String = 
                 CODE_TIMEOUT to MESSAGE_TIMEOUT,
                 CODE_TOKEN_INVALID to MESSAGE_TOKEN_INVALID,
                 CODE_CONNECT to MESSAGE_CONNECT,
-                CODE_NOT_VISIBLE to MESSAGE_NOT_VISIBLE
+                CODE_NOT_VISIBLE to MESSAGE_NOT_VISIBLE,
+                CODE_SERVER_ERR to MESSAGE_SERVER_ERR,
+                CODE_CLIENT_ERR to MESSAGE_CLIENT_ERR
         )
     }
 

@@ -59,6 +59,11 @@ class ApplicationLike(application: Application, tinkerFlags: Int, tinkerLoadVeri
         appDelegate.onCreate(application)
     }
 
+    override fun onTerminate() {
+        super.onTerminate()
+        appDelegate.onDestroy()
+    }
+
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     fun registerActivityLifecycleCallbacks(callback: Application.ActivityLifecycleCallbacks) {
         application.registerActivityLifecycleCallbacks(callback)

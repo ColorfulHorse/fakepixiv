@@ -29,26 +29,23 @@ object DateUtil {
         if (timestamp > 0) {
             // 今天0点
             val t = Calendar.getInstance()
-            t.clear(Calendar.MILLISECOND)
-            t.clear(Calendar.SECOND)
-            t.clear(Calendar.MINUTE)
-            t.clear(Calendar.HOUR_OF_DAY)
+            t.set(Calendar.MILLISECOND, 0)
+            t.set(Calendar.SECOND, 0)
+            t.set(Calendar.MINUTE, 0)
+            t.set(Calendar.HOUR_OF_DAY, 0)
             // 昨天0点
             val y = Calendar.getInstance()
+            y.timeInMillis = t.timeInMillis
             y.add(Calendar.DAY_OF_MONTH, -1)
-            y.clear(Calendar.MILLISECOND)
-            y.clear(Calendar.SECOND)
-            y.clear(Calendar.MINUTE)
-            y.clear(Calendar.HOUR_OF_DAY)
             val last = Calendar.getInstance()
             last.timeInMillis = timestamp
             var sdf = SimpleDateFormat("YYYY-MM-dd HH:mm", Locale.getDefault())
-            if (last.before(t) and last.after(y)) {
-                // 昨天
-                sdf = SimpleDateFormat("昨天 HH:mm", Locale.getDefault())
-            }else if (last.after(t)){
+            if (last.after(t)){
                 // 今天
                 sdf = SimpleDateFormat("今天 HH:mm", Locale.getDefault())
+            }else if (last.before(t) and last.after(y)) {
+                // 昨天
+                sdf = SimpleDateFormat("昨天 HH:mm", Locale.getDefault())
             }else if (last.get(Calendar.YEAR) == t.get(Calendar.YEAR)) {
                 sdf = SimpleDateFormat("MM-dd HH:mm", Locale.getDefault())
             }

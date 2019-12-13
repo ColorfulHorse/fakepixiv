@@ -20,6 +20,7 @@ object ToastUtil {
         mHandler.post {
             if (mToast != null) {
                 mToast?.setText(content)
+                mToast?.duration = Toast.LENGTH_SHORT
             } else {
                 mToast = Toast.makeText(ApplicationLike.context, content, Toast.LENGTH_SHORT)
             }

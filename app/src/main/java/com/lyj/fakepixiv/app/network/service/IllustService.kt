@@ -143,15 +143,6 @@ interface IllustService {
                              @Query("include_translated_tag_results")translate: Boolean = true): IllustListResp
 
     /**
-     * 获取作品评论
-     */
-    @GET("/v2/illust/comments")
-    fun getIllustComment(@Query("illust_id")illustId: String): Observable<CommentListResp>
-
-    @GET
-    fun getMoreComment(@Url nextUrl: String): Observable<CommentListResp>
-
-    /**
      * 获取插画详情
      */
     @GET("/v1/illust/detail")
@@ -229,24 +220,6 @@ interface IllustService {
 
 
     /**
-     * 漫画系列
-     */
-    @GET("/v1/illust/series")
-    suspend fun getMangaSeries(@Query("illust_series_id")seriesId: String): SeriesExt
-
-    /**
-     * 小说系列
-     */
-    @GET("/v2/novel/series")
-    suspend fun getNovelSeries(@Query("series_id")seriesId: String): NovelSeries
-
-    /**
-     * 获取是否有上一章下一章
-     */
-    @GET("/v1/illust-series/illust")
-    suspend fun getSeriesContext(@Query("illust_id")illustId: String): SeriesContextResp
-
-    /**
      * 浏览记录
      */
     @POST("/history/illust/create")
@@ -259,8 +232,9 @@ interface IllustService {
     @GET("/illust/browser_history")
     @Headers("SWITCH-HEADER:TAG_EXT")
     suspend fun getBrowserHistory(@Query("userId")userId: Long,
-                                  @IllustCategory @Query("category")category: String): IllustListResp
-
+                                  @IllustCategory @Query("category")category: String,
+                                  @Query("pageNo")pageNo: Int,
+                                  @Query("pageSize")pageSize: Int): HistoryListResp
 
     /**
      * 加载更多
@@ -268,10 +242,4 @@ interface IllustService {
     @GET
     fun getMoreIllust(@Url nextUrl: String): Observable<IllustListResp>
 
-    // https://app-api.pixiv.net/v1/emoji HTTP/1.1
-    // https://app-api.pixiv.net/v1/illust/comment/delete  comment_id=93773576
-    /**
-     * POST https://app-api.pixiv.net/v1/illust/comment/add HTTP/1.1  illust_id=77619699&comment=%28star%29  parent_comment_id=93741538
-     */
-    // https://app-api.pixiv.net/v1/illust/comment/replies?comment_id=93741538   commentlistresp
 }

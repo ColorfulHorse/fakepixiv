@@ -10,6 +10,7 @@ import com.lyj.fakepixiv.app.base.BaseViewModel
 import com.lyj.fakepixiv.app.constant.IllustCategory
 import com.lyj.fakepixiv.app.data.model.response.Illust
 import com.lyj.fakepixiv.app.data.model.response.NovelSeriesDetail
+import com.lyj.fakepixiv.app.data.source.remote.IllustExtRepository
 import com.lyj.fakepixiv.app.data.source.remote.IllustRepository
 import com.lyj.fakepixiv.app.data.source.remote.UserRepository
 import com.lyj.fakepixiv.app.network.LoadState
@@ -67,7 +68,7 @@ class NovelSeriesViewModel : BaseViewModel() {
             loadState.set(LoadState.Loading)
             data.clear()
             val resp = withContext(Dispatchers.IO) {
-                IllustRepository.instance.getNovelSeriesDetail(seriesId)
+                IllustExtRepository.instance.getNovelSeriesDetail(seriesId)
             }
             resp.first.type = IllustCategory.NOVEL
             resp.last.type = IllustCategory.NOVEL

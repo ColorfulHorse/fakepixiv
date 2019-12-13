@@ -156,6 +156,11 @@ object Deps : DepGroup() {
         const val lib = "com.tencent.tinker:tinker-android-lib:${Vers.tinker_version}"
     }
 
+    object KTX : DepGroup() {
+        const val core = "androidx.core:core-ktx:1.0.0"
+        const val fragment = "androidx.fragment:fragment-ktx:1.0.0"
+    }
+
     object Tools : DepGroup() {
 
         const val timber = "com.jakewharton.timber:timber:4.7.0"

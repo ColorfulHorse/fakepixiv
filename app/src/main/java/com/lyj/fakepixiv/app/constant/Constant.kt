@@ -15,6 +15,10 @@ const val EXTRA_ID = "EXTRA_ID"
 
 interface Constant {
 
+    object Patch {
+        var version = 0
+    }
+
     object File {
         val PATCH_PATH = "${Environment.getExternalStorageDirectory().absolutePath}/fakepixiv/patch_signed_7zip.apk"
     }
@@ -48,7 +52,7 @@ interface Constant {
         const val BASE_URL = "https://app-api.pixiv.net"
         const val AUTH_URL = "https://oauth.secure.pixiv.net"
         const val ACCOUNT_URL = "https://accounts.pixiv.net"
-        const val EXT_URL = "http://192.168.43.32:8888"
+        const val EXT_URL = "http://192.168.3.109:8888"
         const val APP_HOST = "www.pixiv.net"
         const val PIXIVISION_HOST = "www.pixivision.net"
 
@@ -82,5 +86,7 @@ interface Constant {
         const val KEY_RESTRICT_ILLUST = "KEY_RESTRICT_ILLUST"
 
         const val KEY_RESTRICT_NOVEL = "KEY_RESTRICT_NOVEL"
+
+        const val KEY_KEYBOARD_HEIGHT = "KEY_KEYBOARD_HEIGHT"
     }
 }
