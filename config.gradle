@@ -1,101 +1,101 @@
-ext {
-    supportVer = "28.0.0"
-    rxJavaVer = "2.2.4"
-    rxKtVer = "2.3.0"
-    coroutineVer = "1.3.0-M2"
-    autoDisposeVer = "1.1.0"
-    retrofitVer = "2.6.0"
-    glideVer = "4.9.0"
-    gsonVer = "2.8.5"
-    moshiVer = "1.8.0"
-    objectboxVer = "2.2.0"
-    butterKnifeVer = "9.0.0-rc3"
-    fragmentationVer = "1.3.6"
-    tinkerVer = "1.9.14.3"
-
-    dependenceGroup = [
-            support      : [
-                    implementation: [
-                            annotation          : "com.android.support:support-annotations:$supportVer",
-                            lifecycle_extensions: "android.arch.lifecycle:extensions:1.1.1",
-                            support_v7          : "com.android.support:appcompat-v7:$supportVer",
-                            constraintLayout    : 'com.android.support.constraint:constraint-layout:1.1.3'
-                    ]
-            ],
-            view         : [
-                    implementation: [
-                            cardview    : "com.android.support:cardview-v7:$supportVer",
-                            recyclerview: "com.android.support:recyclerview-v7:$supportVer",
-                            design      : "com.android.support:design:$supportVer",
-                            baseAdapter : 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46',
-                            tabLayout   : 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
-                    ]
-            ],
-            rx           : [
-                    implementation: [
-                            rxJava      : "io.reactivex.rxjava2:rxjava:$rxJavaVer",
-                            rxKotlin    : "io.reactivex.rxjava2:rxkotlin:$rxKtVer",
-                            rxAndroid   : "io.reactivex.rxjava2:rxandroid:2.1.0",
-                            rxPermission: "com.github.tbruyelle:rxpermissions:0.10.2"
-                    ]
-//                    autoDispose : "com.uber.autodispose:autodispose:$autoDisposeVer",
-//                    autoDispose_android : "com.uber.autodispose:autodispose-android:$autoDisposeVer",
-//                    autoDispose_ktx : "com.uber.autodispose:autodispose-ktx:$autoDisposeVer"
-            ],
-
-            coroutine    : [
-                    implementation: [
-                            coroutine_core   : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVer",
-                            coroutine_android: "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVer",
-                            coroutine_rx     : "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:$coroutineVer"
-                    ]
-            ],
-
-            retrofit     : [
-                    implementation: [
-                            retrofit                : "com.squareup.retrofit2:retrofit:$retrofitVer",
-                            //retrofit_converter_gson : "com.squareup.retrofit2:converter-gson:$retrofitVer",
-                            retrofit_converter_moshi: "com.squareup.retrofit2:converter-moshi:$retrofitVer",
-                            retrofit_adapter_rxjava2: "com.squareup.retrofit2:adapter-rxjava2:$retrofitVer"
-                    ]
-            ],
-
-            glide        : [
-                    implementation: [
-                            glide                : "com.github.bumptech.glide:glide:$glideVer",
-                            glide_recyclerview   : "com.github.bumptech.glide:recyclerview-integration:$glideVer",
-                            glide_loader_okhttp3 : "com.github.bumptech.glide:okhttp3-integration:$glideVer",
-                            glide_transformations: 'jp.wasabeef:glide-transformations:4.1.0'
-                    ],
-                    kapt      : [
-                            glide_compiler: "com.github.bumptech.glide:compiler:$glideVer"
-                    ]
-            ],
-
-            tools        : [
-                    implementation: [
-                            // gson : "com.google.code.gson:gson:$gsonVer",
-                            timber       : "com.jakewharton.timber:timber:4.7.0",
-                            statusbarUtil: "com.gyf.immersionbar:immersionbar:2.3.2" //'com.jaeger.statusbarutil:library:1.5.1'
-                    ],
-
-                    moshi         : [
-                            implementation: "com.squareup.moshi:moshi-kotlin:$moshiVer",
-                            kapt      : "com.squareup.moshi:moshi-kotlin-codegen:$moshiVer"
-                    ],
-
-//                    tinker         : [
-//                            compileOnly: "com.tencent.tinker:tinker-android-anno:$tinkerVer",
-//                            implementation      : "com.tencent.tinker:tinker-android-lib:$tinkerVer"
+//ext {
+//    supportVer = "28.0.0"
+//    rxJavaVer = "2.2.4"
+//    rxKtVer = "2.3.0"
+//    coroutineVer = "1.3.0-M2"
+//    autoDisposeVer = "1.1.0"
+//    retrofitVer = "2.6.0"
+//    glideVer = "4.9.0"
+//    gsonVer = "2.8.5"
+//    moshiVer = "1.8.0"
+//    objectboxVer = "2.2.0"
+//    butterKnifeVer = "9.0.0-rc3"
+//    fragmentationVer = "1.3.6"
+//    tinkerVer = "1.9.14.3"
+//
+//    dependenceGroup = [
+//            support      : [
+//                    implementation: [
+//                            annotation          : "com.android.support:support-annotations:$supportVer",
+//                            lifecycle_extensions: "android.arch.lifecycle:extensions:1.1.1",
+//                            support_v7          : "com.android.support:appcompat-v7:$supportVer",
+//                            constraintLayout    : 'com.android.support.constraint:constraint-layout:1.1.3'
+//                    ]
+//            ],
+//            view         : [
+//                    implementation: [
+//                            cardview    : "com.android.support:cardview-v7:$supportVer",
+//                            recyclerview: "com.android.support:recyclerview-v7:$supportVer",
+//                            design      : "com.android.support:design:$supportVer",
+//                            baseAdapter : 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46',
+//                            tabLayout   : 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+//                    ]
+//            ],
+//            rx           : [
+//                    implementation: [
+//                            rxJava      : "io.reactivex.rxjava2:rxjava:$rxJavaVer",
+//                            rxKotlin    : "io.reactivex.rxjava2:rxkotlin:$rxKtVer",
+//                            rxAndroid   : "io.reactivex.rxjava2:rxandroid:2.1.0",
+//                            rxPermission: "com.github.tbruyelle:rxpermissions:0.10.2"
+//                    ]
+////                    autoDispose : "com.uber.autodispose:autodispose:$autoDisposeVer",
+////                    autoDispose_android : "com.uber.autodispose:autodispose-android:$autoDisposeVer",
+////                    autoDispose_ktx : "com.uber.autodispose:autodispose-ktx:$autoDisposeVer"
+//            ],
+//
+//            coroutine    : [
+//                    implementation: [
+//                            coroutine_core   : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVer",
+//                            coroutine_android: "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVer",
+//                            coroutine_rx     : "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:$coroutineVer"
+//                    ]
+//            ],
+//
+//            retrofit     : [
+//                    implementation: [
+//                            retrofit                : "com.squareup.retrofit2:retrofit:$retrofitVer",
+//                            //retrofit_converter_gson : "com.squareup.retrofit2:converter-gson:$retrofitVer",
+//                            retrofit_converter_moshi: "com.squareup.retrofit2:converter-moshi:$retrofitVer",
+//                            retrofit_adapter_rxjava2: "com.squareup.retrofit2:adapter-rxjava2:$retrofitVer"
+//                    ]
+//            ],
+//
+//            glide        : [
+//                    implementation: [
+//                            glide                : "com.github.bumptech.glide:glide:$glideVer",
+//                            glide_recyclerview   : "com.github.bumptech.glide:recyclerview-integration:$glideVer",
+//                            glide_loader_okhttp3 : "com.github.bumptech.glide:okhttp3-integration:$glideVer",
+//                            glide_transformations: 'jp.wasabeef:glide-transformations:4.1.0'
 //                    ],
-            ],
-
-            fragmentation: [
-                    implementation: [
-                            //fragmentation : "me.yokeyword:fragmentation:$fragmentationVer",
-                            fragmentation_core: "me.yokeyword:fragmentation-core:$fragmentationVer"
-                    ]
-            ],
-
-    ]
-}
+//                    kapt      : [
+//                            glide_compiler: "com.github.bumptech.glide:compiler:$glideVer"
+//                    ]
+//            ],
+//
+//            tools        : [
+//                    implementation: [
+//                            // gson : "com.google.code.gson:gson:$gsonVer",
+//                            timber       : "com.jakewharton.timber:timber:4.7.0",
+//                            statusbarUtil: "com.gyf.immersionbar:immersionbar:2.3.2" //'com.jaeger.statusbarutil:library:1.5.1'
+//                    ],
+//
+//                    moshi         : [
+//                            implementation: "com.squareup.moshi:moshi-kotlin:$moshiVer",
+//                            kapt      : "com.squareup.moshi:moshi-kotlin-codegen:$moshiVer"
+//                    ],
+//
+////                    tinker         : [
+////                            compileOnly: "com.tencent.tinker:tinker-android-anno:$tinkerVer",
+////                            implementation      : "com.tencent.tinker:tinker-android-lib:$tinkerVer"
+////                    ],
+//            ],
+//
+//            fragmentation: [
+//                    implementation: [
+//                            //fragmentation : "me.yokeyword:fragmentation:$fragmentationVer",
+//                            fragmentation_core: "me.yokeyword:fragmentation-core:$fragmentationVer"
+//                    ]
+//            ],
+//
+//    ]
+//}

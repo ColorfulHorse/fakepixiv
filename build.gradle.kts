@@ -8,14 +8,12 @@
 //}
 
 buildscript {
-    val gradleVer by extra("3.2.1")
+    val gradleVer by extra("3.4.1")
     repositories {
         google()
-        //maven("http://maven.aliyun.com/nexus/content/repositories/central/")
         maven ("https://jitpack.io")
         jcenter()
         mavenCentral()
-        //maven { url 'https://dl.bintary.com/objectbox/objectbox' }
     }
     dependencies {
         classpath ("com.android.tools.build:gradle:$gradleVer")
@@ -29,9 +27,8 @@ buildscript {
 allprojects {
     repositories {
         google()
-        maven ("https://dl.bintray.com/relish-wang/maven/")
-        //maven("http://maven.aliyun.com/nexus/content/repositories/central/")
         maven ("https://jitpack.io" )
+        maven ("https://dl.bintray.com/relish-wang/maven/")
         jcenter()
         mavenCentral()
     }

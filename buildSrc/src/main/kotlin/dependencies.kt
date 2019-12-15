@@ -64,6 +64,8 @@ object Deps : DepGroup() {
 
         const val recyclerView = "androidx.recyclerview:recyclerview:1.1.0-rc01"
 
+        const val swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+
         const val design = "com.google.android.material:material:1.1.0-beta01"
     }
 

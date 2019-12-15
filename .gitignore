@@ -14,7 +14,7 @@ gen/
 target/
 out/
 classes/
-gradle.properties
+#gradle.properties
 
 
 # Local build properties
