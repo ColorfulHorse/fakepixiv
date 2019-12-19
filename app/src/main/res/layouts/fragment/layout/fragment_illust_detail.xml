@@ -4,23 +4,36 @@
     >
 
     <data>
+        <import type="android.view.View"/>
         <import type="com.lyj.fakepixiv.module.illust.detail.comment.InputViewModel.State"/>
         <import type="com.lyj.fakepixiv.module.illust.detail.IllustDetailViewModel"/>
         <import type="com.lyj.fakepixiv.app.network.LoadState"/>
         <variable
             name="vm"
-            type="com.lyj.fakepixiv.module.illust.detail.IllustDetailViewModel"/>
+            type="IllustDetailViewModel"/>
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:keyboardListener="@{vm.commentListViewModel.inputViewModel::keyboardChanged}"
         >
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@+id/input"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             >
+           <!-- <FrameLayout
+                android:id="@+id/placeHolder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:focusable="true"
+                />-->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
@@ -33,11 +46,6 @@
                 app:vm="@{vm}"
                 app:showCaption="@{vm.captionVisibility}"
                 />
-
-            <!--<include layout="@layout/dialog_detail_bottom"-->
-            <!--android:id="@+id/bottom_sheet"-->
-            <!--app:vm="@{vm}"-->
-            <!--/>-->
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -70,15 +78,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/overlay"
-            app:visible="@{vm.inputViewModel.state != State.CLOSE}"
-            android:onClick="@{() -> vm.inputViewModel.hide()}"
+            android:focusable="true"
+            android:clickable="true"
+            app:fadeIn="@{vm.commentListViewModel.inputViewModel.state != State.CLOSE}"
+            android:onClick="@{() -> vm.commentListViewModel.inputViewModel.hide()}"
             />
-        <include layout="@layout/comment_input_bar"
+        <include
             android:id="@+id/input"
+            layout="@layout/comment_input_bar"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_alignParentBottom="true"
-            app:vm="@{vm.inputViewModel}"
+            app:vm="@{vm.commentListViewModel.inputViewModel}"
+            android:visibility="@{vm.commentListViewModel.inputViewModel.state != State.CLOSE?View.VISIBLE : View.GONE}"
             />
     </RelativeLayout>
 </layout>

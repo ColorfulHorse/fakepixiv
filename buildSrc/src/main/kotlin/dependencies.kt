@@ -168,6 +168,7 @@ object Deps : DepGroup() {
         object Immersionbar : DepGroup() {
             const val core = "com.gyf.immersionbar:immersionbar:${Vers.immersionbar_version}"
             const val components = "com.gyf.immersionbar:immersionbar-components:${Vers.immersionbar_version}"
+            const val kts = "com.gyf.immersionbar:immersionbar-ktx:${Vers.immersionbar_version}"
         }
 
         const val fragmentation_core = "me.yokeyword:fragmentationx:${Vers.fragmentation_version}"

@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gyf.immersionbar.ImmersionBar
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.adapter.BaseBindingAdapter
 import com.lyj.fakepixiv.app.base.BackFragment
@@ -125,10 +125,9 @@ class NovelDetailFragment : BackFragment<FragmentNovelDetailBinding, NovelDetail
                 mAdapter.bindState(vm.loadState) {
                     mViewModel.load()
                 }
-                mAdapter.setOnItemClickListener { _, _, _ ->
-                    vm.showOverlay = !vm.showOverlay
+                mAdapter.setOnItemClickListener { adapter, view, position ->
+                    mViewModel.showOverlay = !mViewModel.showOverlay
                 }
-
                 recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                         super.onScrollStateChanged(recyclerView, newState)

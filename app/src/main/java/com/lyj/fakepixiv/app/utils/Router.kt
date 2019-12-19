@@ -91,6 +91,7 @@ object Router {
     /**
      * 用户详情页
      */
+    @JvmStatic
     fun goUserDetail(user: User? = null, userId: Long = -1) {
         var id = userId
         if (user != null) {

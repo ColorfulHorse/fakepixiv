@@ -12,7 +12,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.util.ViewPreloadSizeProvider
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.GlideApp
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.adapter.BaseBindingAdapter

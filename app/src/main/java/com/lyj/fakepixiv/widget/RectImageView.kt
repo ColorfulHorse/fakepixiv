@@ -11,7 +11,7 @@ import android.widget.ImageView
  *
  * @desc
  */
-class RecImageView : ImageView {
+class RectImageView : ImageView {
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)

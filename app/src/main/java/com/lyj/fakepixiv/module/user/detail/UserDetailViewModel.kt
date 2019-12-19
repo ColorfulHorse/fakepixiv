@@ -3,7 +3,7 @@ package com.lyj.fakepixiv.module.user.detail
 import androidx.databinding.Bindable
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.app.base.BaseViewModel
 
 import com.lyj.fakepixiv.app.constant.IllustCategory

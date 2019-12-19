@@ -82,6 +82,7 @@
                                 app:placeHolder="@{@drawable/no_profile}"
                                 app:circle="@{true}"
                                 app:fade="@{true}"
+                                android:visibility="gone"
                                 app:fadeIn="@{vm.loadState instanceof LoadState.Succeed}"
                                 />
 

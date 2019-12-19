@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.data.model.response.Illust
 import com.lyj.fakepixiv.app.databinding.onPropertyChangedCallback
@@ -45,6 +45,7 @@ class UserFooter(val context: Context, val viewModel: UserFooterViewModel, var m
         mBinding?.let {
             it.vm = viewModel
             it.recyclerView.layoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
+            it.recyclerView.setHasFixedSize(true)
             it.recyclerView.addItemDecoration(CommonItemDecoration.Builder().dividerWidth(1.dp2px(), 0).draw(false).build())
             mAdapter.bindToRecyclerView(it.recyclerView)
             it.avatar.setOnClickListener {

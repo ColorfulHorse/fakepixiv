@@ -5,7 +5,7 @@ import androidx.databinding.ViewDataBinding
 import android.graphics.drawable.Drawable
 import android.view.ViewGroup
 import com.bumptech.glide.RequestBuilder
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.GlideApp
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.adapter.BaseBindingViewHolder

@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.DialogFragment
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 
 /**
  * @author greensun

@@ -58,7 +58,7 @@ class AboutDialogFragment : BottomSheetDialogFragment() {
                             val seriesItem = SeriesItem(it, vm.seriesItemViewModel)
                         }
                         val userFooter = UserFooter(it, vm.userFooterViewModel, userContainer)
-                        val commentFooter = CommentFooter(it, vm.commentFooterViewModel, commentContainer)
+                        val commentFooter = CommentFooter(it, vm.commentListViewModel, commentContainer)
                     }
 //                    vm.illust.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
 //                        caption.setVariable(BR.data, vm.illust.get())
@@ -105,7 +105,7 @@ class AboutDialogFragment : BottomSheetDialogFragment() {
         }
         detailViewModel?.let {
             it.userFooterViewModel.load()
-            it.commentFooterViewModel.load()
+            it.commentListViewModel.load()
         }
 
     }

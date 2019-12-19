@@ -43,14 +43,14 @@
                     app:vm="@{vm.userFooterViewModel}"
                     />
                 <include layout="@layout/layout_footer_comment"
-                    app:vm="@{vm.commentFooterViewModel}"
+                    app:vm="@{vm.commentListViewModel}"
                     android:id="@+id/comment_container"
                     />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
         <include layout="@layout/comment_input_bar"
             android:id="@+id/input"
-            app:vm="@{vm.inputViewModel}"
+            app:vm="@{vm.commentListViewModel.inputViewModel}"
             android:visibility="gone"
             />
     </LinearLayout>

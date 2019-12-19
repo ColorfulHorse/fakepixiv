@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import android.widget.ImageView
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.chad.library.adapter.base.BaseViewHolder
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.GlideApp
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.FragmentationFragment

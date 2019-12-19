@@ -6,7 +6,7 @@
             name="illust"
             type="com.lyj.fakepixiv.app.data.model.response.Illust"/>
     </data>
-    <com.lyj.fakepixiv.widget.RecImageView
+    <com.lyj.fakepixiv.widget.RectImageView
         android:id="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

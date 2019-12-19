@@ -70,6 +70,7 @@
                                 android:layout_alignParentStart="true"
                                 android:layout_toStartOf="@+id/follow"
                                 android:orientation="horizontal"
+                                android:visibility="gone"
                                 app:fadeIn="@{vm.collapsed}">
 
                                 <ImageView

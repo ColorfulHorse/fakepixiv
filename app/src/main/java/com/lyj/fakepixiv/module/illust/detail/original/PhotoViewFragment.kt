@@ -28,8 +28,8 @@ class PhotoViewFragment : BackFragment<FragmentPhotoViewBinding, PhotoViewModel?
     companion object {
         private const val EXTRA_POSITION = "EXTRA_POSITION"
         private const val EXTRA_KEY = "EXTRA_KEY"
-        fun newInstance(position: Int = 0, key: Int = -1, illustId: Long = -1): IllustDetailFragment {
-            return IllustDetailFragment().apply {
+        fun newInstance(position: Int = 0, key: Int = -1): PhotoViewFragment {
+            return PhotoViewFragment().apply {
                 arguments = Bundle().apply {
                     putInt(EXTRA_POSITION, position)
                     putInt(EXTRA_KEY, key)
@@ -57,6 +57,15 @@ class PhotoViewFragment : BackFragment<FragmentPhotoViewBinding, PhotoViewModel?
         mToolbar?.setOnMenuItemClickListener {
             mViewModel?.save()
             true
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if (!diffOrientation) {
+            if (key != -1) {
+                IllustRepository.instance - key
+            }
         }
     }
 

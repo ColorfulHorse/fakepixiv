@@ -261,7 +261,7 @@ abstract class FragmentationFragment<V : ViewDataBinding, VM : BaseViewModel?> :
     /**
      * 显示软键盘,调用该方法后,会在onPause时自动隐藏软键盘
      */
-    protected fun showSoftInput(view: View) {
+    fun showSoftInput(view: View) {
         mDelegate.showSoftInput(view)
     }
 

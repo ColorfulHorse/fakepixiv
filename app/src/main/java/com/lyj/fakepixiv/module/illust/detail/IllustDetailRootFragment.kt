@@ -133,7 +133,6 @@ class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, I
 
     override fun initImmersionBar() {
         ImmersionBar.with(this)
-                //.fitsSystemWindows(true)
                 .titleBarMarginTop(mBinding.toolbarWrapper)
                 .statusBarDarkFont(true)
                 .transparentStatusBar()

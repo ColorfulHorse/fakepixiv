@@ -2,7 +2,7 @@ package com.lyj.fakepixiv.module.login.login
 
 import androidx.databinding.Bindable
 import androidx.databinding.ObservableField
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.app.base.BaseViewModel
 import com.lyj.fakepixiv.app.data.source.remote.UserRepository
 import com.lyj.fakepixiv.app.databinding.onPropertyChangedCallback

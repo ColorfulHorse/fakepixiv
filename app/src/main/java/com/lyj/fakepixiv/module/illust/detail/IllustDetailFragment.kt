@@ -1,15 +1,16 @@
 package com.lyj.fakepixiv.module.illust.detail
 
 import android.os.Bundle
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.gyf.immersionbar.ImmersionBar
+import com.gyf.immersionbar.ktx.immersionBar
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.FragmentationFragment
 import com.lyj.fakepixiv.app.constant.EXTRA_ID
@@ -18,10 +19,8 @@ import com.lyj.fakepixiv.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepixiv.app.network.LoadState
 import com.lyj.fakepixiv.app.utils.dp2px
 import com.lyj.fakepixiv.databinding.FragmentIllustDetailBinding
-import com.lyj.fakepixiv.module.illust.detail.comment.InputViewModel
 import com.lyj.fakepixiv.module.illust.detail.items.*
 import com.lyj.fakepixiv.widget.DetailItemDecoration
-import kotlinx.android.synthetic.main.fragment_illust_detail.*
 
 /**
  * @author greensun
@@ -56,8 +55,6 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
     private var position = 0
     private var key = -1
 
-    lateinit var commentFooter: CommentFooter
-
     override fun init(savedInstanceState: Bundle?) {
         arguments?.let {
             position = it.getInt(EXTRA_POSITION, 0)
@@ -71,18 +68,19 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
             }
         }
 
+        mViewModel.commentListViewModel.inputViewModel.keyboardListener = { opened ->
+            immersionBar {
+                keyboardEnable(!opened)
+            }
+        }
+
         layoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
         mAdapter = IllustDetailAdapter(mViewModel)
         with(mBinding) {
-            caption.root.post {
-                captionHeight = caption.root.height
+            recyclerView.nextFocusUpId
+            caption.container.post {
+                captionHeight = caption.container.height
             }
-            mViewModel.inputViewModel.state.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
-                when(mViewModel.inputViewModel.state.get()) {
-                    InputViewModel.State.TEXT -> showSoftInput(mBinding.input.commentEditText)
-                    else -> hideSoftInput()
-                }
-            })
             recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
@@ -233,14 +231,8 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
     private fun initItem() {
         val descFooter = DescFooter(mActivity, mViewModel.illust)
         val userFooter = UserFooter(mActivity, mViewModel.userFooterViewModel)
-        commentFooter = CommentFooter(mActivity, mViewModel.commentFooterViewModel)
+        val commentFooter = CommentFooter(mActivity, mViewModel.commentListViewModel)
         val relatedCaptionFooter = RelatedCaptionFooter(mActivity, mViewModel.relatedCaptionFooterViewModel)
-
-        commentFooter.mBinding?.input?.setOnClickListener {
-            mBinding.input.root.visibility = View.VISIBLE
-            mViewModel.inputViewModel.state.set(InputViewModel.State.TEXT)
-        }
-
 
         mAdapter.addItem(descFooter)
         if (mViewModel.illust.series != null) {
@@ -250,28 +242,16 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
         mAdapter.addItem(userFooter)
         mAdapter.addItem(commentFooter)
         mAdapter.addItem(relatedCaptionFooter)
-
     }
 
-//    override fun onKeyboardChanged(isOpen: Boolean, height: Int) {
-//        super.onKeyboardChanged(isOpen, height)
-//        if (isOpen) {
-//            mViewModel.inputViewModel.state.set(InputViewModel.State.TEXT)
-//        }
-//    }
-
-
-    override fun immersionBarEnabled(): Boolean {
-        return false
+    override fun initImmersionBar() {
+        ImmersionBar.with(this)
+                .statusBarDarkFont(true)
+                .keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+                .keyboardEnable(true)
+                .setOnKeyboardListener(keyboardListener)
+                .init()
     }
-
-//    override fun initImmersionBar() {
-//        ImmersionBar.with(this)
-//                .keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE or WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-//                .keyboardEnable(true)
-//                .setOnKeyboardListener(keyboardListener)
-//                .init()
-//    }
 
 
     override fun bindLayout(): Int = R.layout.fragment_illust_detail

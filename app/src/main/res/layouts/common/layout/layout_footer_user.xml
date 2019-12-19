@@ -1,117 +1,126 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 详情页作者 -->
+<?xml version="1.0" encoding="utf-8"?><!-- 详情页作者 -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
-        <import type="com.lyj.fakepixiv.module.illust.detail.items.UserFooterViewModel"/>
-        <import type="com.lyj.fakepixiv.app.network.LoadState"/>
+
+        <import type="com.lyj.fakepixiv.module.illust.detail.items.UserFooterViewModel" />
+
+        <import type="com.lyj.fakepixiv.app.network.LoadState" />
+
+        <import type="com.lyj.fakepixiv.app.utils.Router" />
+
         <variable
             name="vm"
-            type="com.lyj.fakepixiv.module.illust.detail.items.UserFooterViewModel"/>
+            type="com.lyj.fakepixiv.module.illust.detail.items.UserFooterViewModel" />
     </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingStart="@dimen/detail_padding_h"
-        android:paddingEnd="@dimen/detail_padding_h"
         android:paddingTop="24dp"
-        >
+        android:paddingEnd="@dimen/detail_padding_h">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <ImageView
                 android:id="@+id/avatar"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                app:url="@{vm.parent.illust.user.profile_image_urls.medium}"
-                app:placeHolder="@{@drawable/no_profile}"
-                app:circle="@{true}"
                 android:layout_centerVertical="true"
-                />
+                app:circle="@{true}"
+                app:placeHolder="@{@drawable/no_profile}"
+                app:url="@{vm.parent.illust.user.profile_image_urls.medium}" />
+
             <TextView
                 android:id="@+id/nickName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:maxLines="1"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_centerVertical="true"
-                android:textColor="@color/renewal_font_black"
-                android:layout_toEndOf="@+id/avatar"
                 android:layout_toStartOf="@+id/follow"
+                android:layout_toEndOf="@+id/avatar"
+                android:maxLines="1"
                 android:text="@{vm.parent.illust.user.name}"
-                />
+                android:textColor="@color/renewal_font_black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
             <Button
                 android:id="@+id/follow"
                 style="@style/follow_button"
-                android:textColor="@{vm.parent.liveData.user._followed?@color/white:@color/colorPrimary}"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@{vm.parent.liveData.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_primary}"
+                android:enabled="@{!(vm.parent.followState instanceof LoadState.Loading)}"
                 android:onClick="@{() -> vm.parent.follow()}"
                 android:text="@{vm.parent.liveData.user._followed?@string/followed:@string/follow}"
-                android:background="@{vm.parent.liveData.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_primary}"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:enabled="@{!(vm.parent.followState instanceof LoadState.Loading)}"
-                />
+                android:textColor="@{vm.parent.liveData.user._followed?@color/white:@color/colorPrimary}" />
         </RelativeLayout>
 
-        <androidx.cardview.widget.CardView
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="12dp"-->
+<!--            app:cardCornerRadius="4dp"-->
+<!--            app:cardElevation="0dp">-->
+
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/recyclerView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content" />-->
+<!--        </androidx.cardview.widget.CardView>-->
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="4dp"
-            app:cardElevation="0dp"
-            android:layout_marginTop="12dp"
-            >
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
-        </androidx.cardview.widget.CardView>
-        <!--<androidx.constraintlayout.widget.ConstraintLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="12dp"-->
-            <!--&gt;-->
-            <!--<androidx.cardview.widget.CardView-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="0dp"-->
-                <!--app:layout_constraintStart_toStartOf="parent"-->
-                <!--app:layout_constraintEnd_toEndOf="parent"-->
-                <!--app:layout_constraintTop_toTopOf="parent"-->
-                <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                <!--app:layout_constraintDimensionRatio="w,3:1"-->
-                <!--app:cardCornerRadius="4dp"-->
-                <!--app:cardElevation="0dp"-->
-                <!--&gt;-->
-                <!--<androidx.recyclerview.widget.RecyclerView-->
-                    <!--android:id="@+id/recyclerView"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--/>-->
-            <!--</androidx.cardview.widget.CardView>-->
-        <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
-        <TextView
-            android:id="@+id/userPreview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:text="@string/preview_user"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/more_button_text"
-            android:drawableEnd="@drawable/icon_next"
-            android:drawablePadding="10dp"
-            android:layout_gravity="center_horizontal"
-            />
+            android:layout_marginTop="12dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="w,1:3"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="0dp"
+                >
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/userPreview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawableEnd="@drawable/icon_next"
+                android:drawablePadding="10dp"
+                android:onClick="@{() -> Router.goUserDetail(vm.parent.illust.user, -1)}"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:text="@string/preview_user"
+                android:textColor="@color/more_button_text"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="24dp"
-            android:background="@color/md_divider_black"
-            />
+            android:background="@color/md_divider_black" />
     </LinearLayout>
 </layout>

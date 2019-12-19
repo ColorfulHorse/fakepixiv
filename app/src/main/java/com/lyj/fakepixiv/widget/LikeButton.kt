@@ -8,7 +8,13 @@ import android.view.animation.*
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.view.animation.RotateAnimation
+import androidx.databinding.BindingAdapter
+import androidx.databinding.ObservableField
 import com.lyj.fakepixiv.R
+import com.lyj.fakepixiv.app.data.model.response.Illust
+import com.lyj.fakepixiv.app.data.source.remote.IllustRepository
+import com.lyj.fakepixiv.app.databinding.onPropertyChangedCallback
+import com.lyj.fakepixiv.app.network.LoadState
 
 
 /**
@@ -152,5 +158,42 @@ class LikeButton : RelativeLayout {
         normal.visibility = View.VISIBLE
         normal.startAnimation(magnify)
         selected.startAnimation(set)
+    }
+}
+
+/**
+ * 收藏
+ */
+@BindingAdapter(value = ["liked"])
+fun LikeButton.liked(liked: Boolean = false) {
+    this.setLikedWithoutAnim(liked)
+}
+
+/**
+ * 添加事件
+ */
+@BindingAdapter(value = ["data"])
+fun LikeButton.bindAction(data: Illust) {
+    action = {
+        processing = true
+        val star = data.is_bookmarked
+        val starState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
+        starState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
+            when (starState.get()) {
+                is LoadState.Failed -> {
+                    processing = false
+                    if (star) {
+                        like()
+                    } else {
+                        unlike()
+                    }
+                }
+                is LoadState.Succeed -> {
+                    processing = false
+                }
+            }
+        })
+        IllustRepository.instance
+                .star(data, starState)
     }
 }

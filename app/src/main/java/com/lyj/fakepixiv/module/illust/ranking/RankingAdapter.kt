@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager
 import com.beloo.widget.chipslayoutmanager.SpacingItemDecoration
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.application.ApplicationLike.Companion.context
 import com.lyj.fakepixiv.app.adapter.BaseBindingAdapter

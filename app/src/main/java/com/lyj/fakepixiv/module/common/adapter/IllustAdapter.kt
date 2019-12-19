@@ -11,7 +11,7 @@ import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepixiv.app.adapter.PreloadMultiBindingAdapter
 import com.lyj.fakepixiv.app.data.model.response.Illust
-import com.lyj.fakepixiv.app.databinding.bindAction
+import com.lyj.fakepixiv.widget.bindAction
 import com.lyj.fakepixiv.app.utils.Router
 import com.lyj.fakepixiv.module.common.StarDialog
 import com.lyj.fakepixiv.widget.LikeButton

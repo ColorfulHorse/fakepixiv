@@ -35,7 +35,9 @@
             android:layout_marginRight="8dp"
             app:circle="@{true}"
             app:placeHolder="@{@drawable/no_profile}"
-            app:url="@{vm.data.user.profile_image_urls.medium}" />
+            app:url="@{vm.data.user.profile_image_urls.medium}"
+            android:onClick="@{() -> vm.goUser()}"
+            />
 
         <LinearLayout
             android:id="@+id/container"

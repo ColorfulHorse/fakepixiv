@@ -3,6 +3,7 @@ package com.lyj.fakepixiv.app.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
@@ -12,6 +13,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.application.ApplicationLike
+import com.lyj.fakepixiv.app.application.ApplicationLike.Companion.context
 import com.lyj.fakepixiv.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepixiv.app.network.LoadState
 import com.lyj.fakepixiv.widget.StateView
@@ -40,6 +42,30 @@ fun screenWidth(): Int {
 
 fun screenHeight(): Int {
     return ApplicationLike.context.resources.displayMetrics.heightPixels
+}
+
+fun Context.statusBarHeight(): Int {
+    val result = 0
+    try {
+        val resourceId = Resources.getSystem().getIdentifier("status_bar_height", "dimen", "android")
+        if (resourceId > 0) {
+            val sizeOne = resources.getDimensionPixelSize(resourceId)
+            val sizeTwo = Resources.getSystem().getDimensionPixelSize(resourceId)
+
+            if (sizeTwo >= sizeOne) {
+                return sizeTwo
+            } else {
+                val densityOne = resources.displayMetrics.density
+                val densityTwo = Resources.getSystem().displayMetrics.density
+                val f = sizeOne * densityTwo / densityOne
+                return (if (f >= 0) f + 0.5f else f - 0.5f).toInt()
+            }
+        }
+    } catch (ignored: Resources.NotFoundException) {
+        return 0
+    }
+
+    return result
 }
 
 fun Activity.statusBarColor(color: Int) {

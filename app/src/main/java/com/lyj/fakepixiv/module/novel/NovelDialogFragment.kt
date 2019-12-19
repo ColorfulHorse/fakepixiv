@@ -9,15 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager
 import com.beloo.widget.chipslayoutmanager.SpacingItemDecoration
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.application.ApplicationLike
 import com.lyj.fakepixiv.app.constant.IllustCategory
-import com.lyj.fakepixiv.app.databinding.bindAction
 import com.lyj.fakepixiv.app.utils.Router
 import com.lyj.fakepixiv.app.utils.dp2px
 import com.lyj.fakepixiv.databinding.DialogNovelBinding
 import com.lyj.fakepixiv.module.common.adapter.IllustTagAdapter
+import com.lyj.fakepixiv.widget.bindAction
 
 /**
  * @author greensun

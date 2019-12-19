@@ -51,7 +51,9 @@
                 android:gravity="center_vertical"
                 android:text="@string/comment_placeholder"
                 android:textColor="@color/inout_hint_color"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:onClick="@{() -> vm.inputViewModel.show()}"
+                />
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"

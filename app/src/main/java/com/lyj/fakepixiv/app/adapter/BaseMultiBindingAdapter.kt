@@ -7,7 +7,7 @@ import android.util.SparseIntArray
 import android.view.View
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.entity.MultiItemEntity
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 
 /**
  * @author greensun

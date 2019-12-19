@@ -8,7 +8,7 @@
             name="illust"
             type="Illust"/>
     </data>
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
@@ -17,10 +17,15 @@
             app:fade="@{true}"
             app:placeHolder="@{@drawable/common_border_placeholder}"
         -->
-        <com.lyj.fakepixiv.widget.RecImageView
+        <ImageView
             android:id="@+id/image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintDimensionRatio="w,1:1"
             android:scaleType="centerCrop"
             app:url="@{illust.image_urls.large}"
             app:fade="@{true}"
@@ -31,11 +36,14 @@
             android:id="@+id/count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             style="@style/count_tag"
             android:layout_alignEnd="@id/image"
             android:layout_alignTop="@id/image"
             android:text="@{String.valueOf(illust.page_count)}"
-            android:visibility="gone"                     app:visible="@{illust.page_count > 1}"
+            android:visibility="gone"
+            app:visible="@{illust.page_count > 1}"
             />
         <!--<RelativeLayout-->
             <!--android:layout_width="wrap_content"-->
@@ -62,5 +70,5 @@
                 <!--android:textStyle="bold"-->
                 <!--/>-->
         <!--</RelativeLayout>-->
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

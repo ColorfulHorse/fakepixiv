@@ -5,7 +5,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.adapter.BaseBindingAdapter
 import com.lyj.fakepixiv.app.data.model.response.Comment
@@ -42,7 +42,7 @@ class CommentFooter(val context: Context, val viewModel: CommentListViewModel, v
         mBinding?.let {
             mAdapter.bindToRecyclerView(it.recyclerView)
             it.recyclerView.layoutManager = LinearLayoutManager(context)
-            mAdapter.bindState(viewModel.loadState, errorRes = R.layout.layout_error_small) {
+            mAdapter.bindState(viewModel.loadState, loadingRes = R.layout.layout_common_loading_white, errorRes = R.layout.layout_error_small) {
                 viewModel.load()
             }
             it.more.setOnClickListener {

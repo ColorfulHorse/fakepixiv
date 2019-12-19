@@ -6,7 +6,7 @@ import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 
 /**
  * @author greensun

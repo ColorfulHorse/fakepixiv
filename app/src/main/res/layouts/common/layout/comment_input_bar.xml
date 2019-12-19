@@ -62,8 +62,9 @@
                 android:textColorHint="#ffdddddd"
                 android:textSize="14.0sp"
                 android:text="@={vm.comment}"
+                app:keyboardShow="@{vm.keyboardShow}"
                 />
-
+<!--                app:keyboardShow="@{vm.keyboardShow}"-->
             <ImageView
                 android:id="@+id/send"
                 android:layout_width="wrap_content"
@@ -86,11 +87,13 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="216dp"
+            app:height="@{vm.emojiHeight}"
             android:background="@android:color/white"
             android:clipToPadding="false"
             android:padding="16dp"
             android:visibility="gone"
-            app:visible="@{vm.state == State.EMOJI}"
+            app:visible="@{vm.emojiShow}"
             />
+<!--        app:visible="@{vm.state == State.EMOJI}"-->
     </LinearLayout>
 </layout>

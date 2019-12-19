@@ -84,4 +84,8 @@ class CommentViewModel(val parent: CommentListViewModel, val data: Comment) : Ba
             }
         }
     }
+
+    fun goUser() {
+        Router.goUserDetail(data.user)
+    }
 }

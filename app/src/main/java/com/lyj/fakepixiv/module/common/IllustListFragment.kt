@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.application.ApplicationLike.Companion.context
 import com.lyj.fakepixiv.app.base.FragmentationFragment
