@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull
  * @desc 共用viewModel 监听同一个BaseObservable 导致内存泄漏
  */
 class LiveOnPropertyChangedCallback(val observable: BaseObservable,
-                                    val lifecycle: Lifecycle?,
+                                    var lifecycle: Lifecycle?,
                                     val action: (Observable, Int) -> Unit)
     : Observable.OnPropertyChangedCallback(), LifecycleObserver {
 
@@ -31,6 +31,7 @@ class LiveOnPropertyChangedCallback(val observable: BaseObservable,
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy(@NotNull owner: LifecycleOwner) {
         observable.removeOnPropertyChangedCallback(this)
+        lifecycle = null
     }
 
 }

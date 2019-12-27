@@ -127,7 +127,7 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
             }
             mAdapter.bindToRecyclerView(recyclerView)
 
-            recyclerView.attachLoadMore(mViewModel.loadMoreState) { mViewModel.loadMore() }
+            recyclerView.attachLoadMore(mViewModel.loadMoreState, lifecycle = lifecycle) { mViewModel.loadMore() }
         }
     }
 
