@@ -12,6 +12,7 @@ import com.lyj.fakepixiv.app.data.model.response.Illust
 import com.lyj.fakepixiv.app.data.source.remote.IllustRepository
 import com.lyj.fakepixiv.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepixiv.app.network.LoadState
+import com.lyj.fakepixiv.app.utils.doOnPropertyChanged
 import com.lyj.fakepixiv.databinding.FragmentIllustDetailRootBinding
 import kotlinx.android.synthetic.main.layout_error.view.*
 
@@ -25,16 +26,6 @@ import kotlinx.android.synthetic.main.layout_error.view.*
 class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, IllustDetailViewModel?>() {
 
     override var mViewModel: IllustDetailViewModel? = null
-    set(value) {
-        field = value
-        value?.detailState?.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
-            val state = value.detailState.get()
-            when(state) {
-                is LoadState.Succeed -> mToolbar?.menu?.setGroupVisible(0, true)
-                is LoadState.Failed -> mToolbar?.menu?.setGroupVisible(0, false)
-            }
-        })
-    }
 
     var position = -1
     var key = -1
@@ -110,16 +101,26 @@ class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, I
             })
             val fragment = adapter.getFragment(position)
             if (fragment != null) {
-                vm = fragment.mViewModel
-                mViewModel = vm
+                bindVm(fragment)
             } else {
                 // 未初始化则没办法马上拿到
                 adapter.getFragment(position) {
-                    vm = it.mViewModel
-                    mViewModel = vm
+                    bindVm(it)
                 }
             }
         }
+    }
+
+    private fun bindVm(f: IllustDetailFragment) {
+        f.mViewModel.detailState.doOnPropertyChanged(f.lifecycle) { _, _ ->
+            val state = f.mViewModel.detailState.get()
+            when (state) {
+                is LoadState.Succeed -> mToolbar?.menu?.setGroupVisible(0, true)
+                is LoadState.Failed -> mToolbar?.menu?.setGroupVisible(0, false)
+            }
+        }
+        mViewModel = f.mViewModel
+        mBinding.vm = mViewModel
     }
 
     override fun onDestroyView() {
@@ -133,7 +134,6 @@ class IllustDetailRootFragment : BackFragment<FragmentIllustDetailRootBinding, I
 
     override fun initImmersionBar() {
         ImmersionBar.with(this)
-                //.fitsSystemWindows(true)
                 .titleBarMarginTop(mBinding.toolbarWrapper)
                 .statusBarDarkFont(true)
                 .transparentStatusBar()

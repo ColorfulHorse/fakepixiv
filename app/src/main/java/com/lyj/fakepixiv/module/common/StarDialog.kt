@@ -3,7 +3,7 @@ package com.lyj.fakepixiv.module.common
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.WindowManager
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.adapter.BaseBindingAdapter
 import com.lyj.fakepixiv.app.adapter.BaseBindingViewHolder

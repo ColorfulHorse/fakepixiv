@@ -66,6 +66,8 @@
                 android:visibility="gone"
                 app:visible="@{vm.inputViewModel.state != State.CLOSE}"
                 android:onClick="@{() -> vm.inputViewModel.hide()}"
+                android:clickable="true"
+                android:focusable="true"
                 />
             <include
                 android:id="@+id/input"
@@ -73,7 +75,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                app:vm="@{vm.inputViewModel}" />
+                app:vm="@{vm.inputViewModel}"
+                />
         </RelativeLayout>
     </RelativeLayout>
 </layout>

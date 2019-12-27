@@ -4,12 +4,12 @@ import androidx.databinding.ViewDataBinding
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.gyf.immersionbar.ImmersionBar
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepixiv.app.base.BackFragment
 import com.lyj.fakepixiv.app.data.model.response.Illust
-import com.lyj.fakepixiv.app.databinding.attachLoadMore
+import com.lyj.fakepixiv.app.utils.attachLoadMore
 import com.lyj.fakepixiv.app.utils.bindState
 import com.lyj.fakepixiv.app.utils.dp2px
 import com.lyj.fakepixiv.databinding.FragmentComicSeriseBinding

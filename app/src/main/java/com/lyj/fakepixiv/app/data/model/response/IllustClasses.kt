@@ -4,7 +4,7 @@ package com.lyj.fakepixiv.app.data.model.response
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import android.text.TextUtils
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.application.ApplicationLike
 import com.lyj.fakepixiv.app.constant.IllustCategory

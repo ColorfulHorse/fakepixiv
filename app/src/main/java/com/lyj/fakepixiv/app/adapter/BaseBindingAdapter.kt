@@ -6,7 +6,8 @@ import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
+import com.lyj.fakepixiv.app.utils.doOnDetached
 
 /**
  * @author greensun
@@ -15,46 +16,60 @@ import com.lyj.fakepixiv.BR
  *
  * @desc
  */
-open class BaseBindingAdapter<T, VB : ViewDataBinding>(@LayoutRes layoutId: Int, data: MutableList<T>, val itemBindId: Int) : BaseQuickAdapter<T, BaseBindingViewHolder<VB>>(layoutId, data) {
+open class BaseBindingAdapter<T, VB : ViewDataBinding>(@LayoutRes layoutId: Int, data: MutableList<T>, val itemBindId: Int) :
+        BaseQuickAdapter<T, BaseBindingViewHolder<VB>>(layoutId, data), RecyclerViewOwner {
 
-    init {
-        if(data is ObservableList<T>) {
-            data.addOnListChangedCallback(object : ObservableList.OnListChangedCallback<ObservableList<T>>(){
-                override fun onChanged(sender: ObservableList<T>?) {
+    private val ob by lazy {
+        object : ObservableList.OnListChangedCallback<ObservableList<T>>() {
+            override fun onChanged(sender: ObservableList<T>?) {
+                notifyDataSetChanged()
+            }
+
+            override fun onItemRangeRemoved(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
+                notifyItemRangeRemoved(positionStart, itemCount)
+                compatibilityDataSizeChanged(0)
+            }
+
+            override fun onItemRangeMoved(sender: ObservableList<T>?, fromPosition: Int, toPosition: Int, itemCount: Int) {
+                if (itemCount == 1) {
+                    notifyItemMoved(fromPosition, toPosition)
+                } else {
                     notifyDataSetChanged()
                 }
+            }
 
-                override fun onItemRangeRemoved(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
-                    notifyItemRangeRemoved(positionStart, itemCount)
-                    compatibilityDataSizeChanged(0)
+            override fun onItemRangeInserted(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
+                var start = positionStart
+                if (positionStart > 0) {
+                    val count = getItemCount() - data.size
+                    start += count
                 }
-
-                override fun onItemRangeMoved(sender: ObservableList<T>?, fromPosition: Int, toPosition: Int, itemCount: Int) {
-                    if (itemCount == 1) {
-                        notifyItemMoved(fromPosition, toPosition)
-                    }else {
-                        notifyDataSetChanged()
-                    }
+                notifyItemRangeInserted(start, itemCount)
+                if (start == 0) {
+                    recyclerView?.scrollToPosition(0)
                 }
+                compatibilityDataSizeChanged(itemCount)
+            }
 
-                override fun onItemRangeInserted(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
-                    var start = positionStart
-                    if (positionStart > 0) {
-                        val count = getItemCount() - data.size
-                        start += count
-                    }
-                    notifyItemRangeInserted(start, itemCount)
-                    if (start == 0) {
-                        recyclerView?.scrollToPosition(0)
-                    }
-                    compatibilityDataSizeChanged(itemCount)
-                }
+            override fun onItemRangeChanged(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
+                notifyItemRangeChanged(positionStart, itemCount)
+            }
 
-                override fun onItemRangeChanged(sender: ObservableList<T>?, positionStart: Int, itemCount: Int) {
-                    notifyItemRangeChanged(positionStart, itemCount)
-                }
+        }
+    }
 
-            })
+    init {
+        if (data is ObservableList<T>) {
+            data.addOnListChangedCallback(ob)
+        }
+    }
+
+    override fun bindToRecyclerView(recyclerView: RecyclerView) {
+        super.bindToRecyclerView(recyclerView)
+        if (data is ObservableList<T>) {
+            recyclerView.doOnDetached {
+                (data as ObservableList<T>).removeOnListChangedCallback(ob)
+            }
         }
     }
 
@@ -68,12 +83,6 @@ open class BaseBindingAdapter<T, VB : ViewDataBinding>(@LayoutRes layoutId: Int,
     }
 
 
-
-
-    fun getRecyView(): RecyclerView {
-        return recyclerView
-    }
-
     /**
      * compatible getLoadMoreViewCount and getEmptyViewCount may change
      *
@@ -84,5 +93,9 @@ open class BaseBindingAdapter<T, VB : ViewDataBinding>(@LayoutRes layoutId: Int,
         if (dataSize == size) {
             notifyDataSetChanged()
         }
+    }
+
+    override fun getRv(): RecyclerView? {
+        return recyclerView
     }
 }

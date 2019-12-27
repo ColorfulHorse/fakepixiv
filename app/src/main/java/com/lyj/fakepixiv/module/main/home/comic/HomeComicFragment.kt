@@ -3,16 +3,13 @@ package com.lyj.fakepixiv.module.main.home.comic
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import android.view.View
 import com.lyj.fakepixiv.GlideApp
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepixiv.app.base.FragmentationFragment
 import com.lyj.fakepixiv.app.constant.IllustCategory.COMIC
-import com.lyj.fakepixiv.app.databinding.attachLoadMore
-import com.lyj.fakepixiv.app.databinding.onPropertyChangedCallback
+import com.lyj.fakepixiv.app.utils.attachLoadMore
 
-import com.lyj.fakepixiv.app.network.LoadState
 import com.lyj.fakepixiv.app.utils.bindState
 import com.lyj.fakepixiv.app.utils.dp2px
 import com.lyj.fakepixiv.databinding.CommonRefreshList
@@ -20,7 +17,6 @@ import com.lyj.fakepixiv.databinding.ItemHomeIllustBinding
 import com.lyj.fakepixiv.module.main.home.illust.PixivisionHeader
 import com.lyj.fakepixiv.module.main.home.illust.RankHeader
 import com.lyj.fakepixiv.widget.CommonItemDecoration
-import kotlinx.android.synthetic.main.layout_error.view.*
 
 
 /**

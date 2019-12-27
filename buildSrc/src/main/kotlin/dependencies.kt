@@ -94,6 +94,8 @@ object Deps : DepGroup() {
 
         const val flyco = "com.flyco.tablayout:FlycoTabLayout_Lib:3.0.0"
 
+        const val photoView = "com.github.chrisbanes:PhotoView:2.0.0"
+
                 //"com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar"
 
         //const val smarttablayout = "com.ogaclejapan.smarttablayout:library:2.0.0@aar"
@@ -170,6 +172,7 @@ object Deps : DepGroup() {
         object Immersionbar : DepGroup() {
             const val core = "com.gyf.immersionbar:immersionbar:${Vers.immersionbar_version}"
             const val components = "com.gyf.immersionbar:immersionbar-components:${Vers.immersionbar_version}"
+            const val kts = "com.gyf.immersionbar:immersionbar-ktx:${Vers.immersionbar_version}"
         }
 
         const val fragmentation_core = "me.yokeyword:fragmentationx:${Vers.fragmentation_version}"

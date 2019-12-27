@@ -5,11 +5,12 @@ import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.ViewGroup
 import com.bumptech.glide.RequestBuilder
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.GlideApp
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.adapter.BaseBindingViewHolder
 import com.lyj.fakepixiv.app.data.model.response.Illust
+import com.lyj.fakepixiv.app.data.source.remote.IllustRepository
 import com.lyj.fakepixiv.app.utils.Router
 import com.lyj.fakepixiv.module.common.adapter.IllustAdapter
 import com.lyj.fakepixiv.module.illust.detail.items.*
@@ -18,6 +19,7 @@ import com.lyj.fakepixiv.module.illust.detail.items.DetailItem.Companion.LAYOUT_
 import com.lyj.fakepixiv.module.illust.detail.items.DetailItem.Companion.LAYOUT_RELATED_CAPTION
 import com.lyj.fakepixiv.module.illust.detail.items.DetailItem.Companion.LAYOUT_SERIES
 import com.lyj.fakepixiv.module.illust.detail.items.DetailItem.Companion.LAYOUT_USER
+import com.lyj.fakepixiv.module.illust.detail.original.PhotoViewFragment
 
 
 /**
@@ -43,7 +45,9 @@ class IllustDetailAdapter(val viewModel: IllustDetailViewModel) : IllustAdapter(
         setOnItemClickListener { _, _, position ->
             val type = data[position].itemType
             if (type == Illust.TYPE_META) {
-
+                val key = (System.currentTimeMillis()/1000).toInt()
+                IllustRepository.instance[key] = data.filter { it.itemType == Illust.TYPE_META }
+                Router.getTopFragment()?.start(PhotoViewFragment.newInstance(position, key))
             }else {
                 Router.goDetail(position - items.size, data)
             }
@@ -96,7 +100,7 @@ class IllustDetailAdapter(val viewModel: IllustDetailViewModel) : IllustAdapter(
             LAYOUT_SERIES -> {
                 val item = items.find { it.type == LAYOUT_SERIES } as SeriesItem
                 item.viewModel.load()
-                return BaseBindingViewHolder(item.mBinding)
+                return BaseBindingViewHolder(item.rootView)
             }
             LAYOUT_USER -> {
                 val item = items.find { it.type == LAYOUT_USER } as UserFooter

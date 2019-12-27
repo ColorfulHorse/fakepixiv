@@ -12,52 +12,61 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:scrollbars="vertical"
+            android:focusableInTouchMode="false"
+            android:focusable="false"
             />
         <FrameLayout
             android:id="@+id/toolbar_wrapper"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?attr/actionBarSize"
             >
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                app:contentInsetStart="0dp"
+                app:contentInsetStartWithNavigation="0dp"
+                app:contentInsetEndWithActions="0dp"
+                android:visibility="gone"
+                app:fadeIn="@{(vm.loadState instanceof LoadState.Succeed) &amp;&amp; vm.showOverlay}"
+                />
             <TextView
                 android:id="@+id/pageNum"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:textSize="12sp"
                 android:textColor="@color/white"
                 android:shadowDy="1"
                 android:shadowRadius="4"
                 android:shadowColor="@color/black"
+                android:visibility="gone"
                 app:fadeIn="@{(vm.total > 1) &amp;&amp; vm.showPageNum}"
+                app:duration="@{400L}"
                 android:text='@{vm.current+"/"+vm.total}'
-                />
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/transparent"
-                app:contentInsetStart="0dp"
-                app:contentInsetStartWithNavigation="0dp"
-                app:contentInsetEndWithActions="0dp"
-                app:show="@{(vm.loadState instanceof LoadState.Succeed) &amp;&amp; vm.showOverlay}"
                 />
         </FrameLayout>
 
-        <include layout="@layout/layout_detail_caption"
+        <include
             android:id="@+id/caption"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentBottom="true"
+            layout="@layout/layout_detail_caption"
             app:vm="@{vm}"
+            app:fade="@{true}"
             app:showCaption="@{(vm.loadState instanceof LoadState.Succeed) &amp;&amp; vm.showOverlay}"
             />
-        <!--(vm.loadState instanceof LoadState.Succeed &amp;&amp; vm.showOverlay)-->
+<!--        app:showCaption="@{(vm.loadState instanceof LoadState.Succeed) &amp;&amp; vm.showOverlay}"-->
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -78,5 +87,13 @@
                 app:show="@{(vm.loadState instanceof LoadState.Succeed) &amp;&amp; vm.showOverlay}"
                 />
         </RelativeLayout>
+        <FrameLayout
+            android:id="@+id/overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            />
     </RelativeLayout>
 </layout>

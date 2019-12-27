@@ -19,12 +19,12 @@
             android:layout_height="wrap_content"
             android:text="@string/error_default_title"
             android:textColor="@color/error_font_gray"
-            android:textSize="24.0sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24.0dip"
+            android:layout_marginTop="16dp"
             android:text="@string/error_default_message"
             android:textColor="@color/error_font_gray"
             android:textSize="14.0sp" />

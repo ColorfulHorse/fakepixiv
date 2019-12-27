@@ -205,6 +205,8 @@
             android:autoLink="all"
             android:textSize="14sp"
             />
+<!--         android:textIsSelectable="true"
+            android:autoLink="all"-->
 
         <View
             android:layout_width="match_parent"

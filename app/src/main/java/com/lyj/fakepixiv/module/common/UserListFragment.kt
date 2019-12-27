@@ -6,7 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.FragmentationFragment
-import com.lyj.fakepixiv.app.databinding.attachLoadMore
+import com.lyj.fakepixiv.app.utils.attachLoadMore
 import com.lyj.fakepixiv.app.utils.bindState
 import com.lyj.fakepixiv.app.utils.dp2px
 import com.lyj.fakepixiv.databinding.CommonRefreshList
@@ -63,7 +63,9 @@ class UserListFragment : FragmentationFragment<CommonRefreshList, UserListViewMo
 //                    vm.load()
 //                }
 
-                mAdapter.bindState(vm.loadState, reload = vm::load , refreshLayout = refreshLayout)
+                mAdapter.bindState(vm.loadState,  refreshLayout = refreshLayout) {
+                    vm.load()
+                }
             }
         }
     }

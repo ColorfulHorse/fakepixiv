@@ -6,7 +6,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.OnLifecycleEvent
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.data.model.response.Illust
 import com.lyj.fakepixiv.app.databinding.onPropertyChangedCallback
@@ -18,6 +22,7 @@ import com.lyj.fakepixiv.databinding.LayoutFooterUserBinding
 import com.lyj.fakepixiv.module.common.adapter.IllustAdapter
 import com.lyj.fakepixiv.widget.CommonItemDecoration
 import kotlinx.android.synthetic.main.layout_error_small.view.*
+import org.jetbrains.annotations.NotNull
 
 /**
  * @author greensun
@@ -26,7 +31,10 @@ import kotlinx.android.synthetic.main.layout_error_small.view.*
  *
  * @desc 用户简介
  */
-class UserFooter(val context: Context, val viewModel: UserFooterViewModel, var mBinding: LayoutFooterUserBinding? = null): DetailItem {
+class UserFooter(val context: Context,
+                 val viewModel: UserFooterViewModel,
+                 val lifecycleOwner: LifecycleOwner,
+                 var mBinding: LayoutFooterUserBinding? = null): DetailItem {
 
     override var type: Int = DetailItem.LAYOUT_USER
 
@@ -41,10 +49,11 @@ class UserFooter(val context: Context, val viewModel: UserFooterViewModel, var m
     init {
         if (mBinding == null) {
             mBinding = DataBindingUtil.bind(rootView)
+            mBinding?.vm = viewModel
         }
         mBinding?.let {
-            it.vm = viewModel
             it.recyclerView.layoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
+            it.recyclerView.setHasFixedSize(true)
             it.recyclerView.addItemDecoration(CommonItemDecoration.Builder().dividerWidth(1.dp2px(), 0).draw(false).build())
             mAdapter.bindToRecyclerView(it.recyclerView)
             it.avatar.setOnClickListener {
@@ -54,8 +63,12 @@ class UserFooter(val context: Context, val viewModel: UserFooterViewModel, var m
                 Router.goUserDetail(viewModel.parent.illust.user)
             }
         }
-        mAdapter.bindState(viewModel.loadState, loadingRes = R.layout.layout_common_loading_white, errorRes = R.layout.layout_error_small) {
+        mAdapter.bindState(viewModel.loadState,
+                loadingRes = R.layout.layout_common_loading_white,
+                errorRes = R.layout.layout_error_small,
+                lifecycle = lifecycleOwner.lifecycle) {
             viewModel.load()
         }
     }
+
 }

@@ -54,37 +54,37 @@ class AppManager : Application.ActivityLifecycleCallbacks {
     }
 
     private fun calKeyboardHeight(activity: Activity) {
-        val keyboardHeight = SPUtil.get(Constant.SP.KEY_KEYBOARD_HEIGHT)
-        if (keyboardHeight == -1) {
-            var rootViewHeight = -1
-            val root = activity.window.decorView
-            root.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    val origin = SPUtil.get(Constant.SP.KEY_KEYBOARD_HEIGHT)
-                    // 已经测量过了
-                    if (origin != -1) {
-                        root.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                        return
-                    }
-                    val rect = Rect()
-                    root.getWindowVisibleDisplayFrame(rect)
-                    if (rootViewHeight == -1) {
-                        rootViewHeight = rect.height()
-                        return
-                    }
-
-                    if (rootViewHeight == rect.height()) {
-                        return
-                    }
-
-                    val offset = rootViewHeight - rect.height()
-                    if (offset > 200) {
-                        SPUtil.save(Constant.SP.KEY_KEYBOARD_HEIGHT, offset)
-                        root.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                    }
-                }
-            })
-        }
+//        val keyboardHeight = SPUtil.get(Constant.SP.KEY_KEYBOARD_HEIGHT)
+//        if (keyboardHeight == -1) {
+//            var rootViewHeight = -1
+//            val root = activity.window.decorView
+//            root.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+//                override fun onGlobalLayout() {
+//                    val origin = SPUtil.get(Constant.SP.KEY_KEYBOARD_HEIGHT)
+//                    // 已经测量过了
+//                    if (origin != -1) {
+//                        root.viewTreeObserver.removeOnGlobalLayoutListener(this)
+//                        return
+//                    }
+//                    val rect = Rect()
+//                    root.getWindowVisibleDisplayFrame(rect)
+//                    if (rootViewHeight == -1) {
+//                        rootViewHeight = rect.height()
+//                        return
+//                    }
+//
+//                    if (rootViewHeight == rect.height()) {
+//                        return
+//                    }
+//
+//                    val offset = rootViewHeight - rect.height()
+//                    if (offset > 200) {
+//                        SPUtil.save(Constant.SP.KEY_KEYBOARD_HEIGHT, offset)
+//                        root.viewTreeObserver.removeOnGlobalLayoutListener(this)
+//                    }
+//                }
+//            })
+//        }
     }
 
     override fun onActivityDestroyed(activity: Activity) {

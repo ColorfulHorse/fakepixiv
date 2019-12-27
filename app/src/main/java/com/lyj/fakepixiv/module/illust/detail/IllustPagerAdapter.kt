@@ -49,8 +49,9 @@ class IllustPagerAdapter(val data: List<Illust>, fm: FragmentManager, val key: I
         this.feature = feature
     }
 
-    override fun startUpdate(container: ViewGroup) {
-        super.startUpdate(container)
+    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+        fragments.remove(position)
+        super.destroyItem(container, position, `object`)
     }
 
 }

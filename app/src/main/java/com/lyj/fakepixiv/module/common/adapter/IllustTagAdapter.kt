@@ -2,7 +2,7 @@ package com.lyj.fakepixiv.module.common.adapter
 
 import androidx.databinding.ViewDataBinding
 import androidx.annotation.LayoutRes
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.app.adapter.BaseBindingAdapter
 import com.lyj.fakepixiv.app.constant.IllustCategory
 import com.lyj.fakepixiv.app.data.model.response.Tag

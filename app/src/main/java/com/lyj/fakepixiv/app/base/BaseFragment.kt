@@ -14,9 +14,12 @@ import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import com.gyf.immersionbar.ImmersionBar
 import com.gyf.immersionbar.components.ImmersionFragment
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.application.ApplicationLike
+import com.lyj.fakepixiv.app.constant.Constant
+import com.lyj.fakepixiv.app.utils.SPUtil
+import com.lyj.fakepixiv.app.utils.statusBarHeight
 
 
 /**
@@ -117,6 +120,9 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel?> : Immersio
      */
     open fun onKeyboardChanged(isOpen: Boolean, height: Int) {
         keyboardOpen = isOpen
+        if (isOpen) {
+            SPUtil.save(Constant.SP.KEY_KEYBOARD_HEIGHT, height)
+        }
     }
 
     @LayoutRes

@@ -75,6 +75,10 @@ class UserRepository private constructor() {
             }
             loginData = resp
             SPUtil.saveLoginData(resp)
+            val emoji = CommonRepository.instance
+                    .service
+                    .getEmoji()
+            SPUtil.save(Constant.SP.KEY_EMOJI, emoji)
             resp
         }
     }
@@ -101,6 +105,10 @@ class UserRepository private constructor() {
                 resp = resp.copy(provisional = cache.provisional, user = user.copy(password = cache.user.password))
                 loginData = resp
                 SPUtil.saveLoginData(resp)
+                val emoji = CommonRepository.instance
+                        .service
+                        .getEmoji()
+                SPUtil.save(Constant.SP.KEY_EMOJI, emoji)
                 resp
             }
         }

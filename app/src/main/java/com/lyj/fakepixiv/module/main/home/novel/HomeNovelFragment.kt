@@ -5,13 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import android.widget.ImageView
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.chad.library.adapter.base.BaseViewHolder
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.GlideApp
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.FragmentationFragment
 import com.lyj.fakepixiv.app.constant.IllustCategory.NOVEL
 import com.lyj.fakepixiv.app.data.model.response.Illust
-import com.lyj.fakepixiv.app.databinding.attachLoadMore
+import com.lyj.fakepixiv.app.utils.attachLoadMore
 import com.lyj.fakepixiv.app.utils.bindState
 import com.lyj.fakepixiv.databinding.CommonRefreshList
 import com.lyj.fakepixiv.module.common.adapter.IllustAdapter

@@ -43,7 +43,7 @@ interface IllustExtService {
     @GET
     suspend fun getMoreComment(@Url nextUrl: String): CommentListResp
 
-    // https://app-api.pixiv.net/v1/emoji HTTP/1.1
+
     /**
      * 获取评论回复
      */

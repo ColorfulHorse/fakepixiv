@@ -153,7 +153,7 @@
             android:textColor="@color/primary"
             android:textSize="12sp"
             android:textStyle="bold"
-            android:text="@{String.format(@string/watch_series_last, vm.detail.total_character_count)}"
+            android:text="@{@string/watch_series_last(vm.detail.total_character_count)}"
             android:onClick="@{() -> vm.goLast()}"
             />
 

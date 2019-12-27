@@ -11,6 +11,10 @@
             name="showCaption"
             type="Boolean"
             />
+        <variable
+            name="fade"
+            type="Boolean"
+            />
     </data>
     <RelativeLayout
         android:id="@+id/container"
@@ -20,7 +24,8 @@
         android:layout_gravity="bottom"
         android:layout_alignParentBottom="true"
         android:visibility="gone"
-        app:visible="@{showCaption}"
+        app:visible="@{fade?null:showCaption}"
+        app:fadeIn="@{fade?showCaption:null}"
         >
 
         <ImageButton

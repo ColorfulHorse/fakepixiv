@@ -1,5 +1,6 @@
 package com.lyj.fakepixiv.app.network.service
 
+import com.lyj.fakepixiv.app.data.model.response.EmojiResp
 import com.lyj.fakepixiv.app.data.model.response.PatchResp
 import okhttp3.ResponseBody
 import retrofit2.http.*
@@ -12,6 +13,7 @@ import retrofit2.http.*
  * @desc
  */
 interface CommonService {
+    // https://app-api.pixiv.net/v1/emoji HTTP/1.1
     /**
      * 是否需要热修复
      */
@@ -22,4 +24,7 @@ interface CommonService {
     @GET
     @Streaming
     suspend fun downLoad(@Url url: String): ResponseBody
+
+    @GET("/v1/emoji")
+    suspend fun getEmoji(): EmojiResp
 }

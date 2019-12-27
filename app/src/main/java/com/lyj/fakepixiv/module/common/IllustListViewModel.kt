@@ -39,7 +39,6 @@ open class IllustListViewModel(var action: (suspend () -> IllustListResp)? = nul
                     loadState.set(LoadState.Failed(err))
                 }) {
                     loadState.set(LoadState.Loading)
-                    data.clear()
                     val resp = withContext(Dispatchers.IO) {
                         it()
                     }

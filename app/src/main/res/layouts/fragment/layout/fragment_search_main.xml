@@ -69,7 +69,8 @@
                                 android:textColorHint="@color/renewal_font_gray"
                                 android:textSize="16sp"
                                 android:text="@={vm.inputText}"
-                                android:visibility="gone"                     app:visible="@{!vm.showSearch}"
+                                android:visibility="gone"
+                                app:visible="@{!vm.showSearch}"
                                 />
                             <!--android:visibility="gone"                     app:visible="@{!vm.showSearch}"-->
                             <!--<View-->
@@ -90,7 +91,8 @@
                                 android:paddingTop="4dp"
                                 android:paddingBottom="4dp"
                                 android:clickable="false"
-                                android:visibility="gone"                     app:visible="@{vm.showSearch}"
+                                android:visibility="gone"
+                                app:visible="@{vm.showSearch}"
                                 android:background="#fff5f5f5"
                                 />
                             <!--android:visibility="gone"                     app:visible="@{vm.showSearch}"-->

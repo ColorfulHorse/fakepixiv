@@ -4,27 +4,22 @@ import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import android.view.View
-import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.application.ApplicationLike.Companion.context
 import com.lyj.fakepixiv.app.base.FragmentationFragment
 import com.lyj.fakepixiv.app.constant.IllustCategory
 import com.lyj.fakepixiv.app.constant.IllustCategory.*
 import com.lyj.fakepixiv.app.data.model.response.Illust
-import com.lyj.fakepixiv.app.databinding.attachLoadMore
+import com.lyj.fakepixiv.app.utils.attachLoadMore
 
 
-import com.lyj.fakepixiv.app.databinding.onPropertyChangedCallback
-import com.lyj.fakepixiv.app.network.LoadState
 import com.lyj.fakepixiv.app.utils.bindState
 import com.lyj.fakepixiv.app.utils.dp2px
 import com.lyj.fakepixiv.databinding.CommonRefreshList
 import com.lyj.fakepixiv.module.common.adapter.IllustAdapter
 import com.lyj.fakepixiv.widget.CommonItemDecoration
-import kotlinx.android.synthetic.main.layout_common_refresh_recycler.*
 
 
 /**

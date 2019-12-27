@@ -11,19 +11,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ImageView
+        <com.github.chrisbanes.photoview.PhotoView
             android:id="@+id/cover"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerInside"
+            android:onClick="@{() -> vm.showBar()}"
             />
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            style="@style/progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+        <include
+            android:id="@+id/loadingView"
+            layout="@layout/layout_common_loading_white"
             android:visibility="gone"
             app:visible="@{vm.loadState instanceof LoadState.Loading}"
             />

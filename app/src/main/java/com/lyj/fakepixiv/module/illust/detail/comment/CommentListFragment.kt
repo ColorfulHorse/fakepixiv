@@ -1,23 +1,17 @@
 package com.lyj.fakepixiv.module.illust.detail.comment
 
 import android.os.Bundle
-import android.view.WindowManager
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.databinding.Observable
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.gyf.immersionbar.ImmersionBar
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.CommonListFragment
-import com.lyj.fakepixiv.app.base.FragmentationFragment
 import com.lyj.fakepixiv.app.constant.EXTRA_ID
 import com.lyj.fakepixiv.app.data.model.response.Comment
-import com.lyj.fakepixiv.app.databinding.attachLoadMore
-import com.lyj.fakepixiv.app.databinding.onPropertyChangedCallback
+import com.lyj.fakepixiv.app.utils.attachLoadMore
 import com.lyj.fakepixiv.app.utils.bindState
 import com.lyj.fakepixiv.databinding.FragmentCommentListBinding
+import com.lyj.fakepixiv.module.common.InputBar
 import com.lyj.fakepixiv.module.illust.detail.items.CommentListViewModel
 
 /**
@@ -30,6 +24,7 @@ import com.lyj.fakepixiv.module.illust.detail.items.CommentListViewModel
 class CommentListFragment : CommonListFragment<FragmentCommentListBinding, CommentListViewModel?>() {
 
     override var mViewModel: CommentListViewModel? = null
+
 
     companion object {
         const val EXTRA_ACTION = "EXTRA_ACTION"
@@ -45,12 +40,13 @@ class CommentListFragment : CommonListFragment<FragmentCommentListBinding, Comme
 
     override fun init(savedInstanceState: Bundle?) {
         mViewModel?.let { vm ->
-            vm.inputViewModel.state.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
-                when(vm.inputViewModel.state.get()) {
-                    InputViewModel.State.TEXT -> showSoftInput(mBinding.input.commentEditText)
-                    else -> hideSoftInput()
-                }
-            })
+            val inputBar = InputBar(mBinding.input, vm.inputViewModel)
+//            vm.inputViewModel.state.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
+//                when(vm.inputViewModel.state.get()) {
+//                    InputViewModel.State.TEXT -> showSoftInput(mBinding.input.commentEditText)
+//                    else -> hideSoftInput()
+//                }
+//            })
             arguments?.let {
                 val id = it.getLong(EXTRA_ID, -1)
                 val action = it.getInt(EXTRA_ACTION, ACTION_SHOW)
@@ -58,8 +54,8 @@ class CommentListFragment : CommonListFragment<FragmentCommentListBinding, Comme
                     if (action == ACTION_SHOW) {
                         mViewModel?.loadApplies(id)
                     }else {
-                        vm.inputViewModel.source = vm.data.first { data -> data.data.id == id }.data
-                        vm.inputViewModel.state.set(InputViewModel.State.TEXT)
+                        inputBar.viewModel.source = vm.data.first { data -> data.data.id == id }.data
+                        inputBar.viewModel.state = InputViewModel.State.TEXT
                     }
                 }
             }
@@ -71,22 +67,16 @@ class CommentListFragment : CommonListFragment<FragmentCommentListBinding, Comme
             with(mBinding) {
                 recyclerView.layoutManager = LinearLayoutManager(context)
                 adapter.bindToRecyclerView(recyclerView)
-                adapter.bindState(vm.loadState) {
+                adapter.bindState(vm.loadState, lifecycle = lifecycle, refreshLayout = mBinding.refreshLayout) {
                     vm.reLoad()
                 }
-                recyclerView.attachLoadMore(vm.loadMoreState) {
+                recyclerView.attachLoadMore(vm.loadMoreState, lifecycle = lifecycle) {
                     vm.loadMore()
                 }
             }
         }
     }
 
-//    override fun onKeyboardChanged(isOpen: Boolean, height: Int) {
-//        super.onKeyboardChanged(isOpen, height)
-//        if (isOpen) {
-//            mViewModel?.inputViewModel?.state?.set(InputViewModel.State.TEXT)
-//        }
-//    }
 
     override fun bindLayout(): Int = R.layout.fragment_comment_list
 

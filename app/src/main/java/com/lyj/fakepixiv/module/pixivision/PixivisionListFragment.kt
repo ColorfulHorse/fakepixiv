@@ -4,12 +4,12 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gyf.immersionbar.ImmersionBar
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.BackFragment
 import com.lyj.fakepixiv.app.constant.EXTRA_CATEGORY
 import com.lyj.fakepixiv.app.constant.IllustCategory
-import com.lyj.fakepixiv.app.databinding.attachLoadMore
+import com.lyj.fakepixiv.app.utils.attachLoadMore
 import com.lyj.fakepixiv.app.utils.bindState
 import com.lyj.fakepixiv.app.utils.dp2px
 import com.lyj.fakepixiv.databinding.FragmentCommonListBinding

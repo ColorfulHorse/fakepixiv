@@ -5,7 +5,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import android.view.LayoutInflater
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.constant.IllustCategory
 import com.lyj.fakepixiv.app.constant.IllustCategory.*
@@ -57,7 +57,7 @@ class RankHeader(val context: Context?, viewModel: RankViewModel, @IllustCategor
                         .dividerWidth(10.dp2px(), 10.dp2px())
                         .build())
                 PagerSnapHelper().attachToRecyclerView(recyclerView)
-                recyclerView.adapter = adapter
+                adapter.bindToRecyclerView(recyclerView)
                 readMore.setOnClickListener {
                     Router.goRank(category)
                 }

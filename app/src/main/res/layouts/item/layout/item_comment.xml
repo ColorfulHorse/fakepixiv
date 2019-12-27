@@ -35,7 +35,9 @@
             android:layout_marginRight="8dp"
             app:circle="@{true}"
             app:placeHolder="@{@drawable/no_profile}"
-            app:url="@{vm.data.user.profile_image_urls.medium}" />
+            app:url="@{vm.data.user.profile_image_urls.medium}"
+            android:onClick="@{() -> vm.goUser()}"
+            />
 
         <LinearLayout
             android:id="@+id/container"
@@ -82,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="4sp"
                 android:lineSpacingMultiplier="1.0"
-                android:text="@{vm.data.comment}"
+                app:richText="@{vm.data.comment}"
                 android:textColor="@color/renewal_font_black"
                 android:textSize="12sp" />
 

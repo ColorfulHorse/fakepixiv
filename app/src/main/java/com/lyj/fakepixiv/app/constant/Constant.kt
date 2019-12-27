@@ -81,12 +81,17 @@ interface Constant {
     }
 
     object SP {
+        // 登录信息
         const val KEY_LOGIN_CACHE = "KEY_LOGIN_CACHE"
 
         const val KEY_RESTRICT_ILLUST = "KEY_RESTRICT_ILLUST"
 
         const val KEY_RESTRICT_NOVEL = "KEY_RESTRICT_NOVEL"
 
+        // 软键盘高度
         const val KEY_KEYBOARD_HEIGHT = "KEY_KEYBOARD_HEIGHT"
+
+        // 表情信息
+        const val KEY_EMOJI = "KEY_EMOJI"
     }
 }

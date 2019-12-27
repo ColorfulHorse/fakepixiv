@@ -3,7 +3,7 @@ package com.lyj.fakepixiv.app.data.model.response
 
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.app.adapter.PreloadModel
 import com.squareup.moshi.JsonClass
 import java.text.SimpleDateFormat

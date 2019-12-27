@@ -3,7 +3,7 @@ package com.lyj.fakepixiv.module.illust.bookmark
 import androidx.databinding.Bindable
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.application.ApplicationLike
 import com.lyj.fakepixiv.app.base.BaseViewModel

@@ -2,6 +2,7 @@ package com.lyj.fakepixiv.app.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.content.edit
 import com.lyj.fakepixiv.app.application.ApplicationLike
 import com.lyj.fakepixiv.app.constant.Constant
 import com.lyj.fakepixiv.app.data.model.response.LoginData
@@ -65,6 +66,18 @@ object SPUtil {
     }
 
     fun getSearchHistory() = sp.getStringSet(KEY_SEARCH, mutableSetOf())?:mutableSetOf()
+
+    fun save(key: String, value: Any) {
+        sp.edit {
+            putString(key, JsonUtil.bean2Json(value))
+        }
+    }
+
+    inline fun <reified T> getObj(key: String): T? {
+        val sp = ApplicationLike.context.getSharedPreferences("DEFAULT_SP", Context.MODE_PRIVATE)
+        val str = sp.getString(key, "")?:""
+        return JsonUtil.json2Bean<T>(str)
+    }
 
     fun save(key: String, value: String) {
         sp.edit().putString(key, value)

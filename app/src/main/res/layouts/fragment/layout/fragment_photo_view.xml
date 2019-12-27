@@ -10,15 +10,17 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            style="@style/base_toolbar"
-            android:visibility="gone"
-            app:visible="@{vm.loadState instanceof LoadState.Succeed}"
-            />
-        <androidx.viewpager.widget.ViewPager
+        <com.lyj.fakepixiv.widget.HackyViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/base_toolbar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:visibility="gone"
+            app:visible="@{(vm.loadState instanceof LoadState.Succeed) &amp;&amp; vm.showToolbar}"
+            />
     </RelativeLayout>
 </layout>

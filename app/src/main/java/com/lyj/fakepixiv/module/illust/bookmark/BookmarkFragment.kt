@@ -82,8 +82,8 @@ class BookmarkFragment : BackFragment<FragmentBookmarkBinding, BaseViewModel?>()
         }
         mToolbar?.let {
             it.title = getString(R.string.bookmark)
-            it.inflateMenu(R.menu.menu_bookmark)
-            if (userId != UserRepository.instance.loginData?.user?.id) {
+            if (userId == UserRepository.instance.loginData?.user?.id) {
+                it.inflateMenu(R.menu.menu_bookmark)
                 val icon = ContextCompat.getDrawable(mActivity, R.drawable.ic_search_filter)
                 icon?.let { drawable ->
                     DrawableCompat.setTint(drawable, Color.WHITE)

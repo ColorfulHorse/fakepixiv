@@ -15,7 +15,7 @@ import android.view.inputmethod.EditorInfo
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.gyf.immersionbar.ImmersionBar
-import com.lyj.fakepixiv.BR
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.adapter.BaseBindingAdapter
 import com.lyj.fakepixiv.app.adapter.BaseBindingViewHolder
@@ -23,7 +23,7 @@ import com.lyj.fakepixiv.app.adapter.CommonFragmentAdapter
 import com.lyj.fakepixiv.app.base.BackFragment
 import com.lyj.fakepixiv.app.constant.IllustCategory
 import com.lyj.fakepixiv.app.data.model.response.Tag
-import com.lyj.fakepixiv.app.databinding.attachLoadMore
+import com.lyj.fakepixiv.app.utils.attachLoadMore
 import com.lyj.fakepixiv.app.entity.TabBean
 import com.lyj.fakepixiv.app.utils.SPUtil
 import com.lyj.fakepixiv.app.utils.bindState

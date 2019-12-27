@@ -2,8 +2,8 @@ package com.lyj.fakepixiv.module.common
 
 import androidx.databinding.Bindable
 import androidx.databinding.ObservableField
+import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.LifecycleOwner
-import com.lyj.fakepixiv.BR
 import com.lyj.fakepixiv.app.base.BaseViewModel
 
 import com.lyj.fakepixiv.app.data.model.response.Illust
@@ -52,7 +52,7 @@ open class DetailViewModel : BaseViewModel() {
     set(value) {
         field = value
         relatedUserViewModel.user = value.user
-        commentFooterViewModel.illust = value
+        commentListViewModel.illust = value
         notifyPropertyChanged(BR.illust)
     }
 
@@ -76,8 +76,7 @@ open class DetailViewModel : BaseViewModel() {
     //var starIllust = ObservableField(false)
 
     val userFooterViewModel = UserFooterViewModel(this)
-    val commentFooterViewModel = CommentListViewModel()
-    val inputViewModel = InputViewModel(commentFooterViewModel)
+    val commentListViewModel = CommentListViewModel()
     val relatedIllustViewModel = RelatedIllustDialogViewModel(this)
     val relatedUserViewModel = RelatedUserDialogViewModel(illust.user)
 
@@ -98,7 +97,7 @@ open class DetailViewModel : BaseViewModel() {
     }
 
     init {
-        this + userFooterViewModel + commentFooterViewModel + relatedIllustViewModel + relatedUserViewModel
+        this + userFooterViewModel + commentListViewModel + relatedIllustViewModel + relatedUserViewModel
         starState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
             val state = starState.get()
             if (state is LoadState.Succeed) {
@@ -162,5 +161,4 @@ open class DetailViewModel : BaseViewModel() {
     fun goUserDetail() {
         Router.goUserDetail(illust.user)
     }
-
 }

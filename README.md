@@ -33,7 +33,7 @@
 - 升级到AndroidX
 
 #### todo list
-- pixivision webView 完善
 - 详情页评论
 - 用户页关注人列表
 - 加入屏蔽设置
+- commonDecoration添加新item底部分割线未刷新
