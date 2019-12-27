@@ -3,6 +3,7 @@ package com.lyj.fakepixiv.module.illust.detail
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableList
+import androidx.lifecycle.LifecycleOwner
 import com.lyj.fakepixiv.app.data.model.response.Illust
 import com.lyj.fakepixiv.app.data.source.remote.IllustRepository
 import com.lyj.fakepixiv.app.data.source.remote.checkVisible
@@ -119,6 +120,13 @@ class IllustDetailViewModel : DetailViewModel() {
                 detailState.set(LoadState.Succeed)
             }
         }
+    }
+
+    override fun onDestroy(owner: LifecycleOwner) {
+        if (owner is AboutDialogFragment) {
+            return
+        }
+        super.onDestroy(owner)
     }
 
 }

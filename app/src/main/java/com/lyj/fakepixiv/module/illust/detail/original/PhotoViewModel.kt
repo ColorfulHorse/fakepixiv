@@ -1,10 +1,13 @@
 package com.lyj.fakepixiv.module.illust.detail.original
 
 import android.graphics.Bitmap
+import androidx.databinding.Bindable
 import androidx.databinding.ObservableField
+import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.BaseViewModel
 import com.lyj.fakepixiv.app.data.model.response.Illust
+import com.lyj.fakepixiv.app.databinding.Dynamic
 import com.lyj.fakepixiv.app.network.LoadState
 import com.lyj.fakepixiv.app.utils.FileUtil
 import com.lyj.fakepixiv.app.utils.ToastUtil
@@ -21,10 +24,21 @@ class PhotoViewModel(val data: Illust) : BaseViewModel() {
 
     var cover: Bitmap? = null
 
+    @get:Bindable
+    var showToolbar by Dynamic(false, BR.showToolbar)
+
+    fun showBar() {
+        showToolbar = !showToolbar
+    }
+
     fun save() {
         cover?.let {
-            FileUtil.saveBitmap(it, data.id.toString())
-            ToastUtil.showToast(R.string.save_succeed)
+            val succeed = FileUtil.saveBitmap(it, data.id.toString())
+            if (succeed) {
+                ToastUtil.showToast(R.string.save_succeed)
+            }else {
+                ToastUtil.showToast(R.string.save_failed)
+            }
         }
     }
 }

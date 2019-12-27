@@ -46,11 +46,11 @@ class HomeIllustViewModel : BaseViewModel() {
                     //pixivisionViewModel.load()
                 }
                 .subscribeBy(onNext = {
-                    loadState.set(LoadState.Succeed)
                     nextUrl = it.next_url
                     data.clear()
                     data.addAll(it.illusts)
                     rankViewModel.onData(it.ranking_illusts)
+                    loadState.set(LoadState.Succeed)
                 }, onError = {
                     loadState.set(LoadState.Failed(it))
                 })

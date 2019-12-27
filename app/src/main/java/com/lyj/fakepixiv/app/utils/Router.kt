@@ -125,9 +125,9 @@ object Router {
             if (it is DialogFragment) {
                 it.dismiss()
             }else {
-                it.childFragmentManager.fragments.forEach {
-                    if (it is DialogFragment) {
-                        it.dismiss()
+                it.childFragmentManager.fragments.forEach { f ->
+                    if (f is DialogFragment) {
+                        f.dismiss()
                     }
                 }
             }
@@ -178,7 +178,7 @@ object Router {
             return parent
         for (i in fragmentList.indices.reversed()) {
             val fragment = fragmentList[i] ?: continue
-            if (fragment is SupportRequestManagerFragment) {
+            if (fragment is SupportRequestManagerFragment || fragment is com.gyf.immersionbar.SupportRequestManagerFragment) {
                 continue
             }
             if (fragment.isResumed && !fragment.isHidden && fragment.userVisibleHint) {

@@ -57,7 +57,7 @@ class RankHeader(val context: Context?, viewModel: RankViewModel, @IllustCategor
                         .dividerWidth(10.dp2px(), 10.dp2px())
                         .build())
                 PagerSnapHelper().attachToRecyclerView(recyclerView)
-                recyclerView.adapter = adapter
+                adapter.bindToRecyclerView(recyclerView)
                 readMore.setOnClickListener {
                     Router.goRank(category)
                 }

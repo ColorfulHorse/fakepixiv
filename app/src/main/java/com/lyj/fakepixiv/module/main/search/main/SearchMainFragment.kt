@@ -23,7 +23,7 @@ import com.lyj.fakepixiv.app.adapter.CommonFragmentAdapter
 import com.lyj.fakepixiv.app.base.BackFragment
 import com.lyj.fakepixiv.app.constant.IllustCategory
 import com.lyj.fakepixiv.app.data.model.response.Tag
-import com.lyj.fakepixiv.app.databinding.attachLoadMore
+import com.lyj.fakepixiv.app.utils.attachLoadMore
 import com.lyj.fakepixiv.app.entity.TabBean
 import com.lyj.fakepixiv.app.utils.SPUtil
 import com.lyj.fakepixiv.app.utils.bindState

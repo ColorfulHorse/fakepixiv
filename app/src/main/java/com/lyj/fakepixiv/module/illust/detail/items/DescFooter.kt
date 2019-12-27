@@ -5,6 +5,10 @@ import androidx.databinding.DataBindingUtil
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.OnLifecycleEvent
 import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager
 import com.beloo.widget.chipslayoutmanager.SpacingItemDecoration
 import com.lyj.fakepixiv.R
@@ -15,6 +19,8 @@ import com.lyj.fakepixiv.app.utils.Router
 import com.lyj.fakepixiv.app.utils.dp2px
 import com.lyj.fakepixiv.databinding.LayoutFooterDescBinding
 import com.lyj.fakepixiv.module.common.adapter.IllustTagAdapter
+import kotlinx.coroutines.cancelChildren
+import org.jetbrains.annotations.NotNull
 
 /**
  * @author greensun
@@ -33,6 +39,7 @@ class DescFooter(val context: Context, val data: Illust, var mBinding: LayoutFoo
     init {
         if (mBinding == null) {
             mBinding = DataBindingUtil.bind(rootView)
+            mBinding?.data = data
         }
 
         mBinding?.let {
@@ -41,7 +48,6 @@ class DescFooter(val context: Context, val data: Illust, var mBinding: LayoutFoo
     }
 
     private fun initData(binding: LayoutFooterDescBinding) {
-        binding.data = data
         binding.desc.text = Html.fromHtml(data.caption)
         // 转换标签+#+翻译
         val tags = data.getTranslateTags()

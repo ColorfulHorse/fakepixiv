@@ -2,6 +2,7 @@ package com.lyj.fakepixiv.app.databinding
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.lyj.fakepixiv.app.utils.attachLoadMore
 
 /**
  * @author greensun

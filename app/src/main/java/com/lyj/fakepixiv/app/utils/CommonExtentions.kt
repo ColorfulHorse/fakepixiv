@@ -6,17 +6,13 @@ import android.content.Intent
 import android.content.res.Resources
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import androidx.annotation.LayoutRes
-import androidx.databinding.ObservableField
+import androidx.databinding.BaseObservable
+import androidx.databinding.Observable
 import androidx.fragment.app.Fragment
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.lyj.fakepixiv.R
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import com.lyj.fakepixiv.app.application.ApplicationLike
-import com.lyj.fakepixiv.app.application.ApplicationLike.Companion.context
-import com.lyj.fakepixiv.app.databinding.onPropertyChangedCallback
-import com.lyj.fakepixiv.app.network.LoadState
-import com.lyj.fakepixiv.widget.StateView
+import com.lyj.fakepixiv.app.databinding.LiveOnPropertyChangedCallback
 
 
 /**
@@ -100,61 +96,12 @@ fun <T> Fragment.startActivity(cls: Class<T>) {
 }
 
 
-
-/**
- * 监听列表数据加载状态
- * [small] 小尺寸错误布局
- */
-fun BaseQuickAdapter<*, *>.bindState(loadState: ObservableField<LoadState>,
-                                     @LayoutRes loadingRes: Int = R.layout.layout_common_loading,
-                                     @LayoutRes errorRes: Int = R.layout.layout_error,
-                                     onSucceed: (() -> Unit)? = null, onFailed: ((err: Throwable) -> Unit)? = null,
-                                     onLoading: (() -> Unit)? = null, refreshLayout: SwipeRefreshLayout? = null,
-                                     reload: (() -> Unit)? = null) {
-    var firstLoad = true
-
-    val stateView = StateView(ApplicationLike.context)
-    stateView.reload = {
-        reload?.invoke()
+inline fun BaseObservable.doOnPropertyChanged(lifecycle: Lifecycle? = null, crossinline consumer : (Observable, Int) -> Unit): LiveOnPropertyChangedCallback {
+    val ob = LiveOnPropertyChangedCallback(this, lifecycle) { ob, id ->
+        consumer(ob, id)
     }
-    stateView.loadState = loadState
-    stateView.loadingRes = loadingRes
-    stateView.errorRes = errorRes
-    emptyView = stateView
-    refreshLayout?.let {
-        it.setOnRefreshListener {
-            reload?.invoke()
-        }
-    }
-    loadState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
-        when (val state = loadState.get()) {
-            is LoadState.Loading -> {
-                if (headerLayoutCount + footerLayoutCount > 0) {
-                    notifyDataSetChanged()
-                 }
-                //refreshLayout?.isRefreshing = false
-                if (firstLoad) {
-                    // 是第一次加载
-                    refreshLayout?.isEnabled = false
-                }
-                onLoading?.invoke()
-            }
-            is LoadState.Failed -> {
-                if (headerLayoutCount + footerLayoutCount > 0) {
-                    notifyDataSetChanged()
-                }
-                refreshLayout?.isRefreshing = false
-                refreshLayout?.isEnabled = false
-                onFailed?.invoke(state.error)
-            }
-            else -> {
-                firstLoad = false
-                refreshLayout?.isRefreshing = false
-                refreshLayout?.isEnabled = true
-                onSucceed?.invoke()
-            }
-        }
-    })
+    addOnPropertyChangedCallback(ob)
+    return ob
 }
 
 

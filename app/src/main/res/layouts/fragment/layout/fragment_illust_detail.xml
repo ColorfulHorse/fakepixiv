@@ -16,13 +16,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:keyboardListener="@{vm.commentListViewModel.inputViewModel::keyboardChanged}"
+        android:background="@color/white"
         >
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/input"
             android:clickable="true"
             android:focusable="true"
             android:focusableInTouchMode="true"
@@ -77,10 +76,11 @@
             android:id="@+id/overlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/overlay"
+            android:background="@color/transparent"
             android:focusable="true"
             android:clickable="true"
-            app:fadeIn="@{vm.commentListViewModel.inputViewModel.state != State.CLOSE}"
+            android:visibility="gone"
+            app:visible="@{vm.commentListViewModel.inputViewModel.state != State.CLOSE}"
             android:onClick="@{() -> vm.commentListViewModel.inputViewModel.hide()}"
             />
         <include
@@ -89,8 +89,9 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_alignParentBottom="true"
-            app:vm="@{vm.commentListViewModel.inputViewModel}"
-            android:visibility="@{vm.commentListViewModel.inputViewModel.state != State.CLOSE?View.VISIBLE : View.GONE}"
+            android:visibility="gone"
             />
+<!--        app:vm="@{vm.commentListViewModel.inputViewModel}"-->
+<!--        android:visibility="@{vm.commentListViewModel.inputViewModel.state != State.CLOSE?View.VISIBLE : View.GONE}"-->
     </RelativeLayout>
 </layout>

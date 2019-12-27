@@ -1,6 +1,7 @@
 package com.lyj.fakepixiv.module.illust.detail.comment
 
 import androidx.databinding.ObservableField
+import androidx.lifecycle.LifecycleOwner
 import com.afollestad.materialdialogs.MaterialDialog
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.BaseViewModel
@@ -26,6 +27,7 @@ import kotlinx.coroutines.withContext
 class CommentViewModel(val parent: CommentListViewModel, val data: Comment) : BaseViewModel(), MultiPreloadItem by data {
 
     var applies_show = ObservableField(false)
+
 
     fun delete() {
         AppManager.instance.top?.let {
@@ -87,5 +89,9 @@ class CommentViewModel(val parent: CommentListViewModel, val data: Comment) : Ba
 
     fun goUser() {
         Router.goUserDetail(data.user)
+    }
+
+    override fun onDestroy(owner: LifecycleOwner) {
+        super.onDestroy(owner)
     }
 }

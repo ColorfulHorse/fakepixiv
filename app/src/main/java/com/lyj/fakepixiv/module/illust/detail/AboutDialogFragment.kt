@@ -1,18 +1,18 @@
 package com.lyj.fakepixiv.module.illust.detail
 
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-
-import android.view.KeyEvent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.gyf.immersionbar.ImmersionBar
+import com.gyf.immersionbar.ktx.immersionBar
 import com.lyj.fakepixiv.R
-import com.lyj.fakepixiv.app.utils.screenHeight
+import com.lyj.fakepixiv.app.utils.onKeyboardChanged
 import com.lyj.fakepixiv.databinding.DialogDetailBottomBinding
 import com.lyj.fakepixiv.module.common.DetailViewModel
+import com.lyj.fakepixiv.module.common.InputBar
+import com.lyj.fakepixiv.module.illust.detail.comment.InputViewModel
 import com.lyj.fakepixiv.module.illust.detail.items.CommentFooter
 import com.lyj.fakepixiv.module.illust.detail.items.DescFooter
 import com.lyj.fakepixiv.module.illust.detail.items.SeriesItem
@@ -30,6 +30,7 @@ class AboutDialogFragment : BottomSheetDialogFragment() {
     var detailViewModel: DetailViewModel? = null
     var bottomSheetBehavior: BottomSheetBehavior<View>? = null
     var mBinding: DialogDetailBottomBinding? = null
+    var inputBar: InputBar? = null
 
     companion object {
         fun newInstance(): AboutDialogFragment {
@@ -41,28 +42,37 @@ class AboutDialogFragment : BottomSheetDialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.dialog_detail_bottom, container, false)
-        val lp = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, screenHeight()*2/3)
-        rootView.layoutParams = lp
+//        val lp = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, screenHeight()*2/3)
+//        rootView.layoutParams = lp
         mBinding = DataBindingUtil.bind(rootView)
         mBinding?.setLifecycleOwner(this)
         detailViewModel?.let {
             mBinding?.vm = it
+            lifecycle.addObserver(it)
         }
-
         mBinding?.let { binding ->
             with(binding) {
                 detailViewModel?.let { vm ->
-                    context?.let {
-                        val descFooter = DescFooter(it, vm.illust, descContainer)
-                        if (vm is IllustDetailViewModel) {
-                            val seriesItem = SeriesItem(it, vm.seriesItemViewModel)
+                    inputBar = InputBar(input, vm.commentListViewModel.inputViewModel)
+                    binding.root.onKeyboardChanged { isOpen ->
+                        inputBar?.viewModel?.keyboardChanged(isOpen)
+                        if (!isOpen) {
+                            if (inputBar?.viewModel?.state == InputViewModel.State.EMOJI) {
+                                return@onKeyboardChanged
+                            }
                         }
-                        val userFooter = UserFooter(it, vm.userFooterViewModel, userContainer)
-                        val commentFooter = CommentFooter(it, vm.commentListViewModel, commentContainer)
+                        immersionBar {
+                            keyboardEnable(!isOpen)
+                        }
                     }
-//                    vm.illust.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
-//                        caption.setVariable(BR.data, vm.illust.get())
-//                    })
+                    context?.let {
+                        DescFooter(it, vm.illust, descContainer)
+                        if (vm is IllustDetailViewModel) {
+                            SeriesItem(it, vm.seriesItemViewModel, seriesContainer)
+                        }
+                        UserFooter(it, vm.userFooterViewModel, this@AboutDialogFragment, userContainer)
+                        CommentFooter(it, vm.commentListViewModel, this@AboutDialogFragment, commentContainer)
+                    }
                     descContainer.tagsLabel.visibility = if (vm.illust.getTranslateTags().isEmpty()) View.GONE else View.VISIBLE
                     descContainer.descLabel.visibility = if (vm.illust.caption.isBlank()) View.GONE else View.VISIBLE
                     descContainer.desc.visibility = if (vm.illust.caption.isBlank()) View.GONE else View.VISIBLE
@@ -79,9 +89,17 @@ class AboutDialogFragment : BottomSheetDialogFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        dialog?.setOnKeyListener { dialog, keyCode, event ->
+        ImmersionBar.with(this)
+                .keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+                .keyboardEnable(true)
+                .init()
+        dialog?.setOnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_BACK) {
-                if (event.action == KeyEvent.ACTION_DOWN) {
+                if (event.action == KeyEvent.ACTION_UP) {
+                    if (inputBar?.viewModel?.state != InputViewModel.State.CLOSE) {
+                        inputBar?.viewModel?.hide()
+                        return@setOnKeyListener true
+                    }
                     bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
                     return@setOnKeyListener true
                 }
@@ -90,15 +108,13 @@ class AboutDialogFragment : BottomSheetDialogFragment() {
         }
         val view = dialog?.window?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
         (view as ViewGroup).let {
-            it.descendantFocusability = ViewGroup.FOCUS_BLOCK_DESCENDANTS
+            //it.descendantFocusability = ViewGroup.FOCUS_BLOCK_DESCENDANTS
             it.isFocusable = true
             it.isFocusableInTouchMode = true
         }
         bottomSheetBehavior = BottomSheetBehavior.from(view)
-        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
-//        mBinding?.scrollView?.post {
-//            mBinding?.scrollView?.scrollTo(0, 0)
-//        }
+        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+
         val parent = view.parent as View
         parent.setOnClickListener {
             bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
@@ -108,5 +124,12 @@ class AboutDialogFragment : BottomSheetDialogFragment() {
             it.commentListViewModel.load()
         }
 
+    }
+
+    override fun onDestroyView() {
+        mBinding?.unbind()
+        mBinding = null
+        detailViewModel = null
+        super.onDestroyView()
     }
 }

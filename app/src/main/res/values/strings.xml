@@ -329,4 +329,5 @@
     <string name="title_delete_comment">确定删除评论？</string>
     <string name="delete_comment_failed">刪除失败，请重试</string>
     <string name="comment_failed">连接失败，请重试</string>
+    <string name="save_failed">保存成功</string>
 </resources>

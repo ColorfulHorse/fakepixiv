@@ -2,15 +2,16 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="android.view.View"/>
         <import type="com.lyj.fakepixiv.module.common.DetailViewModel"/>
+        <import type="com.lyj.fakepixiv.module.illust.detail.comment.InputViewModel.State"/>
         <variable
             name="vm"
             type="DetailViewModel"/>
     </data>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         >
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollView"
@@ -35,7 +36,9 @@
 
                 <include layout="@layout/detail_illust_series"
                     android:id="@+id/series_container"
-                    app:show="@{vm.illust.series != null}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{vm.illust.series != null ? View.VISIBLE : View.GONE}"
                     app:vm="@{vm.seriesItemViewModel}"
                     />
                 <include layout="@layout/layout_footer_user"
@@ -48,10 +51,25 @@
                     />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-        <include layout="@layout/comment_input_bar"
-            android:id="@+id/input"
-            app:vm="@{vm.commentListViewModel.inputViewModel}"
+        <View
+            android:id="@+id/overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:focusable="true"
+            android:clickable="true"
             android:visibility="gone"
+            app:visible="@{vm.commentListViewModel.inputViewModel.state != State.CLOSE}"
+            android:onClick="@{() -> vm.commentListViewModel.inputViewModel.hide()}"
             />
-    </LinearLayout>
+        <include
+            android:id="@+id/input"
+            layout="@layout/comment_input_bar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            app:vm="@{vm.commentListViewModel.inputViewModel}"
+            android:visibility="@{vm.commentListViewModel.inputViewModel.state != State.CLOSE?View.VISIBLE : View.GONE}"
+            />
+    </RelativeLayout>
 </layout>

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import androidx.databinding.library.baseAdapters.BR
+import androidx.lifecycle.*
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.adapter.BaseBindingAdapter
 import com.lyj.fakepixiv.app.data.model.response.Comment
@@ -15,6 +16,8 @@ import com.lyj.fakepixiv.databinding.ItemCommentBinding
 import com.lyj.fakepixiv.databinding.LayoutFooterCommentBinding
 import com.lyj.fakepixiv.module.illust.detail.comment.CommentListAdapter
 import com.lyj.fakepixiv.module.illust.detail.comment.CommentListFragment
+import kotlinx.coroutines.cancelChildren
+import org.jetbrains.annotations.NotNull
 
 /**
  * @author greensun
@@ -23,8 +26,13 @@ import com.lyj.fakepixiv.module.illust.detail.comment.CommentListFragment
  *
  * @desc 用户简介
  */
-class CommentFooter(val context: Context, val viewModel: CommentListViewModel, var mBinding: LayoutFooterCommentBinding? = null): DetailItem {
+class CommentFooter(val context: Context,
+                    val viewModel: CommentListViewModel,
+                    val lifecycleOwner: LifecycleOwner,
+                    var mBinding: LayoutFooterCommentBinding? = null): DetailItem {
+
     override var type: Int = DetailItem.LAYOUT_COMMENT
+
 
     val rootView: View by lazy { LayoutInflater.from(context).inflate(R.layout.layout_footer_comment, null) }
 
@@ -36,13 +44,14 @@ class CommentFooter(val context: Context, val viewModel: CommentListViewModel, v
     init {
         if (mBinding == null) {
             mBinding = DataBindingUtil.bind(rootView)
+            mBinding?.vm = viewModel
         }
-        mBinding?.vm = viewModel
 
         mBinding?.let {
             mAdapter.bindToRecyclerView(it.recyclerView)
             it.recyclerView.layoutManager = LinearLayoutManager(context)
-            mAdapter.bindState(viewModel.loadState, loadingRes = R.layout.layout_common_loading_white, errorRes = R.layout.layout_error_small) {
+            mAdapter.bindState(viewModel.loadState, loadingRes = R.layout.layout_common_loading_white,
+                    errorRes = R.layout.layout_error_small, lifecycle = lifecycleOwner.lifecycle) {
                 viewModel.load()
             }
             it.more.setOnClickListener {

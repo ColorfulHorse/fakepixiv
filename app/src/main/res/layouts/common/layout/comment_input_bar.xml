@@ -11,9 +11,11 @@
         android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@null"
+        android:background="@android:color/transparent"
         android:orientation="vertical"
-        android:tag="layout/comment_input_bar_0">
+        android:focusable="true"
+        android:clickable="true"
+        >
         <TextView
             android:id="@+id/text_count"
             android:layout_width="wrap_content"
@@ -25,7 +27,8 @@
             android:textColor="@color/gray_text"
             android:textSize="12.0sp"
             android:visibility="gone"
-            android:text='@{vm.comment.length()+"/140"}'
+            app:visible="@{vm.comment.length() > 0}"
+            android:text='@{vm.comment.length()+"/"+vm.maxLength}'
             />
         <RelativeLayout
             android:id="@+id/layout_send"
@@ -61,7 +64,7 @@
                 android:textColor="@android:color/black"
                 android:textColorHint="#ffdddddd"
                 android:textSize="14.0sp"
-                android:text="@={vm.comment}"
+                app:richText="@={vm.comment}"
                 app:keyboardShow="@{vm.keyboardShow}"
                 />
 <!--                app:keyboardShow="@{vm.keyboardShow}"-->
@@ -86,7 +89,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="216dp"
+            android:layout_height="wrap_content"
             app:height="@{vm.emojiHeight}"
             android:background="@android:color/white"
             android:clipToPadding="false"

@@ -1,14 +1,12 @@
 package com.lyj.fakepixiv.module.illust.detail.original
 
 import android.os.Bundle
+import com.gyf.immersionbar.ktx.immersionBar
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.BackFragment
-import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.constant.EXTRA_ID
 import com.lyj.fakepixiv.app.data.model.response.Illust
 import com.lyj.fakepixiv.app.data.source.remote.IllustRepository
 import com.lyj.fakepixiv.databinding.FragmentPhotoViewBinding
-import com.lyj.fakepixiv.module.illust.detail.IllustDetailFragment
 
 /**
  * @author green sun
@@ -57,6 +55,15 @@ class PhotoViewFragment : BackFragment<FragmentPhotoViewBinding, PhotoViewModel?
         mToolbar?.setOnMenuItemClickListener {
             mViewModel?.save()
             true
+        }
+    }
+
+    override fun initImmersionBar() {
+        immersionBar {
+            titleBarMarginTop(mBinding.toolbar)
+            addViewSupportTransformColor(mBinding.toolbar)
+            statusBarDarkFont(true)
+            transparentStatusBar()
         }
     }
 

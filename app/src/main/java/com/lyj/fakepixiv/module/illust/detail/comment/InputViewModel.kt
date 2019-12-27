@@ -1,15 +1,19 @@
 package com.lyj.fakepixiv.module.illust.detail.comment
 
 import androidx.databinding.Bindable
+import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
 import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.BaseViewModel
 import com.lyj.fakepixiv.app.constant.Constant
 import com.lyj.fakepixiv.app.data.model.response.Comment
+import com.lyj.fakepixiv.app.data.model.response.Emoji
+import com.lyj.fakepixiv.app.data.model.response.EmojiResp
 import com.lyj.fakepixiv.app.data.source.remote.IllustExtRepository
 import com.lyj.fakepixiv.app.databinding.Dynamic
 import com.lyj.fakepixiv.app.databinding.onPropertyChangedCallback
+import com.lyj.fakepixiv.app.utils.EmojiUtil
 import com.lyj.fakepixiv.app.utils.SPUtil
 import com.lyj.fakepixiv.app.utils.ToastUtil
 import com.lyj.fakepixiv.module.illust.detail.items.CommentListViewModel
@@ -33,6 +37,8 @@ class InputViewModel(val parent: CommentListViewModel, var keyboardListener: ((B
         CLOSE, TEXT, EMOJI
     }
 
+    val maxLength = 140
+
     // 原评论id 回复用
     @get:Bindable
     var source: Comment? by Dynamic(null, BR.source)
@@ -48,18 +54,21 @@ class InputViewModel(val parent: CommentListViewModel, var keyboardListener: ((B
     val emojiShow = ObservableField(false)
 
     @get:Bindable
-    var keyboardShow = false
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.keyboardShow)
-        }
+    var keyboardShow by Dynamic(false, BR.keyboardShow)
 
-    val state = ObservableField(State.CLOSE)
+    val emojiList = ObservableArrayList<Emoji>()
+
+    @get:Bindable
+    var state by Dynamic(State.CLOSE, BR.state)
 
     init {
         val h = SPUtil.get(Constant.SP.KEY_KEYBOARD_HEIGHT)
         if (h != -1) {
             emojiHeight = h
+        }
+        val resp = SPUtil.getObj<EmojiResp>(Constant.SP.KEY_EMOJI)
+        resp?.let {
+            emojiList.addAll(it.emoji_definitions)
         }
     }
 
@@ -69,36 +78,32 @@ class InputViewModel(val parent: CommentListViewModel, var keyboardListener: ((B
             if (h != -1) {
                 emojiHeight = h
             }
-            state.set(State.TEXT)
+            state = State.TEXT
             emojiShow.set(true)
-            keyboardListener?.invoke(true)
-        }else {
-            if (state.get() != State.EMOJI) {
+        } else {
+            if (state != State.EMOJI) {
                 emojiShow.set(false)
-                state.set(State.CLOSE)
-                keyboardListener?.invoke(false)
+                state = State.CLOSE
             }
         }
     }
 
     fun show() {
-        state.set(State.TEXT)
+        state = State.TEXT
         keyboardShow = true
     }
 
     fun hide() {
         keyboardShow = false
-        state.set(State.CLOSE)
+        state = State.CLOSE
     }
 
     fun changeState() {
-        state.get()?.let {
-            if (it != State.EMOJI) {
-                state.set(State.EMOJI)
-                keyboardShow = false
-            } else {
-                show()
-            }
+        if (state != State.EMOJI) {
+            state = State.EMOJI
+            keyboardShow = false
+        } else {
+            show()
         }
     }
 

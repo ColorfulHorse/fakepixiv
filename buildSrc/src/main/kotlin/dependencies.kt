@@ -92,6 +92,8 @@ object Deps : DepGroup() {
 
         const val flyco = "com.flyco.tablayout:FlycoTabLayout_Lib:3.0.0"
 
+        const val photoView = "com.github.chrisbanes:PhotoView:2.0.0"
+
                 //"com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar"
 
         //const val smarttablayout = "com.ogaclejapan.smarttablayout:library:2.0.0@aar"

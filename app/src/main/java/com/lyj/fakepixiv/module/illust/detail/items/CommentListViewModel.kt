@@ -4,19 +4,19 @@ import androidx.databinding.Bindable
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
 import androidx.databinding.library.baseAdapters.BR
+import androidx.lifecycle.LifecycleOwner
 import com.lyj.fakepixiv.app.base.BaseViewModel
 import com.lyj.fakepixiv.app.data.model.response.Comment
 import com.lyj.fakepixiv.app.data.model.response.Illust
 import com.lyj.fakepixiv.app.data.source.remote.IllustExtRepository
 import com.lyj.fakepixiv.app.data.source.remote.IllustRepository
 import com.lyj.fakepixiv.app.network.LoadState
+import com.lyj.fakepixiv.module.illust.detail.comment.CommentListFragment
 import com.lyj.fakepixiv.module.illust.detail.comment.CommentViewModel
 import com.lyj.fakepixiv.module.illust.detail.comment.InputViewModel
+import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 /**
  * @author greensun
@@ -52,6 +52,10 @@ class CommentListViewModel : BaseViewModel() {
 
     var nextUrl = ""
 
+    var disposable: Disposable? = null
+
+    var job: Job? = null
+
     /**
      * 由于共用了viewModel，需要限制初次加载
      */
@@ -62,7 +66,7 @@ class CommentListViewModel : BaseViewModel() {
     }
 
     fun reLoad() {
-        val disposable = IllustExtRepository.instance
+        disposable = IllustExtRepository.instance
                 .loadIllustComment(illust.id.toString())
                 .doOnSubscribe { loadState.set(LoadState.Loading) }
                 .subscribeBy(onNext = { resp ->
@@ -87,7 +91,7 @@ class CommentListViewModel : BaseViewModel() {
      */
     fun piece() {
         piece.clear()
-        val list = data.take(2)
+        val list = data.filter { it.data.type == Comment.COMMENT }.take(2)
         val res = list.map { CommentViewModel(this, it.data.copy(preview = true)) }
         piece.addAll(res)
     }
@@ -95,7 +99,7 @@ class CommentListViewModel : BaseViewModel() {
     fun loadMore() {
         if (nextUrl.isBlank())
             return
-        launch(CoroutineExceptionHandler { _, err ->
+        job = launch(CoroutineExceptionHandler { _, err ->
             loadMoreState.set(LoadState.Failed(err))
         }) {
             loadMoreState.set(LoadState.Loading)
@@ -127,4 +131,15 @@ class CommentListViewModel : BaseViewModel() {
     fun loadApplies(id: Long) {
         data.first { it.data.id == id }.loadApplies()
     }
+
+//    override fun onDestroy(owner: LifecycleOwner) {
+//        data.forEach { it.onDestroy(owner) }
+//        inputViewModel.onDestroy(owner)
+//        if (owner is CommentListFragment) {
+//            disposable?.dispose()
+//            job?.cancel()
+//        }else{
+//            super.onDestroy(owner)
+//        }
+//    }
 }

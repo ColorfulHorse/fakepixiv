@@ -1,7 +1,6 @@
 package com.lyj.fakepixiv.app.databinding
 
 import android.animation.Animator
-import android.animation.ObjectAnimator
 import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -9,22 +8,19 @@ import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.text.Html
+import android.text.Spanned
+import android.text.TextUtils
+import android.text.style.ImageSpan
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
-import android.view.animation.AlphaAnimation
-import android.view.animation.Animation
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.ViewAnimator
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.animation.doOnCancel
+import androidx.core.text.getSpans
 import androidx.core.view.updateLayoutParams
-import androidx.databinding.BindingAdapter
-import androidx.databinding.BindingConversion
-import androidx.databinding.ObservableField
-import androidx.databinding.ViewDataBinding
+import androidx.databinding.*
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
@@ -32,18 +28,15 @@ import com.flyco.tablayout.listener.OnTabSelectListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputLayout
 import com.lyj.fakepixiv.GlideApp
-import com.lyj.fakepixiv.app.data.model.response.Illust
-import com.lyj.fakepixiv.app.data.source.remote.IllustRepository
+import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.glide.PositionedCrop
 import com.lyj.fakepixiv.app.network.LoadState
-import com.lyj.fakepixiv.app.utils.PaddingAnimationFactory
-import com.lyj.fakepixiv.app.utils.dp2px
-import com.lyj.fakepixiv.app.utils.screenHeight
-import com.lyj.fakepixiv.app.utils.screenWidth
+import com.lyj.fakepixiv.app.utils.*
 import com.lyj.fakepixiv.widget.CommonTabLayout
-import com.lyj.fakepixiv.widget.LikeButton
+import com.lyj.fakepixiv.widget.URLDrawable
 import jp.wasabeef.glide.transformations.BlurTransformation
 import me.yokeyword.fragmentation.SupportHelper
+import java.lang.Exception
 
 
 /**
@@ -190,6 +183,25 @@ fun TextView.html(content: String) {
     this.text = Html.fromHtml(content)
 }
 
+@BindingAdapter(value = ["richText"])
+fun TextView.richText(content: String?) {
+    if (content == null)
+        return
+    val old = text.toString()
+    if (TextUtils.equals(old, content)) {
+        return
+    }
+    EmojiUtil.richText(this, content)
+    if (this is EditText) {
+        setSelection(text.length)
+    }
+}
+
+@InverseBindingAdapter(attribute = "richText", event = "android:textAttrChanged")
+fun TextView.getRichText(): String {
+    return text.toString()
+}
+
 
 @BindingAdapter(value = ["show"])
 fun FloatingActionButton.show(show: Boolean = true) {
@@ -259,7 +271,7 @@ fun EditText.config(keyboardShow: Boolean) {
 
 @BindingAdapter(value = ["keyboardListener"])
 fun View.keyboardListener(listener: KeyboardListener) {
-    val root = (context as Activity).window.decorView
+    val root = rootView
     var rootViewHeight = -1
 
     val callback = object : ViewTreeObserver.OnGlobalLayoutListener {
@@ -293,15 +305,9 @@ fun View.keyboardListener(listener: KeyboardListener) {
         }
     }
     root.viewTreeObserver.addOnGlobalLayoutListener(callback)
-    addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
-        override fun onViewDetachedFromWindow(v: View?) {
-            root.viewTreeObserver.removeOnGlobalLayoutListener(callback)
-        }
-
-        override fun onViewAttachedToWindow(v: View?) {
-        }
-
-    })
+    doOnDetached {
+        root.viewTreeObserver.removeOnGlobalLayoutListener(callback)
+    }
 }
 
 // 键盘监听

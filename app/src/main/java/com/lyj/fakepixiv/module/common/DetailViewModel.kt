@@ -3,6 +3,7 @@ package com.lyj.fakepixiv.module.common
 import androidx.databinding.Bindable
 import androidx.databinding.ObservableField
 import androidx.databinding.library.baseAdapters.BR
+import androidx.lifecycle.LifecycleOwner
 import com.lyj.fakepixiv.app.base.BaseViewModel
 
 import com.lyj.fakepixiv.app.data.model.response.Illust
@@ -160,5 +161,4 @@ open class DetailViewModel : BaseViewModel() {
     fun goUserDetail() {
         Router.goUserDetail(illust.user)
     }
-
 }

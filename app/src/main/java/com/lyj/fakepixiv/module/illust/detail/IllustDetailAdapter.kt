@@ -47,7 +47,7 @@ class IllustDetailAdapter(val viewModel: IllustDetailViewModel) : IllustAdapter(
             if (type == Illust.TYPE_META) {
                 val key = (System.currentTimeMillis()/1000).toInt()
                 IllustRepository.instance[key] = data.filter { it.itemType == Illust.TYPE_META }
-                Router.getTopFragment()?.start(PhotoViewFragment.newInstance(position, viewModel.key))
+                Router.getTopFragment()?.start(PhotoViewFragment.newInstance(position, key))
             }else {
                 Router.goDetail(position - items.size, data)
             }
@@ -100,7 +100,7 @@ class IllustDetailAdapter(val viewModel: IllustDetailViewModel) : IllustAdapter(
             LAYOUT_SERIES -> {
                 val item = items.find { it.type == LAYOUT_SERIES } as SeriesItem
                 item.viewModel.load()
-                return BaseBindingViewHolder(item.mBinding)
+                return BaseBindingViewHolder(item.rootView)
             }
             LAYOUT_USER -> {
                 val item = items.find { it.type == LAYOUT_USER } as UserFooter
