@@ -1,56 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
-        <import type="com.lyj.fakepixiv.module.illust.detail.comment.InputViewModel.State"/>
-        <import type="com.lyj.fakepixiv.module.illust.detail.IllustDetailViewModel"/>
-        <import type="com.lyj.fakepixiv.app.network.LoadState"/>
+
+        <import type="android.view.View" />
+
+        <import type="com.lyj.fakepixiv.module.illust.detail.comment.InputViewModel.State" />
+
+        <import type="com.lyj.fakepixiv.module.illust.detail.IllustDetailViewModel" />
+
+        <import type="com.lyj.fakepixiv.app.network.LoadState" />
+
         <variable
             name="vm"
-            type="IllustDetailViewModel"/>
+            type="IllustDetailViewModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        >
+        android:background="@color/white">
+
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true"
             android:focusable="true"
-            android:focusableInTouchMode="true"
-            >
-           <!-- <FrameLayout
-                android:id="@+id/placeHolder"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/transparent"
-                android:focusable="true"
-                />-->
+            android:focusableInTouchMode="true">
+            <!-- <FrameLayout
+                 android:id="@+id/placeHolder"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:background="@color/transparent"
+                 android:focusable="true"
+                 />-->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                />
-            <include layout="@layout/layout_detail_caption"
+                android:background="@color/white" />
+
+            <include
                 android:id="@+id/caption"
-                app:vm="@{vm}"
+                layout="@layout/layout_detail_caption"
                 app:showCaption="@{vm.captionVisibility}"
-                />
+                app:vm="@{vm}" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                >
+                android:layout_gravity="bottom">
+
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fab"
                     android:layout_width="wrap_content"
@@ -58,40 +61,28 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
+                    android:enabled="@{!(vm.starState instanceof LoadState.Loading)}"
                     android:onClick="@{() -> vm.star()}"
                     android:src="@{vm.liveData._bookmarked?@drawable/ic_fab_liked:@drawable/ic_fab_like}"
-                    android:enabled="@{!(vm.starState instanceof LoadState.Loading)}"
-                    app:backgroundTint="@color/fab_background_tint"
-                    />
+                    app:backgroundTint="@color/fab_background_tint" />
             </RelativeLayout>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
         <com.lyj.fakepixiv.widget.StateView
             android:id="@+id/stateView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:state="@{vm.detailState}"
             app:reload="@{() -> vm.loadDetail()}"
-            />
-        <View
-            android:id="@+id/overlay"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/transparent"
-            android:focusable="true"
-            android:clickable="true"
-            android:visibility="gone"
-            app:visible="@{vm.commentListViewModel.inputViewModel.state != State.CLOSE}"
-            android:onClick="@{() -> vm.commentListViewModel.inputViewModel.hide()}"
-            />
+            app:state="@{vm.detailState}" />
+
         <include
             android:id="@+id/input"
             layout="@layout/comment_input_bar"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_alignParentBottom="true"
-            android:visibility="gone"
-            />
-<!--        app:vm="@{vm.commentListViewModel.inputViewModel}"-->
-<!--        android:visibility="@{vm.commentListViewModel.inputViewModel.state != State.CLOSE?View.VISIBLE : View.GONE}"-->
+            android:layout_height="wrap_content"
+            android:visibility="@{vm.commentListViewModel.inputViewModel.state != State.CLOSE?View.VISIBLE : View.GONE}"
+            app:vm="@{vm.commentListViewModel.inputViewModel}" />
+        <!--        app:vm="@{vm.commentListViewModel.inputViewModel}"-->
+        <!--        android:visibility="@{vm.commentListViewModel.inputViewModel.state != State.CLOSE?View.VISIBLE : View.GONE}"-->
     </RelativeLayout>
 </layout>

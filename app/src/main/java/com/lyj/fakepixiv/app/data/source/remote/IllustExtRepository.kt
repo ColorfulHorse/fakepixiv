@@ -1,12 +1,9 @@
 package com.lyj.fakepixiv.app.data.source.remote
 
-import android.util.ArrayMap
 import com.lyj.fakepixiv.app.data.model.response.*
 import com.lyj.fakepixiv.app.network.retrofit.RetrofitManager
 import com.lyj.fakepixiv.app.network.service.IllustExtService
-import com.lyj.fakepixiv.app.network.service.IllustService
-import com.lyj.fakepixiv.app.network.service.LiveService
-import com.lyj.fakepixiv.app.reactivex.schedulerTransform
+import com.lyj.fakepixiv.app.reactivex.io
 import io.reactivex.Observable
 
 /**
@@ -45,7 +42,7 @@ class IllustExtRepository private constructor() {
     fun loadIllustComment(illustId: String): Observable<CommentListResp> {
         return service
                 .getIllustComment(illustId)
-                .schedulerTransform()
+                .io()
     }
 
     suspend fun loadMoreComment(nextUrl: String): CommentListResp {

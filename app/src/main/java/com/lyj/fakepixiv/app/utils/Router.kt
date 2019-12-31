@@ -120,7 +120,7 @@ object Router {
         getTopFragment()?.start(NovelSeriesFragment.newInstance(seriesId))
     }
 
-    private fun closeDialog() {
+    fun closeDialog() {
         getRealActiveFragment()?.let {
             if (it is DialogFragment) {
                 it.dismiss()

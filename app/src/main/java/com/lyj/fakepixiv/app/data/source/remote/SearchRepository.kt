@@ -5,9 +5,8 @@ import com.lyj.fakepixiv.app.data.model.response.SearchTagListResp
 import com.lyj.fakepixiv.app.data.model.response.Tag
 import com.lyj.fakepixiv.app.data.model.response.TrendTag
 import com.lyj.fakepixiv.app.network.retrofit.RetrofitManager
-import com.lyj.fakepixiv.app.network.service.PixivisionService
 import com.lyj.fakepixiv.app.network.service.SearchService
-import com.lyj.fakepixiv.app.reactivex.schedulerTransform
+import com.lyj.fakepixiv.app.reactivex.io
 import io.reactivex.Observable
 
 /**
@@ -34,7 +33,7 @@ class SearchRepository {
                     it.trend_tags.forEach { tag -> tag.illust.type = category }
                     it
                 }
-                .schedulerTransform()
+                .io()
     }
 
     fun searchAutoComplete(keyword: String): Observable<List<Tag>> {
@@ -43,6 +42,6 @@ class SearchRepository {
                 .map {
                     it.tags
                 }
-                .schedulerTransform()
+                .io()
     }
 }

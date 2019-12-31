@@ -36,6 +36,13 @@
 
     <style name="FullScreen" parent="AppTheme">
         <item name="android:windowFullscreen">true</item>
+        <item name="android:backgroundDimAmount">0.3</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@null</item>
+    </style>
+
+    <style name="Dialog_BottomSheet" parent="Theme.Design.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
     </style>
 
     <style name="theme_action_dialog" parent="Theme.AppCompat.Light.Dialog.Alert">

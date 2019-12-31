@@ -1,7 +1,6 @@
 package com.lyj.fakepixiv.module.illust.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.Animation
@@ -10,22 +9,18 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gyf.immersionbar.ImmersionBar
-import com.gyf.immersionbar.ktx.immersionBar
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.FragmentationFragment
 import com.lyj.fakepixiv.app.constant.EXTRA_ID
-import com.lyj.fakepixiv.app.databinding.keyboardListener
-import com.lyj.fakepixiv.app.utils.attachLoadMore
 import com.lyj.fakepixiv.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepixiv.app.network.LoadState
+import com.lyj.fakepixiv.app.utils.attachLoadMore
 import com.lyj.fakepixiv.app.utils.dp2px
-import com.lyj.fakepixiv.app.utils.onKeyboardChanged
 import com.lyj.fakepixiv.databinding.FragmentIllustDetailBinding
-import com.lyj.fakepixiv.module.common.InputBar
+import com.lyj.fakepixiv.module.illust.detail.comment.InputBar
 import com.lyj.fakepixiv.module.illust.detail.comment.InputViewModel
 import com.lyj.fakepixiv.module.illust.detail.items.*
 import com.lyj.fakepixiv.widget.DetailItemDecoration
-import me.yokeyword.fragmentation.SupportHelper
 
 /**
  * @author greensun
@@ -74,18 +69,6 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
             }
         }
         inputBar = InputBar(mBinding.input, mViewModel.commentListViewModel.inputViewModel)
-
-        mBinding.root.onKeyboardChanged { isOpen ->
-            inputBar.viewModel.keyboardChanged(isOpen)
-            if (!isOpen) {
-                if (inputBar.viewModel.state == InputViewModel.State.EMOJI) {
-                    return@onKeyboardChanged
-                }
-            }
-            immersionBar {
-                keyboardEnable(!isOpen)
-            }
-        }
 
         layoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
         mAdapter = IllustDetailAdapter(mViewModel)
@@ -261,7 +244,7 @@ class IllustDetailFragment : FragmentationFragment<FragmentIllustDetailBinding, 
     override fun initImmersionBar() {
         ImmersionBar.with(this)
                 .statusBarDarkFont(true)
-                .keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+                .keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE or WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
                 .keyboardEnable(true)
                 .setOnKeyboardListener(keyboardListener)
                 .init()

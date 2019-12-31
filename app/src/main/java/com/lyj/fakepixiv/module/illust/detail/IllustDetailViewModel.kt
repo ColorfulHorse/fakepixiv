@@ -49,11 +49,11 @@ class IllustDetailViewModel : DetailViewModel() {
     override fun setData(data: Illust) {
         super.setData(data)
         if (illust.meta_pages.isNotEmpty()) {
-            val first = illust.copy(type = Illust.META)
+            //val first = illust.copy(type = Illust.META)
             val list = illust.meta_pages.map {
-                Illust(image_urls = it.image_urls, type = Illust.META)
+                data.copy(image_urls = it.image_urls, type = Illust.META)
             }.toMutableList()
-            list[0] = first
+            //list[0] = first
             this.data.addAll(list)
         } else {
             this.data.add(illust.copy(type = Illust.META).apply {

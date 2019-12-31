@@ -4,6 +4,7 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.app.data.model.bean.MultiPreloadItem
+import com.lyj.fakepixiv.app.databinding.Dynamic
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -33,14 +34,17 @@ data class CommentResp(
 data class Comment(
     val comment: String = "",
     val date: String = "",
-    var has_replies: Boolean = false,
     val id: Long = 0,
     val user: User = User(),
     var type: Int = 0,
     var parentId: Long = -1,
     // 是否为预览
     var preview: Boolean = false
-): MultiPreloadItem {
+): MultiPreloadItem, BaseObservable() {
+
+
+    @get:Bindable
+    var has_replies: Boolean by Dynamic(false, BR.has_replies)
 
     companion object {
         // 回复

@@ -92,7 +92,12 @@ class CommentListViewModel : BaseViewModel() {
     fun piece() {
         piece.clear()
         val list = data.filter { it.data.type == Comment.COMMENT }.take(2)
-        val res = list.map { CommentViewModel(this, it.data.copy(preview = true)) }
+        val res = list.map {
+            CommentViewModel(this, it.data.copy(preview = true).apply {
+                // copy函数只会copy data class中构造函数里的属性值
+                has_replies = it.data.has_replies
+            })
+        }
         piece.addAll(res)
     }
 

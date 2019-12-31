@@ -8,6 +8,7 @@ import com.lyj.fakepixiv.app.base.BaseViewModel
 import com.lyj.fakepixiv.app.data.model.bean.MultiPreloadItem
 import com.lyj.fakepixiv.app.data.model.response.Comment
 import com.lyj.fakepixiv.app.data.source.remote.IllustExtRepository
+import com.lyj.fakepixiv.app.network.LoadState
 import com.lyj.fakepixiv.app.utils.AppManager
 import com.lyj.fakepixiv.app.utils.Router
 import com.lyj.fakepixiv.app.utils.ToastUtil
@@ -22,12 +23,14 @@ import kotlinx.coroutines.withContext
  *
  * @date 2019/11/5
  *
- * @desc
+ * @desc 评论item viewModel
  */
 class CommentViewModel(val parent: CommentListViewModel, val data: Comment) : BaseViewModel(), MultiPreloadItem by data {
 
+    // 回复是否已经显示
     var applies_show = ObservableField(false)
 
+    val showState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
     fun delete() {
         AppManager.instance.top?.let {
@@ -44,6 +47,7 @@ class CommentViewModel(val parent: CommentListViewModel, val data: Comment) : Ba
                         }
                         val position = parent.data.indexOfFirst { vm -> vm.data.id == data.id }
                         parent.data.removeAt(position)
+                        parent.piece()
                     }
                 }
                 negativeButton(R.string.cancel)
@@ -61,6 +65,7 @@ class CommentViewModel(val parent: CommentListViewModel, val data: Comment) : Ba
             Router.getTopFragment()?.start(fragment)
         }else {
             parent.inputViewModel.source = data
+            parent.inputViewModel.show()
         }
     }
 
@@ -73,9 +78,14 @@ class CommentViewModel(val parent: CommentListViewModel, val data: Comment) : Ba
             fragment.mViewModel = parent
             Router.getTopFragment()?.start(fragment)
         }else {
+            // 新添加的评论，已经直接展示了
+            if (applies_show.get() == true) {
+                return
+            }
             launch(CoroutineExceptionHandler { _, err ->
-
+                showState.set(LoadState.Failed(err))
             }) {
+                showState.set(LoadState.Loading)
                 val resp = withContext(Dispatchers.IO) {
                     IllustExtRepository.instance
                             .service
@@ -83,6 +93,7 @@ class CommentViewModel(val parent: CommentListViewModel, val data: Comment) : Ba
                 }
                 applies_show.set(true)
                 parent.showApplies(data, resp.comments)
+                showState.set(LoadState.Succeed)
             }
         }
     }

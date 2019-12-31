@@ -23,7 +23,6 @@
                 android:id="@+id/image"
                 android:layout_width="220dp"
                 android:layout_height="120dp"
-                android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 app:url="@{data.thumbnail_image_url}"
                 app:fade="@{true}"

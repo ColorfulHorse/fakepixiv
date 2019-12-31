@@ -12,6 +12,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         >
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollView"
@@ -51,23 +54,12 @@
                     />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-        <View
-            android:id="@+id/overlay"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/transparent"
-            android:focusable="true"
-            android:clickable="true"
-            android:visibility="gone"
-            app:visible="@{vm.commentListViewModel.inputViewModel.state != State.CLOSE}"
-            android:onClick="@{() -> vm.commentListViewModel.inputViewModel.hide()}"
-            />
+
         <include
             android:id="@+id/input"
             layout="@layout/comment_input_bar"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:layout_alignParentBottom="true"
             app:vm="@{vm.commentListViewModel.inputViewModel}"
             android:visibility="@{vm.commentListViewModel.inputViewModel.state != State.CLOSE?View.VISIBLE : View.GONE}"
             />

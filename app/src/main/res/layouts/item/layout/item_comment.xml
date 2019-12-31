@@ -5,6 +5,7 @@
     <data>
 
         <import type="com.lyj.fakepixiv.module.illust.detail.comment.CommentViewModel" />
+        <import type="com.lyj.fakepixiv.app.network.LoadState" />
         <import type="com.lyj.fakepixiv.app.data.model.response.Comment" />
 
         <import type="com.lyj.fakepixiv.app.utils.DateUtil" />
@@ -164,6 +165,7 @@
             android:paddingBottom="10dp"
             android:text="@string/see_reply"
             android:visibility="gone"
+            android:enabled="@{!(vm.showState instanceof LoadState.Loading)}"
             app:visible="@{vm.data.has_replies &amp;&amp; !vm.applies_show}"
             android:onClick="@{() -> vm.loadApplies()}"
             />

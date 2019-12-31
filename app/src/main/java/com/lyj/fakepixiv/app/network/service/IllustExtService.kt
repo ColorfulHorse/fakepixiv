@@ -57,7 +57,7 @@ interface IllustExtService {
     @FormUrlEncoded
     suspend fun addComment(@Field("illust_id") illustId: Long,
                            @Field("comment") comment: String,
-                           @Field("parent_comment_id") parentId: String = ""): Any
+                           @Field("parent_comment_id") parentId: String = ""): CommentResp
 
     /**
      * 删除评论

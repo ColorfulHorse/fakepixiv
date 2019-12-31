@@ -36,7 +36,7 @@ abstract class CommonListFragment<V : ViewDataBinding, VM: BaseViewModel?> : Bac
                     .statusBarColorTransform(R.color.black)
                     .statusBarAlpha(0.25f)
                     .transparentBar()
-                    .keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+                    .keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE or WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
                     .keyboardEnable(true)
                     .setOnKeyboardListener(keyboardListener)
                     .init()

@@ -32,8 +32,11 @@
 #### 2019-11-8
 - 升级到AndroidX
 
+#### 2019-12-31
+- 添加作品评论，修复若干bug
+
 #### todo list
-- 详情页评论
+- bug 详情页dialog中scrollView自动滚动问题
 - 用户页关注人列表
 - 加入屏蔽设置
 - commonDecoration添加新item底部分割线未刷新

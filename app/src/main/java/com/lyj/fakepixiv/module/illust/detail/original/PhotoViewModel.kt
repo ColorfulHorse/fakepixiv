@@ -11,6 +11,12 @@ import com.lyj.fakepixiv.app.databinding.Dynamic
 import com.lyj.fakepixiv.app.network.LoadState
 import com.lyj.fakepixiv.app.utils.FileUtil
 import com.lyj.fakepixiv.app.utils.ToastUtil
+import com.lyj.fakepixiv.app.utils.ioTask
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.File
 
 /**
  * @author green sun
@@ -22,7 +28,7 @@ import com.lyj.fakepixiv.app.utils.ToastUtil
 class PhotoViewModel(val data: Illust) : BaseViewModel() {
     val loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
-    var cover: Bitmap? = null
+    var file: File? = null
 
     @get:Bindable
     var showToolbar by Dynamic(false, BR.showToolbar)
@@ -32,12 +38,15 @@ class PhotoViewModel(val data: Illust) : BaseViewModel() {
     }
 
     fun save() {
-        cover?.let {
-            val succeed = FileUtil.saveBitmap(it, data.id.toString())
-            if (succeed) {
-                ToastUtil.showToast(R.string.save_succeed)
-            }else {
+        file?.let {
+            launch(CoroutineExceptionHandler { _, _ ->
                 ToastUtil.showToast(R.string.save_failed)
+            }) {
+                val key = "${data.id}_${data.image_urls.original.substringAfterLast("/")}"
+                withContext(Dispatchers.IO) {
+                    FileUtil.saveImage(it, key)
+                }
+                ToastUtil.showToast(R.string.save_succeed)
             }
         }
     }

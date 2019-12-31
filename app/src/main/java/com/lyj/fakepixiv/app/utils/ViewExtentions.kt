@@ -88,7 +88,9 @@ fun View.onKeyboardChanged(action : (Boolean) -> Unit) {
             }
         }
     }
-    root.viewTreeObserver.addOnGlobalLayoutListener(callback)
+   // doOnAttached {
+        root.viewTreeObserver.addOnGlobalLayoutListener(callback)
+    //}
     doOnDetached {
         root.viewTreeObserver.removeOnGlobalLayoutListener(callback)
     }
