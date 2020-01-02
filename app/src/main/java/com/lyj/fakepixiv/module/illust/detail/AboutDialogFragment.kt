@@ -2,6 +2,7 @@ package com.lyj.fakepixiv.module.illust.detail
 
 import android.os.Bundle
 import android.view.*
+import android.widget.ScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -103,11 +104,6 @@ class AboutDialogFragment : BottomSheetDialogFragment() {
                 false
             }
             val view = it.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
-//        (view as ViewGroup).let {
-//            //it.descendantFocusability = ViewGroup.FOCUS_BLOCK_DESCENDANTS
-//            it.isFocusable = true
-//            it.isFocusableInTouchMode = true
-//        }
             bottomSheetBehavior = BottomSheetBehavior.from(view)
             bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HALF_EXPANDED
 

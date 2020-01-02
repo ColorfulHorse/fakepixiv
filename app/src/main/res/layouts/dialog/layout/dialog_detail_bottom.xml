@@ -12,18 +12,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clickable="true"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         >
-        <androidx.core.widget.NestedScrollView
+        <com.lyj.fakepixiv.widget.StaticScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:background="@color/white"
                 >
@@ -53,7 +50,7 @@
                     android:id="@+id/comment_container"
                     />
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+        </com.lyj.fakepixiv.widget.StaticScrollView>
 
         <include
             android:id="@+id/input"
