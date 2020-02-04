@@ -27,7 +27,7 @@ import com.lyj.fakepixiv.widget.CommonItemDecoration
  *
  * @date 2019/4/3
  *
- * @desc 公共illust listFragment
+ * @desc 公共作品列表页
  */
 class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListViewModel?>() {
 

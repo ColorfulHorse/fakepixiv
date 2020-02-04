@@ -7,6 +7,7 @@ import com.lyj.fakepixiv.app.base.BaseViewModel
 import com.lyj.fakepixiv.app.constant.IllustCategory
 import com.lyj.fakepixiv.app.data.model.response.Illust
 import com.lyj.fakepixiv.app.data.source.remote.IllustRepository
+import com.lyj.fakepixiv.app.data.source.remote.UserRepository
 import com.lyj.fakepixiv.app.network.LoadState
 import com.lyj.fakepixiv.module.common.DetailViewModel
 import kotlinx.coroutines.*
@@ -24,6 +25,8 @@ class UserFooterViewModel(val parent: DetailViewModel) : BaseViewModel() {
     var data = ObservableArrayList<Illust>()
 
     var loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
+
+    val followState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
 
 
     fun load() {
@@ -50,6 +53,17 @@ class UserFooterViewModel(val parent: DetailViewModel) : BaseViewModel() {
             loadState.set(LoadState.Succeed)
             data.clear()
             data.addAll(resp.illusts.take(3))
+        }
+    }
+
+    /**
+     * 关注/取消关注
+     */
+    fun follow() {
+        val disposable = UserRepository.instance
+                .follow(parent.liveData.user, followState)
+        disposable?.let {
+            addDisposable(it)
         }
     }
 }

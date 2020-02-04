@@ -57,8 +57,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:background="@{vm.parent.liveData.user._followed?@drawable/shape_btn_primary:@drawable/shape_btn_stroke_primary}"
-                android:enabled="@{!(vm.parent.followState instanceof LoadState.Loading)}"
-                android:onClick="@{() -> vm.parent.follow()}"
+                android:enabled="@{!(vm.followState instanceof LoadState.Loading)}"
+                android:onClick="@{() -> vm.follow()}"
                 android:text="@{vm.parent.liveData.user._followed?@string/followed:@string/follow}"
                 android:textColor="@{vm.parent.liveData.user._followed?@color/white:@color/colorPrimary}" />
         </RelativeLayout>

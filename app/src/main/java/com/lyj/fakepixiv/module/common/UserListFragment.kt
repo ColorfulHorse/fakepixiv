@@ -59,9 +59,6 @@ class UserListFragment : FragmentationFragment<CommonRefreshList, UserListViewMo
                         .build())
                 // 加载更多
                 recyclerView.attachLoadMore(vm.loadMoreState) { vm.loadMore() }
-//                refreshLayout.setOnRefreshListener {
-//                    vm.load()
-//                }
 
                 mAdapter.bindState(vm.loadState,  refreshLayout = refreshLayout) {
                     vm.load()
@@ -69,8 +66,6 @@ class UserListFragment : FragmentationFragment<CommonRefreshList, UserListViewMo
             }
         }
     }
-
-    fun getRecyclerView() = mBinding.recyclerView
 
     override fun immersionBarEnabled(): Boolean = false
 
