@@ -33,7 +33,17 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
 
     override var mViewModel: IllustListViewModel? = null
 
-    var category = ILLUST
+//    var category = ILLUST
+//        set(value) {
+//            field = value
+//            config = Config(value)
+//            mViewModel?.clear()
+//            if (onCreated) {
+//                initList()
+//            }
+//        }
+
+    var config = Config(ILLUST)
         set(value) {
             field = value
             mViewModel?.clear()
@@ -42,13 +52,13 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
             }
         }
 
-    var config = Config(category)
-
     companion object {
         private const val EXTRA_CATEGORY = "EXTRA_CATEGORY"
-        fun newInstance(@IllustCategory category: String, config: Config = Config(category)) = IllustListFragment().apply {
+        fun newInstance(@IllustCategory category: String) = IllustListFragment().apply {
+            this.config = Config(category)
+        }
+        fun newInstance(config: Config) = IllustListFragment().apply {
             this.config = config
-            this.category = category
 //            arguments = Bundle().apply {
 //                putString(EXTRA_CATEGORY, category)
 //            }
@@ -141,8 +151,6 @@ class IllustListFragment : FragmentationFragment<CommonRefreshList, IllustListVi
             }
         }
     }
-
-    fun getRecyclerView() = mBinding.recyclerView
 
     override fun immersionBarEnabled(): Boolean = false
 

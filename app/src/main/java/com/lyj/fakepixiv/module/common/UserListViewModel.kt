@@ -43,10 +43,10 @@ class UserListViewModel(var action: (suspend () -> UserPreviewListResp)) : BaseV
             if (resp.user_previews.isEmpty()) {
                 throw ApiException(ApiException.CODE_EMPTY_DATA)
             }
+            loadState.set(LoadState.Succeed)
             data.clear()
             data.addAll(resp.user_previews.map { UserItemViewModel(this@UserListViewModel, it) })
             nextUrl = resp.next_url
-            loadState.set(LoadState.Succeed)
         }
     }
 

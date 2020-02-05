@@ -39,16 +39,14 @@ class HistoryFragment : BackFragment<FragmentCommonTabBinding, BaseViewModel?>()
 
     override fun init(savedInstanceState: Bundle?) {
         mToolbar?.title = getString(R.string.browser_history)
-        val illustFragment = IllustListFragment.newInstance(IllustCategory.OTHER,
-                IllustListFragment.Config(IllustCategory.OTHER, adapterConfig = {
-                    addItemType(Illust.TYPE_ILLUST, R.layout.item_history_illust, BR.data)
-                    addItemType(Illust.TYPE_COMIC, R.layout.item_history_illust, BR.data)
-                }))
-        val novelFragment = IllustListFragment.newInstance(IllustCategory.NOVEL,
-                IllustListFragment.Config(IllustCategory.NOVEL, adapterConfig = {
-                    addItemType(Illust.TYPE_ILLUST, R.layout.item_history_novel, BR.data)
-                    addItemType(Illust.TYPE_NOVEL, R.layout.item_history_novel, BR.data)
-                }))
+        val illustFragment = IllustListFragment.newInstance(IllustListFragment.Config(IllustCategory.OTHER, adapterConfig = {
+            addItemType(Illust.TYPE_ILLUST, R.layout.item_history_illust, BR.data)
+            addItemType(Illust.TYPE_COMIC, R.layout.item_history_illust, BR.data)
+        }))
+        val novelFragment = IllustListFragment.newInstance(IllustListFragment.Config(IllustCategory.NOVEL, adapterConfig = {
+            addItemType(Illust.TYPE_ILLUST, R.layout.item_history_novel, BR.data)
+            addItemType(Illust.TYPE_NOVEL, R.layout.item_history_novel, BR.data)
+        }))
         illustViewModel = HistoryListViewModel(IllustCategory.ILLUST)
 
         novelViewModel = HistoryListViewModel(IllustCategory.NOVEL)

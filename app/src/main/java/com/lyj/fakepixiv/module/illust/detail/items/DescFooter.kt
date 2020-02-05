@@ -5,10 +5,6 @@ import androidx.databinding.DataBindingUtil
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.OnLifecycleEvent
 import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager
 import com.beloo.widget.chipslayoutmanager.SpacingItemDecoration
 import com.lyj.fakepixiv.R
@@ -17,10 +13,8 @@ import com.lyj.fakepixiv.app.constant.IllustCategory
 import com.lyj.fakepixiv.app.data.model.response.Illust
 import com.lyj.fakepixiv.app.utils.Router
 import com.lyj.fakepixiv.app.utils.dp2px
-import com.lyj.fakepixiv.databinding.LayoutFooterDescBinding
+import com.lyj.fakepixiv.databinding.LayoutDetailDescBinding
 import com.lyj.fakepixiv.module.common.adapter.IllustTagAdapter
-import kotlinx.coroutines.cancelChildren
-import org.jetbrains.annotations.NotNull
 
 /**
  * @author greensun
@@ -29,11 +23,11 @@ import org.jetbrains.annotations.NotNull
  *
  * @desc 作品介绍
  */
-class DescFooter(val context: Context, val data: Illust, var mBinding: LayoutFooterDescBinding? = null): DetailItem {
+class DescFooter(val context: Context, val data: Illust, var mBinding: LayoutDetailDescBinding? = null): DetailItem {
 
     override var type: Int = DetailItem.LAYOUT_DESC
 
-    val rootView: View by lazy { LayoutInflater.from(context).inflate(R.layout.layout_footer_desc, null) }
+    val rootView: View by lazy { LayoutInflater.from(context).inflate(R.layout.layout_detail_desc, null) }
 
 
     init {
@@ -47,7 +41,7 @@ class DescFooter(val context: Context, val data: Illust, var mBinding: LayoutFoo
         }
     }
 
-    private fun initData(binding: LayoutFooterDescBinding) {
+    private fun initData(binding: LayoutDetailDescBinding) {
         binding.desc.text = Html.fromHtml(data.caption)
         // 转换标签+#+翻译
         val tags = data.getTranslateTags()

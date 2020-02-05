@@ -60,6 +60,7 @@ open class DetailViewModel : BaseViewModel() {
 
     var total = ObservableField(0)
 
+    // 当前页数
     @get:Bindable
     var current = 1
         set(value) {

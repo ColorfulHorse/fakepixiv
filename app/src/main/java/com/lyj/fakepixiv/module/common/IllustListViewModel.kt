@@ -45,9 +45,9 @@ open class IllustListViewModel(var action: (suspend () -> IllustListResp)? = nul
                     resp.illusts.filter { it.visible }
                     resp.checkEmpty()
                     nextUrl = resp.next_url
+                    loadState.set(LoadState.Succeed)
                     data.clear()
                     data.addAll(resp.illusts)
-                    loadState.set(LoadState.Succeed)
                 }
             }
         //}

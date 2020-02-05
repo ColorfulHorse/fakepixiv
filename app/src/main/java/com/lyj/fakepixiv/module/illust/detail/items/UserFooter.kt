@@ -1,28 +1,21 @@
 package com.lyj.fakepixiv.module.illust.detail.items
 
 import android.content.Context
-import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
+import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.data.model.response.Illust
-import com.lyj.fakepixiv.app.databinding.onPropertyChangedCallback
-import com.lyj.fakepixiv.app.network.LoadState
 import com.lyj.fakepixiv.app.utils.Router
 import com.lyj.fakepixiv.app.utils.bindState
 import com.lyj.fakepixiv.app.utils.dp2px
-import com.lyj.fakepixiv.databinding.LayoutFooterUserBinding
+import com.lyj.fakepixiv.databinding.LayoutDetailUserBinding
 import com.lyj.fakepixiv.module.common.adapter.IllustAdapter
 import com.lyj.fakepixiv.widget.CommonItemDecoration
-import kotlinx.android.synthetic.main.layout_error_small.view.*
-import org.jetbrains.annotations.NotNull
 
 /**
  * @author greensun
@@ -34,11 +27,11 @@ import org.jetbrains.annotations.NotNull
 class UserFooter(val context: Context,
                  val viewModel: UserFooterViewModel,
                  val lifecycleOwner: LifecycleOwner,
-                 var mBinding: LayoutFooterUserBinding? = null): DetailItem {
+                 var mBinding: LayoutDetailUserBinding? = null): DetailItem {
 
     override var type: Int = DetailItem.LAYOUT_USER
 
-    val rootView: View by lazy { LayoutInflater.from(context).inflate(R.layout.layout_footer_user, null) }
+    val rootView: View by lazy { LayoutInflater.from(context).inflate(R.layout.layout_detail_user, null) }
 
     var mAdapter = IllustAdapter(viewModel.data).apply {
         addItemType(Illust.TYPE_ILLUST, R.layout.item_illust_small, BR.illust)

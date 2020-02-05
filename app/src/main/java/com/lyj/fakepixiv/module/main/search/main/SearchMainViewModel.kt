@@ -32,14 +32,14 @@ import java.util.regex.Pattern
 class SearchMainViewModel constructor(@IllustCategory c: String = IllustCategory.ILLUST) : BaseViewModel() {
 
     var category: String = IllustCategory.ILLUST
-    set(value) {
-        field = value
-        if (value == IllustCategory.OTHER) {
-            showUser.set(true)
-        }else {
-            showUser.set(false)
+        set(value) {
+            field = value
+            if (value == IllustCategory.OTHER) {
+                showUser.set(true)
+            } else {
+                showUser.set(false)
+            }
         }
-    }
 
     var newVm: IllustListViewModel
     var polularVm: IllustListViewModel
@@ -47,7 +47,7 @@ class SearchMainViewModel constructor(@IllustCategory c: String = IllustCategory
     var subVmList: List<IllustListViewModel>
     var userViewModel: UserListViewModel
 
-    // 是否显示搜索列表
+    // 是否显示搜索结果列表
     var showSearch = ObservableField(false)
     // 是否显示补全列表
     var showComplete = ObservableField(false)
@@ -69,12 +69,12 @@ class SearchMainViewModel constructor(@IllustCategory c: String = IllustCategory
                     words.addAll(list)
                     if (field.endsWith(" ")) {
                         showComplete.set(false)
-                    }else {
+                    } else {
                         val next = list.last()
                         showComplete.set(true)
                         action.onNext(next)
                     }
-                }else{
+                } else {
                     showComplete.set(false)
                 }
             }
@@ -121,7 +121,7 @@ class SearchMainViewModel constructor(@IllustCategory c: String = IllustCategory
 
         // 自动补全
         val disposable = Observable.create<String> {
-               action = it
+            action = it
         }
                 .debounce(200, TimeUnit.MILLISECONDS)
                 .flatMap {
@@ -154,16 +154,29 @@ class SearchMainViewModel constructor(@IllustCategory c: String = IllustCategory
      * 拼接关键词列表搜索
      */
     fun search() {
+        val last = keyword
         keyword = words.reduce { s1, s2 -> "$s1 $s2" }
-        historyList.add(keyword)
-        SPUtil.saveSearchHistory(keyword)
         showSearch.set(true)
+        if (last == keyword) {
+            if (category == IllustCategory.OTHER) {
+                showUser.set(true)
+            }
+            return
+        }
+        val exists = SPUtil.saveSearchHistory(keyword)
+        // 存在提升排位
+        if (exists) {
+            historyList.remove(keyword)
+        }
+        historyList.add(keyword)
         if (category == IllustCategory.OTHER) {
             showUser.set(true)
+            userViewModel.data.clear()
             userViewModel.load()
-        }else {
+        } else {
             subVmList.forEach {
                 if (it.lazyCreated) {
+                    it.data.clear()
                     it.load()
                 }
             }
