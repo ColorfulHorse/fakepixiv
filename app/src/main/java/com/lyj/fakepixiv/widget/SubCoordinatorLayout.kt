@@ -95,7 +95,7 @@ class SubCoordinatorLayout : CoordinatorLayout, NestedScrollingChild2 {
         val unConsumed = dy - consumed[1]
         if (unConsumed != 0) {
             if (dispatchNestedPreScroll(dx, unConsumed, consumed, windowOffset, type)) {
-                dispatchNestedScroll(0, consumed[1], 0, unConsumed, windowOffset, 0)
+                dispatchNestedScroll(0, consumed[1], 0, unConsumed, windowOffset, ViewCompat.TYPE_TOUCH)
             }
         }
     }
@@ -107,7 +107,7 @@ class SubCoordinatorLayout : CoordinatorLayout, NestedScrollingChild2 {
         var delta = dy
         if (dispatchNestedPreScroll(dx, dy, consumed, windowOffset, type)) {
             val unConsumed = dy - consumed[1]
-            dispatchNestedScroll(0, consumed[1], 0, unConsumed, windowOffset, 0)
+            dispatchNestedScroll(0, consumed[1], 0, unConsumed, windowOffset, ViewCompat.TYPE_TOUCH)
             delta = unConsumed
         }
         if (delta != 0) {
