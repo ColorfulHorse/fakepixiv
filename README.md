@@ -1,6 +1,6 @@
-#### kotlin + MVVM + DataBinding + 协程 练手项目，仿pixiv android客户端，进度奇慢:snail::snail:不确定有没有耐心写完
+#### kotlin + MVVM + DataBinding + 协程 练手项目，仿pixiv android客户端，进度奇慢:snail::snail:不确定有没有耐心写完  
 
-![](https://img.shields.io/badge/power%20by-JetBrains%20Intellij%20IDEA-blue.svg)
+![badge](https://img.shields.io/badge/power%20by-JetBrains%20Intellij%20IDEA-blue)
 
 #### 2019-8-8  
 - 用户列表网络相关逻辑改用协程方式  
