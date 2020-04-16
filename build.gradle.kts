@@ -8,7 +8,7 @@
 //}
 
 buildscript {
-    val gradleVer by extra("3.2.1")
+    val gradleVer by extra("3.5.0")
     repositories {
         google()
         //maven("http://maven.aliyun.com/nexus/content/repositories/central/")

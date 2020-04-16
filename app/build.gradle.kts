@@ -21,18 +21,18 @@ android {
         //buildConfigField("String", "TINKER_ID", VERSION_NAME)
     }
 
-    signingConfigs {
-        create("release") {
-            storeFile = File("../greensun.jks")
-            storePassword ="liaolove1314"
-            keyAlias = "greensun"
-            keyPassword = "liaolove1314"
-        }
-    }
+//    signingConfigs {
+//        create("release") {
+//            storeFile = File("../greensun.jks")
+//            storePassword ="liaolove1314"
+//            keyAlias = "greensun"
+//            keyPassword = "liaolove1314"
+//        }
+//    }
 
     buildTypes {
         getByName("debug") {
-            signingConfig = signingConfigs.findByName("release")
+            //signingConfig = signingConfigs.findByName("release")
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
