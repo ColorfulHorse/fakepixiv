@@ -1,102 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
-        <import type="com.lyj.fakepixiv.module.illust.detail.comment.InputViewModel.State"/>
+
+        <import type="com.lyj.fakepixiv.module.illust.detail.comment.InputViewModel.State" />
+
         <variable
             name="vm"
             type="com.lyj.fakepixiv.module.illust.detail.comment.InputViewModel" />
     </data>
-    <LinearLayout
+
+    <RelativeLayout
         android:id="@+id/root"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:orientation="vertical"
-        android:focusable="true"
-        android:clickable="true"
-        >
-        <TextView
-            android:id="@+id/text_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_margin="8.0dip"
-            android:background="@drawable/bg_comment_count"
-            android:padding="8.0dip"
-            android:textColor="@color/gray_text"
-            android:textSize="12.0sp"
-            android:visibility="gone"
-            app:visible="@{vm.comment.length() > 0}"
-            android:text='@{vm.comment.length()+"/"+vm.maxLength}'
-            />
-        <RelativeLayout
-            android:id="@+id/layout_send"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/overlay"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white">
-
-            <ImageView
-                android:id="@+id/toggle"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_centerVertical="true"
-                android:layout_margin="8dp"
-                android:src="@{(vm.state == State.EMOJI)?@drawable/ic_emoji_blue:@drawable/ic_emoji}"
-                android:onClick="@{() -> vm.changeState()}"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{() -> vm.hide()}"
+            android:visibility="gone"
+            app:visible="@{vm.state != State.CLOSE}" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <View
+                android:id="@+id/dummy"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/transparent"
                 />
-
-            <EditText
-                android:id="@+id/comment_edit_text"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toStartOf="@+id/send"
-                android:layout_toLeftOf="@+id/send"
-                android:layout_toEndOf="@+id/toggle"
-                android:layout_toRightOf="@+id/toggle"
-                android:background="@android:color/white"
-                android:hint="@{vm.source == null ? @string/comment_form_placeholder : String.format(@string/apply_to, vm.source.user.name)}"
-                android:imeOptions="flagNoFullscreen"
-                android:inputType="textMultiLine"
-                android:maxLength="140"
-                android:maxLines="4"
-                android:textColor="@android:color/black"
-                android:textColorHint="#ffdddddd"
-                android:textSize="14.0sp"
-                app:richText="@={vm.comment}"
-                app:keyboardShow="@{vm.keyboardShow}"
-                />
-<!--                app:keyboardShow="@{vm.keyboardShow}"-->
-            <ImageView
-                android:id="@+id/send"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:paddingLeft="8dp"
-                android:paddingTop="8dp"
-                android:paddingRight="8dp"
-                android:paddingBottom="8dp"
-                android:src="@drawable/ic_send"
-                android:visibility="gone"
-                app:visible="@{vm.comment.length() > 0}"
-                android:onClick="@{() -> vm.send()}"
-                />
-        </RelativeLayout>
+                android:background="@android:color/transparent"
+                android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:height="@{vm.emojiHeight}"
-            android:background="@android:color/white"
-            android:clipToPadding="false"
-            android:padding="16dp"
-            android:visibility="gone"
-            app:visible="@{vm.emojiShow}"
-            />
-<!--        app:visible="@{vm.state == State.EMOJI}"-->
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/text_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_margin="8.0dip"
+                    android:background="@drawable/bg_comment_count"
+                    android:padding="8.0dip"
+                    android:text='@{vm.comment.length()+"/"+vm.maxLength}'
+                    android:textColor="@color/gray_text"
+                    android:textSize="12.0sp"
+                    android:visibility="gone"
+                    app:visible="@{vm.comment.length() > 0}" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_send"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white">
+
+                    <ImageView
+                        android:id="@+id/toggle"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="8dp"
+                        android:src="@{(vm.state == State.EMOJI)?@drawable/ic_emoji_blue:@drawable/ic_emoji}" />
+
+                    <EditText
+                        android:id="@+id/comment_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@+id/send"
+                        android:layout_toLeftOf="@+id/send"
+                        android:layout_toEndOf="@+id/toggle"
+                        android:layout_toRightOf="@+id/toggle"
+                        android:background="@android:color/white"
+                        android:hint="@{vm.source == null ? @string/comment_form_placeholder : String.format(@string/apply_to, vm.source.user.name)}"
+                        android:imeOptions="flagNoFullscreen"
+                        android:inputType="textMultiLine"
+                        android:maxLength="140"
+                        android:maxLines="4"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="#ffdddddd"
+                        android:textSize="14.0sp"
+                        app:keyboardShow="@{vm.keyboardShow}"
+                        app:richText="@={vm.comment}" />
+                    <!--                app:keyboardShow="@{vm.keyboardShow}"-->
+                    <ImageView
+                        android:id="@+id/send"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:onClick="@{() -> vm.send()}"
+                        android:paddingLeft="8dp"
+                        android:paddingTop="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingBottom="8dp"
+                        android:src="@drawable/ic_send"
+                        android:visibility="gone"
+                        app:visible="@{vm.comment.length() > 0}" />
+                </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:clipToPadding="false"
+                    android:padding="16dp"
+                    android:visibility="gone"
+                    app:height="@{vm.emojiHeight}"
+                    app:visible="@{vm.emojiShow}" />
+                <!--        app:visible="@{vm.state == State.EMOJI}"-->
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
 </layout>

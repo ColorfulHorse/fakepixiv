@@ -2,30 +2,18 @@ package com.lyj.fakepixiv.module.splash
 
 import android.Manifest
 import android.os.Bundle
-import android.os.Environment
-import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.BaseViewModel
 import com.lyj.fakepixiv.app.base.FragmentationActivity
-import com.lyj.fakepixiv.app.constant.Constant
 import com.lyj.fakepixiv.app.data.source.remote.UserRepository
-import com.lyj.fakepixiv.app.network.ApiException
-import com.lyj.fakepixiv.app.reactivex.schedulerTransform
 import com.lyj.fakepixiv.app.utils.SPUtil
 import com.lyj.fakepixiv.app.utils.ToastUtil
 import com.lyj.fakepixiv.app.utils.startActivity
 import com.lyj.fakepixiv.databinding.ActivitySplashBinding
 import com.lyj.fakepixiv.module.main.MainActivity
 import com.lyj.fakepixiv.module.login.LoginActivity
-import com.tencent.tinker.lib.tinker.TinkerInstaller
-import io.reactivex.disposables.Disposable
-import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.coroutines.*
 import permissions.dispatcher.*
-import timber.log.Timber
-import java.io.File
-import java.util.concurrent.TimeUnit
 
 /**
  * @author greensun

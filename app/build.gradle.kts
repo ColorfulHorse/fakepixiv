@@ -17,21 +17,22 @@ android {
         targetSdkVersion(TARGET_VERSION)
         versionCode = VERSION_CODE
         versionName = VERSION_NAME
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
         //buildConfigField("String", "TINKER_ID", VERSION_NAME)
     }
 
-    signingConfigs {
-        create("release") {
-            storeFile = File("../greensun.jks")
-            storePassword ="liaolove1314"
-            keyAlias = "greensun"
-            keyPassword = "liaolove1314"
-        }
-    }
+//    signingConfigs {
+//        create("release") {
+//            storeFile = File("../greensun.jks")
+//            storePassword ="liaolove1314"
+//            keyAlias = "greensun"
+//            keyPassword = "liaolove1314"
+//        }
+//    }
 
     buildTypes {
         getByName("debug") {
+            //signingConfig = signingConfigs.findByName("release")
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
@@ -66,7 +67,7 @@ android {
         exclude("META-INF/license.txt")
         exclude("META-INF/notice.txt")
         exclude("META-INF/ASL2.0")
-//        exclude("META-INF/proguard/androidx-annotations.pro")
+        exclude("META-INF/proguard/androidx-annotations.pro")
         exclude("META-INF/atomicfu.kotlin_module")
     }
 
@@ -107,6 +108,8 @@ dependencies {
     addDeps(project, Deps)
     implementation(project(":ChipsLayoutManager"))
     testImplementation("junit:junit:4.12")
+//    androidTestImplementation("com.android.support.test:runner:1.0.2")
+//    androidTestImplementation("com.android.support.test.espresso:espresso-core:3.0.2")
 }
 
 

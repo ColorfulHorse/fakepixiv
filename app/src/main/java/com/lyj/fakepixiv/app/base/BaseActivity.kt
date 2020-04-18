@@ -1,15 +1,13 @@
 package com.lyj.fakepixiv.app.base
 
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LifecycleRegistry
 import androidx.databinding.library.baseAdapters.BR
+import androidx.lifecycle.LifecycleObserver
 import com.lyj.fakepixiv.R
 
 /**

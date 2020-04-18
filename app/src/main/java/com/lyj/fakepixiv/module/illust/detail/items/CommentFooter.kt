@@ -8,16 +8,12 @@ import android.view.View
 import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.*
 import com.lyj.fakepixiv.R
-import com.lyj.fakepixiv.app.adapter.BaseBindingAdapter
 import com.lyj.fakepixiv.app.data.model.response.Comment
 import com.lyj.fakepixiv.app.utils.Router
 import com.lyj.fakepixiv.app.utils.bindState
-import com.lyj.fakepixiv.databinding.ItemCommentBinding
-import com.lyj.fakepixiv.databinding.LayoutFooterCommentBinding
+import com.lyj.fakepixiv.databinding.LayoutDetailCommentBinding
 import com.lyj.fakepixiv.module.illust.detail.comment.CommentListAdapter
 import com.lyj.fakepixiv.module.illust.detail.comment.CommentListFragment
-import kotlinx.coroutines.cancelChildren
-import org.jetbrains.annotations.NotNull
 
 /**
  * @author greensun
@@ -29,12 +25,12 @@ import org.jetbrains.annotations.NotNull
 class CommentFooter(val context: Context,
                     val viewModel: CommentListViewModel,
                     val lifecycleOwner: LifecycleOwner,
-                    var mBinding: LayoutFooterCommentBinding? = null): DetailItem {
+                    var mBinding: LayoutDetailCommentBinding? = null): DetailItem {
 
     override var type: Int = DetailItem.LAYOUT_COMMENT
 
 
-    val rootView: View by lazy { LayoutInflater.from(context).inflate(R.layout.layout_footer_comment, null) }
+    val rootView: View by lazy { LayoutInflater.from(context).inflate(R.layout.layout_detail_comment, null) }
 
     val mAdapter = CommentListAdapter(viewModel.piece).apply {
         addItemType(Comment.COMMENT, R.layout.item_comment, BR.vm)

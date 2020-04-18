@@ -1,6 +1,7 @@
 package com.lyj.fakepixiv.module.illust.detail.original
 
 import android.os.Bundle
+import androidx.viewpager.widget.ViewPager
 import com.gyf.immersionbar.ktx.immersionBar
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.BackFragment
@@ -21,7 +22,7 @@ class PhotoViewFragment : BackFragment<FragmentPhotoViewBinding, PhotoViewModel?
 
     private var position = 0
     private var key = -1
-    var adapter: PhotoPagerAdapter? = null
+    lateinit var adapter: PhotoPagerAdapter
 
     companion object {
         private const val EXTRA_POSITION = "EXTRA_POSITION"
@@ -48,6 +49,22 @@ class PhotoViewFragment : BackFragment<FragmentPhotoViewBinding, PhotoViewModel?
                 }
                 viewPager.adapter = adapter
                 viewPager.setCurrentItem(position, false)
+                viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                    override fun onPageScrollStateChanged(state: Int) {
+
+                    }
+
+                    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+                    }
+
+                    override fun onPageSelected(position: Int) {
+                        val page = adapter.pages[position]
+                        mBinding.vm = page.viewModel
+                        mViewModel = page.viewModel
+                    }
+
+                })
             }
         }
 

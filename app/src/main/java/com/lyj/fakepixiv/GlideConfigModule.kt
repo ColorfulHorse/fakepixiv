@@ -51,7 +51,7 @@ class GlideConfigModule : AppGlideModule() {
             .build()
 
     override fun applyOptions(context: Context, builder: GlideBuilder) {
-        super.applyOptions(context,    builder)
+        super.applyOptions(context, builder)
         builder
                 .setDiskCache {
                     val dir = ApplicationLike.context.externalCacheDir?:ApplicationLike.context.filesDir

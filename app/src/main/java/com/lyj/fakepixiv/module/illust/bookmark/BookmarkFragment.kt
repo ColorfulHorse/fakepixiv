@@ -118,7 +118,7 @@ class BookmarkFragment : BackFragment<FragmentBookmarkBinding, BaseViewModel?>()
         val illustListFragment = IllustListFragment.newInstance(IllustCategory.ILLUST).apply {
             illustVm = IllustListViewModel {
                 IllustRepository.instance
-                        .loadUserBookmarks(userId, category,restrict, filterTag)
+                        .loadUserBookmarks(userId, config.category,restrict, filterTag)
             }
             mViewModel = illustVm
         }

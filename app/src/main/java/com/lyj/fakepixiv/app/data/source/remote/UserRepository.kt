@@ -8,7 +8,7 @@ import com.lyj.fakepixiv.app.data.model.response.*
 import com.lyj.fakepixiv.app.network.LoadState
 import com.lyj.fakepixiv.app.network.retrofit.RetrofitManager
 import com.lyj.fakepixiv.app.network.service.UserService
-import com.lyj.fakepixiv.app.reactivex.schedulerTransform
+import com.lyj.fakepixiv.app.reactivex.io
 import com.lyj.fakepixiv.app.utils.SPUtil
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
@@ -57,7 +57,7 @@ class UserRepository private constructor() {
 //                    loginData = it
 //                    SPUtil.saveLoginData(it)
 //                }
-//                .schedulerTransform()
+//                .io()
 //
 //    }
 
@@ -170,7 +170,7 @@ class UserRepository private constructor() {
     fun getRelatedUsers(userId: Long): Observable<UserPreviewListResp> {
         return service
                 .getRelatedUsers(userId)
-                .schedulerTransform()
+                .io()
     }
 
     /**
@@ -179,10 +179,10 @@ class UserRepository private constructor() {
     fun follow(userId: Long, follow: Boolean, @Restrict restrict: String = Restrict.PUBLIC): Observable<Any> {
         return if (follow) service
                 .followUser(userId, restrict)
-                .schedulerTransform()
+                .io()
         else service
                 .unFollowUser(userId)
-                .schedulerTransform()
+                .io()
     }
 
     /**

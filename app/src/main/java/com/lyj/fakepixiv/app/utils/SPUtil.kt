@@ -44,15 +44,20 @@ object SPUtil {
                 .apply()
     }
 
-    fun saveSearchHistory(value: String) {
+    fun saveSearchHistory(value: String): Boolean {
+        var exists = false
         val mutableSet = sp.getStringSet(KEY_SEARCH, mutableSetOf())
         mutableSet?.let {
             if (mutableSet.size >= 50) {
                 mutableSet.remove(mutableSet.first())
             }
+            if (mutableSet.contains(value)) {
+                exists = true
+            }
             mutableSet.add(value)
         }
         sp.edit().putStringSet(KEY_SEARCH, mutableSet).apply()
+        return exists
     }
 
     fun removeSearchHistory(value: String) {

@@ -35,8 +35,6 @@ open class DetailViewModel : BaseViewModel() {
     var key: Int = -1
     var position: Int = -1
 
-
-
     @get: Bindable
     var liveData = Illust()
         set(value) {
@@ -58,10 +56,11 @@ open class DetailViewModel : BaseViewModel() {
 
     open var loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
     var starState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
-    var followState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
+
 
     var total = ObservableField(0)
 
+    // 当前页数
     @get:Bindable
     var current = 1
         set(value) {
@@ -75,9 +74,13 @@ open class DetailViewModel : BaseViewModel() {
 
     //var starIllust = ObservableField(false)
 
+    // 用户信息vm
     val userFooterViewModel = UserFooterViewModel(this)
+    // 评论列表vm
     val commentListViewModel = CommentListViewModel()
+    // 相关作品vm
     val relatedIllustViewModel = RelatedIllustDialogViewModel(this)
+    // 相关用户vm
     val relatedUserViewModel = RelatedUserDialogViewModel(illust.user)
 
     open val seriesItemViewModel: SeriesItemViewModel? = null
@@ -108,8 +111,8 @@ open class DetailViewModel : BaseViewModel() {
                 }
             }
         })
-        followState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
-            val state = followState.get()
+        userFooterViewModel.followState.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
+            val state = userFooterViewModel.followState.get()
             if (state is LoadState.Succeed) {
                 if (liveData.user.is_followed) {
                     // 关注成功加载弹出窗数据
@@ -124,6 +127,9 @@ open class DetailViewModel : BaseViewModel() {
         createHistory()
     }
 
+    /**
+     * 保存浏览历史
+     */
     fun createHistory() {
         launch(CoroutineExceptionHandler { _, err ->
             Timber.e(err.toString())
@@ -146,17 +152,6 @@ open class DetailViewModel : BaseViewModel() {
         }
     }
 
-
-    /**
-     * 关注/取消关注
-     */
-    fun follow() {
-        val disposable = UserRepository.instance
-                .follow(liveData.user, followState)
-        disposable?.let {
-            addDisposable(it)
-        }
-    }
 
     fun goUserDetail() {
         Router.goUserDetail(illust.user)

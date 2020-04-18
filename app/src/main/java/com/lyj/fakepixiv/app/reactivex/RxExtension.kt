@@ -14,7 +14,7 @@ import io.reactivex.schedulers.Schedulers
  *
  * @desc
  */
-fun <T> Observable<T>.schedulerTransform(): Observable<T> = this.compose {
+fun <T> Observable<T>.io(): Observable<T> = this.compose {
     it.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 }
 

@@ -11,7 +11,7 @@ import com.lyj.fakepixiv.app.network.ApiException
 import com.lyj.fakepixiv.app.network.LoadState
 import com.lyj.fakepixiv.app.network.retrofit.RetrofitManager
 import com.lyj.fakepixiv.app.network.service.IllustService
-import com.lyj.fakepixiv.app.reactivex.schedulerTransform
+import com.lyj.fakepixiv.app.reactivex.io
 import com.lyj.fakepixiv.app.utils.JsonUtil
 import com.lyj.fakepixiv.app.utils.ioTask
 import io.reactivex.Observable
@@ -60,7 +60,7 @@ class IllustRepository private constructor() {
      */
     fun getWallPaperData(): Observable<IllustListResp> {
         return service.getWallPaperData()
-                .schedulerTransform()
+                .io()
     }
 
     /**
@@ -68,7 +68,7 @@ class IllustRepository private constructor() {
      */
     fun loadRecommendIllust(@IllustCategory category: String): Observable<IllustListResp> {
         return service.getRecommendIllust(category)
-                .schedulerTransform()
+                .io()
     }
 
     /**
@@ -174,7 +174,7 @@ class IllustRepository private constructor() {
         return service
                 .getRelatedIllustData(illustId)
                 .checkEmpty()
-                .schedulerTransform()
+                .io()
     }
 
     suspend fun getIllustDetail(illustId: String): IllustResp =
@@ -221,11 +221,11 @@ class IllustRepository private constructor() {
         return if (star)
             service
                 .starIllust(illustId, tagMap, restrict)
-                .schedulerTransform()
+                .io()
         else
             service
                     .unStarIllust(illustId)
-                    .schedulerTransform()
+                    .io()
 
     }
 
@@ -240,11 +240,11 @@ class IllustRepository private constructor() {
         return if (star)
             service
                     .starNovel(novelId, tagMap, restrict)
-                    .schedulerTransform()
+                    .io()
         else
             service
                     .unStarNovel(novelId)
-                    .schedulerTransform()
+                    .io()
     }
 
     /**
@@ -320,7 +320,7 @@ class IllustRepository private constructor() {
 //                        }
 //                    }
                 }
-                .schedulerTransform()
+                .io()
     }
 
     fun loadMore(scope: CoroutineScope, nextUrl: String, loadState: ObservableField<LoadState>? = null, then: ((IllustListResp) -> Unit)? = null) {

@@ -51,7 +51,8 @@ class InputViewModel(val parent: CommentListViewModel, var keyboardListener: ((B
     var emojiHeight by Dynamic(746, BR.emojiHeight)
 
     // 显示表情界面
-    val emojiShow = ObservableField(false)
+    @get:Bindable
+    var emojiShow by Dynamic(false, BR.emojiShow)
 
     @get:Bindable
     var keyboardShow by Dynamic(false, BR.keyboardShow)
@@ -72,21 +73,6 @@ class InputViewModel(val parent: CommentListViewModel, var keyboardListener: ((B
         }
     }
 
-    fun keyboardChanged(isOpen: Boolean) {
-        if (isOpen) {
-            val h = SPUtil.get(Constant.SP.KEY_KEYBOARD_HEIGHT)
-            if (h != -1) {
-                emojiHeight = h
-            }
-            state = State.TEXT
-            emojiShow.set(true)
-        } else {
-            if (state != State.EMOJI) {
-                emojiShow.set(false)
-                state = State.CLOSE
-            }
-        }
-    }
 
     fun show() {
         state = State.TEXT
@@ -95,45 +81,49 @@ class InputViewModel(val parent: CommentListViewModel, var keyboardListener: ((B
 
     fun hide() {
         keyboardShow = false
+        emojiShow = false
         state = State.CLOSE
     }
 
-    fun changeState() {
-        if (state != State.EMOJI) {
-            state = State.EMOJI
-            keyboardShow = false
-        } else {
-            show()
-        }
-    }
 
-
+    /**
+     * 发送评论
+     */
     fun send() {
+        val sourceComment = source
+        val content = comment
         launch(CoroutineExceptionHandler { _, err ->
             ToastUtil.showToast(R.string.comment_failed)
         }) {
-            val sourceComment = source
-            withContext(Dispatchers.IO) {
+            val resp = withContext(Dispatchers.IO) {
                 val service = IllustExtRepository.instance
                         .service
                 if (sourceComment != null) {
-                    service.addComment(parent.illust.id, comment, sourceComment.id.toString())
+                    service.addComment(parent.illust.id, content, sourceComment.id.toString())
                 } else {
-                    service.addComment(parent.illust.id, comment)
+                    service.addComment(parent.illust.id, content)
                 }
             }
-            val res = Comment(comment)
             if (sourceComment == null) {
                 // 是评论
-                parent.data.add(0, CommentViewModel(parent, res))
+                parent.data.add(0, CommentViewModel(parent, resp.comment))
                 parent.piece()
             } else {
                 // 是回复
-                val source = parent.data.first { it.data.id == sourceComment.id }.data
+                val vm = parent.data.first { it.data.id == sourceComment.id }
+                vm.applies_show.set(true)
+                val source = vm.data
                 source.has_replies = true
                 parent.piece.first { it.data.id == sourceComment.id }.data.has_replies = true
-                parent.showApplies(source, listOf(res))
+                parent.showApplies(source, listOf(resp.comment))
             }
         }
+        reset()
+        hide()
+    }
+
+    fun reset() {
+        comment = ""
+        source = null
     }
 }

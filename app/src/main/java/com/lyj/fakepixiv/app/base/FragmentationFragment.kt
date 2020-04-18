@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import androidx.fragment.app.FragmentActivity
+import com.lyj.fakepixiv.app.utils.Router
 import me.yokeyword.fragmentation.ExtraTransaction
 import me.yokeyword.fragmentation.ISupportFragment
 import me.yokeyword.fragmentation.SupportFragmentDelegate
@@ -307,6 +308,7 @@ abstract class FragmentationFragment<V : ViewDataBinding, VM : BaseViewModel?> :
     }
 
     fun start(toFragment: ISupportFragment) {
+        Router.closeDialog()
         mDelegate.start(toFragment)
     }
 
@@ -314,6 +316,7 @@ abstract class FragmentationFragment<V : ViewDataBinding, VM : BaseViewModel?> :
      * @param launchMode Similar to Activity's LaunchMode.
      */
     fun start(toFragment: ISupportFragment, @ISupportFragment.LaunchMode launchMode: Int) {
+        Router.closeDialog()
         mDelegate.start(toFragment, launchMode)
     }
 
@@ -321,6 +324,7 @@ abstract class FragmentationFragment<V : ViewDataBinding, VM : BaseViewModel?> :
      * Launch an fragment for which you would like a result when it poped.
      */
     fun startForResult(toFragment: ISupportFragment, requestCode: Int) {
+        Router.closeDialog()
         mDelegate.startForResult(toFragment, requestCode)
     }
 
@@ -328,6 +332,7 @@ abstract class FragmentationFragment<V : ViewDataBinding, VM : BaseViewModel?> :
      * Start the target Fragment and pop itself
      */
     fun startWithPop(toFragment: ISupportFragment) {
+        Router.closeDialog()
         mDelegate.startWithPop(toFragment)
     }
 

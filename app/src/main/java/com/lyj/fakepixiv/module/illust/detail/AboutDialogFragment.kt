@@ -2,16 +2,16 @@ package com.lyj.fakepixiv.module.illust.detail
 
 import android.os.Bundle
 import android.view.*
+import android.widget.ScrollView
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.gyf.immersionbar.ImmersionBar
 import com.gyf.immersionbar.ktx.immersionBar
 import com.lyj.fakepixiv.R
-import com.lyj.fakepixiv.app.utils.onKeyboardChanged
 import com.lyj.fakepixiv.databinding.DialogDetailBottomBinding
 import com.lyj.fakepixiv.module.common.DetailViewModel
-import com.lyj.fakepixiv.module.common.InputBar
+import com.lyj.fakepixiv.module.illust.detail.comment.InputBar
 import com.lyj.fakepixiv.module.illust.detail.comment.InputViewModel
 import com.lyj.fakepixiv.module.illust.detail.items.CommentFooter
 import com.lyj.fakepixiv.module.illust.detail.items.DescFooter
@@ -40,10 +40,13 @@ class AboutDialogFragment : BottomSheetDialogFragment() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(DialogFragment.STYLE_NO_TITLE, R.style.Dialog_BottomSheet)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.dialog_detail_bottom, container, false)
-//        val lp = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, screenHeight()*2/3)
-//        rootView.layoutParams = lp
         mBinding = DataBindingUtil.bind(rootView)
         mBinding?.setLifecycleOwner(this)
         detailViewModel?.let {
@@ -54,17 +57,6 @@ class AboutDialogFragment : BottomSheetDialogFragment() {
             with(binding) {
                 detailViewModel?.let { vm ->
                     inputBar = InputBar(input, vm.commentListViewModel.inputViewModel)
-                    binding.root.onKeyboardChanged { isOpen ->
-                        inputBar?.viewModel?.keyboardChanged(isOpen)
-                        if (!isOpen) {
-                            if (inputBar?.viewModel?.state == InputViewModel.State.EMOJI) {
-                                return@onKeyboardChanged
-                            }
-                        }
-                        immersionBar {
-                            keyboardEnable(!isOpen)
-                        }
-                    }
                     context?.let {
                         DescFooter(it, vm.illust, descContainer)
                         if (vm is IllustDetailViewModel) {
@@ -87,37 +79,38 @@ class AboutDialogFragment : BottomSheetDialogFragment() {
         return rootView
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        immersionBar {
+            keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE or WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
+            keyboardEnable(true)
+        }
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        ImmersionBar.with(this)
-                .keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-                .keyboardEnable(true)
-                .init()
-        dialog?.setOnKeyListener { _, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                if (event.action == KeyEvent.ACTION_UP) {
-                    if (inputBar?.viewModel?.state != InputViewModel.State.CLOSE) {
-                        inputBar?.viewModel?.hide()
+        dialog?.let {
+            it.setOnKeyListener { _, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    if (event.action == KeyEvent.ACTION_UP) {
+                        if (inputBar?.viewModel?.state != InputViewModel.State.CLOSE) {
+                            inputBar?.viewModel?.hide()
+                            return@setOnKeyListener true
+                        }
+                        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
                         return@setOnKeyListener true
                     }
-                    bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
-                    return@setOnKeyListener true
                 }
+                false
             }
-            false
-        }
-        val view = dialog?.window?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
-        (view as ViewGroup).let {
-            //it.descendantFocusability = ViewGroup.FOCUS_BLOCK_DESCENDANTS
-            it.isFocusable = true
-            it.isFocusableInTouchMode = true
-        }
-        bottomSheetBehavior = BottomSheetBehavior.from(view)
-        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+            val view = it.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+            bottomSheetBehavior = BottomSheetBehavior.from(view)
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HALF_EXPANDED
 
-        val parent = view.parent as View
-        parent.setOnClickListener {
-            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
+            val parent = view.parent as View
+            parent.setOnClickListener {
+                bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
+            }
         }
         detailViewModel?.let {
             it.userFooterViewModel.load()

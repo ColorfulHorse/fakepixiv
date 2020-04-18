@@ -1,7 +1,6 @@
 package com.lyj.fakepixiv.module.illust.detail.comment
 
 import android.os.Bundle
-import androidx.databinding.Observable
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.R
@@ -11,7 +10,6 @@ import com.lyj.fakepixiv.app.data.model.response.Comment
 import com.lyj.fakepixiv.app.utils.attachLoadMore
 import com.lyj.fakepixiv.app.utils.bindState
 import com.lyj.fakepixiv.databinding.FragmentCommentListBinding
-import com.lyj.fakepixiv.module.common.InputBar
 import com.lyj.fakepixiv.module.illust.detail.items.CommentListViewModel
 
 /**
@@ -25,6 +23,7 @@ class CommentListFragment : CommonListFragment<FragmentCommentListBinding, Comme
 
     override var mViewModel: CommentListViewModel? = null
 
+    private lateinit var inputBar: InputBar
 
     companion object {
         const val EXTRA_ACTION = "EXTRA_ACTION"
@@ -39,14 +38,9 @@ class CommentListFragment : CommonListFragment<FragmentCommentListBinding, Comme
     }
 
     override fun init(savedInstanceState: Bundle?) {
+        mToolbar?.title = getString(R.string.comment)
         mViewModel?.let { vm ->
-            val inputBar = InputBar(mBinding.input, vm.inputViewModel)
-//            vm.inputViewModel.state.addOnPropertyChangedCallback(onPropertyChangedCallback { _, _ ->
-//                when(vm.inputViewModel.state.get()) {
-//                    InputViewModel.State.TEXT -> showSoftInput(mBinding.input.commentEditText)
-//                    else -> hideSoftInput()
-//                }
-//            })
+            inputBar = InputBar(mBinding.input, vm.inputViewModel)
             arguments?.let {
                 val id = it.getLong(EXTRA_ID, -1)
                 val action = it.getInt(EXTRA_ACTION, ACTION_SHOW)
@@ -55,7 +49,7 @@ class CommentListFragment : CommonListFragment<FragmentCommentListBinding, Comme
                         mViewModel?.loadApplies(id)
                     }else {
                         inputBar.viewModel.source = vm.data.first { data -> data.data.id == id }.data
-                        inputBar.viewModel.state = InputViewModel.State.TEXT
+                        inputBar.viewModel.show()
                     }
                 }
             }
@@ -75,6 +69,19 @@ class CommentListFragment : CommonListFragment<FragmentCommentListBinding, Comme
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        inputBar.viewModel.reset()
+    }
+
+    override fun onBackPressedSupport(): Boolean {
+        if (inputBar.viewModel.state != InputViewModel.State.CLOSE) {
+            inputBar.viewModel.hide()
+            return true
+        }
+        return super.onBackPressedSupport()
     }
 
 

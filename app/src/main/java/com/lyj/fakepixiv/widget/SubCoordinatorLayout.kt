@@ -14,7 +14,8 @@ import androidx.core.view.ViewCompat
  *
  * @date 2019/5/23
  *
- * @desc 嵌套滑动机制：NestedScrollingParent2的子控件触发嵌套滑动，父控件选择消费事件（或者消费一部分），然后将剩余的交给其他继承了NestedScrollingChild2的子控件，
+ * @desc 嵌套滑动机制：NestedScrollingParent2的子控件触发嵌套滑动，父控件选择消费事件（或者消费一部分），
+ * 然后将剩余的交给其他继承了NestedScrollingChild2的子控件，
  * 子控件选择消费得到的事件（或者消费一部分），然后再将最后剩余的事件回传给父控件
  *
  * 这里拓展了CoordinatorLayout使它拥有NestedScrollingChild2功能，可以将自己的滑动事件交给父控件
@@ -94,7 +95,7 @@ class SubCoordinatorLayout : CoordinatorLayout, NestedScrollingChild2 {
         val unConsumed = dy - consumed[1]
         if (unConsumed != 0) {
             if (dispatchNestedPreScroll(dx, unConsumed, consumed, windowOffset, type)) {
-                dispatchNestedScroll(0, consumed[1], 0, unConsumed, windowOffset, 0)
+                dispatchNestedScroll(0, consumed[1], 0, unConsumed, windowOffset, ViewCompat.TYPE_TOUCH)
             }
         }
     }
@@ -106,7 +107,7 @@ class SubCoordinatorLayout : CoordinatorLayout, NestedScrollingChild2 {
         var delta = dy
         if (dispatchNestedPreScroll(dx, dy, consumed, windowOffset, type)) {
             val unConsumed = dy - consumed[1]
-            dispatchNestedScroll(0, consumed[1], 0, unConsumed, windowOffset, 0)
+            dispatchNestedScroll(0, consumed[1], 0, unConsumed, windowOffset, ViewCompat.TYPE_TOUCH)
             delta = unConsumed
         }
         if (delta != 0) {

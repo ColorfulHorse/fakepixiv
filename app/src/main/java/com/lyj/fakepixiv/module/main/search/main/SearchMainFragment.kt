@@ -95,7 +95,7 @@ class SearchMainFragment : BackFragment<FragmentSearchMainBinding, SearchMainVie
                         1 -> IllustCategory.NOVEL
                         else -> IllustCategory.OTHER
                     }
-                    fragments.forEach { it.category = category }
+                    fragments.forEach { it.config = IllustListFragment.Config(category) }
                     mViewModel.category = category
                 }
 

@@ -58,17 +58,6 @@
                 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
-            <View
-                android:id="@+id/overlay"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/overlay"
-                android:visibility="gone"
-                app:visible="@{vm.inputViewModel.state != State.CLOSE}"
-                android:onClick="@{() -> vm.inputViewModel.hide()}"
-                android:clickable="true"
-                android:focusable="true"
-                />
             <include
                 android:id="@+id/input"
                 layout="@layout/comment_input_bar"

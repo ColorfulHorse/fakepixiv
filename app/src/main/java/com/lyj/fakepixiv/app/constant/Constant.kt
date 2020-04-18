@@ -52,7 +52,10 @@ interface Constant {
         const val BASE_URL = "https://app-api.pixiv.net"
         const val AUTH_URL = "https://oauth.secure.pixiv.net"
         const val ACCOUNT_URL = "https://accounts.pixiv.net"
-        const val EXT_URL = "http://192.168.3.109:8888"
+        // 自己的浏览记录服务
+        //192.168.3.109
+        //149.28.73.52
+        const val EXT_URL = "http://149.28.73.52:8888"
         const val APP_HOST = "www.pixiv.net"
         const val PIXIVISION_HOST = "www.pixivision.net"
 

@@ -215,13 +215,15 @@
                     android:id="@+id/rv_user"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="gone"                     app:visible="@{vm.showSearch &amp;&amp; vm.showUser}"
+                    android:visibility="gone"
+                    app:visible="@{vm.showSearch &amp;&amp; vm.showUser}"
                     />
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/viewPager"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="gone"                     app:visible="@{vm.showSearch &amp;&amp; !vm.showUser}"
+                    android:visibility="gone"
+                    app:visible="@{vm.showSearch &amp;&amp; !vm.showUser}"
                     />
             </FrameLayout>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>

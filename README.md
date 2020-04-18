@@ -1,4 +1,6 @@
-#### kotlin + MVVM + DataBinding + 协程 练手项目，仿pixiv android客户端，进度奇慢:snail::snail:不确定有没有耐心写完
+#### kotlin + MVVM + DataBinding + 协程 练手项目，仿pixiv android客户端，进度奇慢:snail::snail:不确定有没有耐心写完  
+
+![badge](https://img.shields.io/badge/power%20by-JetBrains%20Intellij%20IDEA-blue)
 
 #### 2019-8-8  
 - 用户列表网络相关逻辑改用协程方式  
@@ -32,8 +34,10 @@
 #### 2019-11-8
 - 升级到AndroidX
 
+#### 2019-12-31
+- 添加作品评论，修复若干bug
+
 #### todo list
-- 详情页评论
 - 用户页关注人列表
 - 加入屏蔽设置
 - commonDecoration添加新item底部分割线未刷新
