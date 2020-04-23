@@ -53,6 +53,7 @@ object SPUtil {
             }
             if (mutableSet.contains(value)) {
                 exists = true
+                mutableSet.remove(value)
             }
             mutableSet.add(value)
         }
