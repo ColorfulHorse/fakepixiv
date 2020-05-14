@@ -119,11 +119,13 @@ data class Illust(
     }
 
     fun getTagsText(): String {
-        val sb = StringBuilder()
-        tags.filter { it.byUser }.map { it.name }.forEach {
-            sb.append("  #$it")
+        return try {
+            tags.asSequence().filter { it.byAuthor }.map { it.name }.reduce { last, current ->
+                "#$last  #$current"
+            }
+        }catch (e: UnsupportedOperationException) {
+            ""
         }
-        return sb.toString()
     }
 
 
@@ -164,7 +166,7 @@ data class Tag constructor(
         val name: String = "",
         val translated_name: String? = "",
         @Json(name = "added_by_uploaded_user")
-        val byUser: Boolean = false,
+        val byAuthor: Boolean = true,
         var isTranslated: Boolean = false
 ) : BaseObservable() {
     @get:Bindable

@@ -5,6 +5,7 @@
     <data>
 
         <import type="com.lyj.fakepixiv.app.data.model.response.Illust" />
+        <import type="android.text.TextUtils" />
 
         <variable
             name="data"
@@ -87,7 +88,9 @@
                 android:text="@{data.title}"
                 android:textColor="@color/renewal_font_black"
                 android:textSize="12sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginBottom="4dp"
+                />
 
             <TextView
                 android:id="@+id/tags"
