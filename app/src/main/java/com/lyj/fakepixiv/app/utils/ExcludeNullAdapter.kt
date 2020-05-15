@@ -17,7 +17,8 @@ import timber.log.Timber
 class ExcludeNullAdapter {
 
     @FromJson fun fromJson(reader: JsonReader): String {
-        if (reader.peek() != JsonReader.Token.NULL) {
+        val token = reader.peek()
+        if (token != JsonReader.Token.NULL) {
             return reader.nextString()
         }
         reader.nextNull<Unit>()

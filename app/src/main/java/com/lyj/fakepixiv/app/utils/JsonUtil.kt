@@ -14,6 +14,10 @@ object JsonUtil {
 
     val moshi: Moshi by lazy { Moshi.Builder().add(KotlinJsonAdapterFactory()).build() }
 
+    inline fun <reified T> T.toJson(): String  = moshi.adapter(T::class.java).toJson(this)
+
+    inline fun <reified T> String.fromJson(): T?  = moshi.adapter(T::class.java).fromJson(this)
+
     inline fun <reified T> bean2Json(source: T?): String {
         if (source == null) {
             return ""
@@ -26,4 +30,5 @@ object JsonUtil {
         val adapter = moshi.adapter(T::class.java)
         return adapter.fromJson(json)
     }
+
 }
