@@ -1,4 +1,5 @@
-![badge](https://img.shields.io/badge/power%20by-JetBrains%20Intellij%20IDEA-blue) thanks for open source license by JetBrains
+![badge](https://img.shields.io/badge/power%20by-JetBrains%20Intellij%20IDEA-blue)   
+**thanks for open source license by JetBrains**
 
 #### kotlin + MVVM + DataBinding + 协程 练手项目，仿pixiv android客户端。 
 #### 目前基本功能已经完成，包括插画、漫画、小说列表；详情、评论 、搜索、排行榜、收藏、用户等相关功能；另外用vert.x做了个小服务提供热更新和浏览记录（原版会员功能）。 项目代码约1w行。
