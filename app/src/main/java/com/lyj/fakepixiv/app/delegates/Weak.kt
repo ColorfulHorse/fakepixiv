@@ -10,15 +10,16 @@ import kotlin.reflect.KProperty
  *
  * @desc 弱引用委托
  */
-class Weak<T : Any>(initializer: () -> T?) {
-    var weakReference = WeakReference(initializer())
+class Weak<T>(source: T?) {
+    private var weakReference = WeakReference(source)
 
-    operator fun getValue(thisRef: Any?, property: KProperty<*>): T? {
+    operator fun getValue(thisRef: T?, property: KProperty<*>): T? {
         return weakReference.get()
     }
 
-    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T?) {
+    operator fun setValue(thisRef: T?, property: KProperty<*>, value: T?) {
         weakReference = WeakReference(value)
     }
-
 }
+
+fun <T> weak(initializer: () -> T?) = Weak(initializer())
