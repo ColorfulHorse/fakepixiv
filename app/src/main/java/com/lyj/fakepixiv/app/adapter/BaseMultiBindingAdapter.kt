@@ -1,15 +1,14 @@
 package com.lyj.fakepixiv.app.adapter
 
-import androidx.databinding.ObservableList
-import androidx.databinding.ViewDataBinding
-import androidx.annotation.LayoutRes
 import android.util.SparseIntArray
 import android.view.View
-import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
-import com.chad.library.adapter.base.entity.MultiItemEntity
+import androidx.annotation.LayoutRes
+import androidx.databinding.ObservableList
+import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.RecyclerView
-import com.lyj.fakepixiv.app.delegates.Weak
+import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
+import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.lyj.fakepixiv.app.utils.doOnDetached
 
 /**

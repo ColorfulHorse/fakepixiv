@@ -1,30 +1,18 @@
 package com.lyj.fakepixiv.widget
 
 import android.content.Context
-import androidx.annotation.LayoutRes
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.annotation.LayoutRes
 import androidx.databinding.BindingAdapter
-import androidx.databinding.Observable
 import androidx.databinding.ObservableField
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import com.flyco.tablayout.listener.OnTabSelectListener
 import com.lyj.fakepixiv.R
-import com.lyj.fakepixiv.app.databinding.TabSelectListener
-import com.lyj.fakepixiv.app.databinding.onPropertyChangedCallback
-import com.lyj.fakepixiv.app.delegates.Weak
 import com.lyj.fakepixiv.app.network.ApiException
 import com.lyj.fakepixiv.app.network.LoadState
-import com.lyj.fakepixiv.app.utils.doOnDetached
 import com.lyj.fakepixiv.app.utils.doOnPropertyChanged
-import retrofit2.HttpException
-import java.io.IOException
-import java.lang.Exception
-import javax.net.ssl.SSLHandshakeException
 
 /**
  * @author green sun
