@@ -18,10 +18,10 @@ import com.lyj.fakepixiv.module.illust.detail.RelatedUserDialogViewModel
 import com.lyj.fakepixiv.module.illust.detail.comment.InputViewModel
 import com.lyj.fakepixiv.module.illust.detail.items.SeriesItemViewModel
 import com.lyj.fakepixiv.module.illust.detail.items.UserFooterViewModel
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import io.reactivex.Observable
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.sync.Mutex
 import timber.log.Timber
 
 /**
@@ -47,12 +47,12 @@ open class DetailViewModel : BaseViewModel() {
      */
     @get: Bindable
     var illust = Illust()
-    set(value) {
-        field = value
-        relatedUserViewModel.user = value.user
-        commentListViewModel.illust = value
-        notifyPropertyChanged(BR.illust)
-    }
+        set(value) {
+            field = value
+            relatedUserViewModel.user = value.user
+            commentListViewModel.illust = value
+            notifyPropertyChanged(BR.illust)
+        }
 
     open var loadState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
     var starState: ObservableField<LoadState> = ObservableField(LoadState.Idle)
@@ -131,6 +131,16 @@ open class DetailViewModel : BaseViewModel() {
      * 保存浏览历史
      */
     fun createHistory() {
+//        launch {
+//            flow {
+//                emit(IllustRepository.instance.saveHistory(illust))
+//            }
+//                    .flowOn(Dispatchers.IO)
+//                    .catch { it.printStackTrace() }
+//                    .collect()
+//        }
+
+
         launch(CoroutineExceptionHandler { _, err ->
             Timber.e(err.toString())
         }) {

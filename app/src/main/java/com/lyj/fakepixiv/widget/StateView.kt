@@ -2,6 +2,7 @@ package com.lyj.fakepixiv.widget
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.DragEvent
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
@@ -13,6 +14,7 @@ import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.network.ApiException
 import com.lyj.fakepixiv.app.network.LoadState
 import com.lyj.fakepixiv.app.utils.doOnPropertyChanged
+import okhttp3.Call
 
 /**
  * @author green sun
@@ -106,3 +108,4 @@ fun StateView.state(state: ObservableField<LoadState>, reload: (() -> Unit)? = n
     this.loadState = state
     this.reload = reload
 }
+
