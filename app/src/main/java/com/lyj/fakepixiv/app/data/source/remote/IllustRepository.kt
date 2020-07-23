@@ -86,7 +86,6 @@ class IllustRepository private constructor() {
      * [filter] 筛选条件
      */
     suspend fun loadFollowedIllust(@IllustCategory category: String, @Restrict filter: String = Restrict.ALL): IllustListResp {
-        
         return when(category) {
             ILLUST, COMIC -> service.getFollowIllustData(restrict = filter)
             else -> service.getFollowNovelData(restrict = filter)

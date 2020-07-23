@@ -73,6 +73,5 @@ class HomeComicViewModel : BaseViewModel() {
                     loadMoreState.set(LoadState.Failed(it))
                 })
         addDisposable(disposable)
-
     }
 }
