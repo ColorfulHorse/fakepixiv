@@ -92,7 +92,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintVertical_bias="0.75"
-            android:visibility="gone"                     app:visible="@{!vm.keyboardOpened}"
+            android:visibility="gone"
+            app:visible="@{!vm.keyboardOpened}"
             />
         <TextView
             android:id="@+id/tv_forget"

@@ -63,7 +63,7 @@ class InputViewModel(val parent: CommentListViewModel, var keyboardListener: ((B
     var state by Dynamic(State.CLOSE, BR.state)
 
     init {
-        val h = SPUtil.get(Constant.SP.KEY_KEYBOARD_HEIGHT)
+        val h = SPUtil.get(Constant.SP.KEY_KEYBOARD_HEIGHT, -1)
         if (h != -1) {
             emojiHeight = h
         }

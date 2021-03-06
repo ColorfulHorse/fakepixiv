@@ -7,5 +7,5 @@
  */
 object TinkerConfig{
 
-    const val TINKER_ENABLE = true
+    const val TINKER_ENABLE = false
 }

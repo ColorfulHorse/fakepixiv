@@ -31,6 +31,9 @@ class UserRepository private constructor() {
         val instance: UserRepository by lazy { UserRepository() }
     }
 
+    // SHA-256校验
+    var code_verifier = ""
+
     var loginData: LoginData? = null
 
     val users = ArrayMap<Long, User>()
@@ -78,9 +81,29 @@ class UserRepository private constructor() {
             val emoji = CommonRepository.instance
                     .service
                     .getEmoji()
-            SPUtil.save(Constant.SP.KEY_EMOJI, emoji)
+            SPUtil.saveObj(Constant.SP.KEY_EMOJI, emoji)
             resp
         }
+    }
+
+    /**
+     * 登录
+     * [provisional]是否临时用户
+     */
+    suspend fun loginV2(code: String, code_verifier: String, provisional: Boolean = false): LoginData {
+        val resp = service.loginV2(code, code_verifier).response
+        resp.provisional = provisional
+//            if (provisional) {
+//                // 临时用户存密码
+//                resp.user.password = password
+//            }
+        loginData = resp
+        SPUtil.saveLoginData(resp)
+        val emoji = CommonRepository.instance
+                .service
+                .getEmoji()
+        SPUtil.saveObj(Constant.SP.KEY_EMOJI, emoji)
+        return resp
     }
 
     /**
@@ -108,7 +131,7 @@ class UserRepository private constructor() {
                 val emoji = CommonRepository.instance
                         .service
                         .getEmoji()
-                SPUtil.save(Constant.SP.KEY_EMOJI, emoji)
+                SPUtil.saveObj(Constant.SP.KEY_EMOJI, emoji)
                 resp
             }
         }

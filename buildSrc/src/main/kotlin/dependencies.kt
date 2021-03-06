@@ -14,7 +14,7 @@ import kotlin.reflect.full.memberProperties
  */
 
 object Vers {
-    const val kotlin_version = "1.3.50"
+    const val kotlin_version = "1.4.10"
     const val gradle_version = "3.2.1"
     const val rxJava_version = "2.2.4"
     const val rxKt_version = "2.3.0"
@@ -22,7 +22,7 @@ object Vers {
     const val retrofit_version = "2.6.0"
     const val glide_version = "4.10.0"
     const val gson_version = "2.8.5"
-    const val moshi_version = "1.8.0"
+    const val moshi_version = "1.11.0"
     const val permission_version = "4.5.0"
     const val fragmentation_version = "1.0.1"
     const val tinker_version = "1.9.14.3"

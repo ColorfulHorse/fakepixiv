@@ -34,11 +34,11 @@
     </style>
 
 
-    <style name="FullScreen" parent="AppTheme">
+    <style name="Splash" parent="AppTheme">
         <item name="android:windowFullscreen">true</item>
-        <item name="android:backgroundDimAmount">0.3</item>
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowBackground">@null</item>
+<!--        <item name="android:backgroundDimAmount">0.3</item>-->
+<!--        <item name="android:windowFrame">@null</item>-->
+        <item name="android:windowBackground">@drawable/splash</item>
     </style>
 
     <style name="Dialog_BottomSheet" parent="Theme.Design.BottomSheetDialog">

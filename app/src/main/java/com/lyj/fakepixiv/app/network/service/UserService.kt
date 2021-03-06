@@ -41,6 +41,20 @@ interface UserService {
     @Headers("SWITCH-HEADER:TAG_AUTH")
     @POST("/auth/token")
     @FormUrlEncoded
+    suspend fun loginV2(@Field("code") code: String = "",
+                        @Field("code_verifier") code_verifier: String = "",
+                        @Field("get_secure_url") get_secure_url: Boolean = true,
+                        @Field("include_policy") include_policy: Boolean = true,
+                        @Field("grant_type") grantType: String = Constant.Net.GRANT_TYPE_CODE,
+                        @Field("client_id") clientId: String = "MOBrBDS8blbauoSck0ZfDbtuzpyT",
+                        @Field("redirect_uri") redirect_uri: String = "https://app-api.pixiv.net/web/v1/users/auth/pixiv/callback",
+                        @Field("client_secret") clientSecret: String = "lsACyCD94FhDUtGTXi3QzcFE2uU1hqtDaKeqrdwj",
+                        @Field("device_token") deviceToken: String = "",
+                        @Field("refresh_token") refreshToken: String = ""): LoginResp
+
+    @Headers("SWITCH-HEADER:TAG_AUTH")
+    @POST("/auth/token")
+    @FormUrlEncoded
     fun refreshToken(@Field("client_id") clientId: String = "MOBrBDS8blbauoSck0ZfDbtuzpyT",
                       @Field("client_secret")clientSecret: String = "lsACyCD94FhDUtGTXi3QzcFE2uU1hqtDaKeqrdwj",
                       @Field("get_secure_url")get_secure_url: Boolean = true,

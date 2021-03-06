@@ -68,6 +68,7 @@ interface Constant {
 
         const val GRANT_TYPE_PWD = "password"
         const val GRANT_TYPE_TOKEN = "refresh_token"
+        const val GRANT_TYPE_CODE = "authorization_code"
         const val HEADER_TOKEN = "Authorization"
     }
 
@@ -83,7 +84,7 @@ interface Constant {
         const val KEY_SEARCH_TITLE_CAPTION = "title_and_caption"
     }
 
-    object SP {
+    object SP  {
         // 登录信息
         const val KEY_LOGIN_CACHE = "KEY_LOGIN_CACHE"
 
@@ -96,5 +97,7 @@ interface Constant {
 
         // 表情信息
         const val KEY_EMOJI = "KEY_EMOJI"
+
+        const val KEY_SEARCH = "KEY_SEARCH"
     }
 }
