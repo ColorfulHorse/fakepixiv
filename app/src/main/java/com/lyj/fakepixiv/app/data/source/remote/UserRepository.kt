@@ -31,6 +31,9 @@ class UserRepository private constructor() {
         val instance: UserRepository by lazy { UserRepository() }
     }
 
+    // SHA-256校验
+    var code_verifier = ""
+
     var loginData: LoginData? = null
 
     val users = ArrayMap<Long, User>()
@@ -78,9 +81,25 @@ class UserRepository private constructor() {
             val emoji = CommonRepository.instance
                     .service
                     .getEmoji()
-            SPUtil.save(Constant.SP.KEY_EMOJI, emoji)
+            SPUtil.saveObj(Constant.SP.KEY_EMOJI, emoji)
             resp
         }
+    }
+
+    /**
+     * 登录
+     * [provisional]是否临时用户
+     */
+    suspend fun loginV2(code: String, code_verifier: String, provisional: Boolean = false): LoginData {
+        val resp = service.loginV2(code, code_verifier).response
+        resp.provisional = provisional
+        loginData = resp
+        SPUtil.saveLoginData(resp)
+        val emoji = CommonRepository.instance
+                .service
+                .getEmoji()
+        SPUtil.saveObj(Constant.SP.KEY_EMOJI, emoji)
+        return resp
     }
 
     /**
@@ -90,25 +109,24 @@ class UserRepository private constructor() {
         //this.loginData = cache
         with(cache) {
             return withContext(Dispatchers.IO) {
-                var resp: LoginData
-                val password = cache.user.password
-                resp = if (password.isNotBlank() && !cache.provisional) {
-                    // 临时账号更改了信息以后需要重新用账号密码登录，并清除掉密码
-                    service.login(userName = cache.user.account, password = password, deviceToken = device_token).response.apply {
-                        cache.user.password = ""
-                    }
-                }else {
-                    service
-                            .login(grantType = Constant.Net.GRANT_TYPE_TOKEN, refreshToken = refresh_token, deviceToken = device_token)
-                            .response
-                }
-                resp = resp.copy(provisional = cache.provisional, user = user.copy(password = cache.user.password))
+//                val password = cache.user.password
+//                resp = if (password.isNotBlank() && !cache.provisional) {
+//                    // 临时账号更改了信息以后需要重新用账号密码登录，并清除掉密码
+//                    service.login(userName = cache.user.account, password = password, deviceToken = device_token).response.apply {
+//                        cache.user.password = ""
+//                    }
+//                }else {
+//                }
+                var resp: LoginData = service
+                        .login(grantType = Constant.Net.GRANT_TYPE_TOKEN, refreshToken = refresh_token, deviceToken = device_token)
+                        .response
+                resp = resp.copy(provisional = cache.provisional)
                 loginData = resp
                 SPUtil.saveLoginData(resp)
                 val emoji = CommonRepository.instance
                         .service
                         .getEmoji()
-                SPUtil.save(Constant.SP.KEY_EMOJI, emoji)
+                SPUtil.saveObj(Constant.SP.KEY_EMOJI, emoji)
                 resp
             }
         }

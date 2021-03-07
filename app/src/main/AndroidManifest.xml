@@ -19,7 +19,7 @@
         <activity
             android:name="com.lyj.fakepixiv.module.splash.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/FullScreen">
+            android:theme="@style/Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -34,6 +34,28 @@
             android:screenOrientation="portrait" />
         <activity android:name="com.lyj.fakepixiv.module.main.MainActivity"
             />
+        <activity android:name=".module.login.filter.FilterActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+<!--                <data android:scheme="http"/>-->
+<!--                <data android:scheme="https"/>-->
+<!--                <data android:host="www.pixiv.net"/>-->
+<!--&lt;!&ndash;                <data android:path="/test"/>&ndash;&gt;-->
+<!--                <data android:pathPrefix="/member_illust.php"/>-->
+<!--                <data android:pathPrefix="/novel/show.php"/>-->
+<!--                <data android:pathPrefix="/novel/member.php"/>-->
+<!--                <data android:pathPrefix="/member.php"/>-->
+<!--                <data android:pathPrefix="/premium/android"/>-->
+<!--                <data android:pathPrefix="/artworks/"/>-->
+<!--                <data android:pathPrefix="/en/artworks/"/>-->
+<!--                <data android:pathPrefix="/users/"/>-->
+<!--                <data android:pathPrefix="/en/users/"/>-->
+                <data android:scheme="pixiv"/>
+                <data android:scheme="pixiv-inner"/>
+            </intent-filter>
+        </activity>
 
         <service android:name=".app.service.WorkerService"/>
         <service android:name=".app.tinker.TinkerResultService"/>

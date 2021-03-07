@@ -61,6 +61,7 @@ class CommonParamsInterceptor : Interceptor {
                 .addHeader("Accept-Language", "zh_CN")
                 .addHeader("X-Client-Time", timeStr)
                 .addHeader("X-Client-Hash", hash)
+                .addHeader("User-Agent", "PixivAndroidApp/5.0.235 (Android 9; MIX 2)")
                 .build()
         if (!url.contains(Constant.Net.AUTH_URL)) {
             var token: String? = null

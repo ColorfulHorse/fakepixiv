@@ -29,34 +29,34 @@ class LoginViewModel : BaseViewModel() {
 
     var loading = ObservableField(false)
 
-    @get:Bindable
-    var userName = ""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.userName)
-        }
-
-    @get:Bindable
-    var password = ""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.password)
-        }
+//    @get:Bindable
+//    var userName = ""
+//        set(value) {
+//            field = value
+//            notifyPropertyChanged(BR.userName)
+//        }
+//
+//    @get:Bindable
+//    var password = ""
+//        set(value) {
+//            field = value
+//            notifyPropertyChanged(BR.password)
+//        }
 
 
     init {
-        addOnPropertyChangedCallback(onPropertyChangedCallback {
-            _, id ->
-            when(id) {
-                BR.userName, BR.password -> {
-                    if (userName.isEmpty() or password.isEmpty()) {
-                        loginEnable.set(false)
-                    }else {
-                        loginEnable.set(true)
-                    }
-                }
-            }
-        })
+//        addOnPropertyChangedCallback(onPropertyChangedCallback {
+//            _, id ->
+//            when(id) {
+//                BR.userName, BR.password -> {
+//                    if (userName.isEmpty() or password.isEmpty()) {
+//                        loginEnable.set(false)
+//                    }else {
+//                        loginEnable.set(true)
+//                    }
+//                }
+//            }
+//        })
     }
 
 
@@ -78,16 +78,16 @@ class LoginViewModel : BaseViewModel() {
 //    }
 
     fun login() {
-        launch(CoroutineExceptionHandler { _, err ->
-            loginState.set(LoadState.Failed(err))
-            loading.set(false)
-        }) {
-            loginState.set(LoadState.Loading)
-            loading.set(true)
-            UserRepository.instance.login(userName, password)
-            loginState.set(LoadState.Succeed)
-            loading.set(false)
-        }
+//        launch(CoroutineExceptionHandler { _, err ->
+//            loginState.set(LoadState.Failed(err))
+//            loading.set(false)
+//        }) {
+//            loginState.set(LoadState.Loading)
+//            loading.set(true)
+//            UserRepository.instance.login(userName, password)
+//            loginState.set(LoadState.Succeed)
+//            loading.set(false)
+//        }
     }
 
 }

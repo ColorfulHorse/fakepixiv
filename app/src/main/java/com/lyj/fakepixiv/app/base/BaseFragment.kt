@@ -83,10 +83,8 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel?> : Immersio
     protected fun lazyInit() {
         lazyCreated = true
         mViewModel?.let {
-            if (it != null) {
-                if (!it.lazyCreated) {
-                    it.lazyInit()
-                }
+            if (!it.lazyCreated) {
+                it.lazyInit()
             }
         }
 

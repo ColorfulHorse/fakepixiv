@@ -8,6 +8,7 @@ import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.app.utils.doOnDetached
+import com.lyj.fakepixiv.databinding.ItemWallpaperBindingImpl
 
 /**
  * @author greensun

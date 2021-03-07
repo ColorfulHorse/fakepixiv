@@ -37,22 +37,22 @@ class RegisterViewModel : BaseViewModel() {
 
 
     fun load() {
-        launch(CoroutineExceptionHandler { _, err ->
-            loadState.set(LoadState.Failed(err))
-            ToastUtil.showToast(R.string.register_failed)
-        }) {
-            loadState.set(LoadState.Loading)
-            val resp = withContext(Dispatchers.IO) {
-                val resp = UserRepository.instance
-                        .register(userName)
-                if (resp.error) {
-                    throw ApiException(ApiException.CODE_TOKEN_INVALID)
-                }
-                resp
-            }
-            val loginData = UserRepository.instance.login(resp.body.user_account, resp.body.password, resp.body.device_token, true)
-            loadState.set(LoadState.Succeed)
-            AppManager.instance.top?.startActivity(MainActivity::class.java)
-        }
+//        launch(CoroutineExceptionHandler { _, err ->
+//            loadState.set(LoadState.Failed(err))
+//            ToastUtil.showToast(R.string.register_failed)
+//        }) {
+//            loadState.set(LoadState.Loading)
+//            val resp = withContext(Dispatchers.IO) {
+//                val resp = UserRepository.instance
+//                        .register(userName)
+//                if (resp.error) {
+//                    throw ApiException(ApiException.CODE_TOKEN_INVALID)
+//                }
+//                resp
+//            }
+//            val loginData = UserRepository.instance.login(resp.body.user_account, resp.body.password, resp.body.device_token, true)
+//            loadState.set(LoadState.Succeed)
+//            AppManager.instance.top?.startActivity(MainActivity::class.java)
+//        }
     }
 }

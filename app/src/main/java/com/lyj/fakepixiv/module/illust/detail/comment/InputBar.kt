@@ -78,7 +78,7 @@ class InputBar(val binding: CommentInputBarBinding, val viewModel: InputViewMode
             viewModel.keyboardShow = false
         }
         viewModel.state = InputViewModel.State.EMOJI
-        val h = SPUtil.get(Constant.SP.KEY_KEYBOARD_HEIGHT)
+        val h = SPUtil.get(Constant.SP.KEY_KEYBOARD_HEIGHT, -1)
         if (h != -1) {
             viewModel.emojiHeight = h
         }

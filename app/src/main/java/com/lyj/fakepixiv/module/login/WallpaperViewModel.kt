@@ -20,7 +20,7 @@ class WallpaperViewModel : BaseViewModel() {
 
     val data = ObservableArrayList<Illust>()
 
-    var overlayVisibility = ObservableField<Boolean>(true)
+    var overlayVisibility = ObservableField(true)
 
 
     override fun onCreate(owner: LifecycleOwner) {

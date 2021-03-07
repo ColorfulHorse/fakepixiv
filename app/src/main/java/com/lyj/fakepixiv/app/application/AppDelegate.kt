@@ -20,7 +20,9 @@ import timber.log.Timber
  * @desc
  */
 class AppDelegate {
-    lateinit var application: Application
+    companion object {
+        lateinit var application: Application
+    }
 
     fun onCreate(app: Application) {
         application = app

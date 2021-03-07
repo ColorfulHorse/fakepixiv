@@ -1,8 +1,11 @@
 package com.lyj.fakepixiv.module.login.register
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.BackFragment
+import com.lyj.fakepixiv.app.utils.SecurityUtil
 import com.lyj.fakepixiv.databinding.FragmentRegisterBinding
 
 /**

@@ -28,25 +28,30 @@ class StateView : FrameLayout {
     var loadState: ObservableField<LoadState>? = null
         set(value) {
             field = value
+            changeState()
             value?.doOnPropertyChanged(lifecycle) { _, _ ->
-                val state = loadState?.get()
-                state?.let {
-                    when (it) {
-                        is LoadState.Loading -> {
-                            visibility = View.VISIBLE
-                            setView(loadingRes)
-                        }
-                        is LoadState.Failed -> {
-                            visibility = View.VISIBLE
-                            error = it.error
-                        }
-                        else -> {
-                            visibility = View.GONE
-                        }
-                    }
+                changeState()
+            }
+        }
+
+    private fun changeState() {
+        val state = loadState?.get()
+        state?.let {
+            when (it) {
+                is LoadState.Loading -> {
+                    visibility = VISIBLE
+                    setView(loadingRes)
+                }
+                is LoadState.Failed -> {
+                    visibility = VISIBLE
+                    error = it.error
+                }
+                else -> {
+                    visibility = GONE
                 }
             }
         }
+    }
 
     var lifecycle: Lifecycle? = null
 

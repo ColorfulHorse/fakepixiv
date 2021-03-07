@@ -10,8 +10,77 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#4d000000"
+        android:background="#66000000"
         >
+<!--        <LinearLayout-->
+<!--            android:id="@+id/container_login"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintWidth_percent="0.8"-->
+<!--            >-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:background="@drawable/shape_login_panel"-->
+<!--                android:padding="10dp"-->
+<!--                >-->
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:enabled="@{!vm.loading}"-->
+<!--                    >-->
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:id="@+id/et_userName"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:hint="@string/login_hint_id"-->
+<!--                        android:maxLines="1"-->
+<!--                        android:inputType="text"-->
+<!--                        android:text="@={vm.userName}"-->
+<!--                        />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:enabled="@{!vm.loading}"-->
+<!--                    >-->
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:id="@+id/et_password"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:hint="@string/login_hint_psw"-->
+<!--                        android:maxLines="1"-->
+<!--                        android:inputType="textPassword"-->
+<!--                        android:text="@={vm.password}"-->
+<!--                        />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
+<!--            </LinearLayout>-->
+
+<!--            <Button-->
+<!--                android:id="@+id/btn_login"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="48dp"-->
+<!--                android:background="@drawable/selector_btn_primary"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="14sp"-->
+<!--                android:gravity="center"-->
+<!--                android:text="@string/btn_login"-->
+<!--                android:enabled="@{vm.loginEnable &amp;&amp; !vm.loading}"-->
+<!--                android:onClick="@{() -> vm.login()}"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:textStyle="bold"-->
+<!--                />-->
+<!--        </LinearLayout>-->
         <LinearLayout
             android:id="@+id/container_login"
             android:layout_width="0dp"
@@ -21,51 +90,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.55"
             app:layout_constraintWidth_percent="0.8"
             >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/shape_login_panel"
-                android:padding="10dp"
-                >
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:enabled="@{!vm.loading}"
-                    >
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_userName"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:textSize="15sp"
-                        android:hint="@string/login_hint_id"
-                        android:maxLines="1"
-                        android:inputType="text"
-                        android:text="@={vm.userName}"
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:enabled="@{!vm.loading}"
-                    >
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:textSize="15sp"
-                        android:hint="@string/login_hint_psw"
-                        android:maxLines="1"
-                        android:inputType="textPassword"
-                        android:text="@={vm.password}"
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
             <Button
                 android:id="@+id/btn_login"
                 android:layout_width="match_parent"
@@ -75,9 +102,19 @@
                 android:textSize="14sp"
                 android:gravity="center"
                 android:text="@string/btn_login"
-                android:enabled="@{vm.loginEnable &amp;&amp; !vm.loading}"
                 android:onClick="@{() -> vm.login()}"
+                android:textStyle="bold"
+                />
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
                 android:layout_marginTop="16dp"
+                android:textSize="14sp"
+                android:background="@color/transparent"
+                android:text="@string/btn_register"
+                android:gravity="center"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 />
         </LinearLayout>
@@ -92,39 +129,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintVertical_bias="0.75"
-            android:visibility="gone"                     app:visible="@{!vm.keyboardOpened}"
             />
-        <TextView
-            android:id="@+id/tv_forget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:text="@string/login_forget_tips"
-            app:layout_constraintTop_toBottomOf="@id/container_login"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="20dp"
-            android:enabled="@{!vm.loading}"
-            />
-        <Button
-            android:id="@+id/btn_register"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:textSize="14sp"
-            android:background="@drawable/shape_btn_success"
-            android:text="@string/btn_register"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_forget"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintWidth_percent="0.8"
-            app:layout_constraintVertical_bias="0.4"
-            android:visibility="gone"                     app:visible="@{!vm.keyboardOpened}"
-            android:enabled="@{!vm.loading}"
-            />
+<!--        <TextView-->
+<!--            android:id="@+id/tv_forget"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="12sp"-->
+<!--            android:text="@string/login_forget_tips"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/container_login"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:enabled="@{!vm.loading}"-->
+<!--            />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
