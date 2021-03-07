@@ -25,9 +25,11 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#636363"
+            android:background="#969696"
             android:visibility="gone"
-            app:visible="@{vm.overlayVisibility}" />
+            app:fadeIn="@{vm.overlayVisibility}"
+            app:duration="@{400L}"
+            />
         <!--
             app:adapter="@{vm.adapter}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"

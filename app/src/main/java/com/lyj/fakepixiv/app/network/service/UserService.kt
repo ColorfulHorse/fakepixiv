@@ -92,13 +92,13 @@ interface UserService {
     /**
      * 修改账户信息
      */
-    @POST("/api/account/edit")
+    @POST("/api/v2/account/edit")
     @Headers("SWITCH-HEADER:TAG_ACCOUNT")
     @FormUrlEncoded
     suspend fun editAccount(@Field("new_mail_address")mail: String = "",
                             @Field("new_user_account")account: String = "",
                             @Field("current_password")current_password: String = "",
-                            @Field("new_password")new_password: String = ""): Any
+                            @Field("new_password")new_password: String = ""): EditAccountResp
 
     /**
      * 最新-推荐用户

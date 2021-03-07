@@ -1,11 +1,15 @@
 package com.lyj.fakepixiv.module.login.login
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.FragmentationFragment
+import com.lyj.fakepixiv.app.constant.Constant
 import com.lyj.fakepixiv.app.databinding.onPropertyChangedCallback
 import com.lyj.fakepixiv.app.network.ApiException
 import com.lyj.fakepixiv.app.network.LoadState
+import com.lyj.fakepixiv.app.utils.SecurityUtil
 import com.lyj.fakepixiv.app.utils.ToastUtil
 import com.lyj.fakepixiv.app.utils.finish
 import com.lyj.fakepixiv.app.utils.startActivity
@@ -35,30 +39,42 @@ class LoginFragment : FragmentationFragment<FragmentLoginBinding, LoginViewModel
     override var mViewModel: LoginViewModel = LoginViewModel()
 
     override fun init(savedInstanceState: Bundle?) {
-        btn_register.setOnClickListener {
-            start(RegisterFragment.newInstance())
+        mBinding.btnLogin.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(
+                    "${Constant.Net.BASE_URL}/web/v1/login?code_challenge=${SecurityUtil.getCodeVerifier()}&code_challenge_method=S256&client=pixiv-android"
+            ))
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
         }
-        with(mViewModel) {
-            loginState.addOnPropertyChangedCallback(onPropertyChangedCallback {
-                _, _ ->
-                when (loginState.get()) {
-                    is LoadState.Loading -> showLoadingDialog()
-                    is LoadState.Succeed -> {
-                        hideLoadingDialog()
-                        startActivity(MainActivity::class.java)
-                        finish()
-                    }
-                    is LoadState.Failed -> {
-                        hideLoadingDialog()
-                        with(loginState.get() as LoadState.Failed) {
-                            if (error is ApiException) {
-                                ToastUtil.showToast(error.message)
-                            }
-                        }
-                    }
-                }
-            })
+        mBinding.btnRegister.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(
+                    "${Constant.Net.BASE_URL}/web/v1/provisional-accounts/create?code_challenge=${SecurityUtil.getCodeVerifier()}&code_challenge_method=S256&client=pixiv-android"
+            ))
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
         }
+
+//        with(mViewModel) {
+//            loginState.addOnPropertyChangedCallback(onPropertyChangedCallback {
+//                _, _ ->
+//                when (loginState.get()) {
+//                    is LoadState.Loading -> showLoadingDialog()
+//                    is LoadState.Succeed -> {
+//                        hideLoadingDialog()
+//                        startActivity(MainActivity::class.java)
+//                        finish()
+//                    }
+//                    is LoadState.Failed -> {
+//                        hideLoadingDialog()
+//                        with(loginState.get() as LoadState.Failed) {
+//                            if (error is ApiException) {
+//                                ToastUtil.showToast(error.message)
+//                            }
+//                        }
+//                    }
+//                }
+//            })
+//        }
     }
 
     private fun showLoadingDialog() {

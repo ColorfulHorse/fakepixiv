@@ -1,14 +1,9 @@
 package com.lyj.fakepixiv.module.login.filter
 
-import android.util.Log
-import androidx.databinding.Bindable
 import androidx.databinding.ObservableField
-import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.app.base.BaseViewModel
-import com.lyj.fakepixiv.app.data.model.response.LoginData
 import com.lyj.fakepixiv.app.data.source.remote.UserRepository
-import com.lyj.fakepixiv.app.databinding.onPropertyChangedCallback
-import com.lyj.fakepixiv.app.utils.ToastUtil
+import com.lyj.fakepixiv.app.network.LoadState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -25,52 +20,29 @@ import kotlinx.coroutines.launch
  */
 class FilterViewModel : BaseViewModel() {
 
-    var loginEnable = ObservableField(false)
+    var loginState: ObservableField<LoadState> = ObservableField(LoadState.Loading)
 
-    var loading = ObservableField(false)
+    var code = ""
+    var via = ""
 
-    @get:Bindable
-    var userName = ""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.userName)
-        }
-
-    @get:Bindable
-    var password = ""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.password)
-        }
-
-
-    init {
-        addOnPropertyChangedCallback(onPropertyChangedCallback { _, id ->
-            when (id) {
-                BR.userName, BR.password -> {
-                    if (userName.isEmpty() or password.isEmpty()) {
-                        loginEnable.set(false)
-                    } else {
-                        loginEnable.set(true)
-                    }
-                }
-            }
-        })
-    }
-
-    fun login(code: String) {
+    fun login(code: String, via: String) {
+        this.code = code
+        this.via = via
+        loginState.set(LoadState.Loading)
         launch {
-            flow<LoginData> {
-                emit(UserRepository.instance.loginV2(code, UserRepository.instance.code_verifier))
-            }
+            flow { emit(UserRepository.instance.loginV2(code, UserRepository.instance.code_verifier, via == "signup")) }
                     .flowOn(Dispatchers.IO)
                     .catch {
-
+                        loginState.set(LoadState.Failed(it))
                     }
                     .collect {
-
+                        loginState.set(LoadState.Succeed)
                     }
         }
+    }
+
+    fun retry() {
+        login(code, via)
     }
 
 }

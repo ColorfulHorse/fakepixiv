@@ -35,10 +35,10 @@ data class SystemError(
 @JsonClass(generateAdapter = true)
 data class LoginData(
         // 需要放在头部的tokenBearer JbMfFwZxLlC7dLz15qVHCg50yni0wySy-wxdKyZHCYM
-        val access_token: String = "",
+        var access_token: String = "",
         val device_token: String = "",
         val expires_in: Int = 0,
-        val refresh_token: String = "",
+        var refresh_token: String = "",
         val scope: String = "",
         val token_type: String = "",
         val user: User = User(),
@@ -85,7 +85,7 @@ data class Account(
         val user_account: String
 )
 
-data class EditAccountError(
+data class EditAccountResp(
     val body: Body,
     val error: Boolean,
     val message: String
@@ -93,6 +93,7 @@ data class EditAccountError(
 
 data class Body(
     val is_succeed: Boolean,
+    val oauth: LoginData?,
     val validation_errors: ValidationErrors
 )
 

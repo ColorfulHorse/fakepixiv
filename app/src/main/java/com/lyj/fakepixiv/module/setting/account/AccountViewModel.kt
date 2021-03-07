@@ -11,11 +11,10 @@ import androidx.databinding.library.baseAdapters.BR
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.BaseViewModel
 import com.lyj.fakepixiv.app.data.model.response.AccountState
-import com.lyj.fakepixiv.app.data.model.response.EditAccountError
+import com.lyj.fakepixiv.app.data.model.response.EditAccountResp
 import com.lyj.fakepixiv.app.data.model.response.LoginData
 import com.lyj.fakepixiv.app.data.model.response.ValidationErrors
 import com.lyj.fakepixiv.app.data.source.remote.UserRepository
-import com.lyj.fakepixiv.app.network.ApiException
 import com.lyj.fakepixiv.app.network.LoadState
 import com.lyj.fakepixiv.app.utils.*
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -140,7 +139,7 @@ class AccountViewModel : BaseViewModel() {
         launch(CoroutineExceptionHandler { _, err ->
             if (err is HttpException) {
                 err.response()?.errorBody()?.let {
-                    val resp = JsonUtil.json2Bean<EditAccountError>(it.string())
+                    val resp = JsonUtil.json2Bean<EditAccountResp>(it.string())
                     resp?.let {
                         val errors = resp.body.validation_errors
                         validationErrors.set(errors)
@@ -155,20 +154,28 @@ class AccountViewModel : BaseViewModel() {
             updateState.set(LoadState.Failed(err))
         }) {
             updateState.set(LoadState.Loading)
-            withContext(Dispatchers.IO) {
+            val resp = withContext(Dispatchers.IO) {
                 UserRepository.instance
                         .service
                         .editAccount(email, id, oldPassword, password)
             }
-            UserRepository.instance.loginData?.let {
-                it.user.account = id
-                it.user.password = password
-                it.user.mail_address = email
-                it.provisional = false
-                SPUtil.saveLoginData(it)
+            if (resp.body.is_succeed) {
+                resp.body.oauth?.let { data ->
+                    with(data) {
+                        UserRepository.instance.loginData?.let {
+                            it.user.account = id
+                            it.refresh_token = refresh_token
+                            it.access_token = access_token
+                            it.user.password = password
+                            it.user.mail_address = email
+                            it.provisional = false
+                            SPUtil.saveLoginData(it)
+                        }
+                        updateState.set(LoadState.Succeed)
+                        Router.getTopFragment()?.pop()
+                    }
+                }
             }
-            updateState.set(LoadState.Succeed)
-            Router.getTopFragment()?.pop()
         }
     }
 }

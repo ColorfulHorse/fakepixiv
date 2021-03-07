@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/white"
-        android:fitsSystemWindows="false"
+        android:paddingTop="15dp"
         app:headerLayout="@layout/layout_nav_header"
         app:menu="@menu/menu_main_nav"
         app:itemTextAppearance="@style/Nav_Item_TextAppearance"
