@@ -330,4 +330,5 @@
     <string name="delete_comment_failed">刪除失败，请重试</string>
     <string name="comment_failed">连接失败，请重试</string>
     <string name="save_failed">保存失败</string>
+    <string name="not_related">抱歉，暂时没有相关作品</string>
 </resources>

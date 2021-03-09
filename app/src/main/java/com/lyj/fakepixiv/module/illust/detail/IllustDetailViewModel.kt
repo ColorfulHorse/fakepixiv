@@ -128,5 +128,4 @@ class IllustDetailViewModel : DetailViewModel() {
         }
         super.onDestroy(owner)
     }
-
 }

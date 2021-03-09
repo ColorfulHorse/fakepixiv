@@ -58,7 +58,7 @@ class UserFooter(val context: Context,
         }
         mAdapter.bindState(viewModel.loadState,
                 loadingRes = R.layout.layout_common_loading_white,
-                errorRes = R.layout.layout_error_small,
+                errorRes = R.layout.layout_error_mini,
                 lifecycle = lifecycleOwner.lifecycle) {
             viewModel.load()
         }

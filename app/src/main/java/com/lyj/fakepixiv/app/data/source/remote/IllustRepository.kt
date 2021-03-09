@@ -25,6 +25,7 @@ import retrofit2.http.Query
 import java.io.IOException
 import java.lang.StringBuilder
 import java.util.*
+import kotlin.jvm.Throws
 
 /**
  * @author greensun
