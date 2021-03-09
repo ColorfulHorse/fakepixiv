@@ -60,7 +60,7 @@ class StateView : FrameLayout {
             field = value
             if (value is ApiException) {
                 when (value.code) {
-                    ApiException.CODE_EMPTY_DATA -> setView(R.layout.layout_error_no_result)
+                    ApiException.CODE_EMPTY_DATA -> setView(noneDataRes)
                     ApiException.CODE_NOT_VISIBLE -> setView(R.layout.layout_error_not_visible)
                     else -> setView(errorRes)
                 }
@@ -73,6 +73,7 @@ class StateView : FrameLayout {
 
     var loadingRes = R.layout.layout_common_loading_white
     var errorRes = R.layout.layout_error
+    var noneDataRes = R.layout.layout_no_data
 
     constructor(context: Context, lifecycle: Lifecycle? = null) : super(context) {
         this.lifecycle = lifecycle
@@ -91,7 +92,8 @@ class StateView : FrameLayout {
         attrs?.let {
             val res = context.obtainStyledAttributes(attrs, R.styleable.StateView)
             loadingRes = res.getResourceId(R.styleable.StateView_loadingLayout, R.layout.layout_common_loading_white)
-            errorRes = res.getResourceId(R.styleable.StateView_loadingLayout, R.layout.layout_error)
+            errorRes = res.getResourceId(R.styleable.StateView_errorLayout, R.layout.layout_error)
+            noneDataRes = res.getResourceId(R.styleable.StateView_noneDataLayout, R.layout.layout_error_no_result)
             res.recycle()
         }
         setView(loadingRes)

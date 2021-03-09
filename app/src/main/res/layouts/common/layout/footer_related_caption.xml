@@ -28,46 +28,14 @@
             android:textColor="#ff665d6a"
             android:textSize="14sp"
             android:textStyle="bold" />
-
-        <RelativeLayout
+        <com.lyj.fakepixiv.widget.StateView
+            android:id="@+id/errorView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            >
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:visible="@{vm.parent.loadState instanceof LoadState.Loading}"
-                android:layout_centerInParent="true"
-                android:minHeight="150dp"
-                >
-
-                <ProgressBar
-                    android:id="@+id/loading"
-                    style="@style/progress_bar"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_centerInParent="true"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:gravity="center" />
-
-                <!--<TextView-->
-                <!--android:id="@+id/no_data"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="80dp"-->
-                <!--android:gravity="center"-->
-                <!--android:text="@string/no_related_work"-->
-                <!--android:textColor="@color/font_color_gray"-->
-                <!--android:visibility="gone" />-->
-            </RelativeLayout>
-
-            <include layout="@layout/layout_error_small"
-                android:id="@+id/errorView"
-                android:visibility="gone"
-                app:visible="@{vm.parent.loadState instanceof LoadState.Failed}"
-                />
-        </RelativeLayout>
+            app:errorLayout="@layout/layout_error_small"
+            app:noneDataLayout="@layout/layout_none_related"
+            app:state="@{vm.parent.loadState}"
+            app:reload="@{() -> vm.parent.load()}"
+            />
     </LinearLayout>
 </layout>

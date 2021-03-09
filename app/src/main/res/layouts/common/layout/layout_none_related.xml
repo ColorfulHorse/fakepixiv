@@ -23,10 +23,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24.0dip"
-            android:text="@string/not_found"
+            android:layout_marginTop="16dip"
+            android:text="@string/not_related"
             android:textColor="@color/renewal_font_gray"
-            android:textSize="24.0sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
 </RelativeLayout>

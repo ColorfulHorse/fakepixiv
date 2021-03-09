@@ -29,9 +29,6 @@ class RelatedCaptionFooter(val context: Context, val viewModel: RelatedCaptionVi
 
         mBinding?.let {
             it.vm = viewModel
-            it.errorView.reload.setOnClickListener {
-                viewModel.parent.load()
-            }
         }
     }
 }

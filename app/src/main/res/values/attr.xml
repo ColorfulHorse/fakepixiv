@@ -9,5 +9,6 @@
     <declare-styleable name="StateView">
         <attr format="reference" name="errorLayout"/>
         <attr format="reference" name="loadingLayout"/>
+        <attr format="reference" name="noneDataLayout"/>
     </declare-styleable>
 </resources>
