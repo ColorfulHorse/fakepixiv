@@ -23,16 +23,9 @@
 #### 2019-10-24
 - gradle脚本替换为kotlin，改变依赖管理方式
 
-#### 2019-10-31
-- 集成tinker
-
-#### 2019-11-8
-- 升级到AndroidX
-
-#### 2019-12-31
-- 添加作品评论，修复若干bug
-
 #### todo list
+- 下阶段计划引入jetpack ViewModel LiveData Navigation重构
+- 下下阶段计划添加引入Compose的分支版本
 - 用户页关注人列表
 - 加入屏蔽设置
 - commonDecoration添加新item底部分割线未刷新
