@@ -25,7 +25,7 @@ object Vers {
     const val moshi_version = "1.11.0"
     const val permission_version = "4.5.0"
     const val fragmentation_version = "1.0.1"
-    const val tinker_version = "1.9.14.3"
+    const val tinker_version = "1.9.14.13"
     const val dialogs_version = "3.1.1"
     const val appcompat_version = "1.1.0"
     const val immersionbar_version = "3.0.0"
@@ -44,7 +44,7 @@ const val KAPT = "kapt"
 const val APT = "annotationProcessor"
 
 open class DepGroup
-open class Dep(val core: String? = null, val complier: String? = null)
+open class Dep(val core: String? = null, val compiler: String? = null)
 
 object Deps : DepGroup() {
 
@@ -140,7 +140,7 @@ object Deps : DepGroup() {
     object Glide : DepGroup() {
 
         object core : Dep(core = "com.github.bumptech.glide:glide:${Vers.glide_version}",
-                complier = "com.github.bumptech.glide:compiler:${Vers.glide_version}")
+                compiler = "com.github.bumptech.glide:compiler:${Vers.glide_version}")
 
         const val recyclerview = "com.github.bumptech.glide:recyclerview-integration:${Vers.glide_version}"
 
@@ -236,13 +236,13 @@ private fun addDep(project: Project, dep: Any, mode: String? = null) {
                     add(IMPLEMENTATION, core)
                 }
             }
-            dep.complier?.let { complier ->
-                val field = cls.memberProperties.find { it.name == "complier" }
+            dep.compiler?.let { compiler ->
+                val field = cls.memberProperties.find { it.name == "compiler" }
                 val depMode = field?.findAnnotation<DepMode>()
                 if (depMode != null) {
-                    add(depMode.value, complier)
+                    add(depMode.value, compiler)
                 }else {
-                    add(KAPT, complier)
+                    add(KAPT, compiler)
                 }
             }
         } else if (dep is String) {
