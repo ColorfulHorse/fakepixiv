@@ -1,5 +1,6 @@
 import com.tencent.tinker.build.gradle.TinkerPatchPlugin
 import com.tencent.tinker.build.gradle.extension.*
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
 plugins {
     id("com.android.application")
@@ -18,7 +19,7 @@ android {
         versionCode = VERSION_CODE
         versionName = VERSION_NAME
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
-        //buildConfigField("String", "TINKER_ID", VERSION_NAME)
+        buildConfigField("String", "TINKER_ID", VERSION_NAME)
     }
 
 //    signingConfigs {
@@ -49,12 +50,17 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_7
-        targetCompatibility = JavaVersion.VERSION_1_7
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    (kotlinOptions as KotlinJvmOptions).apply {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
     dexOptions {
         jumboMode = true
+        javaMaxHeapSize = "4g"
     }
 
     packagingOptions {
@@ -94,7 +100,6 @@ android {
                     )
         }
     }
-
 }
 
 
@@ -104,15 +109,22 @@ kapt {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Vers.kotlin_version}")
-    addDeps(project, Deps)
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:${Vers.kotlin_version}")
+    addDeps(Deps.AndroidX)
+    addDeps(Deps.View)
+    addDeps(Deps.Reactive)
+    addDeps(Deps.Coroutine)
+    addDeps(Deps.Retrofit)
+    addDeps(Deps.Glide)
+    addDeps(Deps.Tinker)
+    addDeps(Deps.KTX)
+    addDeps(Deps.JetPack)
+    addDeps(Deps.Tools)
     implementation(project(":ChipsLayoutManager"))
     testImplementation("junit:junit:4.12")
 //    androidTestImplementation("com.android.support.test:runner:1.0.2")
 //    androidTestImplementation("com.android.support.test.espresso:espresso-core:3.0.2")
 }
-
-
 
 if (TinkerConfig.TINKER_ENABLE) {
     apply<TinkerPatchPlugin>()
@@ -209,5 +221,7 @@ if (TinkerConfig.TINKER_ENABLE) {
         }
     }
 }
+
+
 
 

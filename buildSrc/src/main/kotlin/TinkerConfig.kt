@@ -5,7 +5,6 @@
  *
  * @desc
  */
-object TinkerConfig{
-
+object TinkerConfig {
     const val TINKER_ENABLE = false
 }

@@ -1,5 +1,4 @@
-import org.gradle.api.Project
-import org.gradle.kotlin.dsl.dependencies
+import org.gradle.api.artifacts.dsl.DependencyHandler
 import kotlin.reflect.KClass
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.isSubclassOf
@@ -25,10 +24,12 @@ object Vers {
     const val moshi_version = "1.11.0"
     const val permission_version = "4.5.0"
     const val fragmentation_version = "1.0.1"
-    const val tinker_version = "1.9.14.13"
+    const val tinker_version = "1.9.14.16"
     const val dialogs_version = "3.1.1"
     const val appcompat_version = "1.1.0"
     const val immersionbar_version = "3.0.0"
+    const val nav_version =  "2.3.5"
+    const val lifecycle_version = "2.3.1"
 }
 
 
@@ -56,8 +57,6 @@ object Deps : DepGroup() {
 
         const val preference = "androidx.preference:preference:${Vers.appcompat_version}"
 
-        const val lifecycle = "androidx.lifecycle:lifecycle-extensions:2.1.0"
-
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-alpha5"
 
         const val cardView = "androidx.cardview:cardview:1.0.0"
@@ -67,6 +66,25 @@ object Deps : DepGroup() {
         const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-rc01"
 
         const val design = "com.google.android.material:material:1.1.0-beta01"
+    }
+
+    object JetPack : DepGroup() {
+        object Navigation: DepGroup() {
+            const val core = "androidx.navigation:navigation-fragment:${Vers.nav_version}"
+            const val ui = "androidx.navigation:navigation-ui:${Vers.nav_version}"
+            const val core_ktx = "androidx.navigation:navigation-fragment-ktx:${Vers.nav_version}"
+            const val ui_ktx = "androidx.navigation:navigation-ui-ktx:${Vers.nav_version}"
+        }
+
+        object Lifecycle: DepGroup() {
+            const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Vers.lifecycle_version}"
+            const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Vers.lifecycle_version}"
+            const val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:${Vers.lifecycle_version}"
+//            val java8 = Dep(
+//                    "androidx.lifecycle:lifecycle-compiler:${Vers.lifecycle_version}",
+//                    "androidx.lifecycle:lifecycle-common-java8:${Vers.lifecycle_version}"
+//            )
+        }
     }
 
 //    object Support : DepGroup() {
@@ -96,7 +114,7 @@ object Deps : DepGroup() {
 
         const val photoView = "com.github.chrisbanes:PhotoView:2.0.0"
 
-                //"com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar"
+        //"com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar"
 
         //const val smarttablayout = "com.ogaclejapan.smarttablayout:library:2.0.0@aar"
 
@@ -151,11 +169,11 @@ object Deps : DepGroup() {
 
     object Tinker : DepGroup() {
 
-        @DepMode(APT)
+        @DepMode(KAPT)
         const val apt = "com.tencent.tinker:tinker-android-anno:${Vers.tinker_version}"
 
         @DepMode(COMPILE_ONLY)
-        const val anno = "com.tencent.tinker:tinker-android-anno:${Vers.tinker_version}"
+        const val anno = "com.tencent.tinker:tinker-android-anno-support:${Vers.tinker_version}"
 
         const val lib = "com.tencent.tinker:tinker-android-lib:${Vers.tinker_version}"
     }
@@ -193,12 +211,12 @@ object Deps : DepGroup() {
 /**
  * 添加依赖组
  */
-fun addDeps(project: Project, dependencies: Any) {
+fun DependencyHandler.addDeps(dependencies: Any) {
     val groupCls = when (dependencies) {
         is DepGroup -> dependencies::class
         is KClass<*> -> dependencies
         else -> {
-            addDep(project, dependencies)
+            addDep(dependencies)
             return
         }
     }
@@ -207,9 +225,9 @@ fun addDeps(project: Project, dependencies: Any) {
         groupCls.nestedClasses.forEach {
             if (it.isSubclassOf(Dep::class)) {
                 val dep = it.objectInstance as Dep
-                addDep(project, dep)
+                addDep(dep)
             } else if (it.isSubclassOf(DepGroup::class)) {
-                addDeps(project, it)
+                addDeps(it)
             }
         }
 
@@ -217,41 +235,39 @@ fun addDeps(project: Project, dependencies: Any) {
             val mode = it.findAnnotation<DepMode>()
             val field = it.getter.call()
             if (field is String) {
-                addDep(project, field, mode?.value)
+                addDep(field, mode?.value)
             }
         }
     }
 }
 
-private fun addDep(project: Project, dep: Any, mode: String? = null) {
-    project.dependencies {
-        if (dep is Dep) {
-            val cls = dep::class
-            dep.core?.let { core ->
-                val field = cls.memberProperties.find { it.name == "core" }
-                val depMode = field?.findAnnotation<DepMode>()
-                if (depMode != null) {
-                    add(depMode.value, core)
-                }else {
-                    add(IMPLEMENTATION, core)
-                }
+private fun DependencyHandler.addDep(dep: Any, mode: String? = null) {
+    if (dep is Dep) {
+        val cls = dep::class
+        dep.core?.let { core ->
+            val field = cls.memberProperties.find { it.name == "core" }
+            val depMode = field?.findAnnotation<DepMode>()
+            if (depMode != null) {
+                add(depMode.value, core)
+            } else {
+                add(IMPLEMENTATION, core)
             }
-            dep.compiler?.let { compiler ->
-                val field = cls.memberProperties.find { it.name == "compiler" }
-                val depMode = field?.findAnnotation<DepMode>()
-                if (depMode != null) {
-                    add(depMode.value, compiler)
-                }else {
-                    add(KAPT, compiler)
-                }
+        }
+        dep.compiler?.let { compiler ->
+            val field = cls.memberProperties.find { it.name == "compiler" }
+            val depMode = field?.findAnnotation<DepMode>()
+            if (depMode != null) {
+                add(depMode.value, compiler)
+            } else {
+                add(KAPT, compiler)
             }
-        } else if (dep is String) {
-            if (mode != null) {
-                println("addDep: mode:$mode==========$dep")
-                add(mode, dep)
-            }else {
-                add(IMPLEMENTATION, dep)
-            }
+        }
+    } else if (dep is String) {
+        if (mode != null) {
+            println("addDep: mode:$mode==========$dep")
+            add(mode, dep)
+        } else {
+            add(IMPLEMENTATION, dep)
         }
     }
 }

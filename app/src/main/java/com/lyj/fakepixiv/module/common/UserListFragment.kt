@@ -3,6 +3,7 @@ package com.lyj.fakepixiv.module.common
 
 import android.os.Bundle
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lyj.fakepixiv.R
 import com.lyj.fakepixiv.app.base.FragmentationFragment
@@ -24,7 +25,6 @@ import com.lyj.fakepixiv.widget.CommonItemDecoration
 class UserListFragment : FragmentationFragment<CommonRefreshList, UserListViewModel?>() {
 
     override var mViewModel: UserListViewModel? = null
-
     companion object {
         fun newInstance() = UserListFragment()
     }
