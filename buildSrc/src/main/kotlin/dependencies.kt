@@ -151,11 +151,11 @@ object Deps : DepGroup() {
 
     object Tinker : DepGroup() {
 
-        @DepMode(APT)
+        @DepMode(KAPT)
         const val apt = "com.tencent.tinker:tinker-android-anno:${Vers.tinker_version}"
 
         @DepMode(COMPILE_ONLY)
-        const val anno = "com.tencent.tinker:tinker-android-anno:${Vers.tinker_version}"
+        const val anno = "com.tencent.tinker:tinker-android-anno-support:${Vers.tinker_version}"
 
         const val lib = "com.tencent.tinker:tinker-android-lib:${Vers.tinker_version}"
     }
