@@ -23,7 +23,7 @@
 #### 2019-10-24
 - gradle脚本替换为kotlin，改变依赖管理方式
 
-#### todo list
+#### todo list（鸽了）
 - 下阶段计划引入jetpack ViewModel LiveData Navigation重构
 - 下下阶段计划添加引入Compose的分支版本
 - 用户页关注人列表
