@@ -4,7 +4,7 @@
 #### kotlin + MVVM + DataBinding + 协程 练手项目，仿pixiv android客户端。 
 #### 目前基本功能已经完成，包括插画、漫画、小说列表；详情、评论 、搜索、排行榜、收藏、用户等相关功能；另外用vert.x做了个小服务提供热更新和浏览记录（原版会员功能）。 项目代码约1w行。
 
-### 相关博客 https://www.jianshu.com/p/b1ad3f4a722e
+### 相关博客 https://juejin.cn/post/6969186077663821855
 
 ### MVVM解决了什么问题
 - 逻辑分离，ViewModel通过Model获取数据；View与ViewModel绑定，互相监听（ui/数据）变化更新自身；View层和Model层完全分离
